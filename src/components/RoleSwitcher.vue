@@ -66,7 +66,7 @@ const content = {
                    :key="index"
                    class="p-8 rounded-xl border border-slate-100 flex flex-col items-center text-center hover:shadow-lg transition-all bg-slate-50/50"
                  >
-                   <span class="text-sm font-medium text-slate-400 uppercase tracking-wider mb-3">{{ item.label }}</span>
+                   <span class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-3">{{ item.label }}</span>
                    <span class="text-3xl font-bold mb-4" :class="item.textColor">{{ item.value }}</span>
                    <div class="h-1.5 w-16 rounded-full opacity-20" :class="item.barColor"></div>
                  </div>

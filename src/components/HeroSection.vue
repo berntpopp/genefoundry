@@ -7,9 +7,9 @@ const cards = [
     id: 'gnomad',
     title: 'mcp-server-gnomad',
     content: [
-      { key: 'source', value: '"gnomAD v4.0"', color: 'text-green-600' },
-      { key: 'gene', value: '"PKD1"', color: 'text-blue-600' },
-      { key: 'af_popmax', value: '0.000042', color: 'text-orange-500' },
+      { key: 'source', value: '"gnomAD v4.0"', color: 'text-green-700' },
+      { key: 'gene', value: '"PKD1"', color: 'text-blue-700' },
+      { key: 'af_popmax', value: '0.000042', color: 'text-orange-700' },
       { key: 'status', value: '"VERIFIED"', color: 'text-primary font-bold' }
     ]
   },
@@ -17,9 +17,9 @@ const cards = [
     id: 'gtex',
     title: 'mcp-server-gtex',
     content: [
-      { key: 'tissue', value: '"Kidney_Cortex"', color: 'text-purple-600' },
-      { key: 'tpm', value: '45.2', color: 'text-orange-500' },
-      { key: 'isoform', value: '"ENST0000..."', color: 'text-blue-600' },
+      { key: 'tissue', value: '"Kidney_Cortex"', color: 'text-purple-700' },
+      { key: 'tpm', value: '45.2', color: 'text-orange-700' },
+      { key: 'isoform', value: '"ENST0000..."', color: 'text-blue-700' },
       { key: 'expression', value: '"HIGH"', color: 'text-primary font-bold' }
     ]
   },
@@ -27,9 +27,9 @@ const cards = [
     id: 'pubtator',
     title: 'mcp-server-pubtator',
     content: [
-      { key: 'pmid', value: '342156...', color: 'text-blue-600' },
-      { key: 'entity', value: '"Polycystin-1"', color: 'text-green-600' },
-      { key: 'relation', value: '"interacts_with"', color: 'text-purple-600' },
+      { key: 'pmid', value: '342156...', color: 'text-blue-700' },
+      { key: 'entity', value: '"Polycystin-1"', color: 'text-green-700' },
+      { key: 'relation', value: '"interacts_with"', color: 'text-purple-700' },
       { key: 'confidence', value: '0.98', color: 'text-primary font-bold' }
     ]
   },
@@ -37,13 +37,14 @@ const cards = [
     id: 'mgi',
     title: 'mcp-server-mgi',
     content: [
-      { key: 'model', value: '"Pkd1<tm1..."', color: 'text-purple-600' },
-      { key: 'phenotype', value: '"Cystic kidney"', color: 'text-orange-500' },
-      { key: 'background', value: '"C57BL/6J"', color: 'text-blue-600' },
+      { key: 'model', value: '"Pkd1<tm1..."', color: 'text-purple-700' },
+      { key: 'phenotype', value: '"Cystic kidney"', color: 'text-orange-700' },
+      { key: 'background', value: '"C57BL/6J"', color: 'text-blue-700' },
       { key: 'zygosity', value: '"Homozygous"', color: 'text-primary font-bold' }
     ]
   }
 ]
+
 
 // Rotation Logic
 const rotation = ref(0)
@@ -203,12 +204,12 @@ onUnmounted(() => {
                      <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
                      <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
                   </div>
-                  <div class="text-xs font-mono text-slate-400">{{ card.title }}</div>
+                  <div class="text-xs font-mono text-slate-500">{{ card.title }}</div>
                </div>
                <!-- Code/Content -->
                <div class="p-5 font-mono text-xs sm:text-sm text-slate-600 space-y-2">
                   <div v-for="(line, i) in card.content" :key="i" class="flex gap-2">
-                     <span class="text-purple-500">{{ line.key }}:</span>
+                     <span class="text-purple-700">{{ line.key }}:</span>
                      <span :class="line.color">{{ line.value }}</span>
                   </div>
                </div>
