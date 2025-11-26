@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const isScrolled = ref(false)
 const isMenuOpen = ref(false)
+// Disable transitions until after first paint to prevent flicker
+const enableTransitions = ref(false)
 
+// Throttled scroll handler for better performance
+let ticking = false
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 20
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      isScrolled.value = window.scrollY > 20
+      ticking = false
+    })
+    ticking = true
+  }
 }
 
 const toggleMenu = () => {
@@ -17,7 +27,17 @@ const closeMenu = () => {
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
+  // Set initial scroll state synchronously to avoid flicker
+  isScrolled.value = window.scrollY > 20
+
+  // Enable transitions after first paint to prevent initial flicker
+  nextTick(() => {
+    requestAnimationFrame(() => {
+      enableTransitions.value = true
+    })
+  })
+
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
@@ -33,20 +53,24 @@ const links = [
 </script>
 
 <template>
-  <nav 
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b"
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 border-b"
     :class="[
+      // Only enable transitions after first paint to prevent flicker
+      enableTransitions ? 'transition-[background-color,padding,border-color,box-shadow] duration-300' : '',
       isScrolled || isMenuOpen
-        ? 'bg-white/90 backdrop-blur-md border-slate-200 py-3 shadow-sm' 
+        ? 'bg-white/90 backdrop-blur-md border-slate-200 py-3 shadow-sm'
         : 'bg-transparent border-transparent py-5'
     ]"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
       <!-- Logo -->
       <div class="flex items-center gap-3 relative z-50">
-        <img 
-          src="/genefoundry_logo.svg" 
-          alt="GeneFoundry Logo" 
+        <img
+          src="/genefoundry_logo.svg"
+          alt="GeneFoundry Logo"
+          width="40"
+          height="40"
           class="h-10 w-10 drop-shadow-lg animate-float"
         />
         <span class="text-xl font-bold tracking-tight text-secondary">
@@ -105,6 +129,11 @@ const links = [
 </template>
 
 <style scoped>
+/* Prevent navbar from causing layout shifts in other elements */
+nav {
+  contain: layout style;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-3px); }

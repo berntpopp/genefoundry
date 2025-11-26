@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Database, FileText, BookOpen, FileCheck, ShieldCheck } from 'lucide-vue-next'
+// Direct imports for better tree-shaking (especially in dev mode)
+import Database from 'lucide-vue-next/dist/esm/icons/database.js'
+import FileText from 'lucide-vue-next/dist/esm/icons/file-text.js'
+import BookOpen from 'lucide-vue-next/dist/esm/icons/book-open.js'
+import FileCheck from 'lucide-vue-next/dist/esm/icons/file-check.js'
+import ShieldCheck from 'lucide-vue-next/dist/esm/icons/shield-check.js'
 
 const isHovered = ref(false)
 </script>

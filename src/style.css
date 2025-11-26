@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* System font stack fallback to prevent CLS during web font load */
+@layer base {
+  :root {
+    --font-fallback: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
 body {
   @apply text-secondary bg-slate-50;
+  /* Use fallback while Inter loads */
+  font-family: 'Inter', var(--font-fallback);
 }

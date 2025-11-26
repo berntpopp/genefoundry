@@ -53,18 +53,32 @@ const startX = ref(0)
 const startRotation = ref(0)
 let autoRotateInterval: number | null = null
 
+// Cache mobile check to avoid repeated layout calculations
+const isMobile = ref(false)
+const updateMobileState = () => {
+  isMobile.value = window.innerWidth < 640
+}
+
 const startAutoRotate = () => {
   stopAutoRotate()
-  autoRotateInterval = window.setInterval(() => {
+  // Use requestAnimationFrame for smoother, more efficient animation
+  let lastTime = 0
+  const animate = (currentTime: number) => {
     if (!isDragging.value) {
-      rotation.value -= 0.2 // Slow auto-rotation
+      // Throttle to ~30fps for performance while maintaining smoothness
+      if (currentTime - lastTime >= 33) {
+        rotation.value -= 0.3
+        lastTime = currentTime
+      }
     }
-  }, 20)
+    autoRotateInterval = requestAnimationFrame(animate)
+  }
+  autoRotateInterval = requestAnimationFrame(animate)
 }
 
 const stopAutoRotate = () => {
   if (autoRotateInterval) {
-    clearInterval(autoRotateInterval)
+    cancelAnimationFrame(autoRotateInterval)
     autoRotateInterval = null
   }
 }
@@ -110,56 +124,59 @@ const handleTouchEnd = () => {
   startAutoRotate()
 }
 
-// 3D Position Calculation
+// 3D Position Calculation - using cached mobile state for performance
 const getCardStyle = (index: number) => {
   const totalCards = cards.length
   const angleStep = 360 / totalCards
   const currentAngle = (rotation.value + index * angleStep) % 360
   const rad = (currentAngle * Math.PI) / 180
-  
-  // Responsive parameters
-  const isMobile = window.innerWidth < 640
-  
+
+  // Use cached mobile state instead of querying window.innerWidth every frame
+  const mobile = isMobile.value
+
   // Ellipse parameters
-  const radiusX = isMobile ? 140 : 240 // Reduced width on mobile
-  const radiusZ = isMobile ? 80 : 120 // Reduced depth on mobile
-  
+  const radiusX = mobile ? 140 : 240
+  const radiusZ = mobile ? 80 : 120
+
   const x = Math.sin(rad) * radiusX
   const z = Math.cos(rad) * radiusZ
-  
+
   // Tilted plane: Front (z+) is lower (y+), Back (z-) is higher (y-)
   const y = z * 0.4
 
   // Exaggerated scale: Front bigger, back smaller
-  // z range: -120 to 120 (desktop) or -80 to 80 (mobile)
-  const scaleBase = isMobile ? 0.75 : 0.85
-  const scaleFactor = isMobile ? 200 : 300
+  const scaleBase = mobile ? 0.75 : 0.85
+  const scaleFactor = mobile ? 200 : 300
   const scale = scaleBase + (z / scaleFactor)
-  
-  const opacity = (z + 200) / 320 // Opacity based on depth
+
+  // Opacity based on depth (removed expensive blur filter for performance)
+  const opacity = (z + 200) / 320
   const zIndex = Math.round(z)
 
   return {
     transform: `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`,
     zIndex: zIndex,
-    opacity: Math.max(0.3, Math.min(1, opacity)),
-    filter: `blur(${Math.max(0, (120 - z) / 50)}px)` // Blur cards in back
+    opacity: Math.max(0.3, Math.min(1, opacity))
   }
 }
 
 onMounted(() => {
+  updateMobileState()
+  window.addEventListener('resize', updateMobileState, { passive: true })
   startAutoRotate()
 })
 
 onUnmounted(() => {
   stopAutoRotate()
+  window.removeEventListener('resize', updateMobileState)
   window.removeEventListener('mousemove', handleMouseMove)
   window.removeEventListener('mouseup', handleMouseUp)
 })
 </script>
 
 <template>
-  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50">
+  <!-- Explicit min-height prevents CLS during load -->
+  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50 min-h-[600px] lg:min-h-[700px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Text Content -->
@@ -173,8 +190,8 @@ onUnmounted(() => {
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pointer-events-auto">
             <a href="#" class="px-8 py-3 bg-primary text-white rounded-full font-semibold hover:bg-pink-600 transition-all shadow-lg hover:shadow-primary/25 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               <span>Get Started on GitHub</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 6 2 7.8 2 12 0 1.7-.5 3-1.5 4-1 .9-2.5 1-4.5 1-3 0-4.5-1-5.5-2.5 0-.5 0-1 .5-1.5 1 1 1.5 2 2.5 2 2.5 0 5 1 4.5 2 4 2 1.5 0 2.5-.5 3-1.5.5-1 .5-2 .5-3.5a4.8 4.8 0 0 0-1-3.5c3-1.5 3.5-1.5 5-2.5s2-1.5 3-1.5 3.5 1.5 4.5 3.5 4.5 3.5 0 1 1 1.5 1 2.5 1 4.5 0 6 1.5 7 3 7 3 0 5 1 4.5 2 4 2 1.5 0 2.5-.5 3-1.5.5-1 .5-2 .5-3.5z"/></svg>
             </a>
           </div>
         </div>

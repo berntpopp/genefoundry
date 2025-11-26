@@ -4,7 +4,7 @@
       <div class="flex items-center gap-2">
         <span class="font-semibold text-slate-200">GeneFoundry</span>
         <span class="text-slate-600">|</span>
-        <span class="text-sm">Developed at Charité / BIH</span>
+        <span class="text-sm">To be developed at Charité / BIH</span>
       </div>
       
       <div class="flex gap-8 text-sm">

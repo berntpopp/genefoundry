@@ -6,13 +6,26 @@
   <link rel="icon" type="image/svg+xml" href="/genefoundry_logo.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GeneFoundry - Forging Trust in Genomic AI</title>
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/genefoundry_logo.svg" as="image" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload critical font weights for LCP -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
   <meta name="description"
     content="GeneFoundry is a modular registry for trustworthy, evidence-based genomic analysis powered by Model Context Protocols (MCPs). Solving AI hallucinations in genomics." />
   <meta name="keywords"
     content="Genomics, AI, MCP, Model Context Protocol, GeneFoundry, Bioinformatics, Trustworthy AI, Genomic Analysis" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Load font with swap to prevent FOIT -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <!-- Critical inline CSS to prevent layout shift before Vue hydration -->
+  <style>
+    /* Reserve space for fixed navbar to prevent CLS */
+    #app { min-height: 100vh; }
+    /* Prevent FOUC - hide content until Vue mounts */
+    #app:empty { visibility: hidden; }
+  </style>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",

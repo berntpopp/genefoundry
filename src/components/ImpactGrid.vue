@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { Activity, ShieldCheck, Users, Globe } from 'lucide-vue-next'
+// Direct imports for better tree-shaking (especially in dev mode)
+import Activity from 'lucide-vue-next/dist/esm/icons/activity.js'
+import ShieldCheck from 'lucide-vue-next/dist/esm/icons/shield-check.js'
+import Users from 'lucide-vue-next/dist/esm/icons/users.js'
+import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
 </script>
 
 <template>

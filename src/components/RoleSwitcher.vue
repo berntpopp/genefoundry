@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, type Component } from 'vue'
-import { Dna, Stethoscope, Microscope } from 'lucide-vue-next'
+// Direct imports for better tree-shaking (especially in dev mode)
+import Dna from 'lucide-vue-next/dist/esm/icons/dna.js'
+import Stethoscope from 'lucide-vue-next/dist/esm/icons/stethoscope.js'
+import Microscope from 'lucide-vue-next/dist/esm/icons/microscope.js'
 
 const roles: { id: RoleId; label: string; icon: Component }[] = [
   { id: 'geneticist', label: 'Geneticist', icon: Dna },

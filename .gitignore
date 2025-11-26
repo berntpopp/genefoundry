@@ -31,3 +31,6 @@ dist-ssr
 
 # Testing
 coverage
+
+# claude fodler
+.claude/
