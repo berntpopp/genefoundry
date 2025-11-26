@@ -243,6 +243,11 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* CSS containment prevents layout shifts from propagating */
+section {
+  contain: layout style paint;
+}
+
 .perspective-1000 {
   perspective: 1000px;
 }

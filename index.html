@@ -10,21 +10,36 @@
   <link rel="icon" href="/genefoundry_logo.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
   <title>GeneFoundry - Forging Trust in Genomic AI</title>
-  <!-- Preload critical assets -->
-  <link rel="preload" href="/genefoundry_logo.svg" as="image" type="image/svg+xml">
+  <!-- Font loading: preconnect first for faster connection -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Preload critical font weights for LCP -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style">
+  <!--
+    Font strategy: font-display=optional eliminates CLS entirely
+    - Font only used if loaded within ~100ms (before first paint)
+    - Combined with metric-matched fallback in style.css for seamless experience
+    - Repeat visitors get Inter from cache, first-time visitors get fallback
+  -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=optional" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=optional" rel="stylesheet">
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/genefoundry_logo.svg" as="image" type="image/svg+xml">
   <meta name="description"
     content="GeneFoundry is a modular registry for trustworthy, evidence-based genomic analysis powered by Model Context Protocols (MCPs). Solving AI hallucinations in genomics." />
   <meta name="keywords"
     content="Genomics, AI, MCP, Model Context Protocol, GeneFoundry, Bioinformatics, Trustworthy AI, Genomic Analysis" />
-  <!-- Load font with swap to prevent FOIT -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
   <!-- Critical inline CSS to prevent layout shift before Vue hydration -->
   <style>
+    /* Metric-matched fallback for Inter - must be inlined for immediate availability */
+    @font-face {
+      font-family: 'Inter Fallback';
+      src: local('Arial'), local('ArialMT'), local('Helvetica Neue'), local('Helvetica');
+      ascent-override: 90.44%;
+      descent-override: 22.52%;
+      line-gap-override: 0%;
+      size-adjust: 107.12%;
+    }
+    /* Apply fallback immediately to prevent flash */
+    body { font-family: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif; }
     /* Reserve space for fixed navbar to prevent CLS */
     #app { min-height: 100vh; }
     /* Prevent FOUC - hide content until Vue mounts */
