@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Base URL for GitHub Pages deployment (https://berntpopp.github.io/genefoundry/)
+  base: '/genefoundry/',
   plugins: [vue()],
   build: {
     // Target modern browsers for smaller bundles
