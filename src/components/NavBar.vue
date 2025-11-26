@@ -51,7 +51,8 @@ onUnmounted(() => {
     observer = null
   }
   if (sentinel) {
-    sentinel.remove()
+    // Use parentNode?.removeChild for safer cleanup in case element was already removed
+    sentinel.parentNode?.removeChild(sentinel)
     sentinel = null
   }
 })

@@ -128,7 +128,7 @@ const startAutoRotate = () => {
     if (!isDragging.value && !isHovering.value) {
       // Throttle to ~30fps for performance while maintaining smoothness
       if (currentTime - lastTime >= 33) {
-        rotation.value -= 0.3
+        rotation.value = (rotation.value - 0.3 + 360) % 360
         updateCardTransforms()
         lastTime = currentTime
       }

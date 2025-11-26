@@ -11,13 +11,14 @@ export function useMediaQuery(query: string) {
   const matches = ref(false)
   let mediaQuery: MediaQueryList | null = null
 
-  const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+  const handleChange = (e: MediaQueryListEvent) => {
     matches.value = e.matches
   }
 
   onMounted(() => {
     mediaQuery = window.matchMedia(query)
-    handleChange(mediaQuery)
+    // Initialize directly instead of through event handler for type safety
+    matches.value = mediaQuery.matches
     mediaQuery.addEventListener('change', handleChange)
   })
 
