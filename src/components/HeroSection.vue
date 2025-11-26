@@ -171,7 +171,15 @@ onMounted(() => {
   mobileMediaQuery = window.matchMedia('(max-width: 639px)')
   handleMobileChange(mobileMediaQuery)
   mobileMediaQuery.addEventListener('change', handleMobileChange)
-  startAutoRotate()
+
+  // Defer animation start until after first paint to prevent forced reflow
+  // Double rAF ensures browser has completed initial layout before animation starts
+  // Reference: https://www.debugbear.com/blog/forced-reflows
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      startAutoRotate()
+    })
+  })
 })
 
 onUnmounted(() => {

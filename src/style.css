@@ -39,3 +39,17 @@ body {
   @apply text-secondary bg-slate-50;
   font-family: var(--font-sans);
 }
+
+/*
+ * Content-visibility optimization for below-the-fold sections
+ * Allows browser to skip rendering off-screen content initially,
+ * reducing forced reflows and improving initial paint performance.
+ * Reference: https://web.dev/content-visibility/
+ */
+#methodology,
+#perspectives,
+#impact {
+  content-visibility: auto;
+  /* contain-intrinsic-size provides height hint to prevent CLS during lazy render */
+  contain-intrinsic-size: auto 600px;
+}
