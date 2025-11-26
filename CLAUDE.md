@@ -11,13 +11,16 @@ GeneFoundry is a single-page Vue 3 landing page for a modular registry of trustw
 ```bash
 # Development
 npm run dev          # Start Vite dev server
-npm run build        # Production build
+npm run build        # Production build (includes PWA service worker)
 npm run preview      # Preview production build
 
 # Code Quality
 npm run lint         # ESLint with auto-fix
 npm run type-check   # TypeScript type checking
 npm run format       # Prettier formatting
+
+# PWA Assets
+npm run generate-pwa-assets  # Regenerate PWA icons from logo SVG
 
 # Combined check (via Makefile)
 make check           # Run lint + type-check

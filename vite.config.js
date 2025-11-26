@@ -1,11 +1,86 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   // Base URL for GitHub Pages deployment (https://berntpopp.github.io/genefoundry/)
   base: '/genefoundry/',
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['genefoundry_logo.svg', 'robots.txt'],
+      manifest: {
+        name: 'GeneFoundry - Forging Trust in Genomic AI',
+        short_name: 'GeneFoundry',
+        description: 'A modular registry for trustworthy, evidence-based genomic analysis powered by Model Context Protocols (MCPs).',
+        theme_color: '#BE3E82',
+        background_color: '#ffffff',
+        display: 'standalone',
+        scope: '/genefoundry/',
+        start_url: '/genefoundry/',
+        icons: [
+          {
+            src: 'pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: 'maskable-icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ]
+      },
+      workbox: {
+        // Cache all static assets
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // Runtime caching for Google Fonts
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'gstatic-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          }
+        ]
+      }
+    })
+  ],
   build: {
     // Target modern browsers for smaller bundles
     target: 'es2020',
