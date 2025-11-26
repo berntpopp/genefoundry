@@ -18,7 +18,7 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Card 1: The Diagnostic Gap -->
-        <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:shadow-lg transition-all group">
+        <article class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:shadow-lg transition-all group">
           <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
             <Activity class="w-6 h-6" />
           </div>
@@ -26,10 +26,10 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
           <p class="text-slate-600 leading-relaxed">
             Up to 80% of rare disease patients remain undiagnosed. GeneFoundry explores the genetic variation that traditional methods miss, offering new hope for unsolved cases.
           </p>
-        </div>
+        </article>
 
         <!-- Card 2: Trustworthy AI -->
-        <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:shadow-lg transition-all group">
+        <article class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:shadow-lg transition-all group">
           <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
             <ShieldCheck class="w-6 h-6" />
           </div>
@@ -37,10 +37,10 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
           <p class="text-slate-600 leading-relaxed">
             We solve the "hallucination" problem. By using Model Context Protocols (MCPs) to fetch validated data, we ensure LLM outputs are traceable, accurate, and clinically relevant.
           </p>
-        </div>
+        </article>
 
         <!-- Card 3: Clinical Validation -->
-        <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:shadow-lg transition-all group">
+        <article class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:shadow-lg transition-all group">
           <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
             <Users class="w-6 h-6" />
           </div>
@@ -48,7 +48,7 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
           <p class="text-slate-600 leading-relaxed">
             Deployed in the CeRKiD cohort (~1,500 patients). GeneFoundry prioritizes variants for expert review, directly contributing to solving complex kidney disease cases.
           </p>
-        </div>
+        </article>
       </div>
       
       <!-- Open Science Banner -->

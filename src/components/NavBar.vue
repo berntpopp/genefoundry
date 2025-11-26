@@ -6,17 +6,9 @@ const isMenuOpen = ref(false)
 // Disable transitions until after first paint to prevent flicker
 const enableTransitions = ref(false)
 
-// Throttled scroll handler for better performance
-let ticking = false
-const handleScroll = () => {
-  if (!ticking) {
-    requestAnimationFrame(() => {
-      isScrolled.value = window.scrollY > 20
-      ticking = false
-    })
-    ticking = true
-  }
-}
+// IntersectionObserver instance and sentinel element for cleanup
+let observer: IntersectionObserver | null = null
+let sentinel: HTMLElement | null = null
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -27,24 +19,41 @@ const closeMenu = () => {
 }
 
 onMounted(() => {
-  // Defer initial scroll read to next frame to avoid forced reflow during mount
-  // Reading window.scrollY during component initialization can cause layout thrashing
-  // Reference: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
-  requestAnimationFrame(() => {
-    // Read scroll position at the start of frame (before any writes)
-    isScrolled.value = window.scrollY > 20
+  // Create invisible sentinel element at top of page
+  // IntersectionObserver is more performant than scroll listeners
+  // as callbacks run off the main thread
+  sentinel = document.createElement('div')
+  sentinel.style.cssText = 'position:absolute;top:0;left:0;height:1px;width:100%;pointer-events:none'
+  sentinel.setAttribute('aria-hidden', 'true')
+  document.body.prepend(sentinel)
 
-    // Enable transitions after scroll state is set
+  // Use IntersectionObserver to detect scroll position
+  // rootMargin of -20px triggers when scrolled past 20px
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      isScrolled.value = !entry.isIntersecting
+    },
+    { rootMargin: '-20px 0px 0px 0px' }
+  )
+  observer.observe(sentinel)
+
+  // Enable transitions after first paint to prevent initial flicker
+  requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       enableTransitions.value = true
     })
   })
-
-  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
+  if (sentinel) {
+    sentinel.remove()
+    sentinel = null
+  }
 })
 
 const links = [
