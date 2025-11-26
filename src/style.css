@@ -1,6 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Custom theme configuration (Tailwind 4 CSS-first) */
+@theme {
+  /* Brand colors */
+  --color-primary: #BE3E82;
+  --color-secondary: #334155;
+
+  /* Font family with metric-matched fallback */
+  --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
 
 /*
  * Zero-CLS Font Loading Strategy
@@ -26,13 +34,6 @@
   descent-override: 22.52%;
   line-gap-override: 0%;
   size-adjust: 107.12%;
-}
-
-@layer base {
-  :root {
-    /* Primary fallback stack with metric-adjusted Inter Fallback first */
-    --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
 }
 
 body {

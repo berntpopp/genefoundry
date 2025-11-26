@@ -32,5 +32,8 @@ dist-ssr
 # Testing
 coverage
 
-# claude fodler
+# Claude Code
 .claude/
+
+# Playwright MCP screenshots
+.playwright-mcp/
