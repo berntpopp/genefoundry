@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, shallowRef, onMounted, onUnmounted, watch } from 'vue'
+import { usePrefersReducedMotion, useIsMobile } from '../composables'
 
-// Card Data
+// Card Data - static content, no reactivity needed
 const cards = [
   {
     id: 'gnomad',
@@ -46,33 +47,89 @@ const cards = [
 ]
 
 
-// Rotation Logic
-const rotation = ref(0)
+// Composables for reactive media queries (DRY - reusable across components)
+const prefersReducedMotion = usePrefersReducedMotion()
+const isMobile = useIsMobile()
+
+// Animation state - use shallowRef for rotation to reduce reactivity overhead
+// Only .value access triggers reactivity, not deep property changes
+const rotation = shallowRef(0)
 const isDragging = ref(false)
+const isHovering = ref(false)
 const startX = ref(0)
 const startRotation = ref(0)
+
+// Template refs for direct DOM manipulation (bypasses VDOM for animation perf)
+const cardRefs = ref<HTMLElement[]>([])
+
 let autoRotateInterval: number | null = null
 
-// Use matchMedia instead of window.innerWidth to avoid forced reflow
-// matchMedia doesn't trigger layout recalculation - it uses viewport dimensions
-// which are always available without querying the DOM
-// Reference: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
-const isMobile = ref(false)
-let mobileMediaQuery: MediaQueryList | null = null
+/**
+ * Calculate 3D position for a card based on rotation angle
+ * Pure function - no side effects (SOLID: Single Responsibility)
+ */
+const calculateCardStyle = (index: number, currentRotation: number, mobile: boolean) => {
+  const totalCards = cards.length
+  const angleStep = 360 / totalCards
+  const currentAngle = (currentRotation + index * angleStep) % 360
+  const rad = (currentAngle * Math.PI) / 180
 
-const handleMobileChange = (e: MediaQueryListEvent | MediaQueryList) => {
-  isMobile.value = e.matches
+  // Ellipse parameters - responsive to viewport
+  const radiusX = mobile ? 140 : 240
+  const radiusZ = mobile ? 80 : 120
+
+  const x = Math.sin(rad) * radiusX
+  const z = Math.cos(rad) * radiusZ
+
+  // Tilted plane: Front (z+) is lower (y+), Back (z-) is higher (y-)
+  const y = z * 0.4
+
+  // Exaggerated scale: Front bigger, back smaller
+  const scaleBase = mobile ? 0.75 : 0.85
+  const scaleFactor = mobile ? 200 : 300
+  const scale = scaleBase + z / scaleFactor
+
+  // Opacity based on depth
+  const opacity = (z + 200) / 320
+  const zIndex = Math.round(z)
+
+  return {
+    transform: `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`,
+    zIndex,
+    // Minimum 0.6 opacity ensures WCAG AA contrast compliance for text
+    opacity: Math.max(0.6, Math.min(1, opacity))
+  }
+}
+
+/**
+ * Direct DOM update for animation performance
+ * Bypasses Vue's reactivity/VDOM for smooth 30fps animation
+ */
+const updateCardTransforms = () => {
+  const mobile = isMobile.value
+  cardRefs.value.forEach((el, index) => {
+    if (!el) return
+    const style = calculateCardStyle(index, rotation.value, mobile)
+    el.style.transform = style.transform
+    el.style.zIndex = style.zIndex.toString()
+    el.style.opacity = style.opacity.toString()
+  })
 }
 
 const startAutoRotate = () => {
+  // WCAG 2.2.2: Respect user's motion preferences
+  if (prefersReducedMotion.value) return
+
   stopAutoRotate()
-  // Use requestAnimationFrame for smoother, more efficient animation
   let lastTime = 0
+
   const animate = (currentTime: number) => {
-    if (!isDragging.value) {
+    // WCAG 2.2.2: Pause on hover or drag interaction
+    if (!isDragging.value && !isHovering.value) {
       // Throttle to ~30fps for performance while maintaining smoothness
       if (currentTime - lastTime >= 33) {
-        rotation.value -= 0.3
+        rotation.value = (rotation.value - 0.3 + 360) % 360
+        updateCardTransforms()
         lastTime = currentTime
       }
     }
@@ -101,6 +158,7 @@ const handleMouseMove = (e: MouseEvent) => {
   if (!isDragging.value) return
   const deltaX = e.clientX - startX.value
   rotation.value = startRotation.value + deltaX * 0.5
+  updateCardTransforms()
 }
 
 const handleMouseUp = () => {
@@ -122,6 +180,7 @@ const handleTouchMove = (e: TouchEvent) => {
   if (!isDragging.value) return
   const deltaX = e.touches[0].clientX - startX.value
   rotation.value = startRotation.value + deltaX * 0.5
+  updateCardTransforms()
 }
 
 const handleTouchEnd = () => {
@@ -129,65 +188,53 @@ const handleTouchEnd = () => {
   startAutoRotate()
 }
 
-// 3D Position Calculation - using cached mobile state for performance
-const getCardStyle = (index: number) => {
-  const totalCards = cards.length
-  const angleStep = 360 / totalCards
-  const currentAngle = (rotation.value + index * angleStep) % 360
-  const rad = (currentAngle * Math.PI) / 180
+// Hover handlers for WCAG 2.2.2 (Pause, Stop, Hide)
+const handleMouseEnter = () => {
+  isHovering.value = true
+}
 
-  // Use cached mobile state instead of querying window.innerWidth every frame
-  const mobile = isMobile.value
+const handleMouseLeave = () => {
+  isHovering.value = false
+}
 
-  // Ellipse parameters
-  const radiusX = mobile ? 140 : 240
-  const radiusZ = mobile ? 80 : 120
-
-  const x = Math.sin(rad) * radiusX
-  const z = Math.cos(rad) * radiusZ
-
-  // Tilted plane: Front (z+) is lower (y+), Back (z-) is higher (y-)
-  const y = z * 0.4
-
-  // Exaggerated scale: Front bigger, back smaller
-  const scaleBase = mobile ? 0.75 : 0.85
-  const scaleFactor = mobile ? 200 : 300
-  const scale = scaleBase + (z / scaleFactor)
-
-  // Opacity based on depth (removed expensive blur filter for performance)
-  const opacity = (z + 200) / 320
-  const zIndex = Math.round(z)
-
-  return {
-    transform: `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`,
-    zIndex: zIndex,
-    // Minimum 0.6 opacity ensures WCAG AA contrast compliance for text
-    opacity: Math.max(0.6, Math.min(1, opacity))
-  }
+/**
+ * Get initial static style for SSR/initial render
+ * Used in template for initial card positions before JS hydration
+ */
+const getInitialCardStyle = (index: number) => {
+  return calculateCardStyle(index, 0, false)
 }
 
 onMounted(() => {
-  // Use matchMedia for responsive detection - doesn't cause forced reflow
-  // unlike window.innerWidth which triggers synchronous layout
-  mobileMediaQuery = window.matchMedia('(max-width: 639px)')
-  handleMobileChange(mobileMediaQuery)
-  mobileMediaQuery.addEventListener('change', handleMobileChange)
-
-  // Defer animation start until after first paint to prevent forced reflow
-  // Double rAF ensures browser has completed initial layout before animation starts
-  // Reference: https://www.debugbear.com/blog/forced-reflows
+  // Initialize card positions after DOM is ready
+  // Use nextTick pattern to ensure refs are populated
   requestAnimationFrame(() => {
+    updateCardTransforms()
+
+    // Defer animation start until after first paint to prevent forced reflow
+    // Double rAF ensures browser has completed initial layout before animation starts
     requestAnimationFrame(() => {
       startAutoRotate()
     })
   })
 })
 
+// Watch for reduced motion preference changes (user may toggle while page is open)
+watch(prefersReducedMotion, (reduced) => {
+  if (reduced) {
+    stopAutoRotate()
+  } else {
+    startAutoRotate()
+  }
+})
+
+// Update card positions when mobile breakpoint changes
+watch(isMobile, () => {
+  updateCardTransforms()
+})
+
 onUnmounted(() => {
   stopAutoRotate()
-  if (mobileMediaQuery) {
-    mobileMediaQuery.removeEventListener('change', handleMobileChange)
-  }
   window.removeEventListener('mousemove', handleMouseMove)
   window.removeEventListener('mouseup', handleMouseUp)
 })
@@ -216,9 +263,11 @@ onUnmounted(() => {
         </div>
 
         <!-- Visual: 3D Carousel -->
-        <div 
+        <div
           class="relative h-[400px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing perspective-1000"
           @mousedown="handleMouseDown"
+          @mouseenter="handleMouseEnter"
+          @mouseleave="handleMouseLeave"
           @touchstart="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
@@ -228,11 +277,12 @@ onUnmounted(() => {
           
           <!-- Rotating Cards -->
           <div class="relative w-full h-full flex items-center justify-center transform-style-3d">
-            <div 
-              v-for="(card, index) in cards" 
+            <div
+              v-for="(card, index) in cards"
               :key="card.id"
-              class="absolute w-72 bg-white backdrop-blur-md rounded-xl shadow-2xl border border-slate-200 overflow-hidden transition-transform duration-75 will-change-transform"
-              :style="getCardStyle(index)"
+              :ref="(el) => { if (el) cardRefs[index] = el as HTMLElement }"
+              class="absolute w-72 bg-white backdrop-blur-md rounded-xl shadow-2xl border border-slate-200 overflow-hidden will-change-transform"
+              :style="getInitialCardStyle(index)"
             >
                <!-- Header -->
                <div class="bg-slate-50 px-4 py-3 border-b border-slate-100 flex items-center justify-between">
@@ -280,5 +330,12 @@ section {
 @keyframes pulse {
   0%, 100% { opacity: 0.4; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* WCAG 2.2.2: Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-slow {
+    animation: none;
+  }
 }
 </style>
