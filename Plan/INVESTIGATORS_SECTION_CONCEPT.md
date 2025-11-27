@@ -21,7 +21,7 @@ Between **ImpactGrid** and **FooterSection** — after demonstrating value, intr
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                       "Meet the Team"                            │
-│     Supported by leading experts in AI, genomics & nephrology   │
+│     Supported by leading experts in AI, genomics & medicine     │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
 │    ┌──────────────────────────────────────────────────────┐     │
@@ -54,13 +54,13 @@ Between **ImpactGrid** and **FooterSection** — after demonstrating value, intr
 
 | Field | Content |
 |-------|---------|
-| **Image** | `/investigators/1.jpg` |
-| **Name** | Dr. Nina Rank |
+| **Image** | `src/assets/team/1.webp` (imported) |
+| **Name** | Dr. med. Nina Rank |
 | **Title** | MD/PhD, Digital Clinician Scientist |
 | **Role Badge** | "Lead Applicant" (primary color pill) |
 | **Tagline** | Driving GeneFoundry from concept to clinical practice |
 | **Expertise Tags** | `Rare Diseases` `Clinical Genomics` `Translational Medicine` |
-| **Affiliation** | Charité — Junior Clinician Scientist Program |
+| **Affiliation** | Charité — Digital Junior Clinician Scientist Program |
 
 **Visual Treatment:**
 - Full-width card on mobile, centered wider card on desktop
@@ -72,33 +72,35 @@ Between **ImpactGrid** and **FooterSection** — after demonstrating value, intr
 
 ### Mentors & Collaborators (Grid of 3)
 
-#### Card 1: Bernt Popp
+#### Card 1: Dr. med. Bernt Popp
 | Field | Content |
 |-------|---------|
-| **Image** | `/investigators/2.png` |
-| **Name** | Bernt Popp |
+| **Image** | `src/assets/team/2.webp` (imported) |
+| **Name** | Dr. med. Bernt Popp |
 | **Title** | MD, Board-Certified Geneticist |
 | **Expertise Tags** | `Human Genetics` `Bioinformatics` `NGS Analysis` |
 | **One-liner** | Rare disease diagnostics & sequencing pipelines |
+| **Affiliation** | BIH Center for Digital Health & Labor Berlin |
 
-#### Card 2: Sören Lukassen
+#### Card 2: Dr. rer. nat. Sören Lukassen
 | Field | Content |
 |-------|---------|
-| **Image** | `/investigators/3.jpg` |
-| **Name** | Sören Lukassen |
+| **Image** | `src/assets/team/3.webp` (imported) |
+| **Name** | Dr. rer. nat. Sören Lukassen |
 | **Title** | PhD, Group Leader |
-| **Expertise Tags** | `Medical AI` `Omics Integration` `Clinical Decision Support` |
+| **Expertise Tags** | `Medical AI` `Omics Integration` `Decision Support` |
 | **One-liner** | AI-driven analysis of biomedical datasets |
 | **Affiliation** | BIH Center for Digital Health |
 
-#### Card 3: Prof. Dr. Jan Halbritter
+#### Card 3: Prof. Dr. med. Jan Halbritter
 | Field | Content |
 |-------|---------|
-| **Image** | `/investigators/4.jpg` |
-| **Name** | Prof. Dr. Jan Halbritter |
+| **Image** | `src/assets/team/4.webp` (imported) |
+| **Name** | Prof. Dr. med. Jan Halbritter |
 | **Title** | MD, Heisenberg Professor |
 | **Expertise Tags** | `Nephrology` `Rare Kidney Disease` `CeRKiD` |
 | **One-liner** | Scientific Lead, Center for Rare Kidney Diseases |
+| **Affiliation** | Charité — Universitätsmedizin Berlin |
 
 ---
 
@@ -189,6 +191,13 @@ A subtle strip below the cards reinforcing credibility:
 ### File: `src/components/TeamSection.vue`
 
 ```typescript
+// Import team images directly for proper Vite asset handling
+// Using WebP format for optimal compression (70% smaller than JPG)
+import ninaRankImg from '../assets/team/1.webp'
+import berntPoppImg from '../assets/team/2.webp'
+import soerenLukassenImg from '../assets/team/3.webp'
+import janHalbritterImg from '../assets/team/4.webp'
+
 // Data structure for team members
 interface TeamMember {
   id: string
@@ -204,41 +213,43 @@ interface TeamMember {
 const team: TeamMember[] = [
   {
     id: 'nina-rank',
-    name: 'Dr. Nina Rank',
+    name: 'Dr. med. Nina Rank',
     title: 'MD/PhD, Digital Clinician Scientist',
-    image: '/investigators/1.jpg',
+    image: ninaRankImg,
     role: 'lead',
     expertise: ['Rare Diseases', 'Clinical Genomics', 'Translational Medicine'],
     tagline: 'Driving GeneFoundry from concept to clinical practice',
-    affiliation: 'Charité — Junior Clinician Scientist Program'
+    affiliation: 'Charité — Digital Junior Clinician Scientist Program'
   },
   {
     id: 'bernt-popp',
-    name: 'Bernt Popp',
+    name: 'Dr. med. Bernt Popp',
     title: 'MD, Board-Certified Geneticist',
-    image: '/investigators/2.png',
+    image: berntPoppImg,
     role: 'mentor',
     expertise: ['Human Genetics', 'Bioinformatics', 'NGS Analysis'],
-    tagline: 'Rare disease diagnostics & sequencing pipelines'
+    tagline: 'Rare disease diagnostics & sequencing pipelines',
+    affiliation: 'BIH Center for Digital Health & Labor Berlin'
   },
   {
     id: 'soeren-lukassen',
-    name: 'Sören Lukassen',
+    name: 'Dr. rer. nat. Sören Lukassen',
     title: 'PhD, Group Leader',
-    image: '/investigators/3.jpg',
+    image: soerenLukassenImg,
     role: 'mentor',
-    expertise: ['Medical AI', 'Omics Integration', 'Clinical Decision Support'],
+    expertise: ['Medical AI', 'Omics Integration', 'Decision Support'],
     tagline: 'AI-driven analysis of biomedical datasets',
     affiliation: 'BIH Center for Digital Health'
   },
   {
     id: 'jan-halbritter',
-    name: 'Prof. Dr. Jan Halbritter',
+    name: 'Prof. Dr. med. Jan Halbritter',
     title: 'MD, Heisenberg Professor',
-    image: '/investigators/4.jpg',
+    image: janHalbritterImg,
     role: 'mentor',
     expertise: ['Nephrology', 'Rare Kidney Disease', 'CeRKiD'],
-    tagline: 'Scientific Lead, Center for Rare Kidney Diseases'
+    tagline: 'Scientific Lead, Center for Rare Kidney Diseases',
+    affiliation: 'Charité — Universitätsmedizin Berlin'
   }
 ]
 ```
