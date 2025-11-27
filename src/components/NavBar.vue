@@ -6,6 +6,23 @@ const isMenuOpen = ref(false)
 // Disable transitions until after first paint to prevent flicker
 const enableTransitions = ref(false)
 
+// Check for reduced motion preference (WCAG 2.1 compliance)
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+/**
+ * Scroll to top of page when clicking logo/brand
+ * Uses smooth scroll unless user prefers reduced motion
+ */
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: prefersReducedMotion ? 'instant' : 'smooth'
+  })
+  // Close mobile menu if open
+  closeMenu()
+}
+
 // IntersectionObserver instance and sentinel element for cleanup
 let observer: IntersectionObserver | null = null
 let sentinel: HTMLElement | null = null
@@ -79,19 +96,24 @@ const links = [
     ]"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-      <!-- Logo -->
-      <div class="flex items-center gap-3 relative z-50">
+      <!-- Logo / Brand - Click to scroll to top -->
+      <a
+        href="#"
+        @click.prevent="scrollToTop"
+        class="flex items-center gap-3 relative z-50 cursor-pointer group"
+        aria-label="Scroll to top of page"
+      >
         <img
           src="/genefoundry_logo.svg"
           alt="GeneFoundry Logo"
           width="40"
           height="40"
-          class="h-10 w-10 drop-shadow-lg animate-float"
+          class="h-10 w-10 drop-shadow-lg animate-float group-hover:scale-105 transition-transform duration-200"
         />
-        <span class="text-xl font-bold tracking-tight text-secondary">
+        <span class="text-xl font-bold tracking-tight text-secondary group-hover:text-primary/90 transition-colors duration-200">
           Gene<span class="text-primary">Foundry</span>
         </span>
-      </div>
+      </a>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center gap-8">
