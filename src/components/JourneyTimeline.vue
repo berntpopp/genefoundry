@@ -205,7 +205,7 @@ function getStatusClasses(status: Milestone['status']) {
           />
 
           <!-- Milestones -->
-          <div class="relative flex justify-between">
+          <div class="relative flex justify-between" role="list">
             <div
               v-for="(milestone, index) in milestones"
               :key="milestone.id"
@@ -307,7 +307,7 @@ function getStatusClasses(status: Milestone['status']) {
                       class="w-1.5 h-1.5 rounded-full"
                       :class="[
                         milestone.status === 'completed' ? 'bg-green-500' : '',
-                        milestone.status === 'current' ? 'bg-primary animate-pulse' : '',
+                        milestone.status === 'current' ? `bg-primary ${!prefersReducedMotion ? 'animate-pulse' : ''}` : '',
                         milestone.status === 'upcoming' ? 'bg-slate-400' : ''
                       ]"
                     />
@@ -333,7 +333,7 @@ function getStatusClasses(status: Milestone['status']) {
           />
 
           <!-- Milestones -->
-          <div class="space-y-6">
+          <div class="space-y-6" role="list">
             <div
               v-for="milestone in milestones"
               :key="milestone.id"
