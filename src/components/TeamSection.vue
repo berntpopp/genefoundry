@@ -2,10 +2,11 @@
 import { usePrefersReducedMotion } from '../composables'
 
 // Import team images directly for proper Vite asset handling
-import ninaRankImg from '../assets/team/1.jpg'
-import berntPoppImg from '../assets/team/2.png'
-import soerenLukassenImg from '../assets/team/3.jpg'
-import janHalbritterImg from '../assets/team/4.jpg'
+// Using WebP format for optimal compression (70% smaller than JPG)
+import ninaRankImg from '../assets/team/1.webp'
+import berntPoppImg from '../assets/team/2.webp'
+import soerenLukassenImg from '../assets/team/3.webp'
+import janHalbritterImg from '../assets/team/4.webp'
 
 // Composable for respecting user motion preferences
 const prefersReducedMotion = usePrefersReducedMotion()
@@ -97,6 +98,8 @@ const mentors = team.filter(m => m.role === 'mentor')
                 <img
                   :src="leadApplicant.image"
                   :alt="`Portrait of ${leadApplicant.name}`"
+                  width="128"
+                  height="128"
                   class="w-full h-full object-cover transition-all duration-300"
                   :class="prefersReducedMotion ? '' : 'grayscale group-hover:grayscale-0'"
                   loading="lazy"
@@ -152,6 +155,8 @@ const mentors = team.filter(m => m.role === 'mentor')
             <img
               :src="mentor.image"
               :alt="`Portrait of ${mentor.name}`"
+              width="96"
+              height="96"
               class="w-full h-full object-cover transition-all duration-300"
               :class="prefersReducedMotion ? '' : 'grayscale group-hover:grayscale-0'"
               loading="lazy"
