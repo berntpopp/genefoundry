@@ -8,6 +8,7 @@ import MethodologyFlow from './components/MethodologyFlow.vue'
 import RoleSwitcher from './components/RoleSwitcher.vue'
 import ImpactGrid from './components/ImpactGrid.vue'
 import TeamSection from './components/TeamSection.vue'
+import JourneyTimeline from './components/JourneyTimeline.vue'
 import FooterSection from './components/FooterSection.vue'
 </script>
 
@@ -20,6 +21,7 @@ import FooterSection from './components/FooterSection.vue'
       <RoleSwitcher />
       <ImpactGrid />
       <TeamSection />
+      <JourneyTimeline />
     </main>
     <FooterSection />
   </div>
