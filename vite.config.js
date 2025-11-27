@@ -12,6 +12,10 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      // DevOptions for testing PWA in development
+      devOptions: {
+        enabled: false
+      },
       includeAssets: ['genefoundry_logo.svg', 'robots.txt'],
       manifest: {
         name: 'GeneFoundry - Forging Trust in Genomic AI',
@@ -47,6 +51,13 @@ export default defineConfig({
         ]
       },
       workbox: {
+        // Force immediate activation of new service worker
+        // skipWaiting: new SW takes over immediately without waiting
+        // clientsClaim: new SW takes control of all open tabs immediately
+        skipWaiting: true,
+        clientsClaim: true,
+        // Remove outdated precache entries when a new SW is activated
+        cleanupOutdatedCaches: true,
         // Cache all static assets
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // Runtime caching for Google Fonts
