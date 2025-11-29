@@ -84,29 +84,29 @@ const mentors = team.filter(m => m.role === 'mentor')
       </div>
 
       <!-- Lead Applicant - Featured Card -->
+      <!-- Using neutral slate/amber styling to avoid gendered color associations -->
       <div class="max-w-2xl mx-auto mb-16">
         <article
-          class="relative p-8 rounded-2xl bg-white border-2 border-primary/20 shadow-lg group overflow-hidden"
+          class="relative p-8 rounded-2xl bg-white border-2 border-slate-200 shadow-lg group overflow-hidden"
         >
-          <!-- Subtle gradient accent -->
-          <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+          <!-- Subtle gradient accent - neutral slate -->
+          <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-transparent to-transparent pointer-events-none" />
 
           <div class="relative flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <!-- Photo -->
             <div class="relative flex-shrink-0">
-              <div class="w-32 h-32 rounded-full overflow-hidden ring-4 ring-primary/20 shadow-xl">
+              <div class="w-32 h-32 rounded-full overflow-hidden ring-4 ring-slate-200 shadow-xl">
                 <img
                   :src="leadApplicant.image"
                   :alt="`Portrait of ${leadApplicant.name}`"
                   width="128"
                   height="128"
-                  class="w-full h-full object-cover transition-all duration-300"
-                  :class="prefersReducedMotion ? '' : 'grayscale group-hover:grayscale-0'"
+                  class="w-full h-full object-cover"
                   loading="lazy"
                 />
               </div>
-              <!-- Lead badge -->
-              <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full shadow-md whitespace-nowrap">
+              <!-- Lead badge - white bg with slate text (gender-neutral, light aesthetic) -->
+              <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-white text-slate-700 text-xs font-bold rounded-full shadow-md border border-slate-200 whitespace-nowrap">
                 Lead Applicant
               </span>
             </div>
@@ -116,12 +116,12 @@ const mentors = team.filter(m => m.role === 'mentor')
               <h3 class="text-2xl font-bold text-secondary mb-1">{{ leadApplicant.name }}</h3>
               <p class="text-slate-500 mb-3">{{ leadApplicant.title }}</p>
 
-              <!-- Expertise Tags -->
+              <!-- Expertise Tags - using neutral slate -->
               <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-4">
                 <span
                   v-for="tag in leadApplicant.expertise"
                   :key="tag"
-                  class="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full"
+                  class="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded-full"
                 >
                   {{ tag }}
                 </span>
