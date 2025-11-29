@@ -33,7 +33,18 @@ const closeImprint = () => {
         >
           Imprint
         </button>
-        <a href="https://github.com/berntpopp/genefoundry" class="hover:text-white transition-colors">GitHub</a>
+        <a
+          href="mailto:contact@genefoundry.org"
+          class="hover:text-white transition-colors"
+        >
+          Contact
+        </a>
+        <a
+          href="https://github.com/berntpopp/genefoundry"
+          class="hover:text-white transition-colors"
+        >
+          GitHub
+        </a>
       </div>
     </div>
   </footer>
