@@ -114,6 +114,19 @@ export default defineConfig({
     // Minification settings
     minify: 'esbuild',
   },
+  // Dev server config for WSL2 compatibility
+  server: {
+    host: true,
+    watch: {
+      // Use polling for WSL2 file system compatibility
+      usePolling: true,
+      interval: 1000
+    },
+    hmr: {
+      // Ensure HMR works across WSL2/Windows boundary
+      host: 'localhost'
+    }
+  },
   // Optimize dependency pre-bundling for dev server performance
   optimizeDeps: {
     include: [

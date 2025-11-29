@@ -252,7 +252,7 @@ onUnmounted(() => {
             <span class="text-primary">Genomic AI.</span>
           </h1>
           <p class="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed pointer-events-auto">
-            From variant interpretation to literature synthesis. From clinical reports to patient education. Trustworthy AI across genetic medicine—powered by Model Context Protocols.
+            From variant interpretation to literature synthesis. From clinical reports to patient education. Trustworthy AI across genetic medicine, powered by Model Context Protocols.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pointer-events-auto">
             <a href="https://github.com/berntpopp/genefoundry" class="px-8 py-3 bg-primary text-white rounded-full font-semibold hover:bg-pink-600 transition-all shadow-lg hover:shadow-primary/25 flex items-center gap-2">
