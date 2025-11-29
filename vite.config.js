@@ -129,7 +129,13 @@ export default defineConfig({
       'lucide-vue-next/dist/esm/icons/microscope.js',
       'lucide-vue-next/dist/esm/icons/activity.js',
       'lucide-vue-next/dist/esm/icons/users.js',
-      'lucide-vue-next/dist/esm/icons/globe.js'
+      'lucide-vue-next/dist/esm/icons/globe.js',
+      // Newsletter signup icons
+      'lucide-vue-next/dist/esm/icons/mail.js',
+      'lucide-vue-next/dist/esm/icons/arrow-right.js',
+      'lucide-vue-next/dist/esm/icons/check.js',
+      'lucide-vue-next/dist/esm/icons/alert-circle.js',
+      'lucide-vue-next/dist/esm/icons/loader-2.js'
     ],
     // Exclude the barrel file to prevent loading all icons
     exclude: ['lucide-vue-next']

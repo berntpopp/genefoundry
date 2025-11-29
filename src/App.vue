@@ -9,6 +9,7 @@ import RoleSwitcher from './components/RoleSwitcher.vue'
 import ImpactGrid from './components/ImpactGrid.vue'
 import TeamSection from './components/TeamSection.vue'
 import JourneyTimeline from './components/JourneyTimeline.vue'
+import NewsletterSignup from './components/NewsletterSignup.vue'
 import FooterSection from './components/FooterSection.vue'
 </script>
 
@@ -22,6 +23,7 @@ import FooterSection from './components/FooterSection.vue'
       <ImpactGrid />
       <TeamSection />
       <JourneyTimeline />
+      <NewsletterSignup />
     </main>
     <FooterSection />
   </div>
