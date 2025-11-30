@@ -128,7 +128,7 @@ const mentors = team.filter(m => m.role === 'mentor')
               </div>
 
               <p class="text-slate-600 italic mb-2">"{{ leadApplicant.tagline }}"</p>
-              <p v-if="leadApplicant.affiliation" class="text-sm text-slate-400">
+              <p v-if="leadApplicant.affiliation" class="text-sm text-slate-500">
                 {{ leadApplicant.affiliation }}
               </p>
             </div>
@@ -179,7 +179,7 @@ const mentors = team.filter(m => m.role === 'mentor')
           </div>
 
           <p class="text-sm text-slate-600">{{ mentor.tagline }}</p>
-          <p v-if="mentor.affiliation" class="text-xs text-slate-400 mt-2">
+          <p v-if="mentor.affiliation" class="text-xs text-slate-500 mt-2">
             {{ mentor.affiliation }}
           </p>
         </article>

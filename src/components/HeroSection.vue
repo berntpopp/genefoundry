@@ -11,7 +11,7 @@ const cards = [
       { key: 'source', value: '"gnomAD v4.0"', color: 'text-green-700' },
       { key: 'gene', value: '"PKD1"', color: 'text-blue-700' },
       { key: 'af_popmax', value: '0.000042', color: 'text-amber-800' },
-      { key: 'status', value: '"VERIFIED"', color: 'text-primary font-bold' }
+      { key: 'status', value: '"VERIFIED"', color: 'text-primary-dark font-bold' }
     ]
   },
   {
@@ -21,7 +21,7 @@ const cards = [
       { key: 'tissue', value: '"Kidney_Cortex"', color: 'text-purple-700' },
       { key: 'tpm', value: '45.2', color: 'text-amber-800' },
       { key: 'isoform', value: '"ENST0000..."', color: 'text-blue-700' },
-      { key: 'expression', value: '"HIGH"', color: 'text-primary font-bold' }
+      { key: 'expression', value: '"HIGH"', color: 'text-primary-dark font-bold' }
     ]
   },
   {
@@ -31,7 +31,7 @@ const cards = [
       { key: 'pmid', value: '342156...', color: 'text-blue-700' },
       { key: 'entity', value: '"Polycystin-1"', color: 'text-green-700' },
       { key: 'relation', value: '"interacts_with"', color: 'text-purple-700' },
-      { key: 'confidence', value: '0.98', color: 'text-primary font-bold' }
+      { key: 'confidence', value: '0.98', color: 'text-primary-dark font-bold' }
     ]
   },
   {
@@ -41,7 +41,7 @@ const cards = [
       { key: 'model', value: '"Pkd1<tm1..."', color: 'text-purple-700' },
       { key: 'phenotype', value: '"Cystic kidney"', color: 'text-amber-800' },
       { key: 'background', value: '"C57BL/6J"', color: 'text-blue-700' },
-      { key: 'zygosity', value: '"Homozygous"', color: 'text-primary font-bold' }
+      { key: 'zygosity', value: '"Homozygous"', color: 'text-primary-dark font-bold' }
     ]
   }
 ]

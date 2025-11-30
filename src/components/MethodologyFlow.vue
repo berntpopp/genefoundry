@@ -29,7 +29,7 @@ const isHovered = ref(false)
         <div class="grid md:grid-cols-3 gap-8 relative z-10">
           <!-- Step 1: Input -->
           <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-primary/30 transition-colors">
-            <div class="flex gap-2 mb-4 text-slate-400 group-hover:text-slate-600 transition-colors">
+            <div class="flex gap-2 mb-4 text-slate-500 group-hover:text-slate-600 transition-colors">
               <Database class="w-6 h-6" />
               <FileText class="w-6 h-6" />
               <BookOpen class="w-6 h-6" />
