@@ -7,7 +7,7 @@
 
 ARG NODE_VERSION=20-alpine3.20
 # fholzer/nginx-brotli includes brotli_static and gzip_static modules
-ARG NGINX_VERSION=v1.27.3
+ARG NGINX_VERSION=v1.26.2
 
 # ============================================================================
 # STAGE 1: Dependencies - Install node_modules with cache
@@ -62,24 +62,14 @@ LABEL org.opencontainers.image.title="GeneFoundry Landing Page" \
       org.opencontainers.image.documentation="https://github.com/berntpopp/genefoundry/blob/main/README.md" \
       org.opencontainers.image.authors="Bernt Popp <bernt.popp@gmail.com>"
 
-# Create nginx user if it doesn't exist and set up directories
-RUN addgroup -g 101 -S nginx 2>/dev/null || true && \
-    adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx 2>/dev/null || true && \
-    mkdir -p /var/cache/nginx /var/run && \
-    chown -R nginx:nginx /var/cache/nginx /var/run
-
 # Copy nginx configuration
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built application with pre-compressed files
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Set correct permissions
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chmod -R 755 /usr/share/nginx/html
-
-# Switch to non-root user
-USER nginx
+# Set correct permissions (nginx image runs as root, drops privileges internally)
+RUN chmod -R 755 /usr/share/nginx/html
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
@@ -88,5 +78,5 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 # Expose port
 EXPOSE 8080
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start nginx (entrypoint is already 'nginx' in base image)
+CMD ["-g", "daemon off;"]
