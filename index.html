@@ -70,11 +70,18 @@
       size-adjust: 107.12%;
     }
     /* Apply fallback immediately to prevent flash */
-    body { font-family: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif; }
+    body {
+      font-family: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
+      margin: 0;
+      background-color: #f8fafc; /* bg-slate-50 */
+      color: #334155; /* text-secondary */
+    }
     /* Reserve space for fixed navbar to prevent CLS */
     #app { min-height: 100vh; }
     /* Prevent FOUC - hide content until Vue mounts */
     #app:empty { visibility: hidden; }
+    /* Critical above-the-fold styles for FCP */
+    .min-h-screen { min-height: 100vh; }
   </style>
   <!-- Structured Data: Organization -->
   <script type="application/ld+json">
