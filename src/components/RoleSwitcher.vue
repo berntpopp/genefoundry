@@ -4,29 +4,58 @@ import { ref, type Component } from 'vue'
 import Dna from 'lucide-vue-next/dist/esm/icons/dna.js'
 import Stethoscope from 'lucide-vue-next/dist/esm/icons/stethoscope.js'
 import Microscope from 'lucide-vue-next/dist/esm/icons/microscope.js'
+import Users from 'lucide-vue-next/dist/esm/icons/users.js'
+
+// 4 distinct audiences as defined in platform vision
+type RoleId = 'geneticist' | 'clinician' | 'researcher' | 'patient'
 
 const roles: { id: RoleId; label: string; icon: Component }[] = [
   { id: 'geneticist', label: 'Geneticist', icon: Dna },
   { id: 'clinician', label: 'Clinician', icon: Stethoscope },
   { id: 'researcher', label: 'Researcher', icon: Microscope },
+  { id: 'patient', label: 'Patient & Family', icon: Users },
 ]
 
-type RoleId = 'geneticist' | 'clinician' | 'researcher'
 const activeRole = ref<RoleId>('geneticist')
 
-const content = {
-  geneticist: [
-    { label: 'ACMG Classification', value: 'Pathogenic', textColor: 'text-red-600', barColor: 'bg-red-500' },
-    { label: 'Variant Depth', value: '120x', textColor: 'text-blue-600', barColor: 'bg-blue-500' }
-  ],
-  clinician: [
-    { label: 'Phenotype Match', value: 'High', textColor: 'text-green-600', barColor: 'bg-green-500' },
-    { label: 'Therapeutic Options', value: 'Available', textColor: 'text-purple-600', barColor: 'bg-purple-500' }
-  ],
-  researcher: [
-    { label: 'Expression Profile', value: 'Kidney-specific', textColor: 'text-amber-600', barColor: 'bg-amber-500' },
-    { label: 'Mouse Model', value: 'MGI Data', textColor: 'text-indigo-600', barColor: 'bg-indigo-500' }
-  ]
+// Content for each role: metrics they care about + tasks they can perform
+const content: Record<RoleId, {
+  metrics: { label: string; value: string; textColor: string; barColor: string }[];
+  tasks: string[];
+  description: string;
+}> = {
+  geneticist: {
+    metrics: [
+      { label: 'ACMG Classification', value: 'Pathogenic', textColor: 'text-red-600', barColor: 'bg-red-500' },
+      { label: 'Variant Depth', value: '120x', textColor: 'text-blue-600', barColor: 'bg-blue-500' }
+    ],
+    tasks: ['Variant classification', 'Gene-disease curation', 'ACMG reports', 'CNV analysis'],
+    description: 'Streamlined workflows for variant interpretation and gene validity assessment.'
+  },
+  clinician: {
+    metrics: [
+      { label: 'Phenotype Match', value: 'High', textColor: 'text-green-600', barColor: 'bg-green-500' },
+      { label: 'Therapeutic Options', value: 'Available', textColor: 'text-purple-600', barColor: 'bg-purple-500' }
+    ],
+    tasks: ['Patient summaries', 'Phenotype matching', 'Differential diagnosis', 'Report generation'],
+    description: 'Patient-ready outputs with traceable evidence for clinical decision-making.'
+  },
+  researcher: {
+    metrics: [
+      { label: 'Expression Profile', value: 'Kidney-specific', textColor: 'text-amber-600', barColor: 'bg-amber-500' },
+      { label: 'Mouse Model', value: 'MGI Data', textColor: 'text-indigo-600', barColor: 'bg-indigo-500' }
+    ],
+    tasks: ['Literature synthesis', 'Candidate gene analysis', 'Pathway exploration', 'Cross-species comparison'],
+    description: 'Deep data integration across publications, expression, and model organisms.'
+  },
+  patient: {
+    metrics: [
+      { label: 'Reading Level', value: '6th Grade', textColor: 'text-teal-600', barColor: 'bg-teal-500' },
+      { label: 'Language', value: 'Plain English', textColor: 'text-sky-600', barColor: 'bg-sky-500' }
+    ],
+    tasks: ['Condition explainers', 'Inheritance guides', 'Treatment overviews', 'Support resources'],
+    description: 'Accessible, jargon-free content for patients, families, and self-help organizations.'
+  }
 }
 </script>
 
@@ -60,18 +89,36 @@ const content = {
         </div>
 
         <!-- Content Card -->
-        <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden min-h-[300px] flex items-center justify-center relative">
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden min-h-[380px] relative">
            <transition name="fade" mode="out-in">
              <div :key="activeRole" class="p-8 w-full">
-               <div class="grid sm:grid-cols-2 gap-6">
-                 <div 
-                   v-for="(item, index) in content[activeRole]" 
+               <!-- Description -->
+               <p class="text-slate-600 text-center mb-6">{{ content[activeRole].description }}</p>
+
+               <!-- Metrics Grid -->
+               <div class="grid sm:grid-cols-2 gap-6 mb-8">
+                 <div
+                   v-for="(item, index) in content[activeRole].metrics"
                    :key="index"
-                   class="p-8 rounded-xl border border-slate-100 flex flex-col items-center text-center hover:shadow-lg transition-all bg-slate-50/50"
+                   class="p-6 rounded-xl border border-slate-100 flex flex-col items-center text-center hover:shadow-lg transition-all bg-slate-50/50"
                  >
-                   <span class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-3">{{ item.label }}</span>
-                   <span class="text-3xl font-bold mb-4" :class="item.textColor">{{ item.value }}</span>
-                   <div class="h-1.5 w-16 rounded-full opacity-20" :class="item.barColor"></div>
+                   <span class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-2">{{ item.label }}</span>
+                   <span class="text-2xl font-bold mb-3" :class="item.textColor">{{ item.value }}</span>
+                   <div class="h-1.5 w-12 rounded-full opacity-20" :class="item.barColor"></div>
+                 </div>
+               </div>
+
+               <!-- Task Pills -->
+               <div class="border-t border-slate-100 pt-6">
+                 <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3 text-center">Available Tasks</p>
+                 <div class="flex flex-wrap justify-center gap-2">
+                   <span
+                     v-for="task in content[activeRole].tasks"
+                     :key="task"
+                     class="px-3 py-1.5 bg-slate-100 text-slate-600 text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
+                   >
+                     {{ task }}
+                   </span>
                  </div>
                </div>
              </div>

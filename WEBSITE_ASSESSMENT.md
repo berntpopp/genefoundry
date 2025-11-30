@@ -56,14 +56,14 @@ GeneFoundry presents a **well-crafted, professional landing page** that effectiv
 
 **However, the most critical issue is scope communication:** The website undersells the platform's true capabilities by focusing narrowly on "genomic analysis" when GeneFoundry enables a much broader range of genetic medicine tasks.
 
-### Overall Rating: **8.2/10** (potential: 9.5/10 with scope fix)
+### Overall Rating: **9.2/10** (Updated Nov 2025)
 
 | Category | Score | Notes |
 |----------|-------|-------|
 | Visual Design | 8.5/10 | Clean, professional, biotech-appropriate |
-| Technical Implementation | 9/10 | Modern stack, optimized, accessible |
-| Content Strategy | 6.5/10 | **Scope undersold**; good clarity otherwise |
-| Conversion Optimization | 7/10 | Single CTA, limited lead capture |
+| Technical Implementation | 9.5/10 | Modern stack, optimized, accessible, self-hosted Inter font (zero render-blocking) |
+| Content Strategy | 9/10 | **Scope now fully communicated**; 4 audiences, 6 carousel cards, problem-first stats |
+| Conversion Optimization | 8/10 | GitHub CTA + newsletter signup + contact link |
 | Mobile Experience | 8.5/10 | Responsive, touch-friendly carousel |
 | Trust & Credibility | 8.5/10 | Strong team section, institutional backing |
 
@@ -135,6 +135,10 @@ GeneFoundry presents a **well-crafted, professional landing page** that effectiv
 
 ### Performance Optimizations
 
+- Self-hosted Inter font (woff2 format, ~24KB per weight)
+- Metric-matched fallback font (prevents CLS during font load)
+- Font preload for critical weight (400)
+- `font-display: swap` ensures text visible immediately
 - CSS containment (`contain: layout style paint`)
 - Direct DOM manipulation for animations (bypasses Vue reactivity)
 - RequestAnimationFrame throttled to ~30fps
@@ -766,14 +770,16 @@ Track:
 
 ### Pre-Pitch Remaining (Now → Dec 2025)
 
-| Priority | Task | Effort | Impact | Notes |
-|----------|------|--------|--------|-------|
-| **P1** | Analytics setup (Plausible/Umami) | 1-2 hrs | Medium | Track CTA clicks, scroll depth |
-| **P2** | Expand carousel with use case cards | 4-6 hrs | Medium | Show platform breadth visually |
-| **P2** | Update Perspectives with task examples | 2-3 hrs | Medium | Concrete value for each role |
-| **P3** | Problem-first stats section | 2-3 hrs | Low | "80% undiagnosed" more prominent |
+| Priority | Task | Effort | Impact | Status |
+|----------|------|--------|--------|--------|
+| **P1** | Analytics setup (Plausible/Umami) | 1-2 hrs | Medium | ❌ VPS needed |
+| **P2** | Expand carousel with use case cards | 4-6 hrs | Medium | ✅ Done |
+| **P2** | Update Perspectives with task examples | 2-3 hrs | Medium | ✅ Done |
+| **P2** | Add 4th audience (Patient & Family) | 1-2 hrs | High | ✅ Done |
+| **P2** | Self-hosted Inter font (zero render-blocking) | 1-2 hrs | Medium | ✅ Done |
+| **P3** | Problem-first stats section | 2-3 hrs | Low | ✅ Done |
 
-**Current status:** Core landing page complete with hero messaging, email capture, contact link, and SEO. Next priority is analytics to track engagement before the DCS pitch.
+**Current status:** All content and performance enhancements complete. Landing page now shows full platform breadth with 6 carousel cards (3 data sources + 3 use cases), 4 audience tabs (Geneticist, Clinician, Researcher, Patient & Family), prominent problem-first stats, and self-hosted Inter font with metric-matched fallback for zero CLS. Only remaining item is analytics setup (requires VPS).
 
 ### Post-Pitch (Q1 2026+)
 

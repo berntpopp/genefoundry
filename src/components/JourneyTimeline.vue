@@ -157,7 +157,7 @@ function getStatusClasses(status: Milestone['status']) {
     case 'current':
       return 'bg-primary text-white border-primary'
     case 'upcoming':
-      return 'bg-white text-slate-400 border-slate-300 border-dashed'
+      return 'bg-white text-slate-500 border-slate-300 border-dashed'
   }
 }
 </script>
@@ -259,7 +259,7 @@ function getStatusClasses(status: Milestone['status']) {
               <div
                 class="mt-1 text-sm font-medium text-center transition-colors max-w-[100px]"
                 :class="[
-                  milestone.status === 'upcoming' ? 'text-slate-400' : 'text-secondary',
+                  milestone.status === 'upcoming' ? 'text-slate-500' : 'text-secondary',
                   activeMilestone === milestone.id ? 'text-secondary' : ''
                 ]"
               >
@@ -394,7 +394,7 @@ function getStatusClasses(status: Milestone['status']) {
                 </div>
                 <p
                   class="text-xs leading-relaxed"
-                  :class="milestone.status === 'upcoming' ? 'text-slate-400' : 'text-slate-600'"
+                  :class="milestone.status === 'upcoming' ? 'text-slate-500' : 'text-slate-600'"
                 >
                   {{ milestone.description }}
                 </p>

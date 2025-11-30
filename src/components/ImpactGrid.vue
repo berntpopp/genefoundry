@@ -16,6 +16,25 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
         </p>
       </div>
 
+      <!-- Problem-First Stats Banner -->
+      <div class="mb-12 p-8 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 text-white">
+        <p class="text-sm font-medium text-primary uppercase tracking-wider mb-6 text-center">The Problem We're Solving</p>
+        <div class="grid sm:grid-cols-3 gap-8 text-center">
+          <div>
+            <p class="text-4xl sm:text-5xl font-bold text-white mb-2">80%</p>
+            <p class="text-slate-400 text-sm">of rare disease patients remain undiagnosed</p>
+          </div>
+          <div>
+            <p class="text-4xl sm:text-5xl font-bold text-white mb-2">300M+</p>
+            <p class="text-slate-400 text-sm">people affected by rare diseases globally</p>
+          </div>
+          <div>
+            <p class="text-4xl sm:text-5xl font-bold text-white mb-2">7 years</p>
+            <p class="text-slate-400 text-sm">average time to diagnosis (diagnostic odyssey)</p>
+          </div>
+        </div>
+      </div>
+
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Card 1: The Diagnostic Gap -->
         <article class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary/20 hover:shadow-lg transition-all group">

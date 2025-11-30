@@ -30,4 +30,15 @@ export default [
       }
     }
   },
+
+  // Vite config uses Node.js process.env
+  {
+    name: 'vite-config/node-globals',
+    files: ['vite.config.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
+    }
+  },
 ]

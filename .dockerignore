@@ -1,0 +1,38 @@
+# Dependencies - installed fresh in Docker
+node_modules
+
+# Build outputs
+dist
+dist-ssr
+
+# Development
+.git
+.github
+.vscode
+*.log
+*.local
+
+# Test & coverage
+coverage
+*.test.ts
+*.spec.ts
+
+# Documentation (not needed in image)
+docs
+*.md
+!README.md
+
+# IDE & OS files
+.DS_Store
+*.swp
+*.swo
+Thumbs.db
+
+# Environment files
+.env*
+!.env.docker.example
+
+# Misc
+Makefile
+.prettierrc.json
+.editorconfig

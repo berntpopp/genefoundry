@@ -2,16 +2,33 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { compression } from 'vite-plugin-compression2'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // Base URL for GitHub Pages deployment (https://berntpopp.github.io/genefoundry/)
-  base: '/genefoundry/',
+  // Base URL: '/' for Docker/VPS, '/genefoundry/' for GitHub Pages
+  // Set VITE_BASE_URL=/ for Docker builds
+  base: process.env.VITE_BASE_URL || '/genefoundry/',
   plugins: [
     vue(),
     tailwindcss(),
+    // Pre-compress assets with Brotli (best) and gzip (fallback)
+    // nginx serves these directly via brotli_static and gzip_static
+    compression({
+      algorithm: 'brotliCompress',
+      exclude: [/\.(png|jpg|jpeg|gif|webp|avif|ico)$/i], // Skip already-compressed images
+      threshold: 1024, // Only compress files > 1KB
+    }),
+    compression({
+      algorithm: 'gzip',
+      exclude: [/\.(png|jpg|jpeg|gif|webp|avif|ico)$/i],
+      threshold: 1024,
+    }),
     VitePWA({
       registerType: 'autoUpdate',
+      // Defer service worker registration to not block initial render
+      // 'script-defer' adds defer attribute, loading after HTML parsing (v0.17.2+)
+      injectRegister: 'script-defer',
       // DevOptions for testing PWA in development
       devOptions: {
         enabled: false
@@ -24,8 +41,8 @@ export default defineConfig({
         theme_color: '#BE3E82',
         background_color: '#ffffff',
         display: 'standalone',
-        scope: '/genefoundry/',
-        start_url: '/genefoundry/',
+        scope: process.env.VITE_BASE_URL || '/genefoundry/',
+        start_url: process.env.VITE_BASE_URL || '/genefoundry/',
         icons: [
           {
             src: 'pwa-64x64.png',
@@ -99,6 +116,14 @@ export default defineConfig({
     target: 'es2020',
     // Disable gzip size reporting for faster builds
     reportCompressedSize: false,
+    // Optimize module preloading - exclude non-critical chunks from preload
+    // This reduces critical path chain length (workbox-window is not needed for FCP)
+    modulePreload: {
+      resolveDependencies: (filename, deps) => {
+        // Only preload critical chunks, exclude PWA/workbox related
+        return deps.filter(dep => !dep.includes('workbox'))
+      }
+    },
     // Optimize chunk splitting
     rollupOptions: {
       output: {
@@ -109,8 +134,8 @@ export default defineConfig({
         }
       }
     },
-    // Enable CSS code splitting
-    cssCodeSplit: true,
+    // Disable CSS code splitting - single CSS file loads faster for small apps
+    cssCodeSplit: false,
     // Minification settings
     minify: 'esbuild',
   },
