@@ -7,34 +7,9 @@
   --color-primary-dark: #A23570;
   --color-secondary: #334155;
 
-  /* Font family with metric-matched fallback */
-  --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-
-/*
- * Zero-CLS Font Loading Strategy
- *
- * Problem: Web fonts cause layout shifts when they replace fallback fonts
- * because they have different metrics (character widths, heights, line spacing).
- *
- * Solution: Define a fallback font with CSS metric overrides that exactly match
- * Inter's metrics. This ensures text takes the same space regardless of which
- * font renders, eliminating Cumulative Layout Shift (CLS).
- *
- * Values calculated for Inter → Arial fallback using:
- * https://developer.chrome.com/blog/font-fallbacks
- * https://screenspan.net/fallback
- */
-
-/* Metric-matched fallback font for Inter - prevents CLS completely */
-@font-face {
-  font-family: 'Inter Fallback';
-  src: local('Arial'), local('ArialMT'), local('Helvetica Neue'), local('Helvetica');
-  /* These values match Inter's metrics to prevent layout shift */
-  ascent-override: 90.44%;
-  descent-override: 22.52%;
-  line-gap-override: 0%;
-  size-adjust: 107.12%;
+  /* System font stack - zero network requests, instant rendering
+   * Uses native OS fonts: San Francisco (Apple), Segoe UI (Windows), Roboto (Android) */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
