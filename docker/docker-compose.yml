@@ -1,0 +1,56 @@
+# docker-compose.yml
+# GeneFoundry Landing Page - Base Docker Compose Configuration
+#
+# Usage:
+#   Development (with ports):  docker compose -f docker/docker-compose.yml up --build
+#   Production (with NPM):     docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d --build
+#
+# Security Features:
+# - Non-root user execution (nginx UID 101)
+# - Resource limits (CPU, memory)
+# - Structured logging with rotation
+# - Health checks
+
+name: genefoundry
+
+services:
+  genefoundry:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+    container_name: genefoundry
+
+    # For local development/testing - expose port directly
+    # Comment out when using with NPM (docker-compose.npm.yml handles networking)
+    ports:
+      - "${GENEFOUNDRY_PORT:-8080}:8080"
+
+    # Health check
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+
+    # Structured logging with rotation
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+        labels: "service,env"
+
+    restart: unless-stopped

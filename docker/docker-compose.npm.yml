@@ -1,0 +1,59 @@
+# docker-compose.npm.yml
+# GeneFoundry Landing Page - Nginx Proxy Manager (NPM) Production Overlay
+#
+# Usage:
+#   docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d --build
+#
+# This overlay:
+# - Removes direct port exposure (NPM handles routing)
+# - Connects to external NPM network
+# - Adds production security hardening
+#
+# NPM Configuration:
+# - Create proxy host for genefoundry.org → genefoundry:8080
+# - Enable SSL with Let's Encrypt
+
+name: genefoundry-npm
+
+services:
+  genefoundry:
+    container_name: genefoundry-npm
+
+    # PRODUCTION: No direct ports - NPM handles all routing
+    ports: []
+
+    # SECURITY: Run as non-root (nginx:nginx = 101:101)
+    user: "101:101"
+
+    # SECURITY: Security options
+    security_opt:
+      - no-new-privileges:true
+
+    # SECURITY: Drop all capabilities (nginx doesn't need any)
+    cap_drop:
+      - ALL
+
+    # SECURITY: Read-only root filesystem
+    read_only: true
+
+    # Writable tmpfs mounts for nginx runtime directories
+    tmpfs:
+      - /tmp:uid=101,gid=101,mode=1777,size=10M
+      - /var/cache/nginx:uid=101,gid=101,mode=0755,size=50M
+      - /var/run:uid=101,gid=101,mode=0755,size=10M
+
+    # Production logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+        labels: "service=genefoundry,environment=production,proxy=npm"
+
+    networks:
+      - npm_proxy_network
+
+networks:
+  npm_proxy_network:
+    external: true
+    name: ${NPM_SHARED_NETWORK_NAME:-npm_default}
