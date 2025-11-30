@@ -10,7 +10,8 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "generate-pwa-assets": "pwa-assets-generator"
+    "generate-pwa-assets": "pwa-assets-generator",
+    "generate-og-image": "node scripts/generate-og-image.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",

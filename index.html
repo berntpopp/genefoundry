@@ -5,11 +5,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#BE3E82" />
-  <!-- PWA icons -->
+
+  <!-- Primary Meta Tags -->
+  <title>GeneFoundry - Forging Trust in Genomic AI</title>
+  <meta name="title" content="GeneFoundry - Forging Trust in Genomic AI" />
+  <meta name="author" content="GeneFoundry Team" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://genefoundry.org/" />
+
+  <!-- PWA & Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" href="/genefoundry_logo.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
-  <title>GeneFoundry - Forging Trust in Genomic AI</title>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://genefoundry.org/" />
+  <meta property="og:site_name" content="GeneFoundry" />
+  <meta property="og:title" content="GeneFoundry - Forging Trust in Genomic AI" />
+  <meta property="og:description" content="From variant interpretation to literature synthesis. Trustworthy AI across genetic medicine, powered by Model Context Protocols. No hallucinations, just validated data." />
+  <meta property="og:image" content="https://genefoundry.org/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="GeneFoundry - Forging Trust in Genomic AI" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://genefoundry.org/" />
+  <meta name="twitter:title" content="GeneFoundry - Forging Trust in Genomic AI" />
+  <meta name="twitter:description" content="From variant interpretation to literature synthesis. Trustworthy AI across genetic medicine, powered by Model Context Protocols." />
+  <meta name="twitter:image" content="https://genefoundry.org/og-image.png" />
+  <meta name="twitter:image:alt" content="GeneFoundry - Forging Trust in Genomic AI" />
   <!-- Font loading: preconnect first for faster connection -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,28 +72,96 @@
     /* Prevent FOUC - hide content until Vue mounts */
     #app:empty { visibility: hidden; }
   </style>
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://genefoundry.org/#organization",
+      "name": "GeneFoundry",
+      "url": "https://genefoundry.org",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://genefoundry.org/genefoundry_logo.svg",
+        "width": 512,
+        "height": 512
+      },
+      "description": "Forging Trust in Genomic AI. A modular registry for trustworthy, evidence-based genomic analysis.",
+      "foundingDate": "2024",
+      "sameAs": [
+        "https://github.com/berntpopp/genefoundry"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "contact@genefoundry.org",
+        "contactType": "General Inquiry"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Berlin Institute of Health at Charité",
+        "alternateName": "BIH",
+        "url": "https://www.bihealth.org"
+      }
+    }
+  </script>
+
+  <!-- Structured Data: SoftwareApplication -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+      "@id": "https://genefoundry.org/#software",
       "name": "GeneFoundry",
-      "applicationCategory": "BioinformaticsApplication",
+      "alternateName": "GeneFoundry MCP Platform",
+      "applicationCategory": "HealthApplication",
+      "applicationSubCategory": "Bioinformatics",
       "operatingSystem": "Web",
-      "description": "A modular registry for customized, evidence-based genomic analysis powered by Model Context Protocols (MCPs).",
+      "description": "A modular registry for trustworthy, evidence-based genomic analysis powered by Model Context Protocols (MCPs). From variant interpretation to literature synthesis, from clinical reports to patient education.",
+      "featureList": [
+        "Variant interpretation with validated data sources",
+        "Literature synthesis from PubMed/PubTator",
+        "Gene expression analysis via GTEx",
+        "Population frequency data from gnomAD",
+        "Model organism data from MGI",
+        "Trustworthy AI with no hallucinations"
+      ],
+      "screenshot": "https://genefoundry.org/og-image.png",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
       },
       "author": {
-        "@type": "Organization",
-        "name": "Charité / BIH"
+        "@id": "https://genefoundry.org/#organization"
       },
+      "provider": {
+        "@id": "https://genefoundry.org/#organization"
+      },
+      "isAccessibleForFree": true,
+      "license": "https://opensource.org/licenses/MIT",
+      "codeRepository": "https://github.com/berntpopp/genefoundry",
+      "programmingLanguage": ["TypeScript", "Vue.js", "Python"],
       "sameAs": [
         "https://github.com/berntpopp/genefoundry"
       ]
     }
-    </script>
+  </script>
+
+  <!-- Structured Data: WebSite (for search box) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://genefoundry.org/#website",
+      "name": "GeneFoundry",
+      "url": "https://genefoundry.org",
+      "description": "Forging Trust in Genomic AI",
+      "publisher": {
+        "@id": "https://genefoundry.org/#organization"
+      }
+    }
+  </script>
 </head>
 
 <body>
