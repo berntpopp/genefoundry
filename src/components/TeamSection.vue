@@ -27,7 +27,7 @@ interface TeamMember {
 const team: TeamMember[] = [
   {
     id: 'nina-rank',
-    name: 'Dr. med. Nina Rank',
+    name: 'Dr. Nina Rank',
     title: 'MD/PhD, Digital Clinician Scientist',
     image: ninaRankImg,
     role: 'lead',

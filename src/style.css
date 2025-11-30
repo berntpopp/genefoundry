@@ -4,6 +4,7 @@
 @theme {
   /* Brand colors */
   --color-primary: #BE3E82;
+  --color-primary-dark: #A23570;
   --color-secondary: #334155;
 
   /* Font family with metric-matched fallback */

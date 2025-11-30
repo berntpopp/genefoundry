@@ -62,7 +62,7 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
                 <p class="text-slate-400">Modular, platform-agnostic, and built for the community.</p>
             </div>
         </div>
-        <a href="https://github.com/berntpopp/genefoundry" class="px-6 py-2 bg-primary hover:bg-pink-600 rounded-full font-semibold transition-colors">
+        <a href="https://github.com/berntpopp/genefoundry" class="px-6 py-2 bg-primary hover:bg-primary-dark rounded-full font-semibold transition-colors">
             View on GitHub
         </a>
       </div>
