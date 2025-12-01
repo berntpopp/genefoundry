@@ -28,7 +28,7 @@ const team: TeamMember[] = [
   {
     id: 'nina-rank',
     name: 'Dr. Nina Rank',
-    title: 'MD/PhD, Digital Clinician Scientist',
+    title: 'MD/PhD, Junior Digital Clinician Scientist',
     image: ninaRankImg,
     role: 'lead',
     expertise: ['Rare Diseases', 'Clinical Genomics', 'Translational Medicine'],
