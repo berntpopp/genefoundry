@@ -73,9 +73,9 @@ RUN apk update && apk upgrade --no-cache && \
     rm -rf /var/cache/apk/* && \
     chmod -R 755 /usr/share/nginx/html
 
-# Health check
+# Health check (using wget since curl isn't in Alpine base)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:8080/health || exit 1
+    CMD wget -qO- http://127.0.0.1:8080/health || exit 1
 
 # Expose port
 EXPOSE 8080

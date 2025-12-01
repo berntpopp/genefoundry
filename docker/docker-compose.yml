@@ -27,9 +27,9 @@ services:
     ports:
       - "${GENEFOUNDRY_PORT:-8080}:8080"
 
-    # Health check
+    # Health check (using wget since curl isn't in Alpine base)
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/health || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3
