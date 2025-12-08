@@ -22,7 +22,7 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
         <div class="grid sm:grid-cols-3 gap-8 text-center">
           <div>
             <p class="text-4xl sm:text-5xl font-bold text-white mb-2">80%</p>
-            <p class="text-slate-400 text-sm">of rare disease patients remain undiagnosed</p>
+            <p class="text-slate-400 text-sm">of patients with rare diseases lack a genetic diagnosis</p>
           </div>
           <div>
             <p class="text-4xl sm:text-5xl font-bold text-white mb-2">300M+</p>
@@ -43,7 +43,7 @@ import Globe from 'lucide-vue-next/dist/esm/icons/globe.js'
           </div>
           <h3 class="text-xl font-bold text-secondary mb-3">Closing the Diagnostic Gap</h3>
           <p class="text-slate-600 leading-relaxed">
-            Up to 80% of rare disease patients remain undiagnosed. GeneFoundry explores the genetic variation that traditional methods miss, offering new hope for unsolved cases.
+            Up to 80% of patients with rare diseases lack a genetic diagnosis. GeneFoundry explores the genetic variation that traditional methods miss, offering new hope for unsolved cases.
           </p>
         </article>
 
