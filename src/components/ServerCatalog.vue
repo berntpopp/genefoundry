@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { ArrowUpRight, Github } from 'lucide-vue-next'
+import SectionLabel from './ui/SectionLabel.vue'
 import { SERVERS, CATEGORIES, SERVER_COUNT, type ServerCategory } from '../data/servers'
 
 type Filter = ServerCategory | 'all'
@@ -20,9 +21,9 @@ const countFor = (id: Filter) =>
   <section id="catalog" class="relative py-24 sm:py-28">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary-light">Inside the fleet</p>
-        <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          One namespace scheme, zero collisions.
+        <SectionLabel index="02" label="Inside the fleet" />
+        <h2 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          One <span class="serif-accent text-[1.08em]">namespace scheme</span>, zero collisions.
         </h2>
         <p class="mt-5 text-lg leading-relaxed text-slate-400">
           Every backend keeps its clean tool names; the gateway owns the

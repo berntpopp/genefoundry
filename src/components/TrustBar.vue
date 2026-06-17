@@ -22,10 +22,10 @@ const stats = [
           class="flex flex-col items-center text-center sm:border-r sm:border-white/[0.07]"
           :class="{ 'sm:border-r-0': i === stats.length - 1 }"
         >
-          <span class="bg-gradient-to-b from-white to-slate-400 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+          <span class="font-display text-5xl leading-none text-white sm:text-6xl">
             {{ s.value }}
           </span>
-          <span class="mt-2 max-w-[10rem] text-sm text-slate-400">{{ s.label }}</span>
+          <span class="mt-3 max-w-[10rem] text-sm text-slate-400">{{ s.label }}</span>
         </div>
       </div>
 

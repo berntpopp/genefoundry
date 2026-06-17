@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Check, Copy, Terminal } from 'lucide-vue-next'
+import SectionLabel from './ui/SectionLabel.vue'
 import { useClipboard } from '../composables'
 import { HOSTED_ENDPOINT, HEALTH_URL } from '../data/servers'
 
@@ -62,12 +63,12 @@ const { copied, copy } = useClipboard()
 </script>
 
 <template>
-  <section id="connect" class="relative py-24 sm:py-28">
+  <section id="connect" class="relative border-y border-white/[0.06] bg-ink-2/50 py-24 sm:py-28">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary-light">Connect your host</p>
-        <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Drop it into the client you already use.
+        <SectionLabel index="04" label="Connect your host" />
+        <h2 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          Drop it into the <span class="serif-accent text-[1.08em]">client</span> you already use.
         </h2>
         <p class="mt-5 text-lg leading-relaxed text-slate-400">
           The router speaks Streamable HTTP, the config shape every MCP host expects. Pick yours.

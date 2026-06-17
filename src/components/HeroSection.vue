@@ -22,9 +22,9 @@ import { ADD_COMMAND, GITHUB_URL, SERVER_COUNT, TOOL_COUNT } from '../data/serve
             <span class="font-mono text-slate-400">{{ SERVER_COUNT }} servers · {{ TOOL_COUNT }} tools</span>
           </div>
 
-          <h1 class="text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 class="text-[2.65rem] font-semibold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4rem]">
             Every biomedical MCP,<br class="hidden sm:block" />
-            behind <span class="text-gradient">one endpoint.</span>
+            behind <span class="serif-accent text-[1.08em]">one endpoint.</span>
           </h1>
 
           <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-400 lg:mx-0">
@@ -70,8 +70,8 @@ import { ADD_COMMAND, GITHUB_URL, SERVER_COUNT, TOOL_COUNT } from '../data/serve
 
         <!-- Visual -->
         <div class="relative min-w-0">
-          <!-- Glow behind the console -->
-          <div class="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-tr from-primary/20 via-accent/15 to-accent-2/20 blur-2xl"></div>
+          <!-- Single magenta glow behind the console, not a rainbow wash -->
+          <div class="absolute -inset-6 -z-10 rounded-[2rem] bg-primary/15 blur-3xl"></div>
           <ConsoleDemo />
         </div>
       </div>

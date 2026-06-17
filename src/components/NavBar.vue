@@ -81,7 +81,7 @@ const links = [
         href="#"
         @click.prevent="scrollToTop"
         class="group relative z-50 flex cursor-pointer items-center gap-2.5"
-        aria-label="Scroll to top of page"
+        aria-label="GeneFoundry, scroll to top of page"
       >
         <img
           src="/genefoundry_logo.svg"

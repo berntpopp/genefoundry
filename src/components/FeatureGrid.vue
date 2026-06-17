@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Boxes, ScanSearch, FileCheck2, Cable, Github } from 'lucide-vue-next'
+import SectionLabel from './ui/SectionLabel.vue'
 import { GITHUB_URL, TOOL_COUNT } from '../data/servers'
 
 const features = [
@@ -35,9 +36,9 @@ const features = [
   <section id="features" class="relative py-24 sm:py-28">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-primary-light">Built for trust</p>
-        <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          A thin gateway that gets out of the way.
+        <SectionLabel index="03" label="Built for trust" />
+        <h2 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          A thin <span class="serif-accent text-[1.08em]">gateway</span> that gets out of the way.
         </h2>
         <p class="mt-5 text-lg leading-relaxed text-slate-400">
           A client to each backend, a server to your host. GeneFoundry shapes the surface

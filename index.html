@@ -41,6 +41,9 @@
   <!-- Self-hosted Inter (google-webfonts-helper). Preload 400 (body) + 700 (hero headline). -->
   <link rel="preload" href="/fonts/inter-v20-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/inter-v20-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Instrument Serif italic: the above-the-fold hero accent. Preloaded so it
+       paints with the real face (zero swap shift); swap + metric fallback are the safety net. -->
+  <link rel="preload" href="/fonts/instrument-serif-v5-latin-italic.woff2" as="font" type="font/woff2" crossorigin>
 
   <meta name="description"
     content="GeneFoundry Router is a FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind one HTTP endpoint, with collision-free namespacing, search-based tool discovery and no credential passthrough. Add one line to any MCP host. Research use only." />

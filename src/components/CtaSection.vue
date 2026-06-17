@@ -9,12 +9,12 @@ import { ADD_COMMAND, GITHUB_URL } from '../data/servers'
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
       <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-2 to-ink px-6 py-14 text-center sm:px-12">
         <!-- glow -->
-        <div class="pointer-events-none absolute -top-24 left-1/2 -z-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-primary/25 via-accent/20 to-accent-2/25 blur-3xl"></div>
+        <div class="pointer-events-none absolute -top-24 left-1/2 -z-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl"></div>
 
         <div class="relative z-10">
-          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             Give your agent the genome’s<br class="hidden sm:block" />
-            data layer, in one line.
+            <span class="serif-accent text-[1.1em]">data layer</span>, in one line.
           </h2>
           <p class="mx-auto mt-4 max-w-xl text-slate-400">
             One endpoint. No signup, no keys, open source.

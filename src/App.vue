@@ -14,15 +14,14 @@ import FooterSection from './components/FooterSection.vue'
 </script>
 
 <template>
-  <!-- Fixed ambient background: aurora mesh + engineered grid -->
+  <!-- Fixed ambient background: one intentional brand spotlight + drafting grid -->
   <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-ink" aria-hidden="true">
-    <div class="absolute inset-0 bg-grid opacity-[0.55]"></div>
-    <!-- aurora blobs -->
-    <div class="animate-aurora absolute -left-40 -top-48 h-[40rem] w-[40rem] rounded-full bg-primary/20 blur-[120px]"></div>
-    <div class="animate-aurora-2 absolute -right-32 top-24 h-[34rem] w-[34rem] rounded-full bg-accent/15 blur-[120px]"></div>
-    <div class="animate-aurora absolute bottom-0 left-1/3 h-[30rem] w-[30rem] rounded-full bg-accent-2/15 blur-[130px]"></div>
-    <!-- top vignette to seat the navbar -->
-    <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-ink/80 to-transparent"></div>
+    <div class="absolute inset-0 bg-spotlight"></div>
+    <div class="absolute inset-0 bg-grid"></div>
+    <!-- a single slow magenta glow for ambient life, not a rainbow of blobs -->
+    <div class="animate-aurora absolute -left-32 -top-40 h-[36rem] w-[36rem] rounded-full bg-primary/10 blur-[130px]"></div>
+    <!-- bottom fade so content settles into pure ink -->
+    <div class="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-ink to-transparent"></div>
   </div>
 
   <!-- Skip link for keyboard / screen-reader users -->
