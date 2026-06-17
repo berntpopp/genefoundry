@@ -13,7 +13,7 @@ withDefaults(
     /** Horizontal alignment of the label row. */
     align?: 'center' | 'start'
   }>(),
-  { align: 'center' },
+  { align: 'center' }
 )
 </script>
 
@@ -24,6 +24,8 @@ withDefaults(
   >
     <span class="font-mono text-[11px] tracking-[0.22em] text-primary-light">{{ index }}</span>
     <span class="h-px w-9 bg-white/15"></span>
-    <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-400">{{ label }}</span>
+    <span class="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-400">{{
+      label
+    }}</span>
   </div>
 </template>

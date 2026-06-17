@@ -7,7 +7,7 @@ const sources = Array.from(new Set(SERVERS.map((s) => s.source)))
 const stats = [
   { value: '1', label: 'endpoint to add' },
   { value: String(SERVER_COUNT), label: 'federated servers' },
-  { value: String(TOOL_COUNT), label: 'tools, searchable' },
+  { value: String(TOOL_COUNT), label: 'tools, searchable' }
 ]
 </script>
 
@@ -31,10 +31,14 @@ const stats = [
 
       <!-- Source marquee -->
       <div class="border-t border-white/[0.06] py-7">
-        <p class="mb-5 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-slate-400">
+        <p
+          class="mb-5 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-slate-400"
+        >
           Federating trusted biomedical sources
         </p>
-        <div class="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+        <div
+          class="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+        >
           <div class="flex w-max animate-marquee gap-10 group-hover:[animation-play-state:paused]">
             <span
               v-for="(name, i) in [...sources, ...sources]"

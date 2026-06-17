@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Self-hosted Inter font from Google Fonts (via google-webfonts-helper) */
 /* inter-regular - latin */
@@ -87,20 +87,25 @@
   --color-primary-dark: #a23570;
 
   /* Accents that complete the magenta → violet → indigo signature */
-  --color-accent: #a855f7;   /* violet */
+  --color-accent: #a855f7; /* violet */
   --color-accent-2: #6366f1; /* indigo */
 
   /* Surfaces: near-black with a faint blue cast */
-  --color-ink: #08080c;       /* page background */
-  --color-ink-2: #0d0d15;     /* raised background bands */
-  --color-panel: #111119;     /* cards / panels */
+  --color-ink: #08080c; /* page background */
+  --color-ink-2: #0d0d15; /* raised background bands */
+  --color-panel: #111119; /* cards / panels */
   --color-secondary: #334155; /* retained for compatibility */
 
   /* Inter (self-hosted) with metric-matched fallback for zero CLS */
-  --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', 'SF Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-sans:
+    'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    ui-monospace, 'SFMono-Regular', 'SF Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
   /* Editorial display face for heading emphasis (the signature) */
-  --font-display: 'Instrument Serif', 'Instrument Serif Fallback', Georgia, 'Times New Roman', serif;
+  --font-display:
+    'Instrument Serif', 'Instrument Serif Fallback', Georgia, 'Times New Roman', serif;
 }
 
 html {
@@ -183,38 +188,77 @@ body {
 /* Motion                                                              */
 /* ------------------------------------------------------------------ */
 @keyframes aurora-drift {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(4%, -3%, 0) scale(1.08); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
 }
 @keyframes aurora-drift-2 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
-  50% { transform: translate3d(-5%, 4%, 0) scale(1); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-5%, 4%, 0) scale(1);
+  }
 }
-.animate-aurora { animation: aurora-drift 22s ease-in-out infinite; }
-.animate-aurora-2 { animation: aurora-drift-2 26s ease-in-out infinite; }
+.animate-aurora {
+  animation: aurora-drift 22s ease-in-out infinite;
+}
+.animate-aurora-2 {
+  animation: aurora-drift-2 26s ease-in-out infinite;
+}
 
 @keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
-.animate-float { animation: float-y 4s ease-in-out infinite; }
+.animate-float {
+  animation: float-y 4s ease-in-out infinite;
+}
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
-.animate-marquee { animation: marquee 42s linear infinite; }
+.animate-marquee {
+  animation: marquee 42s linear infinite;
+}
 
 @keyframes pulse-ring {
-  0% { transform: scale(0.9); opacity: 0.7; }
-  70% { transform: scale(1.7); opacity: 0; }
-  100% { opacity: 0; }
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
-.animate-pulse-ring { animation: pulse-ring 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-pulse-ring {
+  animation: pulse-ring 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
 /* WCAG 2.2.2 / 2.3.3: honor reduced-motion globally */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {

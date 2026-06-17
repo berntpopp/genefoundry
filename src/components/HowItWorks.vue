@@ -6,18 +6,18 @@ const steps = [
   {
     title: 'Add one endpoint',
     body: 'Point any MCP host at the hosted router. No install, no per-server setup, no keys.',
-    code: ADD_COMMAND,
+    code: ADD_COMMAND
   },
   {
     title: 'Discover with search_tools',
     body: `Your agent searches the federated catalog by relevance and pulls only the schemas it needs, not all ${TOOL_COUNT}.`,
-    code: 'search_tools("splice impact of a variant")',
+    code: 'search_tools("splice impact of a variant")'
   },
   {
     title: 'Run with call_tool',
     body: 'Invoke any hit by its namespaced name. Results stay grounded in the source, with citations, never rewritten.',
-    code: 'call_tool("spliceai_predict_variant", { … })',
-  },
+    code: 'call_tool("spliceai_predict_variant", { … })'
+  }
 ]
 </script>
 
@@ -28,14 +28,16 @@ const steps = [
         <!-- Left: sticky editorial intro -->
         <div class="min-w-0 lg:sticky lg:top-28 lg:self-start">
           <SectionLabel index="01" label="How it works" align="start" />
-          <h2 class="mt-5 text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl">
+          <h2
+            class="mt-5 text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-4xl"
+          >
             One <span class="serif-accent text-[1.1em]">search box</span>,<br />
             not a wall of tools.
           </h2>
           <p class="mt-5 max-w-md text-lg leading-relaxed text-slate-400">
-            Mounting {{ TOOL_COUNT }} tools into a model burns tens of thousands of tokens before any
-            work starts, and floods the context with schemas it will never call. GeneFoundry exposes a
-            <span class="font-mono text-slate-200">search surface</span> instead.
+            Mounting {{ TOOL_COUNT }} tools into a model burns tens of thousands of tokens before
+            any work starts, and floods the context with schemas it will never call. GeneFoundry
+            exposes a <span class="font-mono text-slate-200">search surface</span> instead.
           </p>
         </div>
 
@@ -52,21 +54,23 @@ const steps = [
               :key="step.title"
               class="relative flex gap-5 pb-10 last:pb-0"
             >
-            <!-- numbered node -->
-            <div
-              class="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-panel shadow-lg shadow-black/30"
-            >
-              <span class="font-display text-2xl italic leading-none text-primary-light">{{ i + 1 }}</span>
-            </div>
-
-            <div class="min-w-0 flex-1 pt-1.5">
-              <h3 class="text-lg font-semibold text-white">{{ step.title }}</h3>
-              <p class="mt-1.5 text-sm leading-relaxed text-slate-400">{{ step.body }}</p>
-              <code
-                class="mt-3.5 block overflow-x-auto whitespace-nowrap rounded-lg border border-white/[0.06] bg-black/40 px-3 py-2.5 font-mono text-xs text-slate-300"
+              <!-- numbered node -->
+              <div
+                class="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-panel shadow-lg shadow-black/30"
               >
-                <span class="mr-1.5 text-accent">›</span>{{ step.code }}
-              </code>
+                <span class="font-display text-2xl italic leading-none text-primary-light">{{
+                  i + 1
+                }}</span>
+              </div>
+
+              <div class="min-w-0 flex-1 pt-1.5">
+                <h3 class="text-lg font-semibold text-white">{{ step.title }}</h3>
+                <p class="mt-1.5 text-sm leading-relaxed text-slate-400">{{ step.body }}</p>
+                <code
+                  class="mt-3.5 block overflow-x-auto whitespace-nowrap rounded-lg border border-white/[0.06] bg-black/40 px-3 py-2.5 font-mono text-xs text-slate-300"
+                >
+                  <span class="mr-1.5 text-accent">›</span>{{ step.code }}
+                </code>
               </div>
             </li>
           </ol>

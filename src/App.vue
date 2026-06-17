@@ -19,7 +19,9 @@ import FooterSection from './components/FooterSection.vue'
     <div class="absolute inset-0 bg-spotlight"></div>
     <div class="absolute inset-0 bg-grid"></div>
     <!-- a single slow magenta glow for ambient life, not a rainbow of blobs -->
-    <div class="animate-aurora absolute -left-32 -top-40 h-[36rem] w-[36rem] rounded-full bg-primary/10 blur-[130px]"></div>
+    <div
+      class="animate-aurora absolute -left-32 -top-40 h-[36rem] w-[36rem] rounded-full bg-primary/10 blur-[130px]"
+    ></div>
     <!-- bottom fade so content settles into pure ink -->
     <div class="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-ink to-transparent"></div>
   </div>

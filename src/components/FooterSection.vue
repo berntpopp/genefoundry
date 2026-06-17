@@ -25,14 +25,14 @@ const nav: Record<string, FooterLink[]> = {
     { label: 'How it works', href: '#how' },
     { label: 'Server catalog', href: '#catalog' },
     { label: 'Why GeneFoundry', href: '#features' },
-    { label: 'Connect a host', href: '#connect' },
+    { label: 'Connect a host', href: '#connect' }
   ],
   Resources: [
     { label: 'GitHub', href: GITHUB_URL, external: true },
     { label: 'Health check', href: HEALTH_URL, external: true },
     { label: 'MCP endpoint', href: HOSTED_ENDPOINT, external: true },
-    { label: 'Contact', href: 'mailto:support@genefoundry.org' },
-  ],
+    { label: 'Contact', href: 'mailto:support@genefoundry.org' }
+  ]
 }
 </script>
 
@@ -43,23 +43,33 @@ const nav: Record<string, FooterLink[]> = {
         <!-- Brand -->
         <div>
           <div class="flex items-center gap-2.5">
-            <img src="/genefoundry_logo.svg" alt="GeneFoundry logo" width="32" height="32" class="h-8 w-8" />
+            <img
+              src="/genefoundry_logo.svg"
+              alt="GeneFoundry logo"
+              width="32"
+              height="32"
+              class="h-8 w-8"
+            />
             <span class="text-lg font-bold tracking-tight text-white">
               Gene<span class="text-primary-light">Foundry</span>
             </span>
           </div>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
-            A FastMCP gateway federating biomedical MCP servers behind one endpoint.
-            Trustworthy genomic data, federated for agents.
+            A FastMCP gateway federating biomedical MCP servers behind one endpoint. Trustworthy
+            genomic data, federated for agents.
           </p>
-          <code class="mt-4 inline-block rounded-lg border border-white/[0.08] bg-black/30 px-3 py-1.5 font-mono text-xs text-slate-400">
+          <code
+            class="mt-4 inline-block rounded-lg border border-white/[0.08] bg-black/30 px-3 py-1.5 font-mono text-xs text-slate-400"
+          >
             {{ HOSTED_ENDPOINT }}
           </code>
         </div>
 
         <!-- Link columns -->
         <div v-for="(items, heading) in nav" :key="heading">
-          <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-slate-400">{{ heading }}</h3>
+          <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-slate-400">
+            {{ heading }}
+          </h3>
           <ul class="mt-4 space-y-2.5">
             <li v-for="item in items" :key="item.label">
               <a
@@ -75,11 +85,15 @@ const nav: Record<string, FooterLink[]> = {
         </div>
       </div>
 
-      <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-sm text-slate-400 sm:flex-row">
+      <div
+        class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-sm text-slate-400 sm:flex-row"
+      >
         <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
           <span>MIT © {{ new Date().getFullYear() }} Bernt Popp</span>
           <span class="text-slate-700">·</span>
-          <button @click="openImprint" class="cursor-pointer transition-colors hover:text-white">Imprint</button>
+          <button @click="openImprint" class="cursor-pointer transition-colors hover:text-white">
+            Imprint
+          </button>
         </div>
         <p class="text-center text-xs sm:text-right">
           Research use only. Not clinical decision support.

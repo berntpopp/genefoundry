@@ -29,9 +29,14 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: 'variant', label: 'Variants', text: 'text-rose-300', dot: 'bg-rose-400' },
   { id: 'gene-disease', label: 'Gene–disease', text: 'text-violet-300', dot: 'bg-violet-400' },
   { id: 'gene-protein', label: 'Genes & proteins', text: 'text-sky-300', dot: 'bg-sky-400' },
-  { id: 'expression-models', label: 'Expression & models', text: 'text-amber-300', dot: 'bg-amber-400' },
+  {
+    id: 'expression-models',
+    label: 'Expression & models',
+    text: 'text-amber-300',
+    dot: 'bg-amber-400'
+  },
   { id: 'literature', label: 'Literature', text: 'text-emerald-300', dot: 'bg-emerald-400' },
-  { id: 'ontology', label: 'Disease ontology', text: 'text-fuchsia-300', dot: 'bg-fuchsia-400' },
+  { id: 'ontology', label: 'Disease ontology', text: 'text-fuchsia-300', dot: 'bg-fuchsia-400' }
 ]
 
 export interface ServerEntry {
@@ -48,23 +53,176 @@ export interface ServerEntry {
 
 /** Ordered by tool count, matching the README catalog table. */
 export const SERVERS: ServerEntry[] = [
-  { namespace: 'pubtator', domain: 'Literature & entity annotation', source: 'PubTator3', sourceUrl: 'https://www.ncbi.nlm.nih.gov/research/pubtator3/', tools: 43, repo: 'berntpopp/pubtator-link', category: 'literature', sampleTool: 'pubtator_search_literature' },
-  { namespace: 'gnomad', domain: 'Variant, gene & population frequency', source: 'gnomAD', sourceUrl: 'https://gnomad.broadinstitute.org/', tools: 22, repo: 'berntpopp/gnomad-link', category: 'variant', sampleTool: 'gnomad_search_genes' },
-  { namespace: 'clingen', domain: 'Gene–disease curation', source: 'ClinGen', sourceUrl: 'https://clinicalgenome.org/', tools: 17, repo: 'berntpopp/clingen-link', category: 'gene-disease', sampleTool: 'clingen_get_gene_validity' },
-  { namespace: 'uniprot', domain: 'Protein function', source: 'UniProt', sourceUrl: 'https://www.uniprot.org/', tools: 15, repo: 'berntpopp/uniprot-link', category: 'gene-protein', sampleTool: 'uniprot_get_protein' },
-  { namespace: 'mgi', domain: 'Mouse phenotype & models', source: 'MGI', sourceUrl: 'https://www.informatics.jax.org/', tools: 13, repo: 'berntpopp/mgi-link', category: 'expression-models', sampleTool: 'mgi_get_phenotypes' },
-  { namespace: 'genereviews', domain: 'Gene–disease literature', source: 'GeneReviews', sourceUrl: 'https://www.ncbi.nlm.nih.gov/books/NBK1116/', tools: 13, repo: 'berntpopp/genereviews-link', category: 'literature', sampleTool: 'genereviews_search_passages' },
-  { namespace: 'mondo', domain: 'Disease ontology & cross-references', source: 'Mondo', sourceUrl: 'https://mondo.monarchinitiative.org/', tools: 13, repo: 'berntpopp/mondo-link', category: 'ontology', sampleTool: 'mondo_resolve_disease' },
-  { namespace: 'gencc', domain: 'Gene–disease curation', source: 'GenCC', sourceUrl: 'https://thegencc.org/', tools: 12, repo: 'berntpopp/gencc-link', category: 'gene-disease', sampleTool: 'gencc_get_gene' },
-  { namespace: 'stringdb', domain: 'Protein–protein interaction networks', source: 'STRING', sourceUrl: 'https://string-db.org/', tools: 10, repo: 'berntpopp/stringdb-link', category: 'gene-protein', sampleTool: 'stringdb_get_interactions' },
-  { namespace: 'gtex', domain: 'Tissue expression', source: 'GTEx Portal', sourceUrl: 'https://gtexportal.org/', tools: 9, repo: 'berntpopp/gtex-link', category: 'expression-models', sampleTool: 'gtex_get_median_expression_levels' },
-  { namespace: 'hgnc', domain: 'Gene nomenclature', source: 'HGNC', sourceUrl: 'https://www.genenames.org/', tools: 9, repo: 'berntpopp/hgnc-link', category: 'gene-protein', sampleTool: 'hgnc_resolve_symbol' },
-  { namespace: 'panelapp', domain: 'Diagnostic gene panels & curation', source: 'PanelApp', sourceUrl: 'https://panelapp.genomicsengland.co.uk/', tools: 9, repo: 'berntpopp/panelapp-link', category: 'gene-disease', sampleTool: 'panelapp_get_panel' },
-  { namespace: 'autopvs1', domain: 'Variant ACMG PVS1', source: 'AutoPVS1', sourceUrl: 'https://autopvs1.bgi.com/', tools: 7, repo: 'berntpopp/autopvs1-link', category: 'variant', sampleTool: 'autopvs1_classify_variant' },
-  { namespace: 'spliceai', domain: 'Splicing prediction', source: 'SpliceAI Lookup', sourceUrl: 'https://spliceailookup.broadinstitute.org/', tools: 7, repo: 'berntpopp/spliceailookup-link', category: 'variant', sampleTool: 'spliceai_predict_variant' },
-  { namespace: 'vep', domain: 'Variant annotation & consequence', source: 'Ensembl VEP', sourceUrl: 'https://rest.ensembl.org/', tools: 7, repo: 'berntpopp/vep-link', category: 'variant', sampleTool: 'vep_annotate_variant' },
-  { namespace: 'clinvar', domain: 'Variant clinical significance', source: 'ClinVar', sourceUrl: 'https://www.ncbi.nlm.nih.gov/clinvar/', tools: 6, repo: 'berntpopp/clinvar-link', category: 'variant', sampleTool: 'clinvar_get_variant' },
-  { namespace: 'litvar', domain: 'Variant literature', source: 'LitVar2', sourceUrl: 'https://www.ncbi.nlm.nih.gov/research/litvar2/', tools: 6, repo: 'berntpopp/litvar-link', category: 'literature', sampleTool: 'litvar_search_variant' },
+  {
+    namespace: 'pubtator',
+    domain: 'Literature & entity annotation',
+    source: 'PubTator3',
+    sourceUrl: 'https://www.ncbi.nlm.nih.gov/research/pubtator3/',
+    tools: 43,
+    repo: 'berntpopp/pubtator-link',
+    category: 'literature',
+    sampleTool: 'pubtator_search_literature'
+  },
+  {
+    namespace: 'gnomad',
+    domain: 'Variant, gene & population frequency',
+    source: 'gnomAD',
+    sourceUrl: 'https://gnomad.broadinstitute.org/',
+    tools: 22,
+    repo: 'berntpopp/gnomad-link',
+    category: 'variant',
+    sampleTool: 'gnomad_search_genes'
+  },
+  {
+    namespace: 'clingen',
+    domain: 'Gene–disease curation',
+    source: 'ClinGen',
+    sourceUrl: 'https://clinicalgenome.org/',
+    tools: 17,
+    repo: 'berntpopp/clingen-link',
+    category: 'gene-disease',
+    sampleTool: 'clingen_get_gene_validity'
+  },
+  {
+    namespace: 'uniprot',
+    domain: 'Protein function',
+    source: 'UniProt',
+    sourceUrl: 'https://www.uniprot.org/',
+    tools: 15,
+    repo: 'berntpopp/uniprot-link',
+    category: 'gene-protein',
+    sampleTool: 'uniprot_get_protein'
+  },
+  {
+    namespace: 'mgi',
+    domain: 'Mouse phenotype & models',
+    source: 'MGI',
+    sourceUrl: 'https://www.informatics.jax.org/',
+    tools: 13,
+    repo: 'berntpopp/mgi-link',
+    category: 'expression-models',
+    sampleTool: 'mgi_get_phenotypes'
+  },
+  {
+    namespace: 'genereviews',
+    domain: 'Gene–disease literature',
+    source: 'GeneReviews',
+    sourceUrl: 'https://www.ncbi.nlm.nih.gov/books/NBK1116/',
+    tools: 13,
+    repo: 'berntpopp/genereviews-link',
+    category: 'literature',
+    sampleTool: 'genereviews_search_passages'
+  },
+  {
+    namespace: 'mondo',
+    domain: 'Disease ontology & cross-references',
+    source: 'Mondo',
+    sourceUrl: 'https://mondo.monarchinitiative.org/',
+    tools: 13,
+    repo: 'berntpopp/mondo-link',
+    category: 'ontology',
+    sampleTool: 'mondo_resolve_disease'
+  },
+  {
+    namespace: 'gencc',
+    domain: 'Gene–disease curation',
+    source: 'GenCC',
+    sourceUrl: 'https://thegencc.org/',
+    tools: 12,
+    repo: 'berntpopp/gencc-link',
+    category: 'gene-disease',
+    sampleTool: 'gencc_get_gene'
+  },
+  {
+    namespace: 'stringdb',
+    domain: 'Protein–protein interaction networks',
+    source: 'STRING',
+    sourceUrl: 'https://string-db.org/',
+    tools: 10,
+    repo: 'berntpopp/stringdb-link',
+    category: 'gene-protein',
+    sampleTool: 'stringdb_get_interactions'
+  },
+  {
+    namespace: 'gtex',
+    domain: 'Tissue expression',
+    source: 'GTEx Portal',
+    sourceUrl: 'https://gtexportal.org/',
+    tools: 9,
+    repo: 'berntpopp/gtex-link',
+    category: 'expression-models',
+    sampleTool: 'gtex_get_median_expression_levels'
+  },
+  {
+    namespace: 'hgnc',
+    domain: 'Gene nomenclature',
+    source: 'HGNC',
+    sourceUrl: 'https://www.genenames.org/',
+    tools: 9,
+    repo: 'berntpopp/hgnc-link',
+    category: 'gene-protein',
+    sampleTool: 'hgnc_resolve_symbol'
+  },
+  {
+    namespace: 'panelapp',
+    domain: 'Diagnostic gene panels & curation',
+    source: 'PanelApp',
+    sourceUrl: 'https://panelapp.genomicsengland.co.uk/',
+    tools: 9,
+    repo: 'berntpopp/panelapp-link',
+    category: 'gene-disease',
+    sampleTool: 'panelapp_get_panel'
+  },
+  {
+    namespace: 'autopvs1',
+    domain: 'Variant ACMG PVS1',
+    source: 'AutoPVS1',
+    sourceUrl: 'https://autopvs1.bgi.com/',
+    tools: 7,
+    repo: 'berntpopp/autopvs1-link',
+    category: 'variant',
+    sampleTool: 'autopvs1_classify_variant'
+  },
+  {
+    namespace: 'spliceai',
+    domain: 'Splicing prediction',
+    source: 'SpliceAI Lookup',
+    sourceUrl: 'https://spliceailookup.broadinstitute.org/',
+    tools: 7,
+    repo: 'berntpopp/spliceailookup-link',
+    category: 'variant',
+    sampleTool: 'spliceai_predict_variant'
+  },
+  {
+    namespace: 'vep',
+    domain: 'Variant annotation & consequence',
+    source: 'Ensembl VEP',
+    sourceUrl: 'https://rest.ensembl.org/',
+    tools: 7,
+    repo: 'berntpopp/vep-link',
+    category: 'variant',
+    sampleTool: 'vep_annotate_variant'
+  },
+  {
+    namespace: 'clinvar',
+    domain: 'Variant clinical significance',
+    source: 'ClinVar',
+    sourceUrl: 'https://www.ncbi.nlm.nih.gov/clinvar/',
+    tools: 6,
+    repo: 'berntpopp/clinvar-link',
+    category: 'variant',
+    sampleTool: 'clinvar_get_variant'
+  },
+  {
+    namespace: 'litvar',
+    domain: 'Variant literature',
+    source: 'LitVar2',
+    sourceUrl: 'https://www.ncbi.nlm.nih.gov/research/litvar2/',
+    tools: 6,
+    repo: 'berntpopp/litvar-link',
+    category: 'literature',
+    sampleTool: 'litvar_search_variant'
+  }
 ]
 
 export const SERVER_COUNT = SERVERS.length

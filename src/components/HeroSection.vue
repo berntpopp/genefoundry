@@ -12,17 +12,25 @@ import { ADD_COMMAND, GITHUB_URL, SERVER_COUNT, TOOL_COUNT } from '../data/serve
         <!-- Copy -->
         <div class="min-w-0 text-center lg:text-left">
           <!-- Status pill -->
-          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-slate-300 backdrop-blur">
+          <div
+            class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-slate-300 backdrop-blur"
+          >
             <span class="relative flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-emerald-400"></span>
+              <span
+                class="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-emerald-400"
+              ></span>
               <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
             </span>
             <span>Live</span>
             <span class="text-slate-600">·</span>
-            <span class="font-mono text-slate-400">{{ SERVER_COUNT }} servers · {{ TOOL_COUNT }} tools</span>
+            <span class="font-mono text-slate-400"
+              >{{ SERVER_COUNT }} servers · {{ TOOL_COUNT }} tools</span
+            >
           </div>
 
-          <h1 class="text-[2.65rem] font-semibold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4rem]">
+          <h1
+            class="text-[2.65rem] font-semibold leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-[4rem]"
+          >
             Every biomedical MCP,<br class="hidden sm:block" />
             behind <span class="serif-accent text-[1.08em]">one endpoint.</span>
           </h1>

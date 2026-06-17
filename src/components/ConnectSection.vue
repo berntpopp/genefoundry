@@ -17,7 +17,7 @@ const tabs: Tab[] = [
     id: 'claude',
     label: 'Claude Code',
     hint: 'Terminal',
-    code: `claude mcp add --transport http genefoundry ${HOSTED_ENDPOINT}`,
+    code: `claude mcp add --transport http genefoundry ${HOSTED_ENDPOINT}`
   },
   {
     id: 'cursor',
@@ -29,7 +29,7 @@ const tabs: Tab[] = [
       "url": "${HOSTED_ENDPOINT}"
     }
   }
-}`,
+}`
   },
   {
     id: 'gemini',
@@ -41,7 +41,7 @@ const tabs: Tab[] = [
       "httpUrl": "${HOSTED_ENDPOINT}"
     }
   }
-}`,
+}`
   },
   {
     id: 'vscode',
@@ -54,8 +54,8 @@ const tabs: Tab[] = [
       "url": "${HOSTED_ENDPOINT}"
     }
   }
-}`,
-  },
+}`
+  }
 ]
 
 const active = ref<Tab>(tabs[0])
@@ -75,9 +75,15 @@ const { copied, copy } = useClipboard()
         </p>
       </div>
 
-      <div class="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-panel/60 shadow-2xl shadow-black/40">
+      <div
+        class="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-panel/60 shadow-2xl shadow-black/40"
+      >
         <!-- Tabs -->
-        <div role="tablist" aria-label="MCP host" class="flex items-center gap-1 overflow-x-auto border-b border-white/10 px-2 pt-2">
+        <div
+          role="tablist"
+          aria-label="MCP host"
+          class="flex items-center gap-1 overflow-x-auto border-b border-white/10 px-2 pt-2"
+        >
           <button
             v-for="tab in tabs"
             :key="tab.id"
@@ -98,9 +104,18 @@ const { copied, copy } = useClipboard()
         </div>
 
         <!-- Code panel -->
-        <div role="tabpanel" :id="`panel-${active.id}`" :aria-labelledby="`tab-${active.id}`" class="relative">
-          <div class="flex items-center justify-between border-b border-white/[0.06] bg-black/20 px-4 py-2">
-            <span class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-400">
+        <div
+          role="tabpanel"
+          :id="`panel-${active.id}`"
+          :aria-labelledby="`tab-${active.id}`"
+          class="relative"
+        >
+          <div
+            class="flex items-center justify-between border-b border-white/[0.06] bg-black/20 px-4 py-2"
+          >
+            <span
+              class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-400"
+            >
               <Terminal class="h-3.5 w-3.5" />
               {{ active.hint }}
             </span>
@@ -110,12 +125,19 @@ const { copied, copy } = useClipboard()
               class="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-slate-300 transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
               :aria-label="copied ? 'Copied' : 'Copy configuration'"
             >
-              <component :is="copied ? Check : Copy" class="h-3.5 w-3.5" :class="copied ? 'text-emerald-400' : ''" />
+              <component
+                :is="copied ? Check : Copy"
+                class="h-3.5 w-3.5"
+                :class="copied ? 'text-emerald-400' : ''"
+              />
               {{ copied ? 'Copied' : 'Copy' }}
             </button>
           </div>
           <transition name="swap" mode="out-in">
-            <pre :key="active.id" class="overflow-x-auto px-5 py-5 font-mono text-[13px] leading-6 text-slate-200"><code>{{ active.code }}</code></pre>
+            <pre
+              :key="active.id"
+              class="overflow-x-auto px-5 py-5 font-mono text-[13px] leading-6 text-slate-200"
+            ><code>{{ active.code }}</code></pre>
           </transition>
         </div>
       </div>
@@ -123,7 +145,12 @@ const { copied, copy } = useClipboard()
       <!-- Verify -->
       <p class="mt-6 text-center text-sm text-slate-400">
         Verify reachability:
-        <a :href="HEALTH_URL" target="_blank" rel="noopener noreferrer" class="font-mono text-slate-400 underline decoration-white/20 underline-offset-4 transition-colors hover:text-primary-light">
+        <a
+          :href="HEALTH_URL"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-slate-400 underline decoration-white/20 underline-offset-4 transition-colors hover:text-primary-light"
+        >
           curl {{ HEALTH_URL }}
         </a>
       </p>

@@ -19,19 +19,84 @@ interface Line {
 }
 
 const lines: Line[] = [
-  { prompt: true, tokens: [{ t: 'search_tools', c: 'text-primary-light' }, { t: ' "population frequency of a kidney variant"', c: 'text-slate-200' }] },
+  {
+    prompt: true,
+    tokens: [
+      { t: 'search_tools', c: 'text-primary-light' },
+      { t: ' "population frequency of a kidney variant"', c: 'text-slate-200' }
+    ]
+  },
   { tokens: [{ t: '→ 4 matches · 2 servers · ranked by BM25', c: 'text-slate-400' }] },
-  { indent: 1, tokens: [{ t: 'gnomad_search_genes', c: 'text-primary-light' }, { t: '  gnomad', c: 'text-sky-300' }, { t: ' · variant·frequency', c: 'text-slate-400' }] },
-  { indent: 1, tokens: [{ t: 'gnomad_resolve_variant_id', c: 'text-primary-light' }, { t: '  gnomad', c: 'text-sky-300' }, { t: ' · variant', c: 'text-slate-400' }] },
-  { indent: 1, tokens: [{ t: 'gtex_get_median_expression', c: 'text-primary-light' }, { t: '  gtex', c: 'text-sky-300' }, { t: ' · expression', c: 'text-slate-400' }] },
+  {
+    indent: 1,
+    tokens: [
+      { t: 'gnomad_search_genes', c: 'text-primary-light' },
+      { t: '  gnomad', c: 'text-sky-300' },
+      { t: ' · variant·frequency', c: 'text-slate-400' }
+    ]
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: 'gnomad_resolve_variant_id', c: 'text-primary-light' },
+      { t: '  gnomad', c: 'text-sky-300' },
+      { t: ' · variant', c: 'text-slate-400' }
+    ]
+  },
+  {
+    indent: 1,
+    tokens: [
+      { t: 'gtex_get_median_expression', c: 'text-primary-light' },
+      { t: '  gtex', c: 'text-sky-300' },
+      { t: ' · expression', c: 'text-slate-400' }
+    ]
+  },
   { tokens: [{ t: '', c: '' }] },
-  { prompt: true, tokens: [{ t: 'call_tool', c: 'text-primary-light' }, { t: ' gnomad_search_genes ', c: 'text-slate-200' }, { t: '{ "query": "PKD1" }', c: 'text-violet-300' }] },
+  {
+    prompt: true,
+    tokens: [
+      { t: 'call_tool', c: 'text-primary-light' },
+      { t: ' gnomad_search_genes ', c: 'text-slate-200' },
+      { t: '{ "query": "PKD1" }', c: 'text-violet-300' }
+    ]
+  },
   { indent: 1, tokens: [{ t: '{', c: 'text-slate-400' }] },
-  { indent: 2, tokens: [{ t: '"symbol"', c: 'text-violet-300' }, { t: ': ', c: 'text-slate-400' }, { t: '"PKD1"', c: 'text-emerald-300' }, { t: ',', c: 'text-slate-400' }] },
-  { indent: 2, tokens: [{ t: '"af_popmax"', c: 'text-violet-300' }, { t: ': ', c: 'text-slate-400' }, { t: '0.000042', c: 'text-amber-300' }, { t: ',', c: 'text-slate-400' }] },
-  { indent: 2, tokens: [{ t: '"source"', c: 'text-violet-300' }, { t: ': ', c: 'text-slate-400' }, { t: '"gnomAD v4.1"', c: 'text-emerald-300' }, { t: ',', c: 'text-slate-400' }] },
-  { indent: 2, tokens: [{ t: '"cited"', c: 'text-violet-300' }, { t: ': ', c: 'text-slate-400' }, { t: 'true', c: 'text-emerald-400' }] },
-  { indent: 1, tokens: [{ t: '}', c: 'text-slate-400' }] },
+  {
+    indent: 2,
+    tokens: [
+      { t: '"symbol"', c: 'text-violet-300' },
+      { t: ': ', c: 'text-slate-400' },
+      { t: '"PKD1"', c: 'text-emerald-300' },
+      { t: ',', c: 'text-slate-400' }
+    ]
+  },
+  {
+    indent: 2,
+    tokens: [
+      { t: '"af_popmax"', c: 'text-violet-300' },
+      { t: ': ', c: 'text-slate-400' },
+      { t: '0.000042', c: 'text-amber-300' },
+      { t: ',', c: 'text-slate-400' }
+    ]
+  },
+  {
+    indent: 2,
+    tokens: [
+      { t: '"source"', c: 'text-violet-300' },
+      { t: ': ', c: 'text-slate-400' },
+      { t: '"gnomAD v4.1"', c: 'text-emerald-300' },
+      { t: ',', c: 'text-slate-400' }
+    ]
+  },
+  {
+    indent: 2,
+    tokens: [
+      { t: '"cited"', c: 'text-violet-300' },
+      { t: ': ', c: 'text-slate-400' },
+      { t: 'true', c: 'text-emerald-400' }
+    ]
+  },
+  { indent: 1, tokens: [{ t: '}', c: 'text-slate-400' }] }
 ]
 
 const reduced = usePrefersReducedMotion()
@@ -78,7 +143,9 @@ onUnmounted(() => {
         <span class="h-2.5 w-2.5 rounded-full bg-amber-400/70"></span>
         <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/70"></span>
       </div>
-      <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">genefoundry · mcp</span>
+      <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400"
+        >genefoundry · mcp</span
+      >
     </div>
 
     <!-- Body -->
@@ -109,7 +176,9 @@ onUnmounted(() => {
 
 <style scoped>
 .line-enter-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 .line-enter-from {
   opacity: 0;

@@ -27,7 +27,8 @@ const closeMenu = () => {
 onMounted(() => {
   // IntersectionObserver beats scroll listeners (callbacks run off main thread)
   sentinel = document.createElement('div')
-  sentinel.style.cssText = 'position:absolute;top:0;left:0;height:1px;width:100%;pointer-events:none'
+  sentinel.style.cssText =
+    'position:absolute;top:0;left:0;height:1px;width:100%;pointer-events:none'
   sentinel.setAttribute('aria-hidden', 'true')
   document.body.prepend(sentinel)
 
@@ -35,7 +36,7 @@ onMounted(() => {
     ([entry]) => {
       isScrolled.value = !entry.isIntersecting
     },
-    { rootMargin: '-20px 0px 0px 0px' },
+    { rootMargin: '-20px 0px 0px 0px' }
   )
   observer.observe(sentinel)
 
@@ -61,7 +62,7 @@ const links = [
   { name: 'How it works', href: '#how' },
   { name: 'Catalog', href: '#catalog' },
   { name: 'Why', href: '#features' },
-  { name: 'Connect', href: '#connect' },
+  { name: 'Connect', href: '#connect' }
 ]
 </script>
 
@@ -69,10 +70,12 @@ const links = [
   <nav
     class="fixed inset-x-0 top-0 z-50 border-b"
     :class="[
-      enableTransitions ? 'transition-[background-color,padding,border-color,backdrop-filter] duration-300' : '',
+      enableTransitions
+        ? 'transition-[background-color,padding,border-color,backdrop-filter] duration-300'
+        : '',
       isScrolled || isMenuOpen
         ? 'border-white/10 bg-ink/80 py-3 backdrop-blur-xl'
-        : 'border-transparent bg-transparent py-5',
+        : 'border-transparent bg-transparent py-5'
     ]"
   >
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -128,8 +131,37 @@ const links = [
         :aria-expanded="isMenuOpen"
         aria-label="Toggle menu"
       >
-        <svg v-if="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="18" x2="20" y2="18" /></svg>
-        <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+        <svg
+          v-if="!isMenuOpen"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+        <svg
+          v-else
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
       </button>
 
       <!-- Mobile menu -->

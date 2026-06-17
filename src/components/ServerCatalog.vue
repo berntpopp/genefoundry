@@ -10,7 +10,7 @@ const active = ref<Filter>('all')
 const categoryMap = Object.fromEntries(CATEGORIES.map((c) => [c.id, c]))
 
 const filtered = computed(() =>
-  active.value === 'all' ? SERVERS : SERVERS.filter((s) => s.category === active.value),
+  active.value === 'all' ? SERVERS : SERVERS.filter((s) => s.category === active.value)
 )
 
 const countFor = (id: Filter) =>
@@ -39,9 +39,11 @@ const countFor = (id: Filter) =>
           @click="active = 'all'"
           :aria-pressed="active === 'all'"
           class="rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-          :class="active === 'all'
-            ? 'border-primary/40 bg-primary/15 text-white'
-            : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20 hover:text-white'"
+          :class="
+            active === 'all'
+              ? 'border-primary/40 bg-primary/15 text-white'
+              : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20 hover:text-white'
+          "
         >
           All <span class="ml-1 font-mono text-xs opacity-70">{{ countFor('all') }}</span>
         </button>
@@ -51,9 +53,11 @@ const countFor = (id: Filter) =>
           @click="active = cat.id"
           :aria-pressed="active === cat.id"
           class="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-          :class="active === cat.id
-            ? 'border-primary/40 bg-primary/15 text-white'
-            : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20 hover:text-white'"
+          :class="
+            active === cat.id
+              ? 'border-primary/40 bg-primary/15 text-white'
+              : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20 hover:text-white'
+          "
         >
           <span class="h-1.5 w-1.5 rounded-full" :class="cat.dot"></span>
           {{ cat.label }}
@@ -69,8 +73,12 @@ const countFor = (id: Filter) =>
           class="group relative flex flex-col rounded-2xl border border-white/[0.08] bg-panel/50 p-5 transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:bg-panel"
         >
           <div class="flex items-start justify-between gap-3">
-            <code class="font-mono text-[15px] font-semibold text-primary-light">{{ server.namespace }}</code>
-            <span class="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[11px] text-slate-400">
+            <code class="font-mono text-[15px] font-semibold text-primary-light">{{
+              server.namespace
+            }}</code>
+            <span
+              class="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[11px] text-slate-400"
+            >
               {{ server.tools }} tools
             </span>
           </div>
@@ -87,7 +95,10 @@ const countFor = (id: Filter) =>
               :class="categoryMap[server.category].text"
               :aria-label="`Open the ${server.source} data source`"
             >
-              <span class="h-1.5 w-1.5 rounded-full" :class="categoryMap[server.category].dot"></span>
+              <span
+                class="h-1.5 w-1.5 rounded-full"
+                :class="categoryMap[server.category].dot"
+              ></span>
               {{ server.source }}
               <ArrowUpRight class="h-3 w-3 opacity-60" />
             </a>

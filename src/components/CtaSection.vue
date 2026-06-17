@@ -7,9 +7,13 @@ import { ADD_COMMAND, GITHUB_URL } from '../data/servers'
 <template>
   <section class="relative py-24 sm:py-28">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-2 to-ink px-6 py-14 text-center sm:px-12">
+      <div
+        class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-ink-2 to-ink px-6 py-14 text-center sm:px-12"
+      >
         <!-- glow -->
-        <div class="pointer-events-none absolute -top-24 left-1/2 -z-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl"></div>
+        <div
+          class="pointer-events-none absolute -top-24 left-1/2 -z-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl"
+        ></div>
 
         <div class="relative z-10">
           <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
