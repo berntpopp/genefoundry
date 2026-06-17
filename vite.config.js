@@ -35,11 +35,11 @@ export default defineConfig({
       },
       includeAssets: ['genefoundry_logo.svg', 'robots.txt'],
       manifest: {
-        name: 'GeneFoundry - Forging Trust in Genomic AI',
+        name: 'GeneFoundry: Every biomedical MCP, one endpoint',
         short_name: 'GeneFoundry',
-        description: 'A modular registry for trustworthy, evidence-based genomic analysis powered by Model Context Protocols (MCPs).',
-        theme_color: '#BE3E82',
-        background_color: '#ffffff',
+        description: 'A FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind one HTTP endpoint, with collision-free namespacing and search-based tool discovery.',
+        theme_color: '#08080c',
+        background_color: '#08080c',
         display: 'standalone',
         scope: process.env.VITE_BASE_URL || '/genefoundry/',
         start_url: process.env.VITE_BASE_URL || '/genefoundry/',
@@ -152,30 +152,12 @@ export default defineConfig({
       host: 'localhost'
     }
   },
-  // Optimize dependency pre-bundling for dev server performance
+  // Optimize dependency pre-bundling for dev server performance.
+  // Components import named icons from the 'lucide-vue-next' barrel; Vite
+  // tree-shakes them in the production build and pre-bundles on demand in dev.
+  // We only exclude the barrel so dev never eagerly bundles the full icon set.
   optimizeDeps: {
-    include: [
-      'vue',
-      // Pre-bundle only the icons we actually use
-      'lucide-vue-next/dist/esm/icons/database.js',
-      'lucide-vue-next/dist/esm/icons/file-text.js',
-      'lucide-vue-next/dist/esm/icons/book-open.js',
-      'lucide-vue-next/dist/esm/icons/file-check.js',
-      'lucide-vue-next/dist/esm/icons/shield-check.js',
-      'lucide-vue-next/dist/esm/icons/dna.js',
-      'lucide-vue-next/dist/esm/icons/stethoscope.js',
-      'lucide-vue-next/dist/esm/icons/microscope.js',
-      'lucide-vue-next/dist/esm/icons/activity.js',
-      'lucide-vue-next/dist/esm/icons/users.js',
-      'lucide-vue-next/dist/esm/icons/globe.js',
-      // Newsletter signup icons
-      'lucide-vue-next/dist/esm/icons/mail.js',
-      'lucide-vue-next/dist/esm/icons/arrow-right.js',
-      'lucide-vue-next/dist/esm/icons/check.js',
-      'lucide-vue-next/dist/esm/icons/circle-alert.js',
-      'lucide-vue-next/dist/esm/icons/loader-circle.js'
-    ],
-    // Exclude the barrel file to prevent loading all icons
+    include: ['vue'],
     exclude: ['lucide-vue-next']
   }
 })

@@ -47,32 +47,125 @@
   size-adjust: 107.12%;
 }
 
-/* Custom theme configuration (Tailwind 4 CSS-first) */
+/* ------------------------------------------------------------------ */
+/* Theme: Tailwind 4 CSS-first. Dark-first MCP-router palette.         */
+/* Signature gradient: magenta (logo) to violet to indigo.            */
+/* ------------------------------------------------------------------ */
 @theme {
-  /* Brand colors */
-  --color-primary: #BE3E82;
-  --color-primary-dark: #A23570;
-  --color-secondary: #334155;
+  /* Brand: magenta anchored on the existing logo, brightened for dark UI */
+  --color-primary: #be3e82;
+  --color-primary-light: #ed6fb0;
+  --color-primary-dark: #a23570;
+
+  /* Accents that complete the magenta → violet → indigo signature */
+  --color-accent: #a855f7;   /* violet */
+  --color-accent-2: #6366f1; /* indigo */
+
+  /* Surfaces: near-black with a faint blue cast */
+  --color-ink: #08080c;       /* page background */
+  --color-ink-2: #0d0d15;     /* raised background bands */
+  --color-panel: #111119;     /* cards / panels */
+  --color-secondary: #334155; /* retained for compatibility */
 
   /* Inter (self-hosted) with metric-matched fallback for zero CLS */
   --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'SF Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchor offset so fixed navbar never covers section headings */
+  scroll-padding-top: 5.5rem;
+  /* Safety net against horizontal scroll from any wide/nowrap descendant */
+  overflow-x: clip;
 }
 
 body {
-  @apply text-secondary bg-slate-50;
+  @apply bg-ink text-slate-300;
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/*
- * Content-visibility optimization for below-the-fold sections
- * Allows browser to skip rendering off-screen content initially,
- * reducing forced reflows and improving initial paint performance.
- * Reference: https://web.dev/content-visibility/
- */
-#methodology,
-#perspectives,
-#impact {
-  content-visibility: auto;
-  /* contain-intrinsic-size provides height hint to prevent CLS during lazy render */
-  contain-intrinsic-size: auto 600px;
+/* Selection picks up the brand magenta */
+::selection {
+  background-color: rgba(190, 62, 130, 0.3);
+  color: #fff;
+}
+
+/* Custom thin scrollbar for the dark theme (progressive enhancement) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.35) transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reusable presentation utilities                                     */
+/* ------------------------------------------------------------------ */
+
+/* Magenta → violet → indigo text gradient for display headings */
+.text-gradient {
+  background-image: linear-gradient(100deg, #ed6fb0 0%, #c084fc 45%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Faint engineered grid overlay (used on the page background) */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Hairline divider that fades in from the center */
+.rule-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.4), transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4%, -3%, 0) scale(1.08); }
+}
+@keyframes aurora-drift-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  50% { transform: translate3d(-5%, 4%, 0) scale(1); }
+}
+.animate-aurora { animation: aurora-drift 22s ease-in-out infinite; }
+.animate-aurora-2 { animation: aurora-drift-2 26s ease-in-out infinite; }
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.animate-float { animation: float-y 4s ease-in-out infinite; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 42s linear infinite; }
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  70% { transform: scale(1.7); opacity: 0; }
+  100% { opacity: 0; }
+}
+.animate-pulse-ring { animation: pulse-ring 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* WCAG 2.2.2 / 2.3.3: honor reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
