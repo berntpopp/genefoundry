@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#BE3E82" />
+  <meta name="theme-color" content="#08080c" />
 
   <!-- Primary Meta Tags -->
-  <title>GeneFoundry - Forging Trust in Genomic AI</title>
-  <meta name="title" content="GeneFoundry - Forging Trust in Genomic AI" />
-  <meta name="author" content="GeneFoundry Team" />
+  <title>GeneFoundry: Every biomedical MCP, one endpoint</title>
+  <meta name="title" content="GeneFoundry: Every biomedical MCP, one endpoint" />
+  <meta name="author" content="Bernt Popp" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://genefoundry.org/" />
 
@@ -22,29 +22,30 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://genefoundry.org/" />
   <meta property="og:site_name" content="GeneFoundry" />
-  <meta property="og:title" content="GeneFoundry - Forging Trust in Genomic AI" />
-  <meta property="og:description" content="From variant interpretation to literature synthesis. Trustworthy AI across genetic medicine, powered by Model Context Protocols. No hallucinations, just validated data." />
+  <meta property="og:title" content="GeneFoundry: Every biomedical MCP, one endpoint" />
+  <meta property="og:description" content="A FastMCP gateway federating 17 biomedical MCP servers (218 tools), including gnomAD, ClinGen, GTEx, GeneReviews and Mondo, behind one HTTP endpoint. Collision-free namespacing, search-based tool discovery, no credential passthrough. Research use only." />
   <meta property="og:image" content="https://genefoundry.org/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="GeneFoundry - Forging Trust in Genomic AI" />
+  <meta property="og:image:alt" content="GeneFoundry: Every biomedical MCP, one endpoint" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://genefoundry.org/" />
-  <meta name="twitter:title" content="GeneFoundry - Forging Trust in Genomic AI" />
-  <meta name="twitter:description" content="From variant interpretation to literature synthesis. Trustworthy AI across genetic medicine, powered by Model Context Protocols." />
+  <meta name="twitter:title" content="GeneFoundry: Every biomedical MCP, one endpoint" />
+  <meta name="twitter:description" content="One endpoint for 17 biomedical MCP servers and 218 tools. Search-based discovery, collision-free namespacing, no token passthrough. Add one line to any MCP host." />
   <meta name="twitter:image" content="https://genefoundry.org/og-image.png" />
-  <meta name="twitter:image:alt" content="GeneFoundry - Forging Trust in Genomic AI" />
+  <meta name="twitter:image:alt" content="GeneFoundry: Every biomedical MCP, one endpoint" />
 
-  <!-- Self-hosted Inter font from Google Fonts (via google-webfonts-helper) -->
+  <!-- Self-hosted Inter (google-webfonts-helper). Preload 400 (body) + 700 (hero headline). -->
   <link rel="preload" href="/fonts/inter-v20-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v20-latin-700.woff2" as="font" type="font/woff2" crossorigin>
 
   <meta name="description"
-    content="GeneFoundry is a modular registry for trustworthy, evidence-based genomic analysis powered by Model Context Protocols (MCPs). Solving AI hallucinations in genomics." />
+    content="GeneFoundry Router is a FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind one HTTP endpoint, with collision-free namespacing, search-based tool discovery and no credential passthrough. Add one line to any MCP host. Research use only." />
   <meta name="keywords"
-    content="Genomics, AI, MCP, Model Context Protocol, GeneFoundry, Bioinformatics, Trustworthy AI, Genomic Analysis" />
+    content="MCP, Model Context Protocol, MCP gateway, MCP router, MCP aggregator, FastMCP, genomics, bioinformatics, gnomAD, ClinGen, GTEx, AI agents, tool discovery, GeneFoundry" />
   <!-- Critical inline CSS to prevent layout shift before Vue hydration -->
   <style>
     /* Metric-matched fallback for Inter - prevents CLS */
@@ -60,8 +61,8 @@
     body {
       font-family: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       margin: 0;
-      background-color: #f8fafc; /* bg-slate-50 */
-      color: #334155; /* text-secondary */
+      background-color: #08080c; /* bg-ink: dark, prevents white flash */
+      color: #cbd5e1; /* slate-300 */
     }
     /* Reserve space for fixed navbar to prevent CLS */
     #app { min-height: 100vh; }
@@ -84,21 +85,16 @@
         "width": 512,
         "height": 512
       },
-      "description": "Forging Trust in Genomic AI. A modular registry for trustworthy, evidence-based genomic analysis.",
-      "foundingDate": "2024",
+      "description": "GeneFoundry is a FastMCP gateway federating biomedical MCP servers behind one endpoint. Trustworthy genomic data, federated for AI agents.",
+      "foundingDate": "2026",
       "sameAs": [
+        "https://github.com/berntpopp/genefoundry-router",
         "https://github.com/berntpopp/genefoundry"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "contact@genefoundry.org",
+        "email": "support@genefoundry.org",
         "contactType": "General Inquiry"
-      },
-      "parentOrganization": {
-        "@type": "Organization",
-        "name": "Berlin Institute of Health at Charité",
-        "alternateName": "BIH",
-        "url": "https://www.bihealth.org"
       }
     }
   </script>
@@ -109,19 +105,19 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "@id": "https://genefoundry.org/#software",
-      "name": "GeneFoundry",
-      "alternateName": "GeneFoundry MCP Platform",
-      "applicationCategory": "HealthApplication",
-      "applicationSubCategory": "Bioinformatics",
+      "name": "GeneFoundry Router",
+      "alternateName": "GeneFoundry MCP Gateway",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "MCP Gateway",
       "operatingSystem": "Web",
-      "description": "A modular registry for trustworthy, evidence-based genomic analysis powered by Model Context Protocols (MCPs). From variant interpretation to literature synthesis, from clinical reports to patient education.",
+      "description": "A FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind a single HTTP endpoint, with collision-free namespacing and search-based tool discovery for AI agents.",
       "featureList": [
-        "Variant interpretation with validated data sources",
-        "Literature synthesis from PubMed/PubTator",
-        "Gene expression analysis via GTEx",
-        "Population frequency data from gnomAD",
-        "Model organism data from MGI",
-        "Trustworthy AI with no hallucinations"
+        "Federates 17 biomedical MCP servers behind one endpoint",
+        "Collision-free namespacing (namespace_tool)",
+        "Search-based tool discovery (search_tools + call_tool)",
+        "No auth-token passthrough to backends",
+        "Works with Claude, Cursor, Gemini and any MCP host",
+        "Open source, MIT licensed"
       ],
       "screenshot": "https://genefoundry.org/og-image.png",
       "offers": {
@@ -138,9 +134,10 @@
       },
       "isAccessibleForFree": true,
       "license": "https://opensource.org/licenses/MIT",
-      "codeRepository": "https://github.com/berntpopp/genefoundry",
-      "programmingLanguage": ["TypeScript", "Vue.js", "Python"],
+      "codeRepository": "https://github.com/berntpopp/genefoundry-router",
+      "programmingLanguage": ["Python", "TypeScript", "Vue.js"],
       "sameAs": [
+        "https://github.com/berntpopp/genefoundry-router",
         "https://github.com/berntpopp/genefoundry"
       ]
     }
@@ -154,7 +151,7 @@
       "@id": "https://genefoundry.org/#website",
       "name": "GeneFoundry",
       "url": "https://genefoundry.org",
-      "description": "Forging Trust in Genomic AI",
+      "description": "Every biomedical MCP, behind one endpoint.",
       "publisher": {
         "@id": "https://genefoundry.org/#organization"
       }

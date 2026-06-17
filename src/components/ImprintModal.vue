@@ -109,24 +109,24 @@ const contactInfo = {
       >
         <!-- Backdrop -->
         <div
-          class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
+          class="absolute inset-0 bg-black/80 backdrop-blur-sm"
           @click="emit('close')"
         />
 
         <!-- Modal Content -->
         <div
-          class="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden"
+          class="relative w-full max-w-3xl max-h-[90vh] bg-panel border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
         >
           <!-- Header -->
-          <div class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200">
-            <h2 class="text-2xl font-bold text-secondary">
+          <div class="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-ink-2 border-b border-white/10">
+            <h2 class="text-2xl font-bold text-white">
               {{ content[currentLang].title }}
             </h2>
             <div class="flex items-center gap-3">
               <!-- Language Toggle -->
               <button
                 @click="toggleLanguage"
-                class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full hover:bg-slate-100 hover:border-slate-300 transition-colors"
+                class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-300 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 transition-colors"
                 :aria-label="currentLang === 'en' ? 'Switch to German' : 'Switch to English'"
               >
                 <Globe class="w-4 h-4" />
@@ -135,7 +135,7 @@ const contactInfo = {
               <!-- Close Button -->
               <button
                 @click="emit('close')"
-                class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition-colors"
+                class="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
                 aria-label="Close imprint"
               >
                 <X class="w-5 h-5" />
@@ -146,11 +146,11 @@ const contactInfo = {
           <!-- Scrollable Content -->
           <div class="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
             <!-- Project Name -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-primary mb-4">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-primary-light mb-4">
                 {{ content[currentLang].projectName }}
               </h3>
-              <div class="space-y-1 text-slate-600">
+              <div class="space-y-1 text-slate-400">
                 <p class="font-medium">{{ contactInfo.name }}</p>
                 <p>{{ contactInfo.address }}</p>
                 <p>{{ contactInfo.city }}</p>
@@ -158,11 +158,11 @@ const contactInfo = {
             </div>
 
             <!-- Contact Info -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-4">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-4">
                 {{ content[currentLang].contact }}
               </h3>
-              <div class="space-y-2 text-slate-600">
+              <div class="space-y-2 text-slate-400">
                 <p>
                   <span class="font-medium">{{ content[currentLang].phone }}:</span>
                   {{ contactInfo.phone }}
@@ -171,7 +171,7 @@ const contactInfo = {
                   <span class="font-medium">{{ content[currentLang].email }}:</span>
                   <a
                     :href="`mailto:${contactInfo.email}`"
-                    class="text-primary hover:underline"
+                    class="text-primary-light hover:underline"
                   >
                     {{ contactInfo.email }}
                   </a>
@@ -180,26 +180,26 @@ const contactInfo = {
             </div>
 
             <!-- Responsible Person -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].responsiblePerson }}
               </h3>
-              <p class="text-slate-600">{{ contactInfo.name }}</p>
-              <p class="mt-3 text-sm text-slate-500 italic">
+              <p class="text-slate-400">{{ contactInfo.name }}</p>
+              <p class="mt-3 text-sm text-slate-400 italic">
                 {{ content[currentLang].bdsgNotice }}
               </p>
             </div>
 
             <!-- Scope -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].scope }}
               </h3>
-              <p class="text-slate-600">
+              <p class="text-slate-400">
                 {{ content[currentLang].scopeText }}
                 <a
                   :href="contactInfo.website"
-                  class="text-primary hover:underline"
+                  class="text-primary-light hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -209,59 +209,59 @@ const contactInfo = {
             </div>
 
             <!-- Limitation -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].limitation }}
               </h3>
-              <p class="text-slate-600">{{ content[currentLang].limitationText }}</p>
+              <p class="text-slate-400">{{ content[currentLang].limitationText }}</p>
             </div>
 
             <!-- Service Provider -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].serviceProvider }}
               </h3>
-              <p class="text-slate-600">{{ contactInfo.name }}</p>
+              <p class="text-slate-400">{{ contactInfo.name }}</p>
             </div>
 
             <!-- Copyright -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].copyright }}
               </h3>
-              <p class="text-slate-600">{{ content[currentLang].copyrightText }}</p>
+              <p class="text-slate-400">{{ content[currentLang].copyrightText }}</p>
             </div>
 
             <!-- Data Protection -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].dataProtection }}
               </h3>
-              <p class="text-slate-600">{{ content[currentLang].dataProtectionText }}</p>
+              <p class="text-slate-400">{{ content[currentLang].dataProtectionText }}</p>
             </div>
 
             <!-- Disclaimer -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].disclaimer }}
               </h3>
-              <p class="text-slate-600">{{ content[currentLang].disclaimerText }}</p>
+              <p class="text-slate-400">{{ content[currentLang].disclaimerText }}</p>
             </div>
 
             <!-- IP Violation -->
-            <div class="mb-8 pb-6 border-b border-slate-100">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+            <div class="mb-8 pb-6 border-b border-white/[0.06]">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].ipViolation }}
               </h3>
-              <p class="text-slate-600">{{ content[currentLang].ipViolationText }}</p>
+              <p class="text-slate-400">{{ content[currentLang].ipViolationText }}</p>
             </div>
 
             <!-- Link Disclaimer -->
             <div class="mb-4">
-              <h3 class="text-lg font-semibold text-secondary mb-2">
+              <h3 class="text-lg font-semibold text-white mb-2">
                 {{ content[currentLang].linkDisclaimer }}
               </h3>
-              <p class="text-slate-600">{{ content[currentLang].linkDisclaimerText }}</p>
+              <p class="text-slate-400">{{ content[currentLang].linkDisclaimerText }}</p>
             </div>
           </div>
         </div>
