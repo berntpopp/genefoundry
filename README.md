@@ -8,7 +8,7 @@
 
 <p><strong>Every biomedical MCP, one endpoint.</strong></p>
 
-<p>The website behind <a href="https://genefoundry.org/">genefoundry.org</a>, the landing page for the GeneFoundry MCP router.</p>
+<p>The website behind <a href="https://genefoundry.org/">genefoundry.org</a>, the landing page for the GeneFoundry MCP router. The backend that federates the <code>*-link</code> fleet lives in <a href="https://github.com/berntpopp/genefoundry-router">genefoundry-router</a>.</p>
 
 [![CI](https://github.com/berntpopp/genefoundry/actions/workflows/ci.yml/badge.svg)](https://github.com/berntpopp/genefoundry/actions/workflows/ci.yml)
 [![Security](https://github.com/berntpopp/genefoundry/actions/workflows/security.yml/badge.svg)](https://github.com/berntpopp/genefoundry/actions/workflows/security.yml)
@@ -21,5 +21,3 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 </div>
-
-The backend MCP router that federates the GeneFoundry `*-link` fleet lives in [genefoundry-router](https://github.com/berntpopp/genefoundry-router).
