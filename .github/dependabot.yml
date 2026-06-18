@@ -12,6 +12,12 @@ updates:
       time: "09:00"
       timezone: "Europe/Berlin"
     open-pull-requests-limit: 5
+    ignore:
+      # lucide-vue-next 1.x is a deprecation tombstone that redirects to
+      # @lucide/vue, which dropped the brand icons (e.g. Github) used here.
+      # Stay on the maintained 0.x line until those icons are migrated.
+      - dependency-name: "lucide-vue-next"
+        update-types: ["version-update:semver-major"]
     # Group updates to reduce PR noise
     groups:
       # Group all production dependencies
