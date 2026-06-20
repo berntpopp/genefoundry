@@ -16,7 +16,7 @@ const steps = [
   {
     title: 'Run with call_tool',
     body: 'Invoke any hit by its namespaced name. Results stay grounded in the source, with citations, never rewritten.',
-    code: 'call_tool("spliceai_predict_variant", { … })'
+    code: 'call_tool("spliceai_predict_splicing", { … })'
   }
 ]
 </script>

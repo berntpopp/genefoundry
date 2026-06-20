@@ -26,7 +26,7 @@
   <meta property="og:url" content="https://genefoundry.org/" />
   <meta property="og:site_name" content="GeneFoundry" />
   <meta property="og:title" content="GeneFoundry: Every biomedical MCP, one endpoint" />
-  <meta property="og:description" content="A FastMCP gateway federating 17 biomedical MCP servers (218 tools), including gnomAD, ClinGen, GTEx, GeneReviews and Mondo, behind one HTTP endpoint. Collision-free namespacing and search-based tool discovery. Research use only." />
+  <meta property="og:description" content="A FastMCP gateway federating 21 biomedical MCP servers (280 tools), including gnomAD, Orphadata, HPO, MaveDB, ClinGen and GTEx, behind one HTTP endpoint. Collision-free namespacing and search-based tool discovery. Research use only." />
   <meta property="og:image" content="https://genefoundry.org/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
@@ -38,7 +38,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://genefoundry.org/" />
   <meta name="twitter:title" content="GeneFoundry: Every biomedical MCP, one endpoint" />
-  <meta name="twitter:description" content="One endpoint for 17 biomedical MCP servers and 218 tools. Search-based tool discovery, collision-free namespacing. Works with Claude, Cursor and Gemini." />
+  <meta name="twitter:description" content="One endpoint for 21 biomedical MCP servers and 280 tools. Search-based tool discovery, collision-free namespacing. Works with Claude, Cursor and Gemini." />
   <meta name="twitter:image" content="https://genefoundry.org/og-image.png" />
   <meta name="twitter:image:alt" content="GeneFoundry: Every biomedical MCP, one endpoint" />
 
@@ -50,9 +50,9 @@
   <link rel="preload" href="/fonts/instrument-serif-v5-latin-italic.woff2" as="font" type="font/woff2" crossorigin>
 
   <meta name="description"
-    content="GeneFoundry federates 17 biomedical MCP servers (218 tools) behind one HTTP endpoint, with search-based tool discovery and collision-free namespacing. Add one line to Claude, Cursor or Gemini. Research use only." />
+    content="GeneFoundry federates 21 biomedical MCP servers (280 tools) behind one HTTP endpoint, with search-based tool discovery and collision-free namespacing. Add one line to Claude, Cursor or Gemini. Research use only." />
   <meta name="keywords"
-    content="MCP, Model Context Protocol, MCP gateway, MCP router, MCP aggregator, FastMCP, genomics, bioinformatics, gnomAD, ClinGen, GTEx, AI agents, tool discovery, GeneFoundry" />
+    content="MCP, Model Context Protocol, MCP gateway, MCP router, MCP aggregator, FastMCP, genomics, bioinformatics, gnomAD, Orphanet, HPO, MaveDB, ClinGen, GTEx, AI agents, tool discovery, GeneFoundry" />
   <!-- Critical inline CSS to prevent layout shift before Vue hydration -->
   <style>
     /* Metric-matched fallback for Inter - prevents CLS */
@@ -117,9 +117,9 @@
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "MCP Gateway",
       "operatingSystem": "Web",
-      "description": "A FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind a single HTTP endpoint, with collision-free namespacing and search-based tool discovery for AI agents.",
+      "description": "A FastMCP gateway that federates 21 biomedical MCP servers (280 tools) behind a single HTTP endpoint, with collision-free namespacing and search-based tool discovery for AI agents.",
       "featureList": [
-        "Federates 17 biomedical MCP servers behind one endpoint",
+        "Federates 21 biomedical MCP servers behind one endpoint",
         "Collision-free namespacing (namespace_tool)",
         "Search-based tool discovery (search_tools + call_tool)",
         "No auth-token passthrough to backends",
@@ -174,7 +174,7 @@
       "@id": "https://genefoundry.org/#webpage",
       "url": "https://genefoundry.org/",
       "name": "GeneFoundry: Every biomedical MCP, one endpoint",
-      "description": "GeneFoundry federates 17 biomedical MCP servers (218 tools) behind one HTTP endpoint, with search-based tool discovery and collision-free namespacing.",
+      "description": "GeneFoundry federates 21 biomedical MCP servers (280 tools) behind one HTTP endpoint, with search-based tool discovery and collision-free namespacing.",
       "inLanguage": "en",
       "isPartOf": { "@id": "https://genefoundry.org/#website" },
       "about": { "@id": "https://genefoundry.org/#software" },
@@ -184,7 +184,7 @@
         "width": 1200,
         "height": 630
       },
-      "dateModified": "2026-06-18"
+      "dateModified": "2026-06-20"
     }
   </script>
 
@@ -201,7 +201,7 @@
           "name": "What is GeneFoundry?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "GeneFoundry is a FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind a single HTTP endpoint at https://genefoundry.org/mcp. Any Model Context Protocol host reaches gnomAD, ClinGen, GTEx, GeneReviews, Mondo and a dozen more sources through one connection."
+            "text": "GeneFoundry is a FastMCP gateway that federates 21 biomedical MCP servers (280 tools) behind a single HTTP endpoint at https://genefoundry.org/mcp. Any Model Context Protocol host reaches gnomAD, Orphadata, HPO, MaveDB, ClinGen, GTEx and more sources through one connection."
           }
         },
         {
@@ -209,7 +209,7 @@
           "name": "Which biomedical data sources does GeneFoundry federate?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "PubTator3, gnomAD, ClinGen, UniProt, MGI, GeneReviews, Mondo, GenCC, STRING, GTEx Portal, HGNC, PanelApp, AutoPVS1, SpliceAI Lookup, Ensembl VEP, ClinVar and LitVar2: 17 servers and 218 tools in total."
+            "text": "PubTator3, gnomAD, Orphadata, ClinGen, Human Phenotype Ontology, MaveDB, UniProt, MGI, GeneReviews, Mondo, GenCC, MetaDome, STRING, GTEx Portal, HGNC, PanelApp, AutoPVS1, SpliceAI Lookup, Ensembl VEP, ClinVar and LitVar2: 21 servers and 280 tools in total."
           }
         },
         {
@@ -225,7 +225,7 @@
           "name": "How does tool discovery work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Instead of loading all 218 tool schemas up front, the agent calls search_tools to rank the federated catalog by relevance, pulls only the schemas it needs, then runs the chosen tool with call_tool by its namespaced name, for example spliceai_predict_variant."
+            "text": "Instead of loading all 280 tool schemas up front, the agent calls search_tools to rank the federated catalog by relevance, pulls only the schemas it needs, then runs the chosen tool with call_tool by its namespaced name, for example spliceai_predict_splicing."
           }
         },
         {
@@ -275,14 +275,14 @@
           "@type": "HowToStep",
           "position": 2,
           "name": "Discover tools with search_tools",
-          "text": "Your agent searches the federated catalog by relevance and pulls only the tool schemas it needs, instead of loading all 218 up front.",
+          "text": "Your agent searches the federated catalog by relevance and pulls only the tool schemas it needs, instead of loading all 280 up front.",
           "url": "https://genefoundry.org/#how"
         },
         {
           "@type": "HowToStep",
           "position": 3,
           "name": "Run with call_tool",
-          "text": "Invoke any result by its namespaced name, for example spliceai_predict_variant. Results stay grounded in the source, with citations, never rewritten.",
+          "text": "Invoke any result by its namespaced name, for example spliceai_predict_splicing. Results stay grounded in the source, with citations, never rewritten.",
           "url": "https://genefoundry.org/#how"
         }
       ]
@@ -297,7 +297,7 @@
   <noscript>
     <main style="max-width:46rem;margin:0 auto;padding:4rem 1.5rem;font-family:system-ui,-apple-system,sans-serif;line-height:1.6;color:#cbd5e1;background:#08080c">
       <h1 style="color:#fff;font-size:2rem;line-height:1.2">Every biomedical MCP, behind one endpoint</h1>
-      <p>GeneFoundry is a FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind a single HTTP endpoint, so any Model Context Protocol host taps gnomAD, ClinGen, GTEx, GeneReviews, Mondo and a dozen more sources through one connection.</p>
+      <p>GeneFoundry is a FastMCP gateway that federates 21 biomedical MCP servers (280 tools) behind a single HTTP endpoint, so any Model Context Protocol host taps gnomAD, Orphadata, HPO, MaveDB, ClinGen, GTEx and more sources through one connection.</p>
       <h2 style="color:#fff">How it works</h2>
       <ol>
         <li>Add one endpoint: <code>claude mcp add --transport http genefoundry https://genefoundry.org/mcp</code></li>
@@ -305,7 +305,7 @@
         <li>Run any result with <code>call_tool</code> by its namespaced name. Results stay grounded in the source.</li>
       </ol>
       <h2 style="color:#fff">Federated sources</h2>
-      <p>PubTator3, gnomAD, ClinGen, UniProt, MGI, GeneReviews, Mondo, GenCC, STRING, GTEx Portal, HGNC, PanelApp, AutoPVS1, SpliceAI Lookup, Ensembl VEP, ClinVar and LitVar2.</p>
+      <p>PubTator3, gnomAD, Orphadata, ClinGen, Human Phenotype Ontology, MaveDB, UniProt, MGI, GeneReviews, Mondo, GenCC, MetaDome, STRING, GTEx Portal, HGNC, PanelApp, AutoPVS1, SpliceAI Lookup, Ensembl VEP, ClinVar and LitVar2.</p>
       <p>
         <a href="https://github.com/berntpopp/genefoundry-router" style="color:#ed6fb0">Source on GitHub</a>
         (open source, MIT licensed). Research use only. Not clinical decision support.

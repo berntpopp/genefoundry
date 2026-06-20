@@ -36,8 +36,8 @@ import { ADD_COMMAND, GITHUB_URL, SERVER_COUNT, TOOL_COUNT } from '../data/serve
           </h1>
 
           <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-400 lg:mx-0">
-            Add one endpoint and your AI host taps {{ SERVER_COUNT }} genomics MCP servers: gnomAD,
-            ClinGen, GTEx, GeneReviews, Mondo and a dozen more.
+            Add one endpoint and your AI host taps {{ SERVER_COUNT }} biomedical MCP servers:
+            gnomAD, Orphanet, HPO, MaveDB, ClinGen, GTEx and more.
             <span class="text-slate-200">All {{ TOOL_COUNT }} tools, discovered on demand.</span>
           </p>
 

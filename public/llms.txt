@@ -1,6 +1,6 @@
 # GeneFoundry
 
-> GeneFoundry is a FastMCP gateway that federates 17 trustworthy biomedical MCP servers (218 tools) behind a single HTTP endpoint (https://genefoundry.org/mcp). Any Model Context Protocol host (Claude, Cursor, Gemini CLI, VS Code) adds one endpoint and reaches gnomAD, ClinGen, GTEx, GeneReviews, Mondo and a dozen more genomics sources, with collision-free namespacing and search-based tool discovery. Open source, MIT licensed. Research use only; not clinical decision support.
+> GeneFoundry is a FastMCP gateway that federates 21 trustworthy biomedical MCP servers (280 tools) behind a single HTTP endpoint (https://genefoundry.org/mcp). Any Model Context Protocol host (Claude, Cursor, Gemini CLI, VS Code) adds one endpoint and reaches gnomAD, Orphadata, HPO, MaveDB, ClinGen, GTEx and more biomedical sources, with collision-free namespacing and search-based tool discovery. Open source, MIT licensed. Research use only; not clinical decision support.
 
 ## Connect
 
@@ -10,19 +10,23 @@
 ## How it works
 
 - Add one endpoint: point any MCP host at the hosted router. No install, no per-server setup, no keys.
-- Discover with search_tools: the agent searches the federated catalog by relevance (BM25) and pulls only the tool schemas it needs, not all 218 up front.
+- Discover with search_tools: the agent searches the federated catalog by relevance (BM25) and pulls only the tool schemas it needs, not all 280 up front.
 - Run with call_tool: invoke any hit by its `namespace_tool` name. Results stay grounded in the source, with citations, never rewritten.
 
-## Federated servers (17 servers, 218 tools)
+## Federated servers (21 servers, 280 tools)
 
 - [PubTator3](https://www.ncbi.nlm.nih.gov/research/pubtator3/): literature and entity annotation (namespace `pubtator`, 43 tools).
 - [gnomAD](https://gnomad.broadinstitute.org/): variant, gene and population frequency (namespace `gnomad`, 22 tools).
+- [Orphadata](https://www.orphadata.com/): rare disease ontology and associations (namespace `orphanet`, 19 tools).
 - [ClinGen](https://clinicalgenome.org/): gene–disease curation (namespace `clingen`, 17 tools).
+- [Human Phenotype Ontology](https://hpo.jax.org/): phenotype ontology and associations (namespace `hpo`, 17 tools).
+- [MaveDB](https://www.mavedb.org/): variant-effect assay scores (namespace `mavedb`, 15 tools).
 - [UniProt](https://www.uniprot.org/): protein function (namespace `uniprot`, 15 tools).
 - [MGI](https://www.informatics.jax.org/): mouse phenotype and models (namespace `mgi`, 13 tools).
 - [GeneReviews](https://www.ncbi.nlm.nih.gov/books/NBK1116/): gene–disease literature (namespace `genereviews`, 13 tools).
 - [Mondo](https://mondo.monarchinitiative.org/): disease ontology and cross-references (namespace `mondo`, 13 tools).
 - [GenCC](https://thegencc.org/): gene–disease curation (namespace `gencc`, 12 tools).
+- [MetaDome](https://stuart.radboudumc.nl/metadome/): protein tolerance landscapes (namespace `metadome`, 11 tools).
 - [STRING](https://string-db.org/): protein–protein interaction networks (namespace `stringdb`, 10 tools).
 - [GTEx Portal](https://gtexportal.org/): tissue expression (namespace `gtex`, 9 tools).
 - [HGNC](https://www.genenames.org/): gene nomenclature (namespace `hgnc`, 9 tools).

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Boxes, ScanSearch, FileCheck2, Cable, Github } from 'lucide-vue-next'
 import SectionLabel from './ui/SectionLabel.vue'
-import { GITHUB_URL, TOOL_COUNT } from '../data/servers'
+import { GITHUB_URL, SERVER_COUNT, TOOL_COUNT } from '../data/servers'
 
 const features = [
   {
     icon: Boxes,
     title: 'Collision-free namespacing',
-    body: 'Backends keep clean, unprefixed names; the router owns the <namespace>_<tool> prefix at the edge. Mount a dozen servers and nothing collides. Names stay valid for Gemini Remote MCP too.',
+    body: `Backends keep clean, unprefixed names; the router owns the <namespace>_<tool> prefix at the edge. Mount ${SERVER_COUNT} servers and nothing collides. Names stay valid for Gemini Remote MCP too.`,
     span: 'lg:col-span-2',
     featured: true
   },

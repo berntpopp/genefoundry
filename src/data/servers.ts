@@ -36,7 +36,7 @@ export const CATEGORIES: CategoryMeta[] = [
     dot: 'bg-amber-400'
   },
   { id: 'literature', label: 'Literature', text: 'text-emerald-300', dot: 'bg-emerald-400' },
-  { id: 'ontology', label: 'Disease ontology', text: 'text-fuchsia-300', dot: 'bg-fuchsia-400' }
+  { id: 'ontology', label: 'Ontologies', text: 'text-fuchsia-300', dot: 'bg-fuchsia-400' }
 ]
 
 export interface ServerEntry {
@@ -74,6 +74,16 @@ export const SERVERS: ServerEntry[] = [
     sampleTool: 'gnomad_search_genes'
   },
   {
+    namespace: 'orphanet',
+    domain: 'Rare disease ontology & associations',
+    source: 'Orphadata',
+    sourceUrl: 'https://www.orphadata.com/',
+    tools: 19,
+    repo: 'berntpopp/orphanet-link',
+    category: 'ontology',
+    sampleTool: 'orphanet_resolve_disease'
+  },
+  {
     namespace: 'clingen',
     domain: 'Gene–disease curation',
     source: 'ClinGen',
@@ -84,6 +94,26 @@ export const SERVERS: ServerEntry[] = [
     sampleTool: 'clingen_get_gene_validity'
   },
   {
+    namespace: 'hpo',
+    domain: 'Phenotype ontology & associations',
+    source: 'Human Phenotype Ontology',
+    sourceUrl: 'https://hpo.jax.org/',
+    tools: 17,
+    repo: 'berntpopp/hpo-link',
+    category: 'ontology',
+    sampleTool: 'hpo_resolve_term'
+  },
+  {
+    namespace: 'mavedb',
+    domain: 'Variant-effect assay scores',
+    source: 'MaveDB',
+    sourceUrl: 'https://www.mavedb.org/',
+    tools: 15,
+    repo: 'berntpopp/mavedb-link',
+    category: 'variant',
+    sampleTool: 'mavedb_search_score_sets'
+  },
+  {
     namespace: 'uniprot',
     domain: 'Protein function',
     source: 'UniProt',
@@ -91,7 +121,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 15,
     repo: 'berntpopp/uniprot-link',
     category: 'gene-protein',
-    sampleTool: 'uniprot_get_protein'
+    sampleTool: 'uniprot_find_proteins'
   },
   {
     namespace: 'mgi',
@@ -101,7 +131,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 13,
     repo: 'berntpopp/mgi-link',
     category: 'expression-models',
-    sampleTool: 'mgi_get_phenotypes'
+    sampleTool: 'mgi_get_marker_phenotypes'
   },
   {
     namespace: 'genereviews',
@@ -111,7 +141,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 13,
     repo: 'berntpopp/genereviews-link',
     category: 'literature',
-    sampleTool: 'genereviews_search_passages'
+    sampleTool: 'genereviews_search_genereviews'
   },
   {
     namespace: 'mondo',
@@ -131,7 +161,17 @@ export const SERVERS: ServerEntry[] = [
     tools: 12,
     repo: 'berntpopp/gencc-link',
     category: 'gene-disease',
-    sampleTool: 'gencc_get_gene'
+    sampleTool: 'gencc_resolve_identifier'
+  },
+  {
+    namespace: 'metadome',
+    domain: 'Protein tolerance landscapes',
+    source: 'MetaDome',
+    sourceUrl: 'https://stuart.radboudumc.nl/metadome/',
+    tools: 11,
+    repo: 'berntpopp/metadome-link',
+    category: 'gene-protein',
+    sampleTool: 'metadome_resolve_transcript'
   },
   {
     namespace: 'stringdb',
@@ -141,7 +181,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 10,
     repo: 'berntpopp/stringdb-link',
     category: 'gene-protein',
-    sampleTool: 'stringdb_get_interactions'
+    sampleTool: 'stringdb_get_interaction_partners'
   },
   {
     namespace: 'gtex',
@@ -171,7 +211,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 9,
     repo: 'berntpopp/panelapp-link',
     category: 'gene-disease',
-    sampleTool: 'panelapp_get_panel'
+    sampleTool: 'panelapp_search_panels'
   },
   {
     namespace: 'autopvs1',
@@ -181,7 +221,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 7,
     repo: 'berntpopp/autopvs1-link',
     category: 'variant',
-    sampleTool: 'autopvs1_classify_variant'
+    sampleTool: 'autopvs1_get_variant_pvs1_data'
   },
   {
     namespace: 'spliceai',
@@ -191,7 +231,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 7,
     repo: 'berntpopp/spliceailookup-link',
     category: 'variant',
-    sampleTool: 'spliceai_predict_variant'
+    sampleTool: 'spliceai_predict_splicing'
   },
   {
     namespace: 'vep',
@@ -221,7 +261,7 @@ export const SERVERS: ServerEntry[] = [
     tools: 6,
     repo: 'berntpopp/litvar-link',
     category: 'literature',
-    sampleTool: 'litvar_search_variant'
+    sampleTool: 'litvar_get_variant_literature'
   }
 ]
 

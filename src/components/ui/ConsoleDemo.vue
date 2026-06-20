@@ -46,7 +46,7 @@ const lines: Line[] = [
   {
     indent: 1,
     tokens: [
-      { t: 'gtex_get_median_expression', c: 'text-primary-light' },
+      { t: 'gtex_get_median_expression_levels', c: 'text-primary-light' },
       { t: '  gtex', c: 'text-sky-300' },
       { t: ' · expression', c: 'text-slate-400' }
     ]
