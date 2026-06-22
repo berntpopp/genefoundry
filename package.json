@@ -19,7 +19,7 @@
     "vue": "^3.5.38"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
+    "@eslint/js": "^10.0.1",
     "@rushstack/eslint-patch": "^1.16.1",
     "@types/node": "^25.9.3",
     "@vite-pwa/assets-generator": "^1.0.2",
