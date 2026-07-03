@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Check, Copy, Terminal } from 'lucide-vue-next'
+import { Check, Copy, KeyRound, Terminal } from 'lucide-vue-next'
 import SectionLabel from './ui/SectionLabel.vue'
 import { useClipboard } from '../composables'
 import { HOSTED_ENDPOINT, HEALTH_URL } from '../data/servers'
@@ -14,10 +14,29 @@ interface Tab {
 
 const tabs: Tab[] = [
   {
-    id: 'claude',
+    id: 'claude-code',
     label: 'Claude Code',
     hint: 'Terminal',
-    code: `claude mcp add --transport http genefoundry ${HOSTED_ENDPOINT}`
+    code: `claude mcp add --transport http genefoundry ${HOSTED_ENDPOINT}
+# then authenticate in the browser when prompted`
+  },
+  {
+    id: 'claude-ai',
+    label: 'claude.ai / Desktop',
+    hint: 'Settings → Connectors',
+    code: `Settings → Connectors → Add custom connector
+URL: ${HOSTED_ENDPOINT}
+Complete the browser sign-in when prompted.`
+  },
+  {
+    id: 'codex',
+    label: 'Codex CLI',
+    hint: 'Terminal',
+    code: `codex mcp add genefoundry \\
+  --url ${HOSTED_ENDPOINT} \\
+  --oauth-client-id genefoundry-router \\
+  --oauth-resource ${HOSTED_ENDPOINT}
+codex mcp login genefoundry`
   },
   {
     id: 'cursor',
@@ -75,8 +94,20 @@ const { copied, copy } = useClipboard()
         </p>
       </div>
 
+      <!-- OAuth sign-in note -->
       <div
-        class="mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-panel/60 shadow-2xl shadow-black/40"
+        class="mx-auto mt-8 flex max-w-2xl items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left"
+      >
+        <KeyRound class="mt-0.5 h-4 w-4 shrink-0 text-primary-light" />
+        <p class="text-sm leading-relaxed text-slate-400">
+          <span class="font-medium text-slate-200">Sign-in required.</span>
+          The endpoint uses OAuth — your host opens a browser to sign in once. No token to paste or
+          manage.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-panel/60 shadow-2xl shadow-black/40"
       >
         <!-- Tabs -->
         <div
