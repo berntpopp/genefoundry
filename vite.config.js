@@ -76,6 +76,11 @@ export default defineConfig({
         // Remove outdated precache entries when a new SW is activated
         cleanupOutdatedCaches: true,
         // Cache all static assets
+        navigateFallbackDenylist: [
+          /^\/mcp/, /^\/authorize/, /^\/token/, /^\/register/, /^\/consent/,
+          /^\/auth\//, /^\/\.well-known\//, /^\/health/, /^\/metrics/,
+          /^\/docs/, /^\/redoc/, /^\/openapi\.json/,
+        ],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // Runtime caching for Google Fonts
         runtimeCaching: [
