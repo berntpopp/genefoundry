@@ -1,17 +1,22 @@
 # docker-compose.npm.yml
 # GeneFoundry Landing Page - Nginx Proxy Manager (NPM) Production Overlay
 #
-# Usage:
-#   docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d --build
+# Usage (production; pulls the pinned image, never builds):
+#   GENEFOUNDRY_IMAGE=ghcr.io/berntpopp/genefoundry@sha256:<digest> \
+#     docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d
 #
 # This overlay:
+# - Deploys a prebuilt, digest-addressable image (never builds on the host)
 # - Removes direct port exposure (NPM handles routing)
 # - Connects to external NPM network
 # - Adds production security hardening
 #
 # NPM Configuration:
-# - Create proxy host for genefoundry.org → genefoundry:8080
+# - Create proxy host for genefoundry.org → genefoundry-npm:8080
 # - Enable SSL with Let's Encrypt
+#
+# Required environment:
+#   GENEFOUNDRY_IMAGE=ghcr.io/berntpopp/genefoundry@sha256:<digest>
 
 name: genefoundry-npm
 
@@ -19,8 +24,19 @@ services:
   genefoundry:
     container_name: genefoundry-npm
 
-    # PRODUCTION: No direct ports - NPM handles all routing
-    ports: []
+    # PRODUCTION: pull the released image, never build on the deployment host.
+    # `!reset null` is required: the base compose file defines `build:`, and a
+    # plain override would merge rather than remove it, leaving compose free to
+    # build from local (possibly stale) source instead of using the pinned image.
+    build: !reset null
+    image: ${GENEFOUNDRY_IMAGE:?Set GENEFOUNDRY_IMAGE to ghcr.io/berntpopp/genefoundry@sha256:<digest>}
+    pull_policy: missing
+
+    # PRODUCTION: No direct ports - NPM handles all routing.
+    # `!reset []` is required: compose MERGES list fields across `-f` overlays, so
+    # a plain `ports: []` does NOT drop the base file's "${GENEFOUNDRY_PORT:-8080}:8080"
+    # mapping - it stayed published on the host, bypassing NPM entirely.
+    ports: !reset []
 
     # SECURITY: Run as non-root (nginx:nginx = 101:101)
     user: "101:101"
