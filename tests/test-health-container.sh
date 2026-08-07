@@ -7,6 +7,7 @@ container=''
 tmpdir="$(mktemp -d)"
 headers="$tmpdir/headers"
 body="$tmpdir/body"
+expected_body="$tmpdir/expected-body"
 
 cleanup() {
     if [ -n "$container" ]; then
@@ -32,6 +33,8 @@ done
 
 test -s "$headers"
 test -s "$body"
+printf 'OK\n' > "$expected_body"
+cmp --silent "$expected_body" "$body"
 test "$(tr -d '\r' < "$body")" = "OK"
 test "$(grep -ic '^content-type:' "$headers")" -eq 1
 grep -Eiq '^content-type:[[:space:]]*text/plain([;[:space:]]|$)' "$headers"
