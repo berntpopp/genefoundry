@@ -1,6 +1,6 @@
 .PHONY: help dev build lint type-check format check generate-og generate-pwa generate-assets \
         docker-build docker-up docker-down docker-logs docker-shell docker-dev \
-        security audit hadolint trivy pre-commit
+        security audit hadolint trivy pre-commit test-health-container
 
 # Default target
 help:
@@ -77,6 +77,9 @@ docker-logs:
 
 docker-shell:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml exec genefoundry sh
+
+test-health-container:
+	bash tests/test-health-container.sh
 
 # Security commands (local pre-commit checks)
 # These mirror the CI security workflow for local testing
