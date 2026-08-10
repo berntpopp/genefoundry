@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-image='genefoundry-health:test'
+image="${IMAGE_UNDER_TEST:-genefoundry-health:test}"
 container=''
 tmpdir="$(mktemp -d)"
 headers="$tmpdir/headers"
@@ -17,7 +17,18 @@ cleanup() {
 }
 trap cleanup EXIT
 
-docker build --tag "$image" --file docker/Dockerfile .
+if [ -z "${IMAGE_UNDER_TEST:-}" ]; then
+    docker build --tag "$image" --file docker/Dockerfile .
+fi
+
+# The image-level probe must be exec form. Shell form causes hadolint DL3025 and
+# adds a shell whose exit semantics can drift from the probe executable.
+expected_healthcheck='["CMD","wget","-qO-","http://127.0.0.1:8080/health"]'
+actual_healthcheck="$(
+    docker image inspect "$image" --format '{{json .Config.Healthcheck.Test}}'
+)"
+test "$actual_healthcheck" = "$expected_healthcheck"
+
 container="$(docker run --detach --publish 127.0.0.1::8080 "$image")"
 port="$(docker port "$container" 8080/tcp | awk -F: 'NR == 1 { print $NF }')"
 

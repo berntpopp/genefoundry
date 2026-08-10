@@ -8,6 +8,9 @@
 ARG NODE_VERSION=20-alpine3.20
 # fholzer/nginx-brotli includes brotli_static and gzip_static modules
 ARG NGINX_VERSION=v1.28.0
+ARG APP_VERSION=0.0.0
+ARG VCS_REF=unknown
+ARG BUILD_DATE=unknown
 
 # ============================================================================
 # STAGE 1: Dependencies - Install node_modules with cache
@@ -53,6 +56,10 @@ RUN npm run build && \
 # ============================================================================
 FROM fholzer/nginx-brotli:${NGINX_VERSION} AS runtime
 
+ARG APP_VERSION
+ARG VCS_REF
+ARG BUILD_DATE
+
 # Metadata labels (OCI standard)
 LABEL org.opencontainers.image.title="GeneFoundry Landing Page" \
       org.opencontainers.image.description="Modular registry for trustworthy genomic AI analysis" \
@@ -60,7 +67,10 @@ LABEL org.opencontainers.image.title="GeneFoundry Landing Page" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/berntpopp/genefoundry" \
       org.opencontainers.image.documentation="https://github.com/berntpopp/genefoundry/blob/main/README.md" \
-      org.opencontainers.image.authors="Bernt Popp <bernt.popp@gmail.com>"
+      org.opencontainers.image.authors="Bernt Popp <bernt.popp@gmail.com>" \
+      org.opencontainers.image.version="${APP_VERSION}" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.created="${BUILD_DATE}"
 
 # Copy nginx configuration
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
@@ -75,7 +85,7 @@ RUN apk update && apk upgrade --no-cache && \
 
 # Health check (using wget since curl isn't in Alpine base)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget -qO- http://127.0.0.1:8080/health || exit 1
+    CMD ["wget", "-qO-", "http://127.0.0.1:8080/health"]
 
 # Expose port
 EXPOSE 8080

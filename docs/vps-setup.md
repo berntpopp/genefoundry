@@ -82,9 +82,14 @@ cd genefoundry
 
 # Create environment file
 cp .env.docker.example .env.docker
+# Replace <64-lowercase-hex-digest> with the SHA-256 value from the attested
+# application release manifest. Mutable tags and arbitrary image names are not
+# production inputs.
+$EDITOR .env.docker
 
-# Build and start
-docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d --build
+# Validate .env.docker, then pull and start the exact released image.
+# Production never builds on the VPS.
+make docker-up
 ```
 
 Verify it's running:
@@ -134,7 +139,8 @@ docker ps | grep genefoundry
 ```bash
 cd ~/genefoundry
 git pull
-docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d --build
+# Update GENEFOUNDRY_IMAGE_SHA256 to the newly attested digest first.
+make docker-up
 ```
 
 ---
@@ -161,13 +167,10 @@ docker network inspect npm_default | grep genefoundry
 
 ## Security Notes
 
-The Docker image automatically patches Alpine packages at build time. To ensure you have the latest security fixes:
-
-```bash
-# Rebuild with no cache to pull latest patches
-docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml build --no-cache
-docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d
-```
+Production accepts only the 64-character digest for the fixed
+`ghcr.io/berntpopp/genefoundry` repository. `make docker-up` loads and validates
+`.env.docker`; it rejects tags, arbitrary image names, and malformed digests.
+Do not rebuild on the VPS.
 
 Run local security checks before deploying:
 

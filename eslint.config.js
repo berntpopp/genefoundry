@@ -23,12 +23,12 @@ export default [
   // Node.js build scripts configuration
   {
     name: 'scripts/node-config',
-    files: ['scripts/**/*.js'],
+    files: ['scripts/**/*.{js,mjs}', 'tests/**/*.mjs'],
     languageOptions: {
       globals: {
-        ...globals.node
-      }
-    }
+        ...globals.node,
+      },
+    },
   },
 
   // Vite config uses Node.js process.env
