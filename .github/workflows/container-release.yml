@@ -215,6 +215,7 @@ jobs:
         shell: bash
         env:
           EVIDENCE_ROOT: ${{ steps.paths.outputs.root }}
+          TRIVY_CACHE_DIR: ${{ github.workspace }}/.cache/trivy
         run: |
           set -euo pipefail
           trivy version --format json > "$EVIDENCE_ROOT/trivy-version.json"
