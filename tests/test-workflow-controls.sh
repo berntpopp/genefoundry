@@ -24,6 +24,10 @@ grep -Fq 'TRIVY_CACHE_DIR: ${{ github.workspace }}/.cache/trivy' "$release"
 grep -Fq 'CONTAINERS_REGISTRIES_CONF="$RUNNER_TEMP/registries.conf"' "$release"
 grep -Fq 'unqualified-search-registries = ["docker.io"]' "$release"
 grep -Fq 'gh release create' "$release"
+if grep -Fq 'gh release create "$TAG" --verify-tag' "$release"; then
+    echo 'artifact-only publish job must not require a local Git checkout' >&2
+    exit 1
+fi
 grep -Fq 'workflow_dispatch:' "$release"
 grep -Fq '[[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]' "$release"
 grep -Fq 'scripts/validate-release-source.mjs' "$release"

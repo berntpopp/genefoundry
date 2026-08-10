@@ -415,7 +415,7 @@ jobs:
           DIGEST: ${{ needs.build-gate.outputs.digest }}
         run: |
           set -euo pipefail
-          gh release create "$TAG" --verify-tag \
+          gh release create "$TAG" \
             --title "GeneFoundry ${TAG#v}" \
             --notes "Container: ghcr.io/berntpopp/genefoundry@$DIGEST" \
             release-build/application-release-manifest.json \
