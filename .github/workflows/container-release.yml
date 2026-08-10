@@ -205,6 +205,11 @@ jobs:
           ignore-unfixed: true
           exit-code: '1'
 
+      - name: Install pinned Trivy CLI for evidence
+        uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
+        with:
+          version: v0.70.0
+
       - name: Record scanner and database identity
         id: scan-evidence
         shell: bash
