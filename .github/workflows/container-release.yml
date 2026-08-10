@@ -352,6 +352,10 @@ jobs:
           VERSION: ${{ needs.build-gate.outputs.version }}
         run: |
           set -euo pipefail
+          cat > "$RUNNER_TEMP/registries.conf" <<'EOF'
+          unqualified-search-registries = ["docker.io"]
+          EOF
+          export CONTAINERS_REGISTRIES_CONF="$RUNNER_TEMP/registries.conf"
           echo "$GH_TOKEN" | "$RUNNER_TEMP/skopeo" login ghcr.io \
             --username "$GITHUB_ACTOR" --password-stdin
 
