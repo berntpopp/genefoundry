@@ -133,16 +133,20 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Manual chunk splitting for better caching
-        manualChunks: {
-          // Vendor chunk for Vue core
-          'vue-vendor': ['vue']
+        manualChunks(id) {
+          // Vite 8 / Rollup 5 removed the object form. Keep Vue and its
+          // first-party runtime packages in one stable vendor chunk.
+          if (/[\\/]node_modules[\\/](?:@vue[\\/]|vue[\\/])/.test(id)) {
+            return 'vue-vendor'
+          }
         }
       }
     },
     // Disable CSS code splitting - single CSS file loads faster for small apps
     cssCodeSplit: false,
-    // Minification settings
-    minify: 'esbuild',
+    // Vite 8 defaults to the built-in Oxc minifier. Selecting esbuild now
+    // requires an extra optional dependency and is deprecated upstream.
+    minify: 'oxc',
   },
   // Dev server config for WSL2 compatibility
   server: {

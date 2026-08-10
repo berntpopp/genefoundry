@@ -5,6 +5,7 @@
 | Guide | Description |
 |-------|-------------|
 | [VPS Setup](./vps-setup.md) | Deploy GeneFoundry on a VPS with Nginx Proxy Manager |
+| [Container Release](./container-release.md) | Run the reviewed-main container release workflow |
 
 ## Quick Reference
 
