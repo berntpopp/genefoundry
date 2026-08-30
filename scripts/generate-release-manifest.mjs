@@ -12,6 +12,7 @@ const expectedOptions = new Set([
   '--image',
   '--output',
   '--revision',
+  '--sbom-sha256',
   '--scanner-evidence-sha256',
   '--scanner-version',
   '--scanner-version-evidence-sha256',
@@ -47,6 +48,7 @@ function main() {
   const scannerVersion = options['--scanner-version']
   const databaseUpdatedAt = options['--database-updated-at']
   const scannerEvidenceSha256 = options['--scanner-evidence-sha256']
+  const sbomSha256 = options['--sbom-sha256']
   const scannerVersionEvidenceSha256 =
     options['--scanner-version-evidence-sha256']
 
@@ -64,6 +66,7 @@ function main() {
   requireMatch(revision, revisionPattern, 'revision')
   requireMatch(tag, tagPattern, 'tag')
   requireMatch(scannerEvidenceSha256, evidenceSha256Pattern, 'scanner evidence SHA-256')
+  requireMatch(sbomSha256, evidenceSha256Pattern, 'SBOM SHA-256')
   requireMatch(
     scannerVersionEvidenceSha256,
     evidenceSha256Pattern,
@@ -92,12 +95,14 @@ function main() {
     repository: 'berntpopp/genefoundry',
     release_assets: {
       'image-manifest.json': digest,
+      'sbom.spdx.json': `sha256:${sbomSha256}`,
       'trivy-version.json': `sha256:${scannerVersionEvidenceSha256}`,
       'trivy.json': `sha256:${scannerEvidenceSha256}`,
     },
     schema_version: 1,
     security_evidence: {
       database_updated_at: databaseUpdatedAt,
+      sbom_sha256: sbomSha256,
       scanner: 'trivy',
       scanner_evidence_sha256: scannerEvidenceSha256,
       scanner_version: scannerVersion,

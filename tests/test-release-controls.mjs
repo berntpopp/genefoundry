@@ -11,6 +11,7 @@ const DIGEST = `sha256:${'a'.repeat(64)}`
 const REVISION = 'b'.repeat(40)
 const SCAN_SHA256 = 'c'.repeat(64)
 const VERSION_SHA256 = 'd'.repeat(64)
+const SBOM_SHA256 = 'e'.repeat(64)
 
 function writeReleaseAdmissionFixtures(workdir, revision, overrides = {}) {
   const finalHead = 'e'.repeat(40)
@@ -129,6 +130,8 @@ test('release manifest generator binds the image to source and version', () => {
         SCAN_SHA256,
         '--scanner-version-evidence-sha256',
         VERSION_SHA256,
+        '--sbom-sha256',
+        SBOM_SHA256,
         '--output',
         output,
       ],
@@ -147,12 +150,14 @@ test('release manifest generator binds the image to source and version', () => {
       repository: 'berntpopp/genefoundry',
       release_assets: {
         'image-manifest.json': DIGEST,
+        'sbom.spdx.json': `sha256:${SBOM_SHA256}`,
         'trivy-version.json': `sha256:${VERSION_SHA256}`,
         'trivy.json': `sha256:${SCAN_SHA256}`,
       },
       schema_version: 1,
       security_evidence: {
         database_updated_at: '2026-08-10T06:54:30.951906211Z',
+        sbom_sha256: SBOM_SHA256,
         scanner: 'trivy',
         scanner_evidence_sha256: SCAN_SHA256,
         scanner_version: '0.70.0',
@@ -166,6 +171,70 @@ test('release manifest generator binds the image to source and version', () => {
   } finally {
     rmSync(workdir, { recursive: true, force: true })
   }
+})
+
+test('release manifest generator rejects a missing SBOM SHA-256', () => {
+  const result = spawnSync(
+    process.execPath,
+    [
+      'scripts/generate-release-manifest.mjs',
+      '--image',
+      'ghcr.io/berntpopp/genefoundry',
+      '--digest',
+      DIGEST,
+      '--revision',
+      REVISION,
+      '--tag',
+      'v0.1.0',
+      '--scanner-version',
+      '0.70.0',
+      '--database-updated-at',
+      '2026-08-10T06:54:30.951906211Z',
+      '--scanner-evidence-sha256',
+      SCAN_SHA256,
+      '--scanner-version-evidence-sha256',
+      VERSION_SHA256,
+      '--output',
+      '/tmp/application-release-manifest.json',
+    ],
+    { encoding: 'utf8' },
+  )
+
+  assert.notEqual(result.status, 0)
+  assert.match(result.stderr, /unexpected or missing argument/)
+})
+
+test('release manifest generator rejects a malformed SBOM SHA-256', () => {
+  const result = spawnSync(
+    process.execPath,
+    [
+      'scripts/generate-release-manifest.mjs',
+      '--image',
+      'ghcr.io/berntpopp/genefoundry',
+      '--digest',
+      DIGEST,
+      '--revision',
+      REVISION,
+      '--tag',
+      'v0.1.0',
+      '--scanner-version',
+      '0.70.0',
+      '--database-updated-at',
+      '2026-08-10T06:54:30.951906211Z',
+      '--scanner-evidence-sha256',
+      SCAN_SHA256,
+      '--scanner-version-evidence-sha256',
+      VERSION_SHA256,
+      '--sbom-sha256',
+      'not-a-sha256',
+      '--output',
+      '/tmp/application-release-manifest.json',
+    ],
+    { encoding: 'utf8' },
+  )
+
+  assert.notEqual(result.status, 0)
+  assert.match(result.stderr, /SBOM SHA-256 is malformed/)
 })
 
 test('release manifest generator rejects mutable or malformed coordinates', () => {

@@ -205,6 +205,14 @@ jobs:
           ignore-unfixed: true
           exit-code: '1'
 
+      - name: Generate SPDX JSON SBOM
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+        with:
+          image: release-gate:${{ steps.source.outputs.revision }}
+          format: spdx-json
+          output-file: ${{ steps.paths.outputs.root }}/sbom.spdx.json
+          upload-artifact: false
+
       - name: Install pinned Trivy CLI for evidence
         uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
         with:
@@ -224,11 +232,13 @@ jobs:
           database_updated_at="$(jq -er '.VulnerabilityDB.UpdatedAt' \
             "$EVIDENCE_ROOT/trivy-version.json")"
           scanner_evidence_sha256="$(sha256sum "$EVIDENCE_ROOT/trivy.json" | cut -d' ' -f1)"
+          sbom_sha256="$(sha256sum "$EVIDENCE_ROOT/sbom.spdx.json" | cut -d' ' -f1)"
           scanner_version_evidence_sha256="$(
             sha256sum "$EVIDENCE_ROOT/trivy-version.json" | cut -d' ' -f1
           )"
           {
             echo "database_updated_at=$database_updated_at"
+            echo "sbom_sha256=$sbom_sha256"
             echo "scanner_evidence_sha256=$scanner_evidence_sha256"
             echo "scanner_version=$scanner_version"
             echo "scanner_version_evidence_sha256=$scanner_version_evidence_sha256"
@@ -240,6 +250,7 @@ jobs:
           DATABASE_UPDATED_AT: ${{ steps.scan-evidence.outputs.database_updated_at }}
           REVISION: ${{ steps.source.outputs.revision }}
           SCANNER_EVIDENCE_SHA256: ${{ steps.scan-evidence.outputs.scanner_evidence_sha256 }}
+          SBOM_SHA256: ${{ steps.scan-evidence.outputs.sbom_sha256 }}
           SCANNER_VERSION: ${{ steps.scan-evidence.outputs.scanner_version }}
           SCANNER_VERSION_EVIDENCE_SHA256: ${{ steps.scan-evidence.outputs.scanner_version_evidence_sha256 }}
           TAG: ${{ steps.source.outputs.tag }}
@@ -253,6 +264,7 @@ jobs:
             --database-updated-at "$DATABASE_UPDATED_AT" \
             --scanner-evidence-sha256 "$SCANNER_EVIDENCE_SHA256" \
             --scanner-version-evidence-sha256 "$SCANNER_VERSION_EVIDENCE_SHA256" \
+            --sbom-sha256 "$SBOM_SHA256" \
             --output "$RUNNER_TEMP/release-build/application-release-manifest.json"
 
       - name: Preserve exact gated release candidate
@@ -301,6 +313,10 @@ jobs:
             "$(jq -er '.release_assets["trivy.json"]' "$manifest" | cut -d: -f2)"
           test "$(sha256sum release-build/trivy-version.json | cut -d' ' -f1)" = \
             "$(jq -er '.release_assets["trivy-version.json"]' "$manifest" | cut -d: -f2)"
+          sbom_sha256="$(sha256sum release-build/sbom.spdx.json | cut -d' ' -f1)"
+          test "$sbom_sha256" = \
+            "$(jq -er '.release_assets["sbom.spdx.json"]' "$manifest" | cut -d: -f2)"
+          test "$sbom_sha256" = "$(jq -er '.security_evidence.sbom_sha256' "$manifest")"
           mkdir -p "$RUNNER_TEMP/oci-layout"
           tar -xf release-build/image.oci.tar -C "$RUNNER_TEMP/oci-layout"
           test "$(
@@ -408,6 +424,14 @@ jobs:
           subject-digest: ${{ needs.build-gate.outputs.digest }}
           push-to-registry: true
 
+      - name: Upload GitHub SPDX SBOM attestation
+        uses: actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0
+        with:
+          subject-name: ghcr.io/berntpopp/genefoundry
+          subject-digest: ${{ needs.build-gate.outputs.digest }}
+          sbom-path: release-build/sbom.spdx.json
+          push-to-registry: true
+
       - name: Create immutable-coordinate GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -420,5 +444,6 @@ jobs:
             --notes "Container: ghcr.io/berntpopp/genefoundry@$DIGEST" \
             release-build/application-release-manifest.json \
             release-build/image-manifest.json \
+            release-build/sbom.spdx.json \
             release-build/trivy.json \
             release-build/trivy-version.json
