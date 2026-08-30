@@ -3,8 +3,18 @@
 set -euo pipefail
 
 release='.github/workflows/container-release.yml'
+dockerfile='docker/Dockerfile'
 
 test -f "$release"
+test -f "$dockerfile"
+
+node_base='node:20-alpine3.20@sha256:3bc9a4c4cc25cfde1e8f946341c85f333c36517aafda829b4bb7e785e9b5995c'
+nginx_base='fholzer/nginx-brotli:v1.28.0@sha256:c19ed9117e2ece6c45777e6361829a3135bf2969ea401db5c31c078c93751a02'
+frontend='# syntax=docker/dockerfile:1.11@sha256:10c699f1b6c8bdc8f6b4ce8974855dd8542f1768c26eb240237b8f1c9c6c9976'
+
+grep -Fqx "$frontend" "$dockerfile"
+test "$(grep -Ec "^FROM ${node_base} AS (deps|builder)$" "$dockerfile")" -eq 2
+grep -Fqx "FROM ${nginx_base} AS runtime" "$dockerfile"
 
 while IFS= read -r use; do
     if [[ ! "$use" =~ @[0-9a-f]{40}$ ]]; then
@@ -20,6 +30,7 @@ grep -Fq 'actions/download-artifact@' "$release"
 grep -Fq 'application-release-manifest.json' "$release"
 grep -Fq 'trivy-version.json' "$release"
 grep -Fq 'aquasecurity/setup-trivy@' "$release"
+grep -Fq 'docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0' "$release"
 grep -Fq 'TRIVY_CACHE_DIR: ${{ github.workspace }}/.cache/trivy' "$release"
 grep -Fq 'CONTAINERS_REGISTRIES_CONF="$RUNNER_TEMP/registries.conf"' "$release"
 grep -Fq 'unqualified-search-registries = ["docker.io"]' "$release"

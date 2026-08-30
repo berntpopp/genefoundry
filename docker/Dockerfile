@@ -1,13 +1,11 @@
-# syntax=docker/dockerfile:1.11
+# syntax=docker/dockerfile:1.11@sha256:10c699f1b6c8bdc8f6b4ce8974855dd8542f1768c26eb240237b8f1c9c6c9976
 
 # ============================================================================
 # GeneFoundry Landing Page - Production Dockerfile
 # Multi-stage build: Node.js build → nginx with Brotli runtime
 # ============================================================================
 
-ARG NODE_VERSION=20-alpine3.20
 # fholzer/nginx-brotli includes brotli_static and gzip_static modules
-ARG NGINX_VERSION=v1.28.0
 ARG APP_VERSION=0.0.0
 ARG VCS_REF=unknown
 ARG BUILD_DATE=unknown
@@ -15,7 +13,7 @@ ARG BUILD_DATE=unknown
 # ============================================================================
 # STAGE 1: Dependencies - Install node_modules with cache
 # ============================================================================
-FROM node:${NODE_VERSION} AS deps
+FROM node:20-alpine3.20@sha256:3bc9a4c4cc25cfde1e8f946341c85f333c36517aafda829b4bb7e785e9b5995c AS deps
 
 WORKDIR /app
 
@@ -29,7 +27,7 @@ RUN --mount=type=cache,target=/root/.npm \
 # ============================================================================
 # STAGE 2: Builder - Build static site with pre-compressed assets
 # ============================================================================
-FROM node:${NODE_VERSION} AS builder
+FROM node:20-alpine3.20@sha256:3bc9a4c4cc25cfde1e8f946341c85f333c36517aafda829b4bb7e785e9b5995c AS builder
 
 WORKDIR /app
 
@@ -54,7 +52,7 @@ RUN npm run build && \
 # ============================================================================
 # STAGE 3: Runtime - nginx with Brotli serving pre-compressed static files
 # ============================================================================
-FROM fholzer/nginx-brotli:${NGINX_VERSION} AS runtime
+FROM fholzer/nginx-brotli:v1.28.0@sha256:c19ed9117e2ece6c45777e6361829a3135bf2969ea401db5c31c078c93751a02 AS runtime
 
 ARG APP_VERSION
 ARG VCS_REF
