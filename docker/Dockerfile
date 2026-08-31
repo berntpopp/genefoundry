@@ -13,7 +13,7 @@ ARG BUILD_DATE=unknown
 # ============================================================================
 # STAGE 1: Dependencies - Install node_modules with cache
 # ============================================================================
-FROM node:20-alpine3.20@sha256:3bc9a4c4cc25cfde1e8f946341c85f333c36517aafda829b4bb7e785e9b5995c AS deps
+FROM node:24-alpine3.20@sha256:8fe019e0d57dbdce5f5c27c0b63d2775cf34b00e3755a7dea969802d7e0c2b25 AS deps
 
 WORKDIR /app
 
@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/root/.npm \
 # ============================================================================
 # STAGE 2: Builder - Build static site with pre-compressed assets
 # ============================================================================
-FROM node:20-alpine3.20@sha256:3bc9a4c4cc25cfde1e8f946341c85f333c36517aafda829b4bb7e785e9b5995c AS builder
+FROM node:24-alpine3.20@sha256:8fe019e0d57dbdce5f5c27c0b63d2775cf34b00e3755a7dea969802d7e0c2b25 AS builder
 
 WORKDIR /app
 
