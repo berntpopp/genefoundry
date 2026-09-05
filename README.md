@@ -85,4 +85,4 @@ After building the matrix, serve the production Docker image at `http://127.0.0.
 npm run audit:lighthouse
 ```
 
-This runs Lighthouse 13.4.0 sequentially on all 37 indexable routes with mobile throttling. Reports and a route summary stay under ignored `.build/lighthouse/`. Pass `-- --url http://127.0.0.1:PORT/` to audit another production preview. Development-server performance is not representative of the compressed production build. The `/genefoundry/` mirror and error pages intentionally use `noindex`; audit the root deployment for production SEO.
+This runs Lighthouse 13.4.0 sequentially on all indexable routes with mobile throttling. Reports and a route summary stay under ignored `.build/lighthouse/`. Pass `-- --url http://127.0.0.1:PORT/` to audit another production preview. Development-server performance is not representative of the compressed production build. The `/genefoundry/` mirror and error pages intentionally use `noindex`; audit the root deployment for production SEO.

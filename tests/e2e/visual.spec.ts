@@ -1,6 +1,6 @@
 import { chromium, expect, test } from '@playwright/test'
 import { PAGES } from '../../src/data/pages'
-import { WORKFLOWS } from '../../src/data/workflows'
+import { FEATURED_WORKFLOWS, WORKFLOWS } from '../../src/data/workflows'
 test('mobile menu dismisses to its trigger and enlarged text reflows', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
@@ -39,8 +39,8 @@ for (const width of [320, 390, 768, 1440]) {
 test('homepage shows usable prompts leading to worked examples', async ({ page }) => {
   await page.goto('/')
   const examples = page.locator('.workflow-previews article')
-  await expect(examples).toHaveCount(WORKFLOWS.length)
-  for (const [index, workflow] of WORKFLOWS.entries()) {
+  await expect(examples).toHaveCount(FEATURED_WORKFLOWS.length)
+  for (const [index, workflow] of FEATURED_WORKFLOWS.entries()) {
     await expect(examples.nth(index).locator('blockquote')).toHaveText(workflow.prompt)
     await expect(
       examples
@@ -74,9 +74,9 @@ test('reading and workflow pages keep the navigation alignment', async ({ page }
   }
   await page.goto('/workflows/')
   const examples = page.locator('.worked-examples > section')
-  await expect(examples).toHaveCount(2)
+  await expect(examples).toHaveCount(WORKFLOWS.length)
   const first = await examples.first().boundingBox()
-  const second = await examples.last().boundingBox()
+  const second = await examples.nth(1).boundingBox()
   expect(first!.y).toBe(second!.y)
   expect(second!.x).toBeGreaterThan(first!.x)
   await page.setViewportSize({ width: 320, height: 900 })
@@ -192,14 +192,14 @@ test('every page keeps navbar alignment when classic scrollbars appear or disapp
       expect.soft(position.overflow, PAGES[index]!.path).toBe(false)
     }
 
-    // Keep real linked navigation coverage, including both scrollbar states.
+    // Start at the short recovery page, then follow real links to longer pages.
     const context = await browser.newContext({ viewport: { width: 1440, height: 1600 } })
     try {
       const page = await context.newPage()
-      await page.goto(baseURL!)
+      await page.goto(new URL('404.html', baseURL).href)
       await page.evaluate(() => document.fonts.ready)
       const transitions = [await page.evaluate(measurePosition)]
-      for (const label of ['Workflows', 'About', 'GeneFoundry home']) {
+      for (const label of ['GeneFoundry home', 'Workflows', 'About', 'GeneFoundry home']) {
         const link =
           label === 'GeneFoundry home'
             ? page.getByRole('link', { name: label, exact: true })

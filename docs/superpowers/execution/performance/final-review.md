@@ -1,5 +1,7 @@
 # Final performance and SEO review
 
+This records the baseline before the nine-workflow expansion. See [the workflow expansion review](../workflow-expansion.md) for the current execution evidence and performance measurements.
+
 Measured 6 September 2026 with Lighthouse 13.4.0 against the local production nginx container, using mobile throttling. All 37 indexable routes were audited sequentially. These are local lab results, not field Core Web Vitals or a guarantee of Google indexing/ranking.
 
 ## Results

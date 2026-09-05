@@ -5,7 +5,7 @@ import ConnectSection from '../components/ConnectSection.vue'
 import { COPY } from '../data/copy'
 import { SERVERS, SERVER_COUNT } from '../data/servers'
 import { FEATURED_NAMESPACES } from '../data/site'
-import { WORKFLOWS } from '../data/workflows'
+import { FEATURED_WORKFLOWS } from '../data/workflows'
 import { siteHref } from '../lib/urls'
 const featured = FEATURED_NAMESPACES.flatMap((namespace) =>
   SERVERS.filter((source) => source.namespace === namespace)
@@ -53,7 +53,7 @@ const featured = FEATURED_NAMESPACES.flatMap((namespace) =>
         <a class="text-link" :href="siteHref('/workflows/')">All worked examples</a>
       </div>
       <div class="workflow-previews">
-        <article v-for="workflow in WORKFLOWS" :key="workflow.id">
+        <article v-for="workflow in FEATURED_WORKFLOWS" :key="workflow.id">
           <h3>
             <a :href="siteHref(`/workflows/${workflow.id}/`)">{{ workflow.title }}</a>
           </h3>

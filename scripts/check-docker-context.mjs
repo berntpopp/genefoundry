@@ -15,7 +15,12 @@ try {
   await writeFile(join(directory, 'docs/should-not-enter.txt'), 'Non-build documentation')
   await writeFile(
     join(directory, 'docs/superpowers/execution/verification/synthetic.json'),
-    JSON.stringify({ testFixture: true })
+    JSON.stringify({
+      testFixture: true,
+      kind: 'client',
+      subjectId: 'codex',
+      executedAt: '2026-09-05'
+    })
   )
   await writeFile(
     join(directory, 'docs/superpowers/execution/verification-ledger.json'),

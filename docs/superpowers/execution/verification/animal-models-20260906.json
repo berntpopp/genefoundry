@@ -1,0 +1,691 @@
+{
+  "kind": "workflow",
+  "subjectId": "animal-models",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 \u00b7 Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Fresh tool-use/tool-result pairs from an explicitly selected --model opus session. Both initialization and tool-use messages identify claude-opus-5. Gateway envelopes and source payloads are preserved; no conversation, credentials or session identifiers are included.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "mgi_get_marker",
+          "arguments": {
+            "query": "Pax2",
+            "response_mode": "standard"
+          }
+        }
+      },
+      "result": {
+        "mgi_id": "MGI:97486",
+        "symbol": "Pax2",
+        "name": "paired box 2",
+        "marker_type": "Gene",
+        "feature_type": "protein coding gene",
+        "chromosome": "19",
+        "cm_position": "38.09",
+        "coord_start": "44735057",
+        "coord_end": "44826310",
+        "strand": "+",
+        "status": "O",
+        "entrez_id": "18504",
+        "ensembl_gene_id": "ENSMUSG00000004231",
+        "refseq_id": null,
+        "synonyms": ["Pax-2", "Opdc"],
+        "requested_query": "Pax2",
+        "match_type": "current",
+        "location": "Chr19:44735057-44826310+ (GRCm39)",
+        "human_ortholog": {
+          "symbol": "PAX2",
+          "hgnc_id": "HGNC:8616",
+          "omim_gene_id": "OMIM:167409"
+        },
+        "summary": {
+          "alleles_total": 21,
+          "phenotypes": 125,
+          "phenotype_references": 18,
+          "diseases": 1,
+          "phenotype_scope": "single_locus_genotypes_only"
+        },
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "mgi_get_marker_alleles",
+              "arguments": {
+                "query": "MGI:97486"
+              }
+            },
+            {
+              "tool": "mgi_get_phenotype_overview",
+              "arguments": {
+                "query": "MGI:97486"
+              }
+            }
+          ],
+          "tool": "mgi_get_marker",
+          "request_id": "50212fdd804b",
+          "elapsed_ms": 1,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__mgi_get_marker_phenotypes",
+        "arguments": {
+          "query": "Pax2",
+          "mp_system": "renal/urinary system",
+          "response_mode": "full",
+          "limit": 30
+        }
+      },
+      "result": {
+        "mgi_id": "MGI:97486",
+        "symbol": "Pax2",
+        "mp_system_filter": "MP:0005367",
+        "view": "per_genotype",
+        "summary": {
+          "phenotypes": 125,
+          "phenotyped_alleles": 9,
+          "genetic_backgrounds": 16,
+          "genotypes": 24,
+          "references": 18
+        },
+        "scope": "single_locus_genotypes_only",
+        "excludes_conditional_genotypes": true,
+        "scope_note": "Phenotype annotations cover single-locus, non-conditional genotypes only (MGI_GenePheno). Conditional/Cre-driven and multi-genic genotypes are excluded by this MGI data source and may appear on the MGI gene page (e.g. tissue-specific renal phenotypes from Cre conditional alleles). A zero or partial count here does NOT mean the gene lacks that phenotype in mouse; confirm on the MGI gene page.",
+        "total": 68,
+        "returned": 30,
+        "limit": 30,
+        "truncated": true,
+        "annotations": [
+          {
+            "mp_id": "MP:0004195",
+            "mp_term": "abnormal kidney calyx morphology",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:3694692"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<tm1Pgr>",
+            "allele_symbols": "Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:2677317"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<tm2(Pax5)Mbu>/Pax2<tm2(Pax5)Mbu>",
+            "allele_symbols": "Pax2<tm2(Pax5)Mbu>",
+            "allele_ids": ["MGI:1926937"],
+            "genetic_background": "C3.129P2-Pax2<tm2(Pax5)Mbu>",
+            "pubmed_id": "10934015",
+            "genotype_id": "MGI:3694761"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<tm1Mbu>/Pax2<tm2(Pax5)Mbu>",
+            "allele_symbols": "Pax2<tm1Mbu>|Pax2<tm2(Pax5)Mbu>",
+            "allele_ids": ["MGI:1858000", "MGI:1926937"],
+            "genetic_background": "C3.129P2-Pax2<tm1Mbu> Pax2<tm2(Pax5)Mbu>",
+            "pubmed_id": "10934015",
+            "genotype_id": "MGI:3696267"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<1Neu>/Pax2<1Neu>",
+            "allele_symbols": "Pax2<1Neu>",
+            "allele_ids": ["MGI:1857114"],
+            "genetic_background": "involves: 102 * C3H",
+            "pubmed_id": "8943028",
+            "genotype_id": "MGI:3841029"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<1Neu>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<1Neu>",
+            "allele_ids": ["MGI:1857114"],
+            "genetic_background": "involves: 102 * C57BL/6",
+            "pubmed_id": "14603255",
+            "genotype_id": "MGI:3841044"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<M1Bpb>/Pax2<M1Bpb>",
+            "allele_symbols": "Pax2<M1Bpb>",
+            "allele_ids": ["MGI:4442602"],
+            "genetic_background": "C57BL/6-Pax2<M1Bpb>",
+            "pubmed_id": "20221250",
+            "genotype_id": "MGI:4442635"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<tm1.1Gdr>/Pax2<tm1.1Gdr>",
+            "allele_symbols": "Pax2<tm1.1Gdr>",
+            "allele_ids": ["MGI:5427892"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ * C57BL/6",
+            "pubmed_id": "22410172",
+            "genotype_id": "MGI:5427899"
+          },
+          {
+            "mp_id": "MP:0000527",
+            "mp_term": "abnormal kidney development",
+            "allelic_composition": "Pax2<tm1Gdr>/Pax2<tm1.1Gdr>",
+            "allele_symbols": "Pax2<tm1.1Gdr>|Pax2<tm1Gdr>",
+            "allele_ids": ["MGI:5427892", "MGI:5427893"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ * C57BL/6",
+            "pubmed_id": "22410172",
+            "genotype_id": "MGI:5427900"
+          },
+          {
+            "mp_id": "MP:0011382",
+            "mp_term": "abnormal kidney lobule morphology",
+            "allelic_composition": "Pax2<tm1Gdr>/Pax2<tm1Gdr>",
+            "allele_symbols": "Pax2<tm1Gdr>",
+            "allele_ids": ["MGI:5427893"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ * C57BL/6",
+            "pubmed_id": "22410172",
+            "genotype_id": "MGI:5427898"
+          },
+          {
+            "mp_id": "MP:0010986",
+            "mp_term": "abnormal mesonephric mesenchyme morphology",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<tm1Pgr>",
+            "allele_symbols": "Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:2677317"
+          },
+          {
+            "mp_id": "MP:0010984",
+            "mp_term": "abnormal metanephric mesenchyme morphology",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<tm1Pgr>",
+            "allele_symbols": "Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:2677317"
+          },
+          {
+            "mp_id": "MP:0010984",
+            "mp_term": "abnormal metanephric mesenchyme morphology",
+            "allelic_composition": "Pax2<1Neu>/Pax2<1Neu>",
+            "allele_symbols": "Pax2<1Neu>",
+            "allele_ids": ["MGI:1857114"],
+            "genetic_background": "involves: 102 * C3H",
+            "pubmed_id": "8943028",
+            "genotype_id": "MGI:3841029"
+          },
+          {
+            "mp_id": "MP:0011334",
+            "mp_term": "abnormal nephrogenic zone morphology",
+            "allelic_composition": "Pax2<1Neu>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<1Neu>",
+            "allele_ids": ["MGI:1857114"],
+            "genetic_background": "involves: 102 * C57BL/6",
+            "pubmed_id": "10587573",
+            "genotype_id": "MGI:3841044"
+          },
+          {
+            "mp_id": "MP:0002703",
+            "mp_term": "abnormal renal tubule morphology",
+            "allelic_composition": "Pax2<M1Bpb>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<M1Bpb>",
+            "allele_ids": ["MGI:4442602"],
+            "genetic_background": "C57BL/6-Pax2<M1Bpb>",
+            "pubmed_id": "20221250",
+            "genotype_id": "MGI:4442633"
+          },
+          {
+            "mp_id": "MP:0000534",
+            "mp_term": "abnormal ureter morphology",
+            "allelic_composition": "Pax2<1Neu>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<1Neu>",
+            "allele_ids": ["MGI:1857114"],
+            "genetic_background": "involves: 102 * CD-1",
+            "pubmed_id": "17881463",
+            "genotype_id": "MGI:5442586"
+          },
+          {
+            "mp_id": "MP:0000520",
+            "mp_term": "absent kidney",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<tm1Pgr>",
+            "allele_symbols": "Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:2677317"
+          },
+          {
+            "mp_id": "MP:0000520",
+            "mp_term": "absent kidney",
+            "allelic_composition": "Pax2<tm1Cjt>/Pax2<tm1Cjt>",
+            "allele_symbols": "Pax2<tm1Cjt>",
+            "allele_ids": ["MGI:2657223"],
+            "genetic_background": "involves: 129S1/Sv * C57BL/6J",
+            "pubmed_id": "11804780",
+            "genotype_id": "MGI:3694691"
+          },
+          {
+            "mp_id": "MP:0000520",
+            "mp_term": "absent kidney",
+            "allelic_composition": "Pax2<tm1Mbu>/Pax2<tm1Mbu>",
+            "allele_symbols": "Pax2<tm1Mbu>",
+            "allele_ids": ["MGI:1858000"],
+            "genetic_background": "C3.129P2-Pax2<tm1Mbu>",
+            "pubmed_id": "10934015",
+            "genotype_id": "MGI:3694762"
+          },
+          {
+            "mp_id": "MP:0000520",
+            "mp_term": "absent kidney",
+            "allelic_composition": "Pax2<tm1Mbu>/Pax2<tm2(Pax5)Mbu>",
+            "allele_symbols": "Pax2<tm1Mbu>|Pax2<tm2(Pax5)Mbu>",
+            "allele_ids": ["MGI:1858000", "MGI:1926937"],
+            "genetic_background": "C3.129P2-Pax2<tm1Mbu> Pax2<tm2(Pax5)Mbu>",
+            "pubmed_id": "10934015",
+            "genotype_id": "MGI:3696267"
+          },
+          {
+            "mp_id": "MP:0000520",
+            "mp_term": "absent kidney",
+            "allelic_composition": "Pax2<1Neu>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<1Neu>",
+            "allele_ids": ["MGI:1857114"],
+            "genetic_background": "involves: 102 * C57BL/6",
+            "pubmed_id": "14603255",
+            "genotype_id": "MGI:3841044"
+          },
+          {
+            "mp_id": "MP:0000520",
+            "mp_term": "absent kidney",
+            "allelic_composition": "Pax2<tm1.1Gdr>/Pax2<tm1.1Gdr>",
+            "allele_symbols": "Pax2<tm1.1Gdr>",
+            "allele_ids": ["MGI:5427892"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ * C57BL/6",
+            "pubmed_id": "22410172",
+            "genotype_id": "MGI:5427899"
+          },
+          {
+            "mp_id": "MP:0011366",
+            "mp_term": "absent metanephros",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<tm1Pgr>",
+            "allele_symbols": "Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:2677317"
+          },
+          {
+            "mp_id": "MP:0003722",
+            "mp_term": "absent ureter",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<tm1Pgr>",
+            "allele_symbols": "Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:2677317"
+          },
+          {
+            "mp_id": "MP:0003722",
+            "mp_term": "absent ureter",
+            "allelic_composition": "Pax2<tm1Cjt>/Pax2<tm1Cjt>",
+            "allele_symbols": "Pax2<tm1Cjt>",
+            "allele_ids": ["MGI:2657223"],
+            "genetic_background": "involves: 129S1/Sv * C57BL/6J",
+            "pubmed_id": "11804780",
+            "genotype_id": "MGI:3694691"
+          },
+          {
+            "mp_id": "MP:0003722",
+            "mp_term": "absent ureter",
+            "allelic_composition": "Pax2<tm1Mbu>/Pax2<tm1Mbu>",
+            "allele_symbols": "Pax2<tm1Mbu>",
+            "allele_ids": ["MGI:1858000"],
+            "genetic_background": "C3.129P2-Pax2<tm1Mbu>",
+            "pubmed_id": "10934015",
+            "genotype_id": "MGI:3694762"
+          },
+          {
+            "mp_id": "MP:0003722",
+            "mp_term": "absent ureter",
+            "allelic_composition": "Pax2<tm1Mbu>/Pax2<tm2(Pax5)Mbu>",
+            "allele_symbols": "Pax2<tm1Mbu>|Pax2<tm2(Pax5)Mbu>",
+            "allele_ids": ["MGI:1858000", "MGI:1926937"],
+            "genetic_background": "C3.129P2-Pax2<tm1Mbu> Pax2<tm2(Pax5)Mbu>",
+            "pubmed_id": "10934015",
+            "genotype_id": "MGI:3696267"
+          },
+          {
+            "mp_id": "MP:0010978",
+            "mp_term": "absent ureteric bud",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<tm1Pgr>",
+            "allele_symbols": "Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:2677317"
+          },
+          {
+            "mp_id": "MP:0003584",
+            "mp_term": "bifid ureter",
+            "allelic_composition": "Pax2<1Neu>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<1Neu>",
+            "allele_ids": ["MGI:1857114"],
+            "genetic_background": "involves: 102 * CD-1",
+            "pubmed_id": "17881463",
+            "genotype_id": "MGI:5442586"
+          },
+          {
+            "mp_id": "MP:0011290",
+            "mp_term": "decreased nephron number",
+            "allelic_composition": "Pax2<tm1Pgr>/Pax2<+>",
+            "allele_symbols": "Pax2<+>|Pax2<tm1Pgr>",
+            "allele_ids": ["MGI:1857673"],
+            "genetic_background": "involves: 129S1/Sv * 129X1/SvJ",
+            "pubmed_id": "8575306",
+            "genotype_id": "MGI:3694692"
+          }
+        ],
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "mgi_get_marker_phenotypes",
+              "arguments": {
+                "query": "MGI:97486",
+                "limit": 68
+              }
+            },
+            {
+              "tool": "mgi_get_phenotype_overview",
+              "arguments": {
+                "query": "MGI:97486"
+              }
+            },
+            {
+              "tool": "mgi_get_marker_diseases",
+              "arguments": {
+                "query": "MGI:97486"
+              }
+            }
+          ],
+          "tool": "mgi_get_marker_phenotypes",
+          "request_id": "2638180a9d10",
+          "elapsed_ms": 2,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "mgi_get_marker_alleles",
+          "arguments": {
+            "query": "Pax2",
+            "limit": 50,
+            "response_mode": "compact"
+          }
+        }
+      },
+      "result": {
+        "mgi_id": "MGI:97486",
+        "symbol": "Pax2",
+        "allele_type_filter": null,
+        "total_alleles": 21,
+        "category_counts": {
+          "Targeted": 10,
+          "Endonuclease-mediated": 8,
+          "Chemically induced (ENU)": 2,
+          "Spontaneous": 1
+        },
+        "total": 21,
+        "returned": 21,
+        "limit": 50,
+        "truncated": false,
+        "alleles": [
+          {
+            "allele_id": "MGI:1857114",
+            "symbol": "Pax2<1Neu>",
+            "name": "Neuherberg 1",
+            "allele_type": "Spontaneous",
+            "pubmed_ids": ["8943028"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:4442602",
+            "symbol": "Pax2<M1Bpb>",
+            "name": "mutation 1, Brian P Brooks",
+            "allele_type": "Chemically induced (ENU)",
+            "pubmed_ids": ["20221250"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:1934620",
+            "symbol": "Pax2<Opdc>",
+            "name": "optic disc coloboma",
+            "allele_type": "Chemically induced (ENU)",
+            "pubmed_ids": ["11929848"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:7585617",
+            "symbol": "Pax2<em1Cya>",
+            "name": "endonuclease-mediated mutation 1, Cyagen Biosciences",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["Null/knockout"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:7376992",
+            "symbol": "Pax2<em1Gpt>",
+            "name": "endonuclease-mediated mutation 1, GemPharmatech Co., Ltd",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["Null/knockout"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:6156350",
+            "symbol": "Pax2<em1H>",
+            "name": "endonuclease-mediated mutation 1, Harwell",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["Null/knockout"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:8391067",
+            "symbol": "Pax2<em1Smoc>",
+            "name": "endonuclease-mediated mutation 1, Shanghai Model Organisms Center",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["Null/knockout"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:8391066",
+            "symbol": "Pax2<em2(cre/ERT2)Smoc>",
+            "name": "endonuclease-mediated mutation 2, Shanghai Model Organisms Center",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["Recombinase", "Inducible"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:8229944",
+            "symbol": "Pax2<em2Cya>",
+            "name": "endonuclease-mediated mutation 2, Cyagen Biosciences",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["No functional change", "Conditional ready"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:8367119",
+            "symbol": "Pax2<em2Gpt>",
+            "name": "endonuclease-mediated mutation 2, GemPharmatech",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["Conditional ready"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:8259367",
+            "symbol": "Pax2<em2H>",
+            "name": "endonuclease-mediated mutation 2, Harwell",
+            "allele_type": "Endonuclease-mediated",
+            "attributes": ["Not Specified"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:6154954",
+            "symbol": "Pax2<tm1.1Akio>",
+            "name": "targeted mutation 1.1, Akio Kobayashi",
+            "allele_type": "Targeted",
+            "attributes": ["Conditional ready", "No functional change"],
+            "pubmed_ids": ["28535371"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:5427892",
+            "symbol": "Pax2<tm1.1Gdr>",
+            "name": "targeted mutation 1.1, Gregory R Dressler",
+            "allele_type": "Targeted",
+            "attributes": ["Reporter", "Null/knockout"],
+            "pubmed_ids": ["22410172"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:6154955",
+            "symbol": "Pax2<tm1.2Akio>",
+            "name": "targeted mutation 1.2, Akio Kobayashi",
+            "allele_type": "Targeted",
+            "attributes": ["Null/knockout"],
+            "pubmed_ids": ["28535371"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:2657223",
+            "symbol": "Pax2<tm1Cjt>",
+            "name": "targeted mutation 1, Clifford J Tabin",
+            "allele_type": "Targeted",
+            "attributes": ["Null/knockout"],
+            "pubmed_ids": ["11804780"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:5427893",
+            "symbol": "Pax2<tm1Gdr>",
+            "name": "targeted mutation 1, Gregory R Dressler",
+            "allele_type": "Targeted",
+            "attributes": ["Null/knockout", "Reporter"],
+            "pubmed_ids": ["22410172"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:1858000",
+            "symbol": "Pax2<tm1Mbu>",
+            "name": "targeted mutation 1, Meinrad Busslinger",
+            "allele_type": "Targeted",
+            "attributes": ["Null/knockout", "Reporter"],
+            "pubmed_ids": ["10934015"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:8190174",
+            "symbol": "Pax2<tm1Nju>",
+            "name": "targeted mutation 1, Model Animal Research Center for Nanjing University",
+            "allele_type": "Targeted",
+            "attributes": ["Not Specified"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:1857673",
+            "symbol": "Pax2<tm1Pgr>",
+            "name": "targeted mutation 1, Peter Gruss",
+            "allele_type": "Targeted",
+            "attributes": ["Null/knockout"],
+            "pubmed_ids": ["8575306"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:7607019",
+            "symbol": "Pax2<tm1c(KOMP)Wtsi>",
+            "name": "targeted mutation 1c, Wellcome Trust Sanger Institute",
+            "allele_type": "Targeted",
+            "attributes": ["Conditional ready", "No functional change"],
+            "pubmed_ids": ["32381599"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          },
+          {
+            "allele_id": "MGI:1926937",
+            "symbol": "Pax2<tm2(Pax5)Mbu>",
+            "name": "targeted mutation 2, Meinrad Busslinger",
+            "allele_type": "Targeted",
+            "attributes": ["Inserted expressed sequence", "Reporter", "Conditional ready"],
+            "pubmed_ids": ["10934015"],
+            "marker_id": "MGI:97486",
+            "marker_symbol": "Pax2"
+          }
+        ],
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "mgi_get_marker_phenotypes",
+              "arguments": {
+                "query": "MGI:97486"
+              }
+            },
+            {
+              "tool": "mgi_get_phenotype_overview",
+              "arguments": {
+                "query": "MGI:97486"
+              }
+            }
+          ],
+          "tool": "mgi_get_marker_alleles",
+          "request_id": "496275aa4081",
+          "elapsed_ms": 0,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "requestedModel": "opus"
+}

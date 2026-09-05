@@ -1,0 +1,1439 @@
+{
+  "kind": "workflow",
+  "subjectId": "variant-annotation",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 \u00b7 Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Fresh actual tool-use/result pairs from an explicit Claude Opus 5 run via the GeneFoundry MCP. Every recorded tool-use message reports claude-opus-5. Display date uses Europe/Berlin; UTC provenance timestamps are preserved.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "vep_annotate_variant",
+          "arguments": {
+            "variant": "NM_000492.4:c.1521_1523del",
+            "assembly": "GRCh38",
+            "response_mode": "compact"
+          }
+        }
+      },
+      "result": {
+        "query": "NM_000492.4:c.1521_1523del",
+        "assembly": "GRCh38",
+        "variants": [
+          {
+            "variant_id": "7-117559591-TCTT-T",
+            "assembly": "GRCh38",
+            "most_severe_consequence": "inframe_deletion",
+            "gene_symbol": "CFTR",
+            "seq_region_name": "7",
+            "start": 117559592,
+            "end": 117559594,
+            "allele_string": "CTT/-",
+            "position_scores": {
+              "conservation": 1.2
+            },
+            "representative_transcript": {
+              "gene_symbol": "CFTR",
+              "transcript_id": "ENST00000003084",
+              "consequence_terms": ["inframe_deletion"],
+              "impact": "MODERATE",
+              "hgvsc": "ENST00000003084.11:c.1521_1523del",
+              "hgvsp": "ENSP00000003084.6:p.Phe508del",
+              "protein_position": "507-508"
+            },
+            "frequencies": [
+              {
+                "allele": "-",
+                "gnomade": 0.01235,
+                "gnomadg": 0.007884
+              }
+            ]
+          }
+        ],
+        "warnings": [],
+        "provenance": {
+          "data_source": "Ensembl VEP / Variant Recoder REST",
+          "assembly": "GRCh38",
+          "endpoint": "https://rest.ensembl.org/vep/homo_sapiens/region",
+          "retrieved": "2026-09-05T22:51:46.099252+00:00",
+          "recommended_citation": "McLaren W, et al. The Ensembl Variant Effect Predictor. Genome Biol. 2016;17:122. PMID:27268795."
+        },
+        "_meta": {
+          "tool": "vep_annotate_variant",
+          "request_id": "4a8c2a44a527",
+          "timing": {
+            "elapsed_ms": 0,
+            "upstream_ms": 0,
+            "cache_status": "hit"
+          },
+          "capabilities_version": "ec5938bbf545",
+          "unsafe_for_clinical_use": true,
+          "next_commands": [
+            {
+              "tool": "vep_recode_variant",
+              "arguments": {
+                "variants": ["7-117559591-TCTT-T"],
+                "assembly": "GRCh38"
+              }
+            },
+            {
+              "tool": "vep_liftover_variant",
+              "arguments": {
+                "variant": "7-117559591-TCTT-T",
+                "from_assembly": "GRCh38",
+                "to_assembly": "GRCh37"
+              }
+            }
+          ],
+          "assembly": "GRCh38",
+          "upstream": {
+            "GRCh38": "ok",
+            "GRCh37": "ok",
+            "checked_at": "2026-09-05T22:50:47.099648+00:00"
+          }
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "clinvar_search_variants",
+          "arguments": {
+            "query": "c.1521_1523del",
+            "gene_symbol": "CFTR",
+            "limit": 5,
+            "response_mode": "compact",
+            "request_id": "genefoundry-cftr-f508del-clinvar-03"
+          }
+        }
+      },
+      "result": {
+        "results": [
+          {
+            "variation_id": 7105,
+            "vcv_accession": "VCV000007105",
+            "classification": "pathogenic",
+            "star_rating": 4,
+            "gene_symbol": "CFTR",
+            "name": "NM_000492.3(CFTR):c.1521_1523del (p.Phe508del)",
+            "rsid": 113993960,
+            "review_status": "practice guideline",
+            "protein_change": "p.Phe508del",
+            "canonical_assembly": "GRCh38",
+            "traits": [
+              {
+                "kind": "untrusted_text",
+                "text": "Cystic fibrosis",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000007105#trait:0",
+                  "retrieved_at": "2026-09-05T22:51:51.324078Z"
+                },
+                "raw_sha256": "7ff513a5e2320cae8503e0df251e86cfc0f9791ae7aa298ea16ad316d0437984"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "BRONCHIECTASIS WITH OR WITHOUT ELEVATED SWEAT CHLORIDE 1, MODIFIER OF",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000007105#trait:1",
+                  "retrieved_at": "2026-09-05T22:51:51.324162Z"
+                },
+                "raw_sha256": "66ca9ad4c88f38683c7bae9372f710fc81142317f05b3b2994a043870228482a"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Hereditary pancreatitis",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000007105#trait:2",
+                  "retrieved_at": "2026-09-05T22:51:51.324184Z"
+                },
+                "raw_sha256": "aaefffafe1873d1d201196793bfaf8126a950a050d47acee55ffe55b7abd4de1"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Duodenal stenosis",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000007105#trait:3",
+                  "retrieved_at": "2026-09-05T22:51:51.324200Z"
+                },
+                "raw_sha256": "decba3723b3037dcc75d2979d5e9887de641c8d9ff2e6aa317c1f7001884fd7b"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Recurrent pancreatitis",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000007105#trait:4",
+                  "retrieved_at": "2026-09-05T22:51:51.324216Z"
+                },
+                "raw_sha256": "228e8e65e799999ea88ebc8e0d6010ec6c4510cbca8da0ba25448b2355a8ab91"
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "query": "c.1521_1523del",
+        "match_mode": "and",
+        "total_count": 1,
+        "limit": 5,
+        "offset": 0,
+        "has_more": false,
+        "next_offset": null,
+        "_meta": {
+          "citation_template": "ClinVar (NCBI). VariationID {variation_id} ({vcv_accession}). ClinVar weekly release Mon, 31 Aug 2026 12:35:23 GMT. https://www.ncbi.nlm.nih.gov/clinvar/variation/{variation_id}/",
+          "search": {
+            "gene_symbol_inferred": null,
+            "gene_symbol_applied": "CFTR",
+            "fallback": null,
+            "notice": null
+          },
+          "next_commands": [
+            {
+              "tool": "clinvar_get_variant",
+              "arguments": {
+                "identifier": "VCV000007105"
+              }
+            },
+            {
+              "tool": "clinvar_get_gene_clinvar_summary",
+              "arguments": {
+                "gene_symbol": "CFTR"
+              }
+            },
+            {
+              "tool": "clinvar_get_server_capabilities",
+              "arguments": {}
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "server_version": "0.5.9",
+          "clinvar_release_date": "Mon, 31 Aug 2026 12:35:23 GMT",
+          "age_days": 5,
+          "past_ttl": false,
+          "request_id": "genefoundry-cftr-f508del-clinvar-03",
+          "latency_ms": 134.39
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "clinvar_get_variant",
+          "arguments": {
+            "identifier": "VCV000007105",
+            "id_type": "vcv",
+            "response_mode": "standard",
+            "request_id": "genefoundry-cftr-f508del-clinvar-04"
+          }
+        }
+      },
+      "result": {
+        "variation_id": 7105,
+        "vcv_accession": "VCV000007105",
+        "classification": "pathogenic",
+        "star_rating": 4,
+        "gene_symbol": "CFTR",
+        "recommended_citation": "ClinVar (NCBI). VariationID 7105 (VCV000007105). ClinVar weekly release Mon, 31 Aug 2026 12:35:23 GMT. https://www.ncbi.nlm.nih.gov/clinvar/variation/7105/",
+        "name": "NM_000492.3(CFTR):c.1521_1523del (p.Phe508del)",
+        "rsid": 113993960,
+        "review_status": "practice guideline",
+        "protein_change": "p.Phe508del",
+        "cdna_change": "NM_000492.3(CFTR):c.1521_1523del (p.Phe508del)",
+        "canonical_assembly": "GRCh38",
+        "traits": [
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Cystic fibrosis",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:0",
+                "retrieved_at": "2026-09-05T22:51:54.487237Z"
+              },
+              "raw_sha256": "7ff513a5e2320cae8503e0df251e86cfc0f9791ae7aa298ea16ad316d0437984"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "BRONCHIECTASIS WITH OR WITHOUT ELEVATED SWEAT CHLORIDE 1, MODIFIER OF",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:1",
+                "retrieved_at": "2026-09-05T22:51:54.487333Z"
+              },
+              "raw_sha256": "66ca9ad4c88f38683c7bae9372f710fc81142317f05b3b2994a043870228482a"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Hereditary pancreatitis",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:2",
+                "retrieved_at": "2026-09-05T22:51:54.487417Z"
+              },
+              "raw_sha256": "aaefffafe1873d1d201196793bfaf8126a950a050d47acee55ffe55b7abd4de1"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Duodenal stenosis",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:3",
+                "retrieved_at": "2026-09-05T22:51:54.487447Z"
+              },
+              "raw_sha256": "decba3723b3037dcc75d2979d5e9887de641c8d9ff2e6aa317c1f7001884fd7b"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Recurrent pancreatitis",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:4",
+                "retrieved_at": "2026-09-05T22:51:54.487469Z"
+              },
+              "raw_sha256": "228e8e65e799999ea88ebc8e0d6010ec6c4510cbca8da0ba25448b2355a8ab91"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Congenital bilateral aplasia of vas deferens from CFTR mutation;Cystic fibrosis",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:5",
+                "retrieved_at": "2026-09-05T22:51:54.487494Z"
+              },
+              "raw_sha256": "cda801c822d7b2a42f22a2ca0868c5a961f32e1dddf46a23956c59dec1802013"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "ivacaftor / lumacaftor response - Efficacy",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:6",
+                "retrieved_at": "2026-09-05T22:51:54.487508Z"
+              },
+              "raw_sha256": "d81c159cfadd9cc76d696fafd1581316c1ed1e6b1bb550c73c480e88e00399d2"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Obstructive azoospermia",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:7",
+                "retrieved_at": "2026-09-05T22:51:54.487519Z"
+              },
+              "raw_sha256": "21fc06a98f7d1b8789af0afea8d3680099e53d3a8f796a4fd518150b3c6dacac"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "CFTR-related disorder",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:8",
+                "retrieved_at": "2026-09-05T22:51:54.487529Z"
+              },
+              "raw_sha256": "4a16599aab820c9977d3fe07ffcbcb1d8b6e55b0aec6c0a7f45c4038dfe67fd6"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "ivacaftor / tezacaftor response - Efficacy",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:9",
+                "retrieved_at": "2026-09-05T22:51:54.487541Z"
+              },
+              "raw_sha256": "7dfddd3a0d90488172f931ef91ac1e56fc8aded7c74a26e65b2165100b312c0d"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "See cases",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:10",
+                "retrieved_at": "2026-09-05T22:51:54.487551Z"
+              },
+              "raw_sha256": "9f6f2a82766195be5916a4d4c9d7c23971a746df88b9dd33fdf1fa55c0193d81"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Hereditary pancreatitis;Cystic fibrosis",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:11",
+                "retrieved_at": "2026-09-05T22:51:54.487562Z"
+              },
+              "raw_sha256": "512eb34fdde6838b0619a2031f31d1b12e8678f16bc7e4415af04ae20a699b40"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Congenital bilateral aplasia of vas deferens from CFTR mutation;Hereditary pancreatitis;Cystic fibrosis;Bronchiectasis with or without elevated sweat chloride 1",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:12",
+                "retrieved_at": "2026-09-05T22:51:54.487584Z"
+              },
+              "raw_sha256": "3f961e0cbace5b98e3a97b847482fe153e11b5e04c1a669af40aa1dcd1cf9140"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Congenital bilateral aplasia of vas deferens from CFTR mutation",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:13",
+                "retrieved_at": "2026-09-05T22:51:54.487598Z"
+              },
+              "raw_sha256": "57db1104e91d751f3b450067b7c1ff78f39993154728884cc6b44e48500df8b4"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Bronchiectasis with or without elevated sweat chloride 1",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:14",
+                "retrieved_at": "2026-09-05T22:51:54.487611Z"
+              },
+              "raw_sha256": "e19621b550a2a75e779a15549aaeb3435c6fba8f1ed1ed93986a1bcac14f38e5"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Cystic fibrosis diagnostic test",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000007105#trait:15",
+                "retrieved_at": "2026-09-05T22:51:54.487622Z"
+              },
+              "raw_sha256": "ba7fe4288583449abfd577f03a4d697ba4e91a7875bbf2770744847214864369"
+            }
+          }
+        ],
+        "coordinates": [
+          {
+            "assembly": "GRCh38",
+            "chromosome_accession": "NC_000007.14",
+            "chromosome": "7",
+            "start": 117559591,
+            "stop": 117559593,
+            "position_vcf": 117559590,
+            "reference_allele_vcf": "ATCT",
+            "alternate_allele_vcf": "A"
+          },
+          {
+            "assembly": "GRCh37",
+            "chromosome_accession": "NC_000007.13",
+            "chromosome": "7",
+            "start": 117199645,
+            "stop": 117199647,
+            "position_vcf": 117199644,
+            "reference_allele_vcf": "ATCT",
+            "alternate_allele_vcf": "A"
+          }
+        ],
+        "rcv_accessions": [
+          "RCV000007523",
+          "RCV000007524",
+          "RCV000058929",
+          "RCV000119038",
+          "RCV000626692",
+          "RCV000626693",
+          "RCV001004459",
+          "RCV001787370",
+          "RCV001642198",
+          "RCV001831519",
+          "RCV001787371",
+          "RCV002251888",
+          "RCV002243627",
+          "RCV002490332",
+          "RCV003227599",
+          "RCV003444054",
+          "RCV005865162"
+        ],
+        "molecular_consequence": ["inframe_indel"],
+        "allele_id": 22144,
+        "number_submitters": 86,
+        "last_evaluated": "Mar 03, 2004",
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "clinvar_get_gene_clinvar_summary",
+              "arguments": {
+                "gene_symbol": "CFTR"
+              }
+            },
+            {
+              "tool": "clinvar_get_variants_by_gene",
+              "arguments": {
+                "gene_symbol": "CFTR"
+              }
+            },
+            {
+              "tool": "clinvar_get_server_capabilities",
+              "arguments": {}
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "server_version": "0.5.9",
+          "clinvar_release_date": "Mon, 31 Aug 2026 12:35:23 GMT",
+          "age_days": 5,
+          "past_ttl": false,
+          "request_id": "genefoundry-cftr-f508del-clinvar-04",
+          "latency_ms": 1.07
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "vep_recode_variant",
+          "arguments": {
+            "variants": ["NM_000492.4:c.1521_1523del"],
+            "assembly": "GRCh38",
+            "fields": "hgvsg,spdi,vcf_string"
+          }
+        }
+      },
+      "result": {
+        "assembly": "GRCh38",
+        "results": [
+          {
+            "input": "NM_000492.4:c.1521_1523del",
+            "id": null,
+            "vcf_string": ["7-117559591-TCTT-T", "LRG_663-98808-TCTT-T"],
+            "hgvsg": ["NC_000007.14:g.117559592_117559594del", "LRG_663:g.98809_98811del"],
+            "spdi": ["NC_000007.14:117559591:CTT:", "LRG_663:98808:CTT:"]
+          }
+        ],
+        "_meta": {
+          "tool": "vep_recode_variant",
+          "request_id": "f65cac2cc98a",
+          "timing": {
+            "elapsed_ms": 0,
+            "upstream_ms": 0,
+            "cache_status": "hit"
+          },
+          "capabilities_version": "ec5938bbf545",
+          "unsafe_for_clinical_use": true,
+          "next_commands": [],
+          "assembly": "GRCh38",
+          "upstream": {
+            "GRCh38": "degraded",
+            "GRCh37": "ok",
+            "checked_at": "2026-09-05T22:51:55.269332+00:00",
+            "advice": "Ensembl GRCh38 is degraded. The GRCh37 host answered a health ping (/info/ping), but that does not confirm the specific failed endpoint works there; retry that build only if a result on it is acceptable, and treat a repeat failure as an endpoint-wide (not host-specific) outage."
+          }
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "vep_annotate_variant",
+          "arguments": {
+            "variant": "7-117559591-TCTT-T",
+            "assembly": "GRCh38",
+            "response_mode": "full"
+          }
+        }
+      },
+      "result": {
+        "query": "7-117559591-TCTT-T",
+        "assembly": "GRCh38",
+        "variants": [
+          {
+            "variant_id": "7-117559591-TCTT-T",
+            "assembly": "GRCh38",
+            "input": "7 117559591 . TCTT T . . .",
+            "seq_region_name": "7",
+            "start": 117559592,
+            "end": 117559594,
+            "allele_string": "CTT/-",
+            "strand": 1,
+            "most_severe_consequence": "inframe_deletion",
+            "gene_symbol": "CFTR",
+            "position_scores": {
+              "conservation": 1.2
+            },
+            "transcript_consequences": [
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000003084",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": 1,
+                "mane": ["MANE_Select"],
+                "pick": null,
+                "mane_select": "NM_000492.4",
+                "hgvsc": "ENST00000003084.11:c.1521_1523del",
+                "hgvsp": "ENSP00000003084.6:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000426809",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000426809.5:c.1431_1433del",
+                "hgvsp": "ENSP00000389119.1:p.Phe478del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "477-478",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000232661",
+                "gene_symbol": "CFTR-AS1",
+                "transcript_id": "ENST00000441019",
+                "biotype": "lncRNA",
+                "consequence_terms": ["downstream_gene_variant"],
+                "impact": "MODIFIER",
+                "canonical": 1,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": null,
+                "hgvsp": null,
+                "amino_acids": null,
+                "codons": null,
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": null,
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000472848",
+                "biotype": "protein_coding_CDS_not_defined",
+                "consequence_terms": ["upstream_gene_variant"],
+                "impact": "MODIFIER",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": null,
+                "hgvsp": null,
+                "amino_acids": null,
+                "codons": null,
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": null,
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000647720",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000647720.2:c.1521_1523del",
+                "hgvsp": "ENSP00000497673.2:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000647978",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["3_prime_UTR_variant", "NMD_transcript_variant"],
+                "impact": "MODIFIER",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000647978.2:c.*1235_*1237del",
+                "hgvsp": null,
+                "amino_acids": null,
+                "codons": null,
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": null,
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000648260",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000648260.2:c.1338_1340del",
+                "hgvsp": "ENSP00000497957.1:p.Phe447del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "446-447",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000649406",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000649406.2:c.1338_1340del",
+                "hgvsp": "ENSP00000497965.1:p.Phe447del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "446-447",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000649781",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000649781.3:c.1338_1340del",
+                "hgvsp": "ENSP00000497203.1:p.Phe447del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "446-447",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000685018",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000685018.2:c.1521_1523del",
+                "hgvsp": "ENSP00000510194.2:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000687278",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000687278.2:c.1521_1523del",
+                "hgvsp": "ENSP00000509593.2:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699585",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699585.1:c.1521_1523del",
+                "hgvsp": "ENSP00000514456.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699596",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699596.2:c.1521_1523del",
+                "hgvsp": "ENSP00000514465.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699597",
+                "biotype": "protein_coding",
+                "consequence_terms": ["3_prime_UTR_variant"],
+                "impact": "MODIFIER",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699597.2:c.*79_*81del",
+                "hgvsp": null,
+                "amino_acids": null,
+                "codons": null,
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": null,
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699598",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699598.1:c.1521_1523del",
+                "hgvsp": "ENSP00000514467.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699599",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699599.1:c.1521_1523del",
+                "hgvsp": "ENSP00000514468.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699600",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699600.1:c.1521_1523del",
+                "hgvsp": "ENSP00000514469.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699601",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["inframe_deletion", "NMD_transcript_variant"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699601.1:c.1521_1523del",
+                "hgvsp": "ENSP00000514470.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699602",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699602.2:c.1521_1523del",
+                "hgvsp": "ENSP00000514471.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699604",
+                "biotype": "nonsense_mediated_decay",
+                "consequence_terms": ["3_prime_UTR_variant", "NMD_transcript_variant"],
+                "impact": "MODIFIER",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699604.1:c.*1345_*1347del",
+                "hgvsp": null,
+                "amino_acids": null,
+                "codons": null,
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": null,
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000699605",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000699605.2:c.1095_1097del",
+                "hgvsp": "ENSP00000514473.1:p.Phe366del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "365-366",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000889206",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000889206.2:c.1521_1523del",
+                "hgvsp": "ENSP00000559265.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000889207",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000889207.2:c.1338_1340del",
+                "hgvsp": "ENSP00000559266.1:p.Phe447del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "446-447",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000889208",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000889208.2:c.1521_1523del",
+                "hgvsp": "ENSP00000559267.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000889209",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000889209.2:c.1521_1523del",
+                "hgvsp": "ENSP00000559268.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000889210",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000889210.2:c.1338_1340del",
+                "hgvsp": "ENSP00000559269.1:p.Phe447del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "446-447",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00000950799",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00000950799.2:c.1521_1523del",
+                "hgvsp": "ENSP00000620858.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              },
+              {
+                "gene_id": "ENSG00000001626",
+                "gene_symbol": "CFTR",
+                "transcript_id": "ENST00001140285",
+                "biotype": "protein_coding",
+                "consequence_terms": ["inframe_deletion"],
+                "impact": "MODERATE",
+                "canonical": null,
+                "mane": null,
+                "pick": null,
+                "mane_select": null,
+                "hgvsc": "ENST00001140285.1:c.1521_1523del",
+                "hgvsp": "ENSP00000801201.1:p.Phe508del",
+                "amino_acids": "IF/I",
+                "codons": "atCTTt/att",
+                "sift_score": null,
+                "sift_prediction": null,
+                "polyphen_score": null,
+                "polyphen_prediction": null,
+                "revel": null,
+                "protein_position": "507-508",
+                "am_pathogenicity": null,
+                "am_class": null
+              }
+            ],
+            "frequencies": [
+              {
+                "allele": "-",
+                "gnomade": 0.01235,
+                "gnomadg": 0.007884
+              }
+            ],
+            "colocated_variants": [
+              {
+                "phenotype_or_disease": 1,
+                "clin_sig": ["likely_pathogenic", "pathogenic", "drug_response", "risk_factor"],
+                "strand": 1,
+                "var_synonyms": {
+                  "OMIM": [602421.0001],
+                  "ClinVar": [
+                    "RCV003227599",
+                    "RCV002251888",
+                    "RCV002243627",
+                    "RCV000785641",
+                    "VCV000634837",
+                    "RCV000626693",
+                    "RCV000626692",
+                    "RCV000624683",
+                    "RCV001004459",
+                    "RCV001000022",
+                    "RCV002490332",
+                    "RCV001787371",
+                    "RCV001787370",
+                    "RCV001642198",
+                    "RCV001831519",
+                    "RCV003444054",
+                    "RCV003398459",
+                    "RCV000007524",
+                    "RCV000007523",
+                    "VCV000007105",
+                    "RCV000119038",
+                    "RCV000058929"
+                  ],
+                  "PharmGKB": ["PA166157536", "PA166157525"]
+                },
+                "allele_string": "TCTT/T/TCTTCTT",
+                "start": 117559591,
+                "pubmed": [
+                  25741868, 24033266, 31019283, 22992668, 23757202, 34288589, 29193749, 15367919,
+                  26249223, 26831755, 22981120, 34086412, 2236053, 26436105, 27917292, 32143663,
+                  18507830, 30996306, 23974870, 35573065, 15371902, 22293084, 25514096, 11280952,
+                  21416780, 32971794, 33623413, 15948195, 33718573, 19774621, 19846789, 22942289,
+                  1937486, 1536179, 15141088, 1377276, 1370875, 1381146, 1384321, 1673094, 1756602,
+                  1997384, 2210767, 2220803, 2300168, 2475911, 2570460, 7509564, 7537148, 9135274,
+                  9439669, 15246977, 17206681, 17413420, 17692578, 20595578, 20705837, 21602569,
+                  21825083, 21976485, 22383668, 24559724, 24973281, 25981758, 26968770, 27214033,
+                  27298017, 32109416, 36552859, 33613790, 27899611, 35663788, 29655499, 35338580,
+                  30770838, 35328596, 36819667, 35627274, 37175647, 35887629, 22140107, 37389024,
+                  34012112, 34860163, 27636560, 29581887, 32398304, 24958810, 26618866, 34996830,
+                  1380673, 37457734, 37628659, 37510311, 37588055, 38515211, 38254935, 38933898,
+                  36192438, 39124666, 39498263, 39657951, 37801035, 39458161, 39881831, 39252935,
+                  39930085, 40817859, 34117883
+                ],
+                "frequencies": {
+                  "-": {
+                    "amr": 0.0101,
+                    "gnomadg_remaining": 0.007583,
+                    "gnomade_afr": 0.002302,
+                    "gnomadg_mid": 0.003401,
+                    "eas": 0,
+                    "gnomadg_nfe": 0.0143,
+                    "gnomade_fin": 0.002757,
+                    "gnomade_eas": 2.524e-5,
+                    "gnomadg_eas": 0,
+                    "gnomade_amr": 0.003958,
+                    "afr": 0,
+                    "gnomadg_ami": 0.001096,
+                    "gnomade_sas": 0.00247,
+                    "gnomade": 0.01235,
+                    "gnomadg": 0.007884,
+                    "gnomadg_sas": 0.003108,
+                    "gnomade_asj": 0.006319,
+                    "gnomade_nfe": 0.01498,
+                    "gnomade_mid": 0.001735,
+                    "gnomadg_afr": 0.002599,
+                    "af": 0.004,
+                    "eur": 0.0089,
+                    "gnomade_remaining": 0.01009,
+                    "gnomadg_fin": 0.001508,
+                    "sas": 0.0041,
+                    "gnomadg_amr": 0.003728,
+                    "gnomadg_asj": 0.004032
+                  }
+                },
+                "id": "rs113993960",
+                "clin_sig_allele": ":risk_factor;:pathogenic;:drug_response;:likely_pathogenic",
+                "seq_region_name": "7",
+                "clin_sig_ref_allele": "CTT",
+                "end": 117559594
+              },
+              {
+                "phenotype_or_disease": 1,
+                "strand": 1,
+                "var_synonyms": {
+                  "COSMIC": ["COSM1684119"]
+                },
+                "somatic": 1,
+                "allele_string": "COSMIC_MUTATION",
+                "start": 117559592,
+                "id": "COSV50043929",
+                "seq_region_name": "7",
+                "end": 117559594
+              }
+            ]
+          }
+        ],
+        "warnings": [],
+        "provenance": {
+          "data_source": "Ensembl VEP / Variant Recoder REST",
+          "assembly": "GRCh38",
+          "endpoint": "https://rest.ensembl.org/vep/homo_sapiens/region",
+          "retrieved": "2026-09-05T22:52:00.153793+00:00",
+          "recommended_citation": "McLaren W, et al. The Ensembl Variant Effect Predictor. Genome Biol. 2016;17:122. PMID:27268795."
+        },
+        "_meta": {
+          "tool": "vep_annotate_variant",
+          "request_id": "492a2c899275",
+          "timing": {
+            "elapsed_ms": 0,
+            "upstream_ms": 0,
+            "cache_status": "hit"
+          },
+          "capabilities_version": "ec5938bbf545",
+          "unsafe_for_clinical_use": true,
+          "next_commands": [
+            {
+              "tool": "vep_recode_variant",
+              "arguments": {
+                "variants": ["7-117559591-TCTT-T"],
+                "assembly": "GRCh38"
+              }
+            },
+            {
+              "tool": "vep_liftover_variant",
+              "arguments": {
+                "variant": "7-117559591-TCTT-T",
+                "from_assembly": "GRCh38",
+                "to_assembly": "GRCh37"
+              }
+            }
+          ],
+          "assembly": "GRCh38",
+          "upstream": {
+            "GRCh38": "degraded",
+            "GRCh37": "ok",
+            "checked_at": "2026-09-05T22:51:55.269332+00:00",
+            "advice": "Ensembl GRCh38 is degraded. The GRCh37 host answered a health ping (/info/ping), but that does not confirm the specific failed endpoint works there; retry that build only if a result on it is acceptable, and treat a repeat failure as an endpoint-wide (not host-specific) outage."
+          }
+        },
+        "success": true
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "modelSelection": {
+    "flag": "--model opus",
+    "fallback": null,
+    "observedAssistantModel": "claude-opus-5"
+  }
+}

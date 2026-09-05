@@ -1,3 +1,4 @@
+import { WORKFLOW_IDS } from '../data/contracts'
 import type { ServerEntry } from '../data/servers'
 import type {
   SourceDetail,
@@ -183,11 +184,9 @@ export function validateContent(input: ContentInput, options: { publication: boo
     )
   }
   requireValue(
-    workflows.length === 2 &&
-      ['variant-evidence', 'phenotype-rare-disease'].every((id) =>
-        workflows.some((w) => w.id === id)
-      ),
-    'two approved workflows required'
+    workflows.length === WORKFLOW_IDS.length &&
+      WORKFLOW_IDS.every((id) => workflows.some((w) => w.id === id)),
+    'all approved workflow tasks required'
   )
   for (const workflow of workflows) {
     review(workflow.review)

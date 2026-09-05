@@ -1,5 +1,29 @@
 import { expect, test } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { WORKFLOWS } from '../../src/data/workflows'
+
+for (const workflow of WORKFLOWS) {
+  test(`worked prompt and recorded result: ${workflow.id}`, async ({ page }) => {
+    await page.addInitScript((expected) => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: {
+          writeText: async (text: string) => {
+            if (text !== expected) throw new Error('Copied the wrong workflow prompt')
+          }
+        }
+      })
+    }, workflow.prompt)
+    await page.goto(`workflows/${workflow.id}/`)
+    await expect(page.locator('blockquote')).toHaveText(workflow.prompt)
+    await page.getByRole('button', { name: 'Copy prompt', exact: true }).click()
+    await expect(page.getByText('Prompt copied', { exact: true })).toBeVisible()
+    await expect(page.locator('.recorded-result')).toContainText(workflow.result!.summary)
+    await expect(page.locator('.recorded-result table')).toHaveCount(workflow.result!.tables.length)
+    await page.locator('.workflow-method > summary').click()
+    await expect(page.locator('.workflow-steps > li')).toHaveCount(workflow.steps.length)
+  })
+}
 test('homepage shows actual source values and links to the recorded result', async ({ page }) => {
   await page.goto('')
   const figure = page.locator('figure')

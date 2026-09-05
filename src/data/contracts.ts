@@ -1,6 +1,17 @@
 export type ClientId =
   'chatgpt' | 'claude-code' | 'claude-ai' | 'codex' | 'cursor' | 'gemini' | 'vscode'
-export type WorkflowId = 'variant-evidence' | 'phenotype-rare-disease'
+export const WORKFLOW_IDS = [
+  'variant-evidence',
+  'phenotype-rare-disease',
+  'variant-annotation',
+  'literature-review',
+  'report-summary',
+  'gene-validity',
+  'acmg-evidence',
+  'animal-models',
+  'tissue-expression'
+] as const
+export type WorkflowId = (typeof WORKFLOW_IDS)[number]
 export interface EvidenceLink {
   label: string
   url: string

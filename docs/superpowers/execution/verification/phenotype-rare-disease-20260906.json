@@ -1,0 +1,1784 @@
+{
+  "kind": "workflow",
+  "subjectId": "phenotype-rare-disease",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 \u00b7 Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "hpo_resolve_term",
+          "arguments": {
+            "query": "renal cyst"
+          }
+        }
+      },
+      "result": {
+        "query": "renal cyst",
+        "hpo_id": "HP:0000107",
+        "name": "Renal cyst",
+        "match_type": "primary",
+        "match_confidence": 1,
+        "obsolete": false,
+        "hpo_version": "2026-06-23",
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "hpo_get_term",
+              "arguments": {
+                "term": "HP:0000107"
+              }
+            }
+          ],
+          "tool": "hpo_resolve_term",
+          "request_id": "a784a75cb82c",
+          "unsafe_for_clinical_use": true,
+          "capabilities_version": "41b40919aa3272d0"
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "hpo_resolve_term",
+          "arguments": {
+            "query": "diabetes mellitus"
+          }
+        }
+      },
+      "result": {
+        "query": "diabetes mellitus",
+        "hpo_id": "HP:0000819",
+        "name": "Diabetes mellitus",
+        "match_type": "primary",
+        "match_confidence": 1,
+        "obsolete": false,
+        "hpo_version": "2026-06-23",
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "hpo_get_term",
+              "arguments": {
+                "term": "HP:0000819"
+              }
+            }
+          ],
+          "tool": "hpo_resolve_term",
+          "request_id": "99d5d1a037c0",
+          "unsafe_for_clinical_use": true,
+          "capabilities_version": "41b40919aa3272d0"
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "hpo_get_genes_for_phenotype",
+          "arguments": {
+            "hpo_id": "HP:0000107",
+            "include_descendants": false,
+            "limit": 200,
+            "offset": 0,
+            "response_mode": "minimal"
+          }
+        }
+      },
+      "result": {
+        "term": "HP:0000107",
+        "hpo_id": "HP:0000107",
+        "genes": [
+          {
+            "ncbi_gene_id": "6833",
+            "gene_symbol": "ABCC8"
+          },
+          {
+            "ncbi_gene_id": "6718",
+            "gene_symbol": "AKR1D1"
+          },
+          {
+            "ncbi_gene_id": "207",
+            "gene_symbol": "AKT1"
+          },
+          {
+            "ncbi_gene_id": "29880",
+            "gene_symbol": "ALG5"
+          },
+          {
+            "ncbi_gene_id": "79053",
+            "gene_symbol": "ALG8"
+          },
+          {
+            "ncbi_gene_id": "79796",
+            "gene_symbol": "ALG9"
+          },
+          {
+            "ncbi_gene_id": "26060",
+            "gene_symbol": "APPL1"
+          },
+          {
+            "ncbi_gene_id": "80776",
+            "gene_symbol": "B9D2"
+          },
+          {
+            "ncbi_gene_id": "79738",
+            "gene_symbol": "BBS10"
+          },
+          {
+            "ncbi_gene_id": "585",
+            "gene_symbol": "BBS4"
+          },
+          {
+            "ncbi_gene_id": "80114",
+            "gene_symbol": "BICC1"
+          },
+          {
+            "ncbi_gene_id": "640",
+            "gene_symbol": "BLK"
+          },
+          {
+            "ncbi_gene_id": "701",
+            "gene_symbol": "BUB1B"
+          },
+          {
+            "ncbi_gene_id": "54897",
+            "gene_symbol": "CASZ1"
+          },
+          {
+            "ncbi_gene_id": "57545",
+            "gene_symbol": "CC2D2A"
+          },
+          {
+            "ncbi_gene_id": "79577",
+            "gene_symbol": "CDC73"
+          },
+          {
+            "ncbi_gene_id": "1056",
+            "gene_symbol": "CEL"
+          },
+          {
+            "ncbi_gene_id": "153241",
+            "gene_symbol": "CEP120"
+          },
+          {
+            "ncbi_gene_id": "80184",
+            "gene_symbol": "CEP290"
+          },
+          {
+            "ncbi_gene_id": "55165",
+            "gene_symbol": "CEP55"
+          },
+          {
+            "ncbi_gene_id": "22858",
+            "gene_symbol": "CILK1"
+          },
+          {
+            "ncbi_gene_id": "81570",
+            "gene_symbol": "CLPB"
+          },
+          {
+            "ncbi_gene_id": "1282",
+            "gene_symbol": "COL4A1"
+          },
+          {
+            "ncbi_gene_id": "79848",
+            "gene_symbol": "CSPP1"
+          },
+          {
+            "ncbi_gene_id": "10283",
+            "gene_symbol": "CWC27"
+          },
+          {
+            "ncbi_gene_id": "1717",
+            "gene_symbol": "DHCR7"
+          },
+          {
+            "ncbi_gene_id": "51726",
+            "gene_symbol": "DNAJB11"
+          },
+          {
+            "ncbi_gene_id": "79659",
+            "gene_symbol": "DYNC2H1"
+          },
+          {
+            "ncbi_gene_id": "55112",
+            "gene_symbol": "DYNC2I1"
+          },
+          {
+            "ncbi_gene_id": "89891",
+            "gene_symbol": "DYNC2I2"
+          },
+          {
+            "ncbi_gene_id": "1859",
+            "gene_symbol": "DYRK1A"
+          },
+          {
+            "ncbi_gene_id": "79813",
+            "gene_symbol": "EHMT1"
+          },
+          {
+            "ncbi_gene_id": "26263",
+            "gene_symbol": "FBXO22"
+          },
+          {
+            "ncbi_gene_id": "9158",
+            "gene_symbol": "FIBP"
+          },
+          {
+            "ncbi_gene_id": "201163",
+            "gene_symbol": "FLCN"
+          },
+          {
+            "ncbi_gene_id": "2317",
+            "gene_symbol": "FLNB"
+          },
+          {
+            "ncbi_gene_id": "2563",
+            "gene_symbol": "GABRD"
+          },
+          {
+            "ncbi_gene_id": "23193",
+            "gene_symbol": "GANAB"
+          },
+          {
+            "ncbi_gene_id": "2645",
+            "gene_symbol": "GCK"
+          },
+          {
+            "ncbi_gene_id": "2737",
+            "gene_symbol": "GLI3"
+          },
+          {
+            "ncbi_gene_id": "169792",
+            "gene_symbol": "GLIS3"
+          },
+          {
+            "ncbi_gene_id": "2719",
+            "gene_symbol": "GPC3"
+          },
+          {
+            "ncbi_gene_id": "6927",
+            "gene_symbol": "HNF1A"
+          },
+          {
+            "ncbi_gene_id": "6928",
+            "gene_symbol": "HNF1B"
+          },
+          {
+            "ncbi_gene_id": "3172",
+            "gene_symbol": "HNF4A"
+          },
+          {
+            "ncbi_gene_id": "3295",
+            "gene_symbol": "HSD17B4"
+          },
+          {
+            "ncbi_gene_id": "3339",
+            "gene_symbol": "HSPG2"
+          },
+          {
+            "ncbi_gene_id": "3458",
+            "gene_symbol": "IFNG"
+          },
+          {
+            "ncbi_gene_id": "9742",
+            "gene_symbol": "IFT140"
+          },
+          {
+            "ncbi_gene_id": "57560",
+            "gene_symbol": "IFT80"
+          },
+          {
+            "ncbi_gene_id": "56623",
+            "gene_symbol": "INPP5E"
+          },
+          {
+            "ncbi_gene_id": "3630",
+            "gene_symbol": "INS"
+          },
+          {
+            "ncbi_gene_id": "8514",
+            "gene_symbol": "KCNAB2"
+          },
+          {
+            "ncbi_gene_id": "3767",
+            "gene_symbol": "KCNJ11"
+          },
+          {
+            "ncbi_gene_id": "84678",
+            "gene_symbol": "KDM2B"
+          },
+          {
+            "ncbi_gene_id": "8462",
+            "gene_symbol": "KLF11"
+          },
+          {
+            "ncbi_gene_id": "3909",
+            "gene_symbol": "LAMA3"
+          },
+          {
+            "ncbi_gene_id": "3914",
+            "gene_symbol": "LAMB3"
+          },
+          {
+            "ncbi_gene_id": "3918",
+            "gene_symbol": "LAMC2"
+          },
+          {
+            "ncbi_gene_id": "4041",
+            "gene_symbol": "LRP5"
+          },
+          {
+            "ncbi_gene_id": "7798",
+            "gene_symbol": "LUZP1"
+          },
+          {
+            "ncbi_gene_id": "54585",
+            "gene_symbol": "LZTFL1"
+          },
+          {
+            "ncbi_gene_id": "4081",
+            "gene_symbol": "MAB21L1"
+          },
+          {
+            "ncbi_gene_id": "23005",
+            "gene_symbol": "MAPKBP1"
+          },
+          {
+            "ncbi_gene_id": "8195",
+            "gene_symbol": "MKKS"
+          },
+          {
+            "ncbi_gene_id": "8510",
+            "gene_symbol": "MMP23B"
+          },
+          {
+            "ncbi_gene_id": "4351",
+            "gene_symbol": "MPI"
+          },
+          {
+            "ncbi_gene_id": "4437",
+            "gene_symbol": "MSH3"
+          },
+          {
+            "ncbi_gene_id": "4519",
+            "gene_symbol": "MT-CYB"
+          },
+          {
+            "ncbi_gene_id": "23040",
+            "gene_symbol": "MYT1L"
+          },
+          {
+            "ncbi_gene_id": "54892",
+            "gene_symbol": "NCAPG2"
+          },
+          {
+            "ncbi_gene_id": "284086",
+            "gene_symbol": "NEK8"
+          },
+          {
+            "ncbi_gene_id": "4760",
+            "gene_symbol": "NEUROD1"
+          },
+          {
+            "ncbi_gene_id": "25836",
+            "gene_symbol": "NIPBL"
+          },
+          {
+            "ncbi_gene_id": "4853",
+            "gene_symbol": "NOTCH2"
+          },
+          {
+            "ncbi_gene_id": "27031",
+            "gene_symbol": "NPHP3"
+          },
+          {
+            "ncbi_gene_id": "5075",
+            "gene_symbol": "PAX1"
+          },
+          {
+            "ncbi_gene_id": "5076",
+            "gene_symbol": "PAX2"
+          },
+          {
+            "ncbi_gene_id": "5078",
+            "gene_symbol": "PAX4"
+          },
+          {
+            "ncbi_gene_id": "5087",
+            "gene_symbol": "PBX1"
+          },
+          {
+            "ncbi_gene_id": "10630",
+            "gene_symbol": "PDPN"
+          },
+          {
+            "ncbi_gene_id": "3651",
+            "gene_symbol": "PDX1"
+          },
+          {
+            "ncbi_gene_id": "5189",
+            "gene_symbol": "PEX1"
+          },
+          {
+            "ncbi_gene_id": "5192",
+            "gene_symbol": "PEX10"
+          },
+          {
+            "ncbi_gene_id": "5194",
+            "gene_symbol": "PEX13"
+          },
+          {
+            "ncbi_gene_id": "5828",
+            "gene_symbol": "PEX2"
+          },
+          {
+            "ncbi_gene_id": "5190",
+            "gene_symbol": "PEX6"
+          },
+          {
+            "ncbi_gene_id": "51604",
+            "gene_symbol": "PIGT"
+          },
+          {
+            "ncbi_gene_id": "5290",
+            "gene_symbol": "PIK3CA"
+          },
+          {
+            "ncbi_gene_id": "5310",
+            "gene_symbol": "PKD1"
+          },
+          {
+            "ncbi_gene_id": "5311",
+            "gene_symbol": "PKD2"
+          },
+          {
+            "ncbi_gene_id": "5314",
+            "gene_symbol": "PKHD1"
+          },
+          {
+            "ncbi_gene_id": "5373",
+            "gene_symbol": "PMM2"
+          },
+          {
+            "ncbi_gene_id": "8541",
+            "gene_symbol": "PPFIA3"
+          },
+          {
+            "ncbi_gene_id": "56980",
+            "gene_symbol": "PRDM10"
+          },
+          {
+            "ncbi_gene_id": "63976",
+            "gene_symbol": "PRDM16"
+          },
+          {
+            "ncbi_gene_id": "5589",
+            "gene_symbol": "PRKCSH"
+          },
+          {
+            "ncbi_gene_id": "5590",
+            "gene_symbol": "PRKCZ"
+          },
+          {
+            "ncbi_gene_id": "22827",
+            "gene_symbol": "PUF60"
+          },
+          {
+            "ncbi_gene_id": "5889",
+            "gene_symbol": "RAD51C"
+          },
+          {
+            "ncbi_gene_id": "473",
+            "gene_symbol": "RERE"
+          },
+          {
+            "ncbi_gene_id": "55005",
+            "gene_symbol": "RMND1"
+          },
+          {
+            "ncbi_gene_id": "100151683",
+            "gene_symbol": "RNU4ATAC"
+          },
+          {
+            "ncbi_gene_id": "23322",
+            "gene_symbol": "RPGRIP1L"
+          },
+          {
+            "ncbi_gene_id": "10806",
+            "gene_symbol": "SDCCAG8"
+          },
+          {
+            "ncbi_gene_id": "29927",
+            "gene_symbol": "SEC61A1"
+          },
+          {
+            "ncbi_gene_id": "26040",
+            "gene_symbol": "SETBP1"
+          },
+          {
+            "ncbi_gene_id": "6497",
+            "gene_symbol": "SKI"
+          },
+          {
+            "ncbi_gene_id": "6628",
+            "gene_symbol": "SNRPB"
+          },
+          {
+            "ncbi_gene_id": "23013",
+            "gene_symbol": "SPEN"
+          },
+          {
+            "ncbi_gene_id": "10847",
+            "gene_symbol": "SRCAP"
+          },
+          {
+            "ncbi_gene_id": "26123",
+            "gene_symbol": "TCTN3"
+          },
+          {
+            "ncbi_gene_id": "7020",
+            "gene_symbol": "TFAP2A"
+          },
+          {
+            "ncbi_gene_id": "7086",
+            "gene_symbol": "TKT"
+          },
+          {
+            "ncbi_gene_id": "51524",
+            "gene_symbol": "TMEM138"
+          },
+          {
+            "ncbi_gene_id": "51259",
+            "gene_symbol": "TMEM216"
+          },
+          {
+            "ncbi_gene_id": "79583",
+            "gene_symbol": "TMEM231"
+          },
+          {
+            "ncbi_gene_id": "65062",
+            "gene_symbol": "TMEM237"
+          },
+          {
+            "ncbi_gene_id": "54916",
+            "gene_symbol": "TMEM260"
+          },
+          {
+            "ncbi_gene_id": "91147",
+            "gene_symbol": "TMEM67"
+          },
+          {
+            "ncbi_gene_id": "8295",
+            "gene_symbol": "TRRAP"
+          },
+          {
+            "ncbi_gene_id": "7248",
+            "gene_symbol": "TSC1"
+          },
+          {
+            "ncbi_gene_id": "7249",
+            "gene_symbol": "TSC2"
+          },
+          {
+            "ncbi_gene_id": "7289",
+            "gene_symbol": "TULP3"
+          },
+          {
+            "ncbi_gene_id": "10277",
+            "gene_symbol": "UBE4B"
+          },
+          {
+            "ncbi_gene_id": "7369",
+            "gene_symbol": "UMOD"
+          },
+          {
+            "ncbi_gene_id": "57539",
+            "gene_symbol": "WDR35"
+          },
+          {
+            "ncbi_gene_id": "9203",
+            "gene_symbol": "ZMYM3"
+          },
+          {
+            "ncbi_gene_id": "7707",
+            "gene_symbol": "ZNF148"
+          }
+        ],
+        "include_descendants": false,
+        "total": 129,
+        "returned": 129,
+        "limit": 200,
+        "offset": 0,
+        "truncated": false,
+        "hpo_version": "2026-06-23",
+        "_meta": {
+          "tool": "hpo_get_genes_for_phenotype",
+          "request_id": "c988598c5531",
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "hpo_get_genes_for_phenotype",
+          "arguments": {
+            "hpo_id": "HP:0000819",
+            "include_descendants": false,
+            "limit": 200,
+            "offset": 0,
+            "response_mode": "minimal"
+          }
+        }
+      },
+      "result": {
+        "term": "HP:0000819",
+        "hpo_id": "HP:0000819",
+        "genes": [
+          {
+            "ncbi_gene_id": "5244",
+            "gene_symbol": "ABCB4"
+          },
+          {
+            "ncbi_gene_id": "84320",
+            "gene_symbol": "ACBD6"
+          },
+          {
+            "ncbi_gene_id": "103",
+            "gene_symbol": "ADAR"
+          },
+          {
+            "ncbi_gene_id": "150",
+            "gene_symbol": "ADRA2A"
+          },
+          {
+            "ncbi_gene_id": "165",
+            "gene_symbol": "AEBP1"
+          },
+          {
+            "ncbi_gene_id": "10555",
+            "gene_symbol": "AGPAT2"
+          },
+          {
+            "ncbi_gene_id": "9049",
+            "gene_symbol": "AIP"
+          },
+          {
+            "ncbi_gene_id": "116519",
+            "gene_symbol": "APOA5"
+          },
+          {
+            "ncbi_gene_id": "348",
+            "gene_symbol": "APOE"
+          },
+          {
+            "ncbi_gene_id": "26060",
+            "gene_symbol": "APPL1"
+          },
+          {
+            "ncbi_gene_id": "22899",
+            "gene_symbol": "ARHGEF15"
+          },
+          {
+            "ncbi_gene_id": "84100",
+            "gene_symbol": "ARL6"
+          },
+          {
+            "ncbi_gene_id": "472",
+            "gene_symbol": "ATM"
+          },
+          {
+            "ncbi_gene_id": "546",
+            "gene_symbol": "ATRX"
+          },
+          {
+            "ncbi_gene_id": "582",
+            "gene_symbol": "BBS1"
+          },
+          {
+            "ncbi_gene_id": "583",
+            "gene_symbol": "BBS2"
+          },
+          {
+            "ncbi_gene_id": "641",
+            "gene_symbol": "BLM"
+          },
+          {
+            "ncbi_gene_id": "650",
+            "gene_symbol": "BMP2"
+          },
+          {
+            "ncbi_gene_id": "654",
+            "gene_symbol": "BMP6"
+          },
+          {
+            "ncbi_gene_id": "673",
+            "gene_symbol": "BRAF"
+          },
+          {
+            "ncbi_gene_id": "672",
+            "gene_symbol": "BRCA1"
+          },
+          {
+            "ncbi_gene_id": "675",
+            "gene_symbol": "BRCA2"
+          },
+          {
+            "ncbi_gene_id": "846",
+            "gene_symbol": "CASR"
+          },
+          {
+            "ncbi_gene_id": "857",
+            "gene_symbol": "CAV1"
+          },
+          {
+            "ncbi_gene_id": "79140",
+            "gene_symbol": "CCDC28B"
+          },
+          {
+            "ncbi_gene_id": "64072",
+            "gene_symbol": "CDH23"
+          },
+          {
+            "ncbi_gene_id": "1029",
+            "gene_symbol": "CDKN2A"
+          },
+          {
+            "ncbi_gene_id": "1080",
+            "gene_symbol": "CFTR"
+          },
+          {
+            "ncbi_gene_id": "493856",
+            "gene_symbol": "CISD2"
+          },
+          {
+            "ncbi_gene_id": "1356",
+            "gene_symbol": "CP"
+          },
+          {
+            "ncbi_gene_id": "1357",
+            "gene_symbol": "CPA1"
+          },
+          {
+            "ncbi_gene_id": "80169",
+            "gene_symbol": "CTC1"
+          },
+          {
+            "ncbi_gene_id": "1499",
+            "gene_symbol": "CTNNB1"
+          },
+          {
+            "ncbi_gene_id": "1497",
+            "gene_symbol": "CTNS"
+          },
+          {
+            "ncbi_gene_id": "11330",
+            "gene_symbol": "CTRC"
+          },
+          {
+            "ncbi_gene_id": "80067",
+            "gene_symbol": "DCAF17"
+          },
+          {
+            "ncbi_gene_id": "1736",
+            "gene_symbol": "DKC1"
+          },
+          {
+            "ncbi_gene_id": "134218",
+            "gene_symbol": "DNAJC21"
+          },
+          {
+            "ncbi_gene_id": "5611",
+            "gene_symbol": "DNAJC3"
+          },
+          {
+            "ncbi_gene_id": "10059",
+            "gene_symbol": "DNM1L"
+          },
+          {
+            "ncbi_gene_id": "79631",
+            "gene_symbol": "EFL1"
+          },
+          {
+            "ncbi_gene_id": "1968",
+            "gene_symbol": "EIF2S3"
+          },
+          {
+            "ncbi_gene_id": "63916",
+            "gene_symbol": "ELMO2"
+          },
+          {
+            "ncbi_gene_id": "2006",
+            "gene_symbol": "ELN"
+          },
+          {
+            "ncbi_gene_id": "2303",
+            "gene_symbol": "FOXC2"
+          },
+          {
+            "ncbi_gene_id": "27086",
+            "gene_symbol": "FOXP1"
+          },
+          {
+            "ncbi_gene_id": "55572",
+            "gene_symbol": "FOXRED1"
+          },
+          {
+            "ncbi_gene_id": "2395",
+            "gene_symbol": "FXN"
+          },
+          {
+            "ncbi_gene_id": "2625",
+            "gene_symbol": "GATA3"
+          },
+          {
+            "ncbi_gene_id": "2627",
+            "gene_symbol": "GATA6"
+          },
+          {
+            "ncbi_gene_id": "2642",
+            "gene_symbol": "GCGR"
+          },
+          {
+            "ncbi_gene_id": "2645",
+            "gene_symbol": "GCK"
+          },
+          {
+            "ncbi_gene_id": "2697",
+            "gene_symbol": "GJA1"
+          },
+          {
+            "ncbi_gene_id": "2707",
+            "gene_symbol": "GJB3"
+          },
+          {
+            "ncbi_gene_id": "127534",
+            "gene_symbol": "GJB4"
+          },
+          {
+            "ncbi_gene_id": "169792",
+            "gene_symbol": "GLIS3"
+          },
+          {
+            "ncbi_gene_id": "83550",
+            "gene_symbol": "GPR101"
+          },
+          {
+            "ncbi_gene_id": "2992",
+            "gene_symbol": "GYG1"
+          },
+          {
+            "ncbi_gene_id": "57817",
+            "gene_symbol": "HAMP"
+          },
+          {
+            "ncbi_gene_id": "3043",
+            "gene_symbol": "HBB"
+          },
+          {
+            "ncbi_gene_id": "3077",
+            "gene_symbol": "HFE"
+          },
+          {
+            "ncbi_gene_id": "148738",
+            "gene_symbol": "HJV"
+          },
+          {
+            "ncbi_gene_id": "3119",
+            "gene_symbol": "HLA-DQB1"
+          },
+          {
+            "ncbi_gene_id": "3123",
+            "gene_symbol": "HLA-DRB1"
+          },
+          {
+            "ncbi_gene_id": "8091",
+            "gene_symbol": "HMGA2"
+          },
+          {
+            "ncbi_gene_id": "6927",
+            "gene_symbol": "HNF1A"
+          },
+          {
+            "ncbi_gene_id": "6928",
+            "gene_symbol": "HNF1B"
+          },
+          {
+            "ncbi_gene_id": "3172",
+            "gene_symbol": "HNF4A"
+          },
+          {
+            "ncbi_gene_id": "26353",
+            "gene_symbol": "HSPB8"
+          },
+          {
+            "ncbi_gene_id": "3376",
+            "gene_symbol": "IARS1"
+          },
+          {
+            "ncbi_gene_id": "51124",
+            "gene_symbol": "IER3IP1"
+          },
+          {
+            "ncbi_gene_id": "64135",
+            "gene_symbol": "IFIH1"
+          },
+          {
+            "ncbi_gene_id": "3480",
+            "gene_symbol": "IGF1R"
+          },
+          {
+            "ncbi_gene_id": "3501",
+            "gene_symbol": "IGHG2"
+          },
+          {
+            "ncbi_gene_id": "3514",
+            "gene_symbol": "IGKC"
+          },
+          {
+            "ncbi_gene_id": "3559",
+            "gene_symbol": "IL2RA"
+          },
+          {
+            "ncbi_gene_id": "3569",
+            "gene_symbol": "IL6"
+          },
+          {
+            "ncbi_gene_id": "3630",
+            "gene_symbol": "INS"
+          },
+          {
+            "ncbi_gene_id": "3767",
+            "gene_symbol": "KCNJ11"
+          },
+          {
+            "ncbi_gene_id": "2531",
+            "gene_symbol": "KDSR"
+          },
+          {
+            "ncbi_gene_id": "3845",
+            "gene_symbol": "KRAS"
+          },
+          {
+            "ncbi_gene_id": "3912",
+            "gene_symbol": "LAMB1"
+          },
+          {
+            "ncbi_gene_id": "23592",
+            "gene_symbol": "LEMD3"
+          },
+          {
+            "ncbi_gene_id": "3953",
+            "gene_symbol": "LEPR"
+          },
+          {
+            "ncbi_gene_id": "3975",
+            "gene_symbol": "LHX1"
+          },
+          {
+            "ncbi_gene_id": "3991",
+            "gene_symbol": "LIPE"
+          },
+          {
+            "ncbi_gene_id": "4000",
+            "gene_symbol": "LMNA"
+          },
+          {
+            "ncbi_gene_id": "84823",
+            "gene_symbol": "LMNB2"
+          },
+          {
+            "ncbi_gene_id": "134353",
+            "gene_symbol": "LSM11"
+          },
+          {
+            "ncbi_gene_id": "54551",
+            "gene_symbol": "MAGEL2"
+          },
+          {
+            "ncbi_gene_id": "4205",
+            "gene_symbol": "MEF2A"
+          },
+          {
+            "ncbi_gene_id": "8195",
+            "gene_symbol": "MKKS"
+          },
+          {
+            "ncbi_gene_id": "51085",
+            "gene_symbol": "MLXIPL"
+          },
+          {
+            "ncbi_gene_id": "4508",
+            "gene_symbol": "MT-ATP6"
+          },
+          {
+            "ncbi_gene_id": "4509",
+            "gene_symbol": "MT-ATP8"
+          },
+          {
+            "ncbi_gene_id": "4512",
+            "gene_symbol": "MT-CO1"
+          },
+          {
+            "ncbi_gene_id": "4513",
+            "gene_symbol": "MT-CO2"
+          },
+          {
+            "ncbi_gene_id": "4514",
+            "gene_symbol": "MT-CO3"
+          },
+          {
+            "ncbi_gene_id": "4519",
+            "gene_symbol": "MT-CYB"
+          },
+          {
+            "ncbi_gene_id": "4535",
+            "gene_symbol": "MT-ND1"
+          },
+          {
+            "ncbi_gene_id": "4536",
+            "gene_symbol": "MT-ND2"
+          },
+          {
+            "ncbi_gene_id": "4537",
+            "gene_symbol": "MT-ND3"
+          },
+          {
+            "ncbi_gene_id": "4538",
+            "gene_symbol": "MT-ND4"
+          },
+          {
+            "ncbi_gene_id": "4540",
+            "gene_symbol": "MT-ND5"
+          },
+          {
+            "ncbi_gene_id": "4541",
+            "gene_symbol": "MT-ND6"
+          },
+          {
+            "ncbi_gene_id": "4511",
+            "gene_symbol": "MT-TC"
+          },
+          {
+            "ncbi_gene_id": "4558",
+            "gene_symbol": "MT-TF"
+          },
+          {
+            "ncbi_gene_id": "4564",
+            "gene_symbol": "MT-TH"
+          },
+          {
+            "ncbi_gene_id": "4566",
+            "gene_symbol": "MT-TK"
+          },
+          {
+            "ncbi_gene_id": "4567",
+            "gene_symbol": "MT-TL1"
+          },
+          {
+            "ncbi_gene_id": "4568",
+            "gene_symbol": "MT-TL2"
+          },
+          {
+            "ncbi_gene_id": "4572",
+            "gene_symbol": "MT-TQ"
+          },
+          {
+            "ncbi_gene_id": "4574",
+            "gene_symbol": "MT-TS1"
+          },
+          {
+            "ncbi_gene_id": "4575",
+            "gene_symbol": "MT-TS2"
+          },
+          {
+            "ncbi_gene_id": "4577",
+            "gene_symbol": "MT-TV"
+          },
+          {
+            "ncbi_gene_id": "4578",
+            "gene_symbol": "MT-TW"
+          },
+          {
+            "ncbi_gene_id": "4692",
+            "gene_symbol": "NDN"
+          },
+          {
+            "ncbi_gene_id": "4693",
+            "gene_symbol": "NDP"
+          },
+          {
+            "ncbi_gene_id": "4694",
+            "gene_symbol": "NDUFA1"
+          },
+          {
+            "ncbi_gene_id": "126328",
+            "gene_symbol": "NDUFA11"
+          },
+          {
+            "ncbi_gene_id": "4700",
+            "gene_symbol": "NDUFA6"
+          },
+          {
+            "ncbi_gene_id": "51103",
+            "gene_symbol": "NDUFAF1"
+          },
+          {
+            "ncbi_gene_id": "91942",
+            "gene_symbol": "NDUFAF2"
+          },
+          {
+            "ncbi_gene_id": "25915",
+            "gene_symbol": "NDUFAF3"
+          },
+          {
+            "ncbi_gene_id": "29078",
+            "gene_symbol": "NDUFAF4"
+          },
+          {
+            "ncbi_gene_id": "79133",
+            "gene_symbol": "NDUFAF5"
+          },
+          {
+            "ncbi_gene_id": "284184",
+            "gene_symbol": "NDUFAF8"
+          },
+          {
+            "ncbi_gene_id": "4716",
+            "gene_symbol": "NDUFB10"
+          },
+          {
+            "ncbi_gene_id": "54539",
+            "gene_symbol": "NDUFB11"
+          },
+          {
+            "ncbi_gene_id": "4709",
+            "gene_symbol": "NDUFB3"
+          },
+          {
+            "ncbi_gene_id": "4715",
+            "gene_symbol": "NDUFB9"
+          },
+          {
+            "ncbi_gene_id": "4719",
+            "gene_symbol": "NDUFS1"
+          },
+          {
+            "ncbi_gene_id": "4720",
+            "gene_symbol": "NDUFS2"
+          },
+          {
+            "ncbi_gene_id": "4722",
+            "gene_symbol": "NDUFS3"
+          },
+          {
+            "ncbi_gene_id": "4724",
+            "gene_symbol": "NDUFS4"
+          },
+          {
+            "ncbi_gene_id": "4726",
+            "gene_symbol": "NDUFS6"
+          },
+          {
+            "ncbi_gene_id": "374291",
+            "gene_symbol": "NDUFS7"
+          },
+          {
+            "ncbi_gene_id": "4728",
+            "gene_symbol": "NDUFS8"
+          },
+          {
+            "ncbi_gene_id": "4723",
+            "gene_symbol": "NDUFV1"
+          },
+          {
+            "ncbi_gene_id": "4729",
+            "gene_symbol": "NDUFV2"
+          },
+          {
+            "ncbi_gene_id": "55651",
+            "gene_symbol": "NHP2"
+          },
+          {
+            "ncbi_gene_id": "55505",
+            "gene_symbol": "NOP10"
+          },
+          {
+            "ncbi_gene_id": "4854",
+            "gene_symbol": "NOTCH3"
+          },
+          {
+            "ncbi_gene_id": "4869",
+            "gene_symbol": "NPM1"
+          },
+          {
+            "ncbi_gene_id": "2908",
+            "gene_symbol": "NR3C1"
+          },
+          {
+            "ncbi_gene_id": "286053",
+            "gene_symbol": "NSMCE2"
+          },
+          {
+            "ncbi_gene_id": "80224",
+            "gene_symbol": "NUBPL"
+          },
+          {
+            "ncbi_gene_id": "4948",
+            "gene_symbol": "OCA2"
+          },
+          {
+            "ncbi_gene_id": "4976",
+            "gene_symbol": "OPA1"
+          },
+          {
+            "ncbi_gene_id": "79728",
+            "gene_symbol": "PALB2"
+          },
+          {
+            "ncbi_gene_id": "23022",
+            "gene_symbol": "PALLD"
+          },
+          {
+            "ncbi_gene_id": "5073",
+            "gene_symbol": "PARN"
+          },
+          {
+            "ncbi_gene_id": "5078",
+            "gene_symbol": "PAX4"
+          },
+          {
+            "ncbi_gene_id": "5144",
+            "gene_symbol": "PDE4D"
+          },
+          {
+            "ncbi_gene_id": "5189",
+            "gene_symbol": "PEX1"
+          },
+          {
+            "ncbi_gene_id": "5190",
+            "gene_symbol": "PEX6"
+          },
+          {
+            "ncbi_gene_id": "5295",
+            "gene_symbol": "PIK3R1"
+          },
+          {
+            "ncbi_gene_id": "57104",
+            "gene_symbol": "PNPLA2"
+          },
+          {
+            "ncbi_gene_id": "25886",
+            "gene_symbol": "POC1A"
+          },
+          {
+            "ncbi_gene_id": "5424",
+            "gene_symbol": "POLD1"
+          },
+          {
+            "ncbi_gene_id": "5428",
+            "gene_symbol": "POLG"
+          },
+          {
+            "ncbi_gene_id": "11232",
+            "gene_symbol": "POLG2"
+          },
+          {
+            "ncbi_gene_id": "5468",
+            "gene_symbol": "PPARG"
+          },
+          {
+            "ncbi_gene_id": "84919",
+            "gene_symbol": "PPP1R15B"
+          },
+          {
+            "ncbi_gene_id": "5566",
+            "gene_symbol": "PRKACA"
+          },
+          {
+            "ncbi_gene_id": "5573",
+            "gene_symbol": "PRKAR1A"
+          },
+          {
+            "ncbi_gene_id": "60675",
+            "gene_symbol": "PROK2"
+          },
+          {
+            "ncbi_gene_id": "5644",
+            "gene_symbol": "PRSS1"
+          },
+          {
+            "ncbi_gene_id": "5645",
+            "gene_symbol": "PRSS2"
+          },
+          {
+            "ncbi_gene_id": "256297",
+            "gene_symbol": "PTF1A"
+          },
+          {
+            "ncbi_gene_id": "51651",
+            "gene_symbol": "PTRH2"
+          },
+          {
+            "ncbi_gene_id": "285282",
+            "gene_symbol": "RABL3"
+          },
+          {
+            "ncbi_gene_id": "5879",
+            "gene_symbol": "RAC1"
+          },
+          {
+            "ncbi_gene_id": "222546",
+            "gene_symbol": "RFX6"
+          },
+          {
+            "ncbi_gene_id": "10535",
+            "gene_symbol": "RNASEH2A"
+          },
+          {
+            "ncbi_gene_id": "79621",
+            "gene_symbol": "RNASEH2B"
+          },
+          {
+            "ncbi_gene_id": "84153",
+            "gene_symbol": "RNASEH2C"
+          },
+          {
+            "ncbi_gene_id": "100151684",
+            "gene_symbol": "RNU6ATAC"
+          },
+          {
+            "ncbi_gene_id": "100147744",
+            "gene_symbol": "RNU7-1"
+          },
+          {
+            "ncbi_gene_id": "50484",
+            "gene_symbol": "RRM2B"
+          },
+          {
+            "ncbi_gene_id": "51750",
+            "gene_symbol": "RTEL1"
+          },
+          {
+            "ncbi_gene_id": "25939",
+            "gene_symbol": "SAMHD1"
+          },
+          {
+            "ncbi_gene_id": "54938",
+            "gene_symbol": "SARS2"
+          },
+          {
+            "ncbi_gene_id": "51119",
+            "gene_symbol": "SBDS"
+          },
+          {
+            "ncbi_gene_id": "10560",
+            "gene_symbol": "SLC19A2"
+          },
+          {
+            "ncbi_gene_id": "291",
+            "gene_symbol": "SLC25A4"
+          },
+          {
+            "ncbi_gene_id": "55315",
+            "gene_symbol": "SLC29A3"
+          },
+          {
+            "ncbi_gene_id": "6514",
+            "gene_symbol": "SLC2A2"
+          },
+          {
+            "ncbi_gene_id": "30061",
+            "gene_symbol": "SLC40A1"
+          },
+          {
+            "ncbi_gene_id": "4089",
+            "gene_symbol": "SMAD4"
+          },
+          {
+            "ncbi_gene_id": "55627",
+            "gene_symbol": "SMPD4"
+          },
+          {
+            "ncbi_gene_id": "6638",
+            "gene_symbol": "SNRPN"
+          },
+          {
+            "ncbi_gene_id": "6690",
+            "gene_symbol": "SPINK1"
+          },
+          {
+            "ncbi_gene_id": "51490",
+            "gene_symbol": "SPOUT1"
+          },
+          {
+            "ncbi_gene_id": "6772",
+            "gene_symbol": "STAT1"
+          },
+          {
+            "ncbi_gene_id": "7012",
+            "gene_symbol": "TERC"
+          },
+          {
+            "ncbi_gene_id": "7015",
+            "gene_symbol": "TERT"
+          },
+          {
+            "ncbi_gene_id": "7068",
+            "gene_symbol": "THRB"
+          },
+          {
+            "ncbi_gene_id": "51300",
+            "gene_symbol": "TIMMDC1"
+          },
+          {
+            "ncbi_gene_id": "26277",
+            "gene_symbol": "TINF2"
+          }
+        ],
+        "include_descendants": false,
+        "total": 222,
+        "returned": 200,
+        "limit": 200,
+        "offset": 0,
+        "truncated": true,
+        "next_offset": 200,
+        "hpo_version": "2026-06-23",
+        "_meta": {
+          "tool": "hpo_get_genes_for_phenotype",
+          "request_id": "d6f17102b465",
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "hpo_get_genes_for_phenotype",
+          "arguments": {
+            "hpo_id": "HP:0000819",
+            "include_descendants": false,
+            "limit": 200,
+            "offset": 200,
+            "response_mode": "minimal"
+          }
+        }
+      },
+      "result": {
+        "term": "HP:0000819",
+        "hpo_id": "HP:0000819",
+        "genes": [
+          {
+            "ncbi_gene_id": "55863",
+            "gene_symbol": "TMEM126B"
+          },
+          {
+            "ncbi_gene_id": "7157",
+            "gene_symbol": "TP53"
+          },
+          {
+            "ncbi_gene_id": "11277",
+            "gene_symbol": "TREX1"
+          },
+          {
+            "ncbi_gene_id": "93587",
+            "gene_symbol": "TRMT10A"
+          },
+          {
+            "ncbi_gene_id": "55503",
+            "gene_symbol": "TRPV6"
+          },
+          {
+            "ncbi_gene_id": "7274",
+            "gene_symbol": "TTPA"
+          },
+          {
+            "ncbi_gene_id": "56652",
+            "gene_symbol": "TWNK"
+          },
+          {
+            "ncbi_gene_id": "7298",
+            "gene_symbol": "TYMS"
+          },
+          {
+            "ncbi_gene_id": "197131",
+            "gene_symbol": "UBR1"
+          },
+          {
+            "ncbi_gene_id": "79650",
+            "gene_symbol": "USB1"
+          },
+          {
+            "ncbi_gene_id": "84196",
+            "gene_symbol": "USP48"
+          },
+          {
+            "ncbi_gene_id": "9101",
+            "gene_symbol": "USP8"
+          },
+          {
+            "ncbi_gene_id": "7454",
+            "gene_symbol": "WAS"
+          },
+          {
+            "ncbi_gene_id": "7466",
+            "gene_symbol": "WFS1"
+          },
+          {
+            "ncbi_gene_id": "55135",
+            "gene_symbol": "WRAP53"
+          },
+          {
+            "ncbi_gene_id": "7486",
+            "gene_symbol": "WRN"
+          },
+          {
+            "ncbi_gene_id": "7518",
+            "gene_symbol": "XRCC4"
+          },
+          {
+            "ncbi_gene_id": "81555",
+            "gene_symbol": "YIPF5"
+          },
+          {
+            "ncbi_gene_id": "26137",
+            "gene_symbol": "ZBTB20"
+          },
+          {
+            "ncbi_gene_id": "23503",
+            "gene_symbol": "ZFYVE26"
+          },
+          {
+            "ncbi_gene_id": "79759",
+            "gene_symbol": "ZNF668"
+          },
+          {
+            "ncbi_gene_id": "84133",
+            "gene_symbol": "ZNRF3"
+          }
+        ],
+        "include_descendants": false,
+        "total": 222,
+        "returned": 22,
+        "limit": 200,
+        "offset": 200,
+        "truncated": false,
+        "hpo_version": "2026-06-23",
+        "_meta": {
+          "tool": "hpo_get_genes_for_phenotype",
+          "request_id": "1022296ac467",
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "clingen_search_genes",
+          "arguments": {
+            "query": "HNF1B"
+          }
+        }
+      },
+      "result": {
+        "headline": "Resolved 'HNF1B' to HNF1B.",
+        "query": "HNF1B",
+        "resolved_symbol": "HNF1B",
+        "candidates": [
+          {
+            "symbol": "HNF1B",
+            "hgnc_id": "HGNC:11630",
+            "name": "HNF1 homeobox B",
+            "has_validity": true,
+            "has_dosage": true,
+            "has_actionability": true,
+            "erepo_variant_count": 0
+          }
+        ],
+        "total": 1,
+        "_meta": {
+          "data_version": {
+            "validity": {
+              "domain": "validity",
+              "version": "2026-08-31T10:00:00.000Z",
+              "snapshot_version": "2",
+              "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+              "record_count": 3670,
+              "source_url": "https://search.clinicalgenome.org/api/validity"
+            },
+            "dosage": {
+              "domain": "dosage",
+              "version": "ClinGen_gene_curation_list_GRCh38.tsv=\"3c84d-65a7b08f20bab\";ClinGen_region_curation_list_GRCh38.tsv=\"18241-65a7b08f2d6cf\"",
+              "snapshot_version": "2",
+              "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+              "record_count": 2041,
+              "source_url": "https://ftp.clinicalgenome.org/ClinGen_gene_curation_list_GRCh38.tsv"
+            },
+            "actionability": {
+              "domain": "actionability",
+              "version": "Wed, 22 Jul 2026 19:34:15 -0000",
+              "snapshot_version": "2",
+              "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+              "record_count": 181,
+              "source_url": "https://actionability.clinicalgenome.org/ac/api/summ/brief"
+            },
+            "erepo": {
+              "domain": "erepo",
+              "version": "2.5.6",
+              "snapshot_version": "2",
+              "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+              "record_count": 13211,
+              "source_url": "https://erepo.clinicalgenome.org/evrepo/api/summary/classifications/download"
+            },
+            "cspec": {
+              "domain": "cspec",
+              "version": "126",
+              "snapshot_version": "2",
+              "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+              "record_count": 126,
+              "source_url": "https://cspec.genome.network/cspec/SequenceVariantInterpretation/id"
+            }
+          },
+          "next_commands": [
+            {
+              "tool": "clingen_get_gene_summary",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            }
+          ],
+          "record_count": 1,
+          "pagination": {
+            "total_count": 1,
+            "page": 1,
+            "size": 25,
+            "returned": 1,
+            "has_more": false
+          },
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "clingen_get_gene_validity",
+          "arguments": {
+            "gene_symbol": "HNF1B",
+            "response_mode": "standard"
+          }
+        }
+      },
+      "result": {
+        "headline": "HNF1B: 1 validity assertion(s).",
+        "records": [
+          {
+            "symbol": "HNF1B",
+            "hgnc_id": "HGNC:11630",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "renal cysts and diabetes syndrome",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+                "retrieved_at": "2026-09-05T22:51:42.764670Z"
+              },
+              "raw_sha256": "5b63001688ce5475d4cb79e80417c934a5f75dd5dfee1aa26258807d1541add1"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0007669",
+            "moi": "AD",
+            "classification": "Definitive",
+            "expert_panel": "Monogenic Diabetes Gene Curation Expert Panel",
+            "perm_id": "CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+            "classified_date": "2021-01-19T17:00:00.000Z",
+            "released": "01/19/2021",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: HNF1B \u2014 MONDO:0007669 \u2014 Definitive (AD), curated by Monogenic Diabetes Gene Curation Expert Panel, classified 2021-01-19T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z"
+          }
+        ],
+        "total": 1,
+        "recommended_citation": "ClinGen Gene-Disease Validity: HNF1B \u2014 MONDO:0007669 \u2014 Definitive (AD), curated by Monogenic Diabetes Gene Curation Expert Panel, classified 2021-01-19T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+        "_meta": {
+          "data_version": {
+            "domain": "validity",
+            "version": "2026-08-31T10:00:00.000Z",
+            "snapshot_version": "2",
+            "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+            "record_count": 3670,
+            "source_url": "https://search.clinicalgenome.org/api/validity"
+          },
+          "next_commands": [
+            {
+              "tool": "clingen_get_gene_summary",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            },
+            {
+              "tool": "clingen_get_variant_interpretations",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            }
+          ],
+          "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+          "record_count": 1,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    }
+  ],
+  "comparison": {
+    "totals": {
+      "HP:0000107": 129,
+      "HP:0000819": 222
+    },
+    "complete": true,
+    "overlap": [
+      "APPL1",
+      "GCK",
+      "GLIS3",
+      "HNF1A",
+      "HNF1B",
+      "HNF4A",
+      "INS",
+      "KCNJ11",
+      "MKKS",
+      "MT-CYB",
+      "PAX4",
+      "PEX1",
+      "PEX6"
+    ],
+    "hnf1b_in_both": true
+  },
+  "model": "claude-opus-5",
+  "modelSelection": {
+    "flag": "--model opus",
+    "fallback": null,
+    "observedAssistantModel": "claude-opus-5"
+  },
+  "evidence": "Fresh actual tool-use/result pairs from an explicit Claude Opus 5 run via the GeneFoundry MCP. Every recorded tool-use message reports claude-opus-5. Display date uses Europe/Berlin; UTC provenance timestamps are preserved."
+}

@@ -7,8 +7,9 @@ import { siteHref } from '../lib/urls'
     <header class="page-header">
       <h1>Research workflows</h1>
       <p class="lead">
-        Try a concrete research question, see the tools it uses, and know what to check in the
-        evidence.
+        Choose a task, copy the prompt and compare the result. These {{ WORKFLOWS.length }} examples
+        were run through GeneFoundry, from variant annotation and literature review to mouse models
+        and tissue expression.
       </p>
     </header>
     <div class="worked-examples">

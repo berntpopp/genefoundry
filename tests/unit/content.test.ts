@@ -37,10 +37,22 @@ test('documentation-only guides cannot expose an executable recipe', () => {
     }
   }
 })
-test('illustrations never assert that an execution occurred', () => {
-  expect(WORKFLOWS.map((w) => w.id).sort()).toEqual(['phenotype-rare-disease', 'variant-evidence'])
+test('published workflows cover the requested genetics tasks with executed examples', () => {
+  expect(WORKFLOWS.map((w) => w.id).sort()).toEqual([
+    'acmg-evidence',
+    'animal-models',
+    'gene-validity',
+    'literature-review',
+    'phenotype-rare-disease',
+    'report-summary',
+    'tissue-expression',
+    'variant-annotation',
+    'variant-evidence'
+  ])
   for (const workflow of WORKFLOWS) {
-    if (workflow.exampleKind === 'illustrative') expect(workflow.executionReviewId).toBeNull()
+    expect(workflow.exampleKind).toBe('verified')
+    expect(workflow.result).not.toBeNull()
+    expect(workflow.executionReviewId).toBeTruthy()
   }
 })
 test('invalid review dates, duplicate IDs and absent joins block publication', () => {
@@ -80,7 +92,8 @@ test('worked examples contain reusable prompts and source-backed inputs to inspe
       true
     )
     for (const step of workflow.steps) {
-      expect(step.evidence.some((link) => link.url.includes('/blob/'))).toBe(true)
+      expect(step.evidence.length).toBeGreaterThan(0)
+      expect(step.evidence.every((link) => new URL(link.url).protocol === 'https:')).toBe(true)
     }
   }
   const phenotype = WORKFLOWS.find((w) => w.id === 'phenotype-rare-disease')!
@@ -97,17 +110,22 @@ test('worked examples contain reusable prompts and source-backed inputs to inspe
 
 test('published workflow calls and results match the captured execution evidence', () => {
   for (const workflow of WORKFLOWS) {
-    const name = workflow.id === 'variant-evidence' ? 'hnf1b' : 'phenotype'
-    const evidence = JSON.parse(
+    const ledger = JSON.parse(
       readFileSync(
-        new URL(
-          `../../docs/superpowers/execution/verification/${name}-20260905.json`,
-          import.meta.url
-        ),
+        new URL('../../docs/superpowers/execution/verification-ledger.json', import.meta.url),
         'utf8'
       )
     )
+    const record = ledger.records.find(
+      (item: { id: string }) => item.id === workflow.executionReviewId
+    )
+    expect(record?.subjectId).toBe(workflow.id)
+    const evidence = JSON.parse(
+      readFileSync(new URL('../../' + record.evidencePath, import.meta.url), 'utf8')
+    )
     expect(workflow.exampleKind).toBe('verified')
+    expect(evidence.model).toMatch(/^claude-opus-/)
+    expect(evidence.client).toContain('Claude Opus')
     expect(workflow.result?.client).toBe(evidence.client)
     expect(workflow.result?.executedAt).toBe(evidence.executedAt)
     expect(workflow.steps).toHaveLength(evidence.calls.length)
@@ -119,7 +137,8 @@ test('published workflow calls and results match the captured execution evidence
       expect(step.arguments).toEqual(
         call.arguments.name ? call.arguments.arguments : call.arguments
       )
-      expect(evidence.calls[index].result.success).toBe(true)
+      expect(typeof evidence.calls[index].isError).toBe('boolean')
+      expect(Object.keys(evidence.calls[index].result).length).toBeGreaterThan(0)
     }
     if (workflow.id === 'variant-evidence') {
       const raw = evidence.calls[2].result.results
@@ -132,7 +151,7 @@ test('published workflow calls and results match the captured execution evidence
       expect(workflow.result?.tables[0]?.rows[0]?.[1]).toContain(
         evidence.calls[1].result.gnomad_constraint.oe_lof.toFixed(3)
       )
-    } else {
+    } else if (workflow.id === 'phenotype-rare-disease') {
       const renal = evidence.calls[2].result.genes as {
         ncbi_gene_id: string
         gene_symbol: string

@@ -1,0 +1,739 @@
+{
+  "kind": "workflow",
+  "subjectId": "gene-validity",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 · Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Fresh actual read-only GeneFoundry tool-use/tool-result pairs from an explicit --model opus rerun. Both init and assistant metadata identify claude-opus-5; no fallback model. Display date uses Europe/Berlin; UTC source timestamps and errors are retained.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__gencc_resolve_identifier",
+        "arguments": {
+          "query": "MYH7",
+          "kind": "gene"
+        }
+      },
+      "result": {
+        "query": "MYH7",
+        "gene": {
+          "gene_curie": "HGNC:7577",
+          "gene_symbol": "MYH7",
+          "n_diseases": 11,
+          "n_submitters": 5,
+          "max_classification": "Definitive",
+          "has_conflict": false,
+          "n_submissions": 21
+        },
+        "disease": null,
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "gencc_get_gene_curations",
+              "arguments": {
+                "gene_symbol": "HGNC:7577"
+              }
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "recommended_citation": "DiStefano MT, Goehringer S, Babb L, et al. The Gene Curation Coalition: A global effort to harmonize gene-disease evidence resources. Genet Med. 2022;24(8):1732-1742. doi:10.1016/j.gim.2022.04.017. Data: GenCC (thegencc.org), CC0 1.0.",
+          "gencc_release": "2026-08-30",
+          "request_id": "b90856f24f9d",
+          "elapsed_ms": 0.16
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__clingen_get_gene_validity",
+        "arguments": {
+          "gene_symbol": "MYH7",
+          "response_mode": "full"
+        }
+      },
+      "result": {
+        "headline": "MYH7: 5 validity assertion(s).",
+        "records": [
+          {
+            "symbol": "MYH7",
+            "hgnc_id": "HGNC:7577",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "MYH7-related skeletal myopathy",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_8974721a-f333-4fb7-b8b7-043233d3d100-2021-05-13T160000.000Z",
+                "retrieved_at": "2026-09-05T22:51:15.892811Z"
+              },
+              "raw_sha256": "3f002037211e8c36ae2dbd636907dbe76b88f3859a61019bdf8435cf0d85a24f"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0008050",
+            "moi": "AD",
+            "classification": "Definitive",
+            "expert_panel": "Congenital Myopathies and Myasthenic Syndromes Gene Curation Expert Panel",
+            "sop": "SOP7",
+            "perm_id": "CGGV:assertion_8974721a-f333-4fb7-b8b7-043233d3d100-2021-05-13T160000.000Z",
+            "classified_date": "2021-05-13T16:00:00.000Z",
+            "released": "05/13/2021",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_8974721a-f333-4fb7-b8b7-043233d3d100-2021-05-13T160000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: MYH7 — MONDO:0008050 — Definitive (AD), curated by Congenital Myopathies and Myasthenic Syndromes Gene Curation Expert Panel, classified 2021-05-13T16:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_8974721a-f333-4fb7-b8b7-043233d3d100-2021-05-13T160000.000Z"
+          },
+          {
+            "symbol": "MYH7",
+            "hgnc_id": "HGNC:7577",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "arrhythmogenic right ventricular cardiomyopathy",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_0265f091-a67d-4521-b6bd-5a110bd5356f-2019-08-06T160000.000Z",
+                "retrieved_at": "2026-09-05T22:51:15.892883Z"
+              },
+              "raw_sha256": "8ce504ee0c4f74d9673bc6da86a36bc452d5245cc30911fe065b75cc5c0888a2"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0016587",
+            "moi": "AD",
+            "classification": "Limited",
+            "expert_panel": "Arrhythmogenic Right Ventricular Cardiomyopathy Gene Curation Expert Panel",
+            "sop": "SOP7",
+            "perm_id": "CGGV:assertion_0265f091-a67d-4521-b6bd-5a110bd5356f-2019-08-06T160000.000Z",
+            "classified_date": "2019-08-06T16:00:00.000Z",
+            "released": "08/06/2019",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_0265f091-a67d-4521-b6bd-5a110bd5356f-2019-08-06T160000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: MYH7 — MONDO:0016587 — Limited (AD), curated by Arrhythmogenic Right Ventricular Cardiomyopathy Gene Curation Expert Panel, classified 2019-08-06T16:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_0265f091-a67d-4521-b6bd-5a110bd5356f-2019-08-06T160000.000Z"
+          },
+          {
+            "symbol": "MYH7",
+            "hgnc_id": "HGNC:7577",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "congenital heart disease",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_e9da50d1-a17c-4396-a6e6-632077b277b2-2024-02-12T170000.000Z",
+                "retrieved_at": "2026-09-05T22:51:15.892907Z"
+              },
+              "raw_sha256": "14262e85f2ad873c92b51483b5e3724d4025ce77bf5d9b5cb5907fac5976e7f6"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0005453",
+            "moi": "AD",
+            "classification": "Limited",
+            "expert_panel": "Congenital Heart Disease Gene Curation Expert Panel",
+            "sop": "SOP10",
+            "perm_id": "CGGV:assertion_e9da50d1-a17c-4396-a6e6-632077b277b2-2024-02-12T170000.000Z",
+            "classified_date": "2024-02-12T17:00:00.000Z",
+            "released": "02/12/2024",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_e9da50d1-a17c-4396-a6e6-632077b277b2-2024-02-12T170000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: MYH7 — MONDO:0005453 — Limited (AD), curated by Congenital Heart Disease Gene Curation Expert Panel, classified 2024-02-12T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_e9da50d1-a17c-4396-a6e6-632077b277b2-2024-02-12T170000.000Z"
+          },
+          {
+            "symbol": "MYH7",
+            "hgnc_id": "HGNC:7577",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "dilated cardiomyopathy 1S",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_4ec27d4f-70ea-4c6a-ad67-d6260ecadcde-2026-03-04T170000.000Z",
+                "retrieved_at": "2026-09-05T22:51:15.892926Z"
+              },
+              "raw_sha256": "14179614bc11c2555fe757b384a1a928b4c58c354c0d636f69e17757d1f66e83"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0013262",
+            "moi": "AD",
+            "classification": "Definitive",
+            "expert_panel": "Dilated Cardiomyopathy Gene Curation Expert Panel",
+            "sop": "SOP7",
+            "perm_id": "CGGV:assertion_4ec27d4f-70ea-4c6a-ad67-d6260ecadcde-2026-03-04T170000.000Z",
+            "classified_date": "2026-03-04T17:00:00.000Z",
+            "released": "03/04/2026",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4ec27d4f-70ea-4c6a-ad67-d6260ecadcde-2026-03-04T170000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: MYH7 — MONDO:0013262 — Definitive (AD), curated by Dilated Cardiomyopathy Gene Curation Expert Panel, classified 2026-03-04T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4ec27d4f-70ea-4c6a-ad67-d6260ecadcde-2026-03-04T170000.000Z"
+          },
+          {
+            "symbol": "MYH7",
+            "hgnc_id": "HGNC:7577",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "hypertrophic cardiomyopathy",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_31325c90-05cb-4db0-9372-e4f705cd5c82-2023-07-12T160000.000Z",
+                "retrieved_at": "2026-09-05T22:51:15.892943Z"
+              },
+              "raw_sha256": "1eff04c2da2caf3f9288ca9147ebae8b0234c6b0d6e04f75ea6c9d6efec57127"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0005045",
+            "moi": "AD",
+            "classification": "Definitive",
+            "expert_panel": "Hereditary Cardiovascular Disease Gene Curation Expert Panel",
+            "sop": "SOP9",
+            "perm_id": "CGGV:assertion_31325c90-05cb-4db0-9372-e4f705cd5c82-2023-07-12T160000.000Z",
+            "classified_date": "2023-07-12T16:00:00.000Z",
+            "released": "07/12/2023",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_31325c90-05cb-4db0-9372-e4f705cd5c82-2023-07-12T160000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: MYH7 — MONDO:0005045 — Definitive (AD), curated by Hereditary Cardiovascular Disease Gene Curation Expert Panel, classified 2023-07-12T16:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_31325c90-05cb-4db0-9372-e4f705cd5c82-2023-07-12T160000.000Z"
+          }
+        ],
+        "total": 5,
+        "recommended_citation": "ClinGen Gene-Disease Validity: MYH7 — MONDO:0008050 — Definitive (AD), curated by Congenital Myopathies and Myasthenic Syndromes Gene Curation Expert Panel, classified 2021-05-13T16:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_8974721a-f333-4fb7-b8b7-043233d3d100-2021-05-13T160000.000Z",
+        "_meta": {
+          "data_version": {
+            "domain": "validity",
+            "version": "2026-08-31T10:00:00.000Z",
+            "snapshot_version": "2",
+            "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+            "record_count": 3670,
+            "source_url": "https://search.clinicalgenome.org/api/validity"
+          },
+          "next_commands": [
+            {
+              "tool": "clingen_get_gene_summary",
+              "arguments": {
+                "gene_symbol": "MYH7"
+              }
+            },
+            {
+              "tool": "clingen_get_variant_interpretations",
+              "arguments": {
+                "gene_symbol": "MYH7"
+              }
+            }
+          ],
+          "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+          "record_count": 5,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "gencc_get_gene_curations",
+          "arguments": {
+            "gene_symbol": "HGNC:7577",
+            "response_mode": "full",
+            "limit": 200,
+            "offset": 0
+          }
+        }
+      },
+      "result": {
+        "gene": {
+          "gene_curie": "HGNC:7577",
+          "gene_symbol": "MYH7",
+          "n_diseases": 11,
+          "n_submitters": 5,
+          "max_classification": "Definitive",
+          "has_conflict": false,
+          "n_submissions": 21
+        },
+        "headline": "MYH7 (HGNC:7577): 11 disease(s), 5 submitter(s); strongest = Definitive.",
+        "count": 11,
+        "total": 11,
+        "diseases": [
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0008050",
+            "disease_title": "MYH7-related skeletal myopathy",
+            "strongest_classification": "Definitive",
+            "n_submitters": 4,
+            "n_submissions": 4,
+            "has_conflict": false,
+            "min_classification": "Supportive",
+            "classification_titles": ["Strong", "Definitive", "Supportive"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "ClinGen",
+                "classification_title": "Definitive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2021-05-13T00:00:00.000000Z",
+                "submitted_as_date_iso": "2021-05-13",
+                "public_report_url": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_8974721a-f333-4fb7-b8b7-043233d3d100-2021-05-13T16:00:00.000Z",
+                "submitter_curie": "GENCC:000102",
+                "assertion_criteria_url": "https://clinicalgenome.org/docs/summary-of-updates-to-the-clingen-gene-clinical-validity-curation-sop-version-7/",
+                "pmids": [
+                  "14520662",
+                  "15322983",
+                  "19336582",
+                  "21211974",
+                  "21279644",
+                  "23478172",
+                  "24664454",
+                  "27387980",
+                  "27519903",
+                  "28125727",
+                  "28973424",
+                  "29170849",
+                  "29624713",
+                  "29660325",
+                  "29946036",
+                  "30794915",
+                  "33234710"
+                ]
+              },
+              {
+                "submitter_title": "Ambry Genetics",
+                "classification_title": "Strong",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2017-05-19 00:00:00",
+                "submitted_as_date_iso": "2017-05-19",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000101",
+                "assertion_criteria_url": "PMID: 28106320",
+                "pmids": []
+              },
+              {
+                "submitter_title": "Labcorp Genetics (formerly Invitae)",
+                "classification_title": "Strong",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2022-01-13 09:03:23",
+                "submitted_as_date_iso": "2022-01-13",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000106",
+                "assertion_criteria_url": "https://view.publitas.com/invitae/invitaeposter_nsgc2019_curatingthehumangenome/page/1",
+                "pmids": ["16103042", "19336582", "20733148", "21150886", "24664454"]
+              },
+              {
+                "submitter_title": "Orphanet",
+                "classification_title": "Supportive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2021-09-14 00:00:00",
+                "submitted_as_date_iso": "2021-09-14",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000110",
+                "assertion_criteria_url": "https://www.orpha.net/orphacom/cahiers/docs/GB/Orphanet_Genes_inventory_R1_Ann_gen_EP_02.pdf",
+                "pmids": ["20301606"]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0013262",
+            "disease_title": "dilated cardiomyopathy 1S",
+            "strongest_classification": "Definitive",
+            "n_submitters": 4,
+            "n_submissions": 4,
+            "has_conflict": false,
+            "min_classification": "Strong",
+            "classification_titles": ["Strong", "Definitive"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "ClinGen",
+                "classification_title": "Definitive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2026-03-04T00:00:00.000000Z",
+                "submitted_as_date_iso": "2026-03-04",
+                "public_report_url": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4ec27d4f-70ea-4c6a-ad67-d6260ecadcde-2026-03-04T17:00:00.000Z",
+                "submitter_curie": "GENCC:000102",
+                "assertion_criteria_url": "https://clinicalgenome.org/docs/summary-of-updates-to-the-clingen-gene-clinical-validity-curation-sop-version-7/",
+                "pmids": [
+                  "11106718",
+                  "16983074",
+                  "21483645",
+                  "21846512",
+                  "24119082",
+                  "24558114",
+                  "25935763",
+                  "27000522",
+                  "27965028",
+                  "28864942",
+                  "29093449",
+                  "29666183",
+                  "30384889",
+                  "30874888",
+                  "31179125",
+                  "31937807",
+                  "31983221"
+                ]
+              },
+              {
+                "submitter_title": "G2P",
+                "classification_title": "Definitive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2024-03-20 00:00:00",
+                "submitted_as_date_iso": "2024-03-20",
+                "public_report_url": "https://www.ebi.ac.uk/gene2phenotype/lgd/G2P03272",
+                "submitter_curie": "GENCC:000112",
+                "assertion_criteria_url": "https://www.ebi.ac.uk/gene2phenotype/about/terminology",
+                "pmids": ["11106718", "29093449", "29300372", "29666183", "31983221"]
+              },
+              {
+                "submitter_title": "Ambry Genetics",
+                "classification_title": "Strong",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2020-03-31 13:37:01",
+                "submitted_as_date_iso": "2020-03-31",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000101",
+                "assertion_criteria_url": "PMID: 28106320",
+                "pmids": []
+              },
+              {
+                "submitter_title": "Labcorp Genetics (formerly Invitae)",
+                "classification_title": "Strong",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2023-06-01 16:17:50",
+                "submitted_as_date_iso": "2023-06-01",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000106",
+                "assertion_criteria_url": "https://view.publitas.com/invitae/invitaeposter_nsgc2019_curatingthehumangenome/page/1",
+                "pmids": ["20530761", "21750094", "22821910", "24503780", "30588760"]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0005045",
+            "disease_title": "hypertrophic cardiomyopathy",
+            "strongest_classification": "Definitive",
+            "n_submitters": 1,
+            "n_submissions": 1,
+            "has_conflict": false,
+            "min_classification": "Definitive",
+            "classification_titles": ["Definitive"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "ClinGen",
+                "classification_title": "Definitive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2023-07-12T00:00:00.000000Z",
+                "submitted_as_date_iso": "2023-07-12",
+                "public_report_url": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_31325c90-05cb-4db0-9372-e4f705cd5c82-2023-07-12T16:00:00.000Z",
+                "submitter_curie": "GENCC:000102",
+                "assertion_criteria_url": "https://clinicalgenome.org/docs/gene-disease-validity-standard-operating-procedure-version-9/",
+                "pmids": [
+                  "1552912",
+                  "1634614",
+                  "1944483",
+                  "1975517",
+                  "2144212",
+                  "8614836",
+                  "15856146",
+                  "23290139",
+                  "23715323",
+                  "23798412",
+                  "25189259",
+                  "25209314",
+                  "27532257"
+                ]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0008647",
+            "disease_title": "hypertrophic cardiomyopathy 1",
+            "strongest_classification": "Definitive",
+            "n_submitters": 3,
+            "n_submissions": 3,
+            "has_conflict": false,
+            "min_classification": "Strong",
+            "classification_titles": ["Definitive", "Strong"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "Ambry Genetics",
+                "classification_title": "Definitive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2017-05-19 00:00:00",
+                "submitted_as_date_iso": "2017-05-19",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000101",
+                "assertion_criteria_url": "PMID: 28106320",
+                "pmids": []
+              },
+              {
+                "submitter_title": "G2P",
+                "classification_title": "Definitive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2024-03-20 00:00:00",
+                "submitted_as_date_iso": "2024-03-20",
+                "public_report_url": "https://www.ebi.ac.uk/gene2phenotype/lgd/G2P03300",
+                "submitter_curie": "GENCC:000112",
+                "assertion_criteria_url": "https://www.ebi.ac.uk/gene2phenotype/about/terminology",
+                "pmids": [
+                  "1552912",
+                  "1944483",
+                  "1975517",
+                  "12788380",
+                  "15856146",
+                  "20359594",
+                  "25209314",
+                  "25611685",
+                  "27247418",
+                  "27532257",
+                  "29300372",
+                  "30681346",
+                  "30696458",
+                  "30924982",
+                  "32731933",
+                  "33500567",
+                  "34460321"
+                ]
+              },
+              {
+                "submitter_title": "Labcorp Genetics (formerly Invitae)",
+                "classification_title": "Strong",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2023-01-27 20:39:25",
+                "submitted_as_date_iso": "2023-01-27",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000106",
+                "assertion_criteria_url": "https://view.publitas.com/invitae/invitaeposter_nsgc2019_curatingthehumangenome/page/1",
+                "pmids": ["18533079", "19035361", "20530761", "20624503", "22821910", "23798412"]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0009708",
+            "disease_title": "myopathy, myosin storage, autosomal recessive",
+            "strongest_classification": "Strong",
+            "n_submitters": 2,
+            "n_submissions": 2,
+            "has_conflict": false,
+            "min_classification": "Moderate",
+            "classification_titles": ["Moderate", "Strong"],
+            "moi_titles": ["Autosomal recessive"],
+            "submitters": [
+              {
+                "submitter_title": "Labcorp Genetics (formerly Invitae)",
+                "classification_title": "Strong",
+                "moi_title": "Autosomal recessive",
+                "submitted_as_date": "2019-05-28 08:09:18",
+                "submitted_as_date_iso": "2019-05-28",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000106",
+                "assertion_criteria_url": "https://view.publitas.com/invitae/invitaeposter_nsgc2019_curatingthehumangenome/page/1",
+                "pmids": ["17372140", "25666907", "28973424", "31130376"]
+              },
+              {
+                "submitter_title": "Ambry Genetics",
+                "classification_title": "Moderate",
+                "moi_title": "Autosomal recessive",
+                "submitted_as_date": "2020-03-30 13:37:01",
+                "submitted_as_date_iso": "2020-03-30",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000101",
+                "assertion_criteria_url": "PMID: 28106320",
+                "pmids": []
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0012018",
+            "disease_title": "myopathy, myosin storage, autosomal dominant",
+            "strongest_classification": "Moderate",
+            "n_submitters": 1,
+            "n_submissions": 1,
+            "has_conflict": false,
+            "min_classification": "Moderate",
+            "classification_titles": ["Moderate"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "Ambry Genetics",
+                "classification_title": "Moderate",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2020-03-31 13:37:00",
+                "submitted_as_date_iso": "2020-03-31",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000101",
+                "assertion_criteria_url": "PMID: 28106320",
+                "pmids": []
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0009144",
+            "disease_title": "Ebstein anomaly",
+            "strongest_classification": "Supportive",
+            "n_submitters": 1,
+            "n_submissions": 1,
+            "has_conflict": false,
+            "min_classification": "Supportive",
+            "classification_titles": ["Supportive"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "Orphanet",
+                "classification_title": "Supportive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2021-09-14 00:00:00",
+                "submitted_as_date_iso": "2021-09-14",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000110",
+                "assertion_criteria_url": "https://www.orpha.net/orphacom/cahiers/docs/GB/Orphanet_Genes_inventory_R1_Ann_gen_EP_02.pdf",
+                "pmids": ["23956225"]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0015470",
+            "disease_title": "familial isolated dilated cardiomyopathy",
+            "strongest_classification": "Supportive",
+            "n_submitters": 1,
+            "n_submissions": 1,
+            "has_conflict": false,
+            "min_classification": "Supportive",
+            "classification_titles": ["Supportive"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "Orphanet",
+                "classification_title": "Supportive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2021-09-14 00:00:00",
+                "submitted_as_date_iso": "2021-09-14",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000110",
+                "assertion_criteria_url": "https://www.orpha.net/orphacom/cahiers/docs/GB/Orphanet_Genes_inventory_R1_Ann_gen_EP_02.pdf",
+                "pmids": ["11106718", "20301486"]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0018901",
+            "disease_title": "left ventricular noncompaction",
+            "strongest_classification": "Supportive",
+            "n_submitters": 1,
+            "n_submissions": 1,
+            "has_conflict": false,
+            "min_classification": "Supportive",
+            "classification_titles": ["Supportive"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "Orphanet",
+                "classification_title": "Supportive",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2021-09-14 00:00:00",
+                "submitted_as_date_iso": "2021-09-14",
+                "public_report_url": null,
+                "submitter_curie": "GENCC:000110",
+                "assertion_criteria_url": "https://www.orpha.net/orphacom/cahiers/docs/GB/Orphanet_Genes_inventory_R1_Ann_gen_EP_02.pdf",
+                "pmids": ["25415959"]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0016587",
+            "disease_title": "arrhythmogenic right ventricular cardiomyopathy",
+            "strongest_classification": "Limited",
+            "n_submitters": 2,
+            "n_submissions": 2,
+            "has_conflict": false,
+            "min_classification": "Limited",
+            "classification_titles": ["Limited"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "ClinGen",
+                "classification_title": "Limited",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2019-08-06T00:00:00.000000Z",
+                "submitted_as_date_iso": "2019-08-06",
+                "public_report_url": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_0265f091-a67d-4521-b6bd-5a110bd5356f-2019-08-06T16:00:00.000Z",
+                "submitter_curie": "GENCC:000102",
+                "assertion_criteria_url": "https://clinicalgenome.org/docs/summary-of-updates-to-the-clingen-gene-clinical-validity-curation-sop-version-7/",
+                "pmids": ["27194543", "28699631", "29253866", "29709087", "30385303"]
+              },
+              {
+                "submitter_title": "G2P",
+                "classification_title": "Limited",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2025-09-25T00:00:00.000000Z",
+                "submitted_as_date_iso": "2025-09-25",
+                "public_report_url": "https://www.ebi.ac.uk/gene2phenotype/lgd/G2P03796",
+                "submitter_curie": "GENCC:000112",
+                "assertion_criteria_url": "https://www.ebi.ac.uk/gene2phenotype/about/terminology",
+                "pmids": ["33831308"]
+              }
+            ]
+          },
+          {
+            "gene_curie": "HGNC:7577",
+            "gene_symbol": "MYH7",
+            "disease_curie": "MONDO:0005453",
+            "disease_title": "congenital heart disease",
+            "strongest_classification": "Limited",
+            "n_submitters": 1,
+            "n_submissions": 1,
+            "has_conflict": false,
+            "min_classification": "Limited",
+            "classification_titles": ["Limited"],
+            "moi_titles": ["Autosomal dominant"],
+            "submitters": [
+              {
+                "submitter_title": "ClinGen",
+                "classification_title": "Limited",
+                "moi_title": "Autosomal dominant",
+                "submitted_as_date": "2024-02-12T00:00:00.000000Z",
+                "submitted_as_date_iso": "2024-02-12",
+                "public_report_url": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_e9da50d1-a17c-4396-a6e6-632077b277b2-2024-02-12T17:00:00.000Z",
+                "submitter_curie": "GENCC:000102",
+                "assertion_criteria_url": "https://clinicalgenome.org/docs/gene-disease-validity-standard-operating-procedures-version-10/",
+                "pmids": ["33309763", "35491958", "35993536"]
+              }
+            ]
+          }
+        ],
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "gencc_get_gene_disease_assertion",
+              "arguments": {
+                "gene_symbol": "HGNC:7577",
+                "disease": "MONDO:0008050"
+              }
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "data_license": "CC0-1.0",
+          "recommended_citation": "DiStefano MT, Goehringer S, Babb L, et al. The Gene Curation Coalition: A global effort to harmonize gene-disease evidence resources. Genet Med. 2022;24(8):1732-1742. doi:10.1016/j.gim.2022.04.017. Data: GenCC (thegencc.org), CC0 1.0.",
+          "response_mode": "full",
+          "gencc_release": "2026-08-30",
+          "request_id": "56ca0dc9e3b5",
+          "elapsed_ms": 1.27,
+          "pagination": {
+            "total_count": 11,
+            "has_more": false
+          }
+        },
+        "success": true
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "command": "claude -p --model opus --output-format stream-json --verbose --allowedTools ToolSearch mcp__claude_ai_genefoundry__* (continued with --resume after quota reset)"
+}

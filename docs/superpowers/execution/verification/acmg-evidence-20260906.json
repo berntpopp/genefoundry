@@ -1,0 +1,671 @@
+{
+  "kind": "workflow",
+  "subjectId": "acmg-evidence",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 · Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Fresh actual read-only GeneFoundry tool-use/tool-result pairs from an explicit --model opus rerun. Both init and assistant metadata identify claude-opus-5; no fallback model. Display date uses Europe/Berlin; UTC source timestamps and errors are retained.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__clinvar_get_variant",
+        "arguments": {
+          "identifier": "VCV000012635",
+          "id_type": "vcv",
+          "response_mode": "full"
+        }
+      },
+      "result": {
+        "variation_id": 12635,
+        "vcv_accession": "VCV000012635",
+        "allele_id": 27674,
+        "rsid": 1800575,
+        "name": "NM_000458.4(HNF1B):c.529C>T (p.Arg177Ter)",
+        "gene_symbol": "HNF1B",
+        "gene_id": "6928",
+        "hgnc_id": "HGNC:11630",
+        "variant_type": "single nucleotide variant",
+        "clinical_significance": "Pathogenic",
+        "classification": "pathogenic",
+        "review_status": "criteria provided, multiple submitters, no conflicts",
+        "star_rating": 2,
+        "protein_change": "p.Arg177Ter",
+        "cdna_change": "NM_000458.4(HNF1B):c.529C>T (p.Arg177Ter)",
+        "molecular_consequence": ["nonsense"],
+        "traits": [
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Renal cysts and diabetes syndrome",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000012635#trait:0",
+                "retrieved_at": "2026-09-05T22:43:55.012404Z"
+              },
+              "raw_sha256": "0a072804ebd480dc510913874c85ca0a434044b9259ddc536cd2c0ce45d98c58"
+            }
+          },
+          {
+            "name": {
+              "kind": "untrusted_text",
+              "text": "Nonpapillary renal cell carcinoma;Type 2 diabetes mellitus;Renal cysts and diabetes syndrome",
+              "provenance": {
+                "source": "clinvar",
+                "record_id": "VCV000012635#trait:1",
+                "retrieved_at": "2026-09-05T22:43:55.012502Z"
+              },
+              "raw_sha256": "4735ec65a3ff96c563a63c86321bcfae986d6c2242a49babb44211094d2b36e4"
+            }
+          }
+        ],
+        "rcv_accessions": ["RCV000013470", "RCV001851826", "RCV002496342"],
+        "number_submitters": 7,
+        "last_evaluated": "Mar 07, 2025",
+        "origin": "germline;unknown",
+        "canonical_assembly": "GRCh38",
+        "coordinates": [
+          {
+            "assembly": "GRCh38",
+            "chromosome_accession": "NC_000017.11",
+            "chromosome": "17",
+            "start": 37739455,
+            "stop": 37739455,
+            "position_vcf": 37739455,
+            "reference_allele_vcf": "G",
+            "alternate_allele_vcf": "A"
+          },
+          {
+            "assembly": "GRCh37",
+            "chromosome_accession": "NC_000017.10",
+            "chromosome": "17",
+            "start": 36099446,
+            "stop": 36099446,
+            "position_vcf": 36099446,
+            "reference_allele_vcf": "G",
+            "alternate_allele_vcf": "A"
+          }
+        ],
+        "recommended_citation": "ClinVar (NCBI). VariationID 12635 (VCV000012635). ClinVar weekly release Mon, 31 Aug 2026 12:35:23 GMT. https://www.ncbi.nlm.nih.gov/clinvar/variation/12635/",
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "clinvar_get_gene_clinvar_summary",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            },
+            {
+              "tool": "clinvar_get_variants_by_gene",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            },
+            {
+              "tool": "clinvar_get_server_capabilities",
+              "arguments": {}
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "server_version": "0.5.9",
+          "clinvar_release_date": "Mon, 31 Aug 2026 12:35:23 GMT",
+          "age_days": 5,
+          "past_ttl": false,
+          "request_id": "f341160c876d45d391b847b2e3395259",
+          "latency_ms": 1.14
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__clingen_get_gene_validity",
+        "arguments": {
+          "gene_symbol": "HNF1B",
+          "response_mode": "standard"
+        }
+      },
+      "result": {
+        "headline": "HNF1B: 1 validity assertion(s).",
+        "records": [
+          {
+            "symbol": "HNF1B",
+            "hgnc_id": "HGNC:11630",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "renal cysts and diabetes syndrome",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+                "retrieved_at": "2026-09-05T22:51:18.140314Z"
+              },
+              "raw_sha256": "5b63001688ce5475d4cb79e80417c934a5f75dd5dfee1aa26258807d1541add1"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0007669",
+            "moi": "AD",
+            "classification": "Definitive",
+            "expert_panel": "Monogenic Diabetes Gene Curation Expert Panel",
+            "perm_id": "CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+            "classified_date": "2021-01-19T17:00:00.000Z",
+            "released": "01/19/2021",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: HNF1B — MONDO:0007669 — Definitive (AD), curated by Monogenic Diabetes Gene Curation Expert Panel, classified 2021-01-19T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z"
+          }
+        ],
+        "total": 1,
+        "recommended_citation": "ClinGen Gene-Disease Validity: HNF1B — MONDO:0007669 — Definitive (AD), curated by Monogenic Diabetes Gene Curation Expert Panel, classified 2021-01-19T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+        "_meta": {
+          "data_version": {
+            "domain": "validity",
+            "version": "2026-08-31T10:00:00.000Z",
+            "snapshot_version": "2",
+            "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+            "record_count": 3670,
+            "source_url": "https://search.clinicalgenome.org/api/validity"
+          },
+          "next_commands": [
+            {
+              "tool": "clingen_get_gene_summary",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            },
+            {
+              "tool": "clingen_get_variant_interpretations",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            }
+          ],
+          "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+          "record_count": 1,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__gnomad_resolve_variant_id",
+        "arguments": {
+          "query": "17-37739455-G-A",
+          "dataset": "gnomad_r4",
+          "enrich": true,
+          "limit": 5
+        }
+      },
+      "result": {
+        "results": [],
+        "returned": 0,
+        "total_count": 0,
+        "has_more": false,
+        "next_steps": [
+          "Pick one variant_id and call get_variant_frequencies(variant_id, dataset).",
+          "Or call get_variant_details(variant_id, dataset) for annotations."
+        ],
+        "success": true,
+        "_meta": {
+          "unsafe_for_clinical_use": true,
+          "gnomad_release": "4.1.1"
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__gnomad_get_variant_frequencies",
+        "arguments": {
+          "variant_id": "17-37739455-G-A",
+          "dataset": "gnomad_r4",
+          "response_mode": "compact"
+        }
+      },
+      "result": {
+        "success": false,
+        "error_code": "not_found",
+        "message": "The gnomAD GraphQL API reported the record as not found (1 error(s)).",
+        "retryable": false,
+        "recovery_action": "switch_tool",
+        "fallback_tool": "gnomad_resolve_variant_id",
+        "fallback_args": {
+          "query": "17-37739455-G-A"
+        },
+        "recovery": "Identifier well-formed but absent in the requested dataset. This is a reformulate, not a retry: try a different dataset (gnomad_r4 default; r3/r2_1 for older builds) or call resolve_variant_id to verify the identifier. If the coordinate may belong to the other reference build (the most common cause), call compute_variant_liftover to convert it, then retry the frequency lookup against the build-matched dataset.",
+        "_meta": {
+          "tool": "gnomad_get_variant_frequencies",
+          "next_commands": [
+            {
+              "tool": "gnomad_resolve_variant_id",
+              "arguments": {
+                "query": "17-37739455-G-A"
+              }
+            },
+            {
+              "tool": "gnomad_compute_variant_liftover",
+              "arguments": {
+                "source_variant_id": "17-37739455-G-A",
+                "source_genome": "GRCh37"
+              }
+            },
+            {
+              "tool": "gnomad_get_diagnostics",
+              "arguments": {}
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "gnomad_release": "4.1.1",
+          "dataset": "gnomad_r4",
+          "reference_genome": "GRCh38"
+        }
+      },
+      "isError": true
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__autopvs1_get_variant_pvs1_data",
+        "arguments": {
+          "variant_id": "17-37739455-G-A",
+          "genome_build": "hg38",
+          "response_mode": "standard",
+          "meta_mode": "compact"
+        }
+      },
+      "result": {
+        "success": true,
+        "result": {
+          "genome_build": "hg38",
+          "variant_info": {
+            "variant_id": "17-37739455-G-A",
+            "variant_type": "Nonsense",
+            "gene_symbol": "HNF1B",
+            "gene_url": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:11630",
+            "pli_score": 0.999,
+            "pli_score_display": "0.999",
+            "haploinsufficiency": "3",
+            "haploinsufficiency_url": "https://search.clinicalgenome.org/kb/genes/HGNC:11630",
+            "chgvs": "NM_000458.4:c.529C>T",
+            "phgvs": "NP_000449.1:p.Arg177Ter",
+            "exon": "2/9",
+            "intron": "-/8",
+            "external_links": {
+              "OMIM": "https://mirror.omim.org/entry/189907",
+              "gnomAD": "https://gnomad.broadinstitute.org/variant/17-37739455-G-A",
+              "ClinVar": null
+            }
+          },
+          "pvs1_flowchart": {
+            "preliminary_decision_path": "NF1",
+            "final_strength": "VeryStrong",
+            "final_strength_source": "inferred",
+            "decision_tree": [
+              {
+                "code": {
+                  "kind": "untrusted_text",
+                  "text": "Nonsense or Frameshift",
+                  "provenance": {
+                    "source": "autopvs1",
+                    "record_id": "NM_000458.4:c.529C>T",
+                    "retrieved_at": "2026-09-05T22:51:28.914067Z"
+                  },
+                  "raw_sha256": "3f4b4eb30cbb1a84692c3fcc48304190bd7a7c841935adb7ce6150442bbe9627"
+                }
+              },
+              {
+                "code": {
+                  "kind": "untrusted_text",
+                  "text": "Predicted to undergo NMD",
+                  "provenance": {
+                    "source": "autopvs1",
+                    "record_id": "NM_000458.4:c.529C>T",
+                    "retrieved_at": "2026-09-05T22:51:28.914280Z"
+                  },
+                  "raw_sha256": "a34fefa65b76b15503a335f0b9ef409dd8e4dd16526a0b078d140d43e3fa899e"
+                }
+              },
+              {
+                "code": {
+                  "kind": "untrusted_text",
+                  "text": "Exon is present in biologically-relevant transcript(s)",
+                  "provenance": {
+                    "source": "autopvs1",
+                    "record_id": "NM_000458.4:c.529C>T",
+                    "retrieved_at": "2026-09-05T22:51:28.914346Z"
+                  },
+                  "raw_sha256": "26516a207dab4bc182732d1df0714d152b5190ea1ff7dc9f12761c4ed47520ec"
+                }
+              },
+              {
+                "code": {
+                  "kind": "untrusted_text",
+                  "text": "VeryStrong",
+                  "provenance": {
+                    "source": "autopvs1",
+                    "record_id": "NM_000458.4:c.529C>T",
+                    "retrieved_at": "2026-09-05T22:51:28.914404Z"
+                  },
+                  "raw_sha256": "b03dcbb22c52d95159ad71508da7b81dbbf55eaa00c1db5d964dcbee4c294c61"
+                }
+              }
+            ]
+          },
+          "disease_mechanisms": [
+            {
+              "gene": "HNF1B",
+              "gene_url": "https://search.clinicalgenome.org/kb/genes/HGNC:11630",
+              "disease": {
+                "kind": "untrusted_text",
+                "text": "renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "autopvs1",
+                  "record_id": "NM_000458.4:c.529C>T#disease:0",
+                  "retrieved_at": "2026-09-05T22:51:28.914447Z"
+                },
+                "raw_sha256": "5b63001688ce5475d4cb79e80417c934a5f75dd5dfee1aa26258807d1541add1"
+              },
+              "disease_url": "https://search.clinicalgenome.org/kb/conditions/MONDO_0007669",
+              "inheritance": "AD",
+              "clinical_validity": "Definitive",
+              "consideration": "No Decrease",
+              "adjusted_strength": "VeryStrong"
+            }
+          ],
+          "source_url": "https://autopvs1.bgi.com/variant/hg38/17-37739455-G-A",
+          "upstream_service": "AutoPVS1"
+        },
+        "_meta": {
+          "tool": "autopvs1_get_variant_pvs1_data",
+          "request_id": "db22fbfab4854b5baf29145888f8756c",
+          "server_version": "4.1.6",
+          "capabilities_version": "e331a2eab4bae223",
+          "unsafe_for_clinical_use": true,
+          "recommended_citation": {
+            "doi": "10.1002/humu.24051",
+            "pmid": "32442321"
+          },
+          "warnings": [
+            {
+              "code": "invalid_external_link",
+              "message": "ClinVar link from upstream AutoPVS1 was invalid and was nulled."
+            }
+          ],
+          "effective_chars": 2487,
+          "elapsed_ms": 1136.43,
+          "cache_status": "miss",
+          "cost_tier": "expensive_cold_cheap_warm",
+          "rate_limit_floor_ms": 1000,
+          "next_call_earliest_at": "2026-09-05T22:51:29.914746+00:00",
+          "expected_cold_latency_ms": 3500,
+          "next_commands": [
+            {
+              "tool": "autopvs1_get_variant_pvs1_data",
+              "arguments": {
+                "genome_build": "hg38",
+                "variant_id": "17-37739455-G-A",
+                "response_mode": "full"
+              },
+              "reason": "Widen to response_mode='full' for audit-trail *_raw fields."
+            }
+          ],
+          "upstream": {
+            "source": "autopvs1.bgi.com",
+            "retrieval": "html-scrape",
+            "note": "Fields are parsed from upstream AutoPVS1 HTML, which has no versioned/contractual format; values may drift silently if the page changes. Cross-check before any interpretation."
+          }
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__vep_annotate_variant",
+        "arguments": {
+          "variant": "17-37739455-G-A",
+          "assembly": "GRCh38",
+          "response_mode": "standard",
+          "transcripts": "auto"
+        }
+      },
+      "result": {
+        "query": "17-37739455-G-A",
+        "assembly": "GRCh38",
+        "variants": [
+          {
+            "variant_id": "17-37739455-G-A",
+            "assembly": "GRCh38",
+            "most_severe_consequence": "stop_gained",
+            "gene_symbol": "HNF1B",
+            "seq_region_name": "17",
+            "start": 37739455,
+            "end": 37739455,
+            "allele_string": "G/A",
+            "position_scores": {
+              "cadd_phred": 49,
+              "cadd_raw": 10.729122,
+              "conservation": 5.01
+            },
+            "transcript_consequences": [
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00000613727",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00000613727.5:c.529C>T",
+                "hgvsp": "ENSP00000477524.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00000614313",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00000614313.5:c.529C>T",
+                "hgvsp": "ENSP00000482529.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00000617811",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00000617811.5:c.529C>T",
+                "hgvsp": "ENSP00000480291.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00000621123",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00000621123.5:c.529C>T",
+                "hgvsp": "ENSP00000482711.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00000904916",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00000904916.2:c.529C>T",
+                "hgvsp": "ENSP00000574975.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00000904917",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00000904917.2:c.529C>T",
+                "hgvsp": "ENSP00000574976.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00000988052",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00000988052.1:c.529C>T",
+                "hgvsp": "ENSP00000657869.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00001014829",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00001014829.1:c.529C>T",
+                "hgvsp": "ENSP00000684646.1:p.Arg177Ter",
+                "protein_position": "177"
+              },
+              {
+                "gene_symbol": "HNF1B",
+                "transcript_id": "ENST00001142657",
+                "consequence_terms": ["stop_gained"],
+                "impact": "HIGH",
+                "hgvsc": "ENST00001142657.1:c.529C>T",
+                "hgvsp": "ENSP00000814664.1:p.Arg177Ter",
+                "protein_position": "177"
+              }
+            ],
+            "frequencies": []
+          }
+        ],
+        "warnings": [],
+        "provenance": {
+          "data_source": "Ensembl VEP / Variant Recoder REST",
+          "assembly": "GRCh38",
+          "endpoint": "https://rest.ensembl.org/vep/homo_sapiens/region",
+          "retrieved": "2026-09-05T22:51:32.140591+00:00",
+          "recommended_citation": "McLaren W, et al. The Ensembl Variant Effect Predictor. Genome Biol. 2016;17:122. PMID:27268795."
+        },
+        "_meta": {
+          "tool": "vep_annotate_variant",
+          "request_id": "55e25fef6279",
+          "timing": {
+            "elapsed_ms": 0,
+            "upstream_ms": 0,
+            "cache_status": "hit"
+          },
+          "capabilities_version": "ec5938bbf545",
+          "unsafe_for_clinical_use": true,
+          "next_commands": [
+            {
+              "tool": "vep_recode_variant",
+              "arguments": {
+                "variants": ["17-37739455-G-A"],
+                "assembly": "GRCh38"
+              }
+            },
+            {
+              "tool": "vep_liftover_variant",
+              "arguments": {
+                "variant": "17-37739455-G-A",
+                "from_assembly": "GRCh38",
+                "to_assembly": "GRCh37"
+              }
+            }
+          ],
+          "assembly": "GRCh38",
+          "upstream": {
+            "GRCh38": "ok",
+            "GRCh37": "ok",
+            "checked_at": "2026-09-05T22:50:47.099648+00:00"
+          }
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "clingen_get_gene_dosage",
+          "arguments": {
+            "gene_symbol": "HNF1B",
+            "response_mode": "full"
+          }
+        }
+      },
+      "result": {
+        "headline": "HNF1B dosage — haploinsufficiency: Sufficient evidence for dosage pathogenicity; triplosensitivity: No evidence.",
+        "records": [
+          {
+            "record_type": "gene",
+            "symbol": "HNF1B",
+            "hgnc_id": null,
+            "isca_id": null,
+            "cytoband": "17q12",
+            "grch37": "chr17:36046434-36105050",
+            "grch38": "chr17:37686431-37745059",
+            "haplo_score": "3",
+            "haplo_description": {
+              "kind": "untrusted_text",
+              "text": "Sufficient evidence for dosage pathogenicity",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "HNF1B",
+                "retrieved_at": "2026-09-05T22:51:35.093092Z"
+              },
+              "raw_sha256": "5af25e2676595e8da0c33a44c88526e5b97f8d88346b9858313f7c26f4e9a518"
+            },
+            "haplo_mondo": "MONDO:0007669",
+            "haplo_pmids": ["10720943", "15068978", "9398836"],
+            "triplo_score": "0",
+            "triplo_description": {
+              "kind": "untrusted_text",
+              "text": "No evidence available",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "HNF1B",
+                "retrieved_at": "2026-09-05T22:51:35.093153Z"
+              },
+              "raw_sha256": "85fd1e70fe725142ca3098affe93221254ebffb0b917a741d94cf3aee7bd5cd8"
+            },
+            "triplo_mondo": null,
+            "triplo_pmids": [],
+            "date_last_evaluated": "2020-12-21",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-dosage/HNF1B",
+            "recommended_citation": "ClinGen Dosage Sensitivity: HNF1B — haploinsufficiency: 3; triplosensitivity: 0, evaluated 2020-12-21. https://search.clinicalgenome.org/kb/gene-dosage/HNF1B",
+            "haplo_interpretation": "Sufficient evidence for dosage pathogenicity",
+            "triplo_interpretation": "No evidence"
+          }
+        ],
+        "total": 1,
+        "recommended_citation": "ClinGen Dosage Sensitivity: HNF1B — haploinsufficiency: 3; triplosensitivity: 0, evaluated 2020-12-21. https://search.clinicalgenome.org/kb/gene-dosage/HNF1B",
+        "_meta": {
+          "data_version": {
+            "domain": "dosage",
+            "version": "ClinGen_gene_curation_list_GRCh38.tsv=\"3c84d-65a7b08f20bab\";ClinGen_region_curation_list_GRCh38.tsv=\"18241-65a7b08f2d6cf\"",
+            "snapshot_version": "2",
+            "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+            "record_count": 2041,
+            "source_url": "https://ftp.clinicalgenome.org/ClinGen_gene_curation_list_GRCh38.tsv"
+          },
+          "next_commands": [
+            {
+              "tool": "clingen_get_gene_summary",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            },
+            {
+              "tool": "clingen_get_gene_validity",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            }
+          ],
+          "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+          "record_count": 1,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "command": "claude -p --model opus --output-format stream-json --verbose --allowedTools ToolSearch mcp__claude_ai_genefoundry__* (continued with --resume after quota reset)"
+}

@@ -13,6 +13,69 @@
       "subjectId": "phenotype-rare-disease",
       "reviewedAt": "2026-09-05",
       "evidencePath": "docs/superpowers/execution/verification/phenotype-20260905.json"
+    },
+    {
+      "id": "workflow-variant-annotation-20260906",
+      "kind": "workflow",
+      "subjectId": "variant-annotation",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/variant-annotation-20260906.json"
+    },
+    {
+      "id": "workflow-literature-review-20260906",
+      "kind": "workflow",
+      "subjectId": "literature-review",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/literature-review-20260906.json"
+    },
+    {
+      "id": "workflow-report-summary-20260906",
+      "kind": "workflow",
+      "subjectId": "report-summary",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/report-summary-20260906.json"
+    },
+    {
+      "id": "workflow-gene-validity-20260906",
+      "kind": "workflow",
+      "subjectId": "gene-validity",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/gene-validity-20260906.json"
+    },
+    {
+      "id": "workflow-acmg-evidence-20260906",
+      "kind": "workflow",
+      "subjectId": "acmg-evidence",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/acmg-evidence-20260906.json"
+    },
+    {
+      "id": "workflow-animal-models-20260906",
+      "kind": "workflow",
+      "subjectId": "animal-models",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/animal-models-20260906.json"
+    },
+    {
+      "id": "workflow-tissue-expression-20260906",
+      "kind": "workflow",
+      "subjectId": "tissue-expression",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/tissue-expression-20260906.json"
+    },
+    {
+      "id": "workflow-variant-evidence-20260906",
+      "kind": "workflow",
+      "subjectId": "variant-evidence",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/variant-evidence-20260906.json"
+    },
+    {
+      "id": "workflow-phenotype-rare-disease-20260906",
+      "kind": "workflow",
+      "subjectId": "phenotype-rare-disease",
+      "reviewedAt": "2026-09-06",
+      "evidencePath": "docs/superpowers/execution/verification/phenotype-rare-disease-20260906.json"
     }
   ]
 }

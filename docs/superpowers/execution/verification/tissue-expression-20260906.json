@@ -1,0 +1,140 @@
+{
+  "kind": "workflow",
+  "subjectId": "tissue-expression",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 \u00b7 Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Fresh tool-use/tool-result pairs from an explicitly selected --model opus session. Both initialization and tool-use messages identify claude-opus-5. Gateway envelopes and source payloads are preserved; no conversation, credentials or session identifiers are included.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__gtex_get_median_expression_levels",
+        "arguments": {
+          "gencode_id": ["HNF1B", "PAX2", "GATA3"],
+          "tissue_site_detail_id": ["Kidney_Cortex", "Kidney_Medulla", "Pancreas"],
+          "dataset_id": "gtex_v10",
+          "response_mode": "full",
+          "sort": "none"
+        }
+      },
+      "result": {
+        "headline": "GATA3: Kidney_Cortex median 20.05 TPM, n=104 (unsorted). (+2 more gene(s))",
+        "genes": [
+          {
+            "gencodeId": "ENSG00000107485.18",
+            "geneSymbol": "GATA3",
+            "datasetId": "gtex_v10",
+            "unit": "TPM",
+            "tissues": [
+              {
+                "tissue": "Kidney_Cortex",
+                "median": 20.0471,
+                "n": 104,
+                "ontologyId": "UBERON:0001225"
+              },
+              {
+                "tissue": "Kidney_Medulla",
+                "median": 33.7963,
+                "n": 11,
+                "ontologyId": "UBERON:0001293"
+              },
+              {
+                "tissue": "Pancreas",
+                "median": 0.0933,
+                "n": 362,
+                "ontologyId": "UBERON:0001150"
+              }
+            ],
+            "tissuesReturned": 3,
+            "tissuesTotal": 3
+          },
+          {
+            "gencodeId": "ENSG00000075891.23",
+            "geneSymbol": "PAX2",
+            "datasetId": "gtex_v10",
+            "unit": "TPM",
+            "tissues": [
+              {
+                "tissue": "Kidney_Cortex",
+                "median": 49.2482,
+                "n": 104,
+                "ontologyId": "UBERON:0001225"
+              },
+              {
+                "tissue": "Kidney_Medulla",
+                "median": 101.601,
+                "n": 11,
+                "ontologyId": "UBERON:0001293"
+              },
+              {
+                "tissue": "Pancreas",
+                "median": 0.2083,
+                "n": 362,
+                "ontologyId": "UBERON:0001150"
+              }
+            ],
+            "tissuesReturned": 3,
+            "tissuesTotal": 3
+          },
+          {
+            "gencodeId": "ENSG00000275410.6",
+            "geneSymbol": "HNF1B",
+            "datasetId": "gtex_v10",
+            "unit": "TPM",
+            "tissues": [
+              {
+                "tissue": "Kidney_Cortex",
+                "median": 57.2718,
+                "n": 104,
+                "ontologyId": "UBERON:0001225"
+              },
+              {
+                "tissue": "Kidney_Medulla",
+                "median": 108.491,
+                "n": 11,
+                "ontologyId": "UBERON:0001293"
+              },
+              {
+                "tissue": "Pancreas",
+                "median": 24.401,
+                "n": 362,
+                "ontologyId": "UBERON:0001150"
+              }
+            ],
+            "tissuesReturned": 3,
+            "tissuesTotal": 3
+          }
+        ],
+        "pagingInfo": {
+          "numberOfPages": 1,
+          "page": 0,
+          "maxItemsPerPage": 50,
+          "totalNumberOfItems": 3
+        },
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "gtex_get_top_expressed_genes_by_tissue",
+              "arguments": {
+                "tissue_site_detail_id": "Kidney_Cortex"
+              }
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "gtex_release": "gtex_v10",
+          "recommended_citation": "GTEx Consortium. The GTEx Consortium atlas of genetic regulatory effects across human tissues. Science. 2020;369(6509):1318-1330. doi:10.1126/science.aaz1776",
+          "dataset_id": "gtex_v10",
+          "gencode_version": "v39",
+          "pagination": {
+            "total_count": 3,
+            "has_more": false
+          }
+        },
+        "success": true
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "requestedModel": "opus"
+}

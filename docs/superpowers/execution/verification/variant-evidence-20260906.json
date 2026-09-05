@@ -1,0 +1,361 @@
+{
+  "kind": "workflow",
+  "subjectId": "variant-evidence",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 \u00b7 Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Fresh actual tool-use/result pairs from an explicit Claude Opus 5 run via the GeneFoundry MCP. Every recorded tool-use message reports claude-opus-5. Display date uses Europe/Berlin; UTC provenance timestamps are preserved.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "gnomad_search_genes",
+          "arguments": {
+            "query": "HNF1B",
+            "reference_genome": "GRCh38",
+            "limit": 5
+          }
+        }
+      },
+      "result": {
+        "results": [
+          {
+            "ensembl_id": "ENSG00000275410",
+            "ensembl_version": "6",
+            "symbol": "HNF1B",
+            "match_quality": "exact_symbol"
+          }
+        ],
+        "returned": 1,
+        "total_count": 1,
+        "has_more": false,
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "gnomad_get_gene_details",
+              "arguments": {
+                "gene": "ENSG00000275410"
+              }
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "gnomad_release": "4.1.1"
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "gnomad_get_gene_details",
+          "arguments": {
+            "gene": "ENSG00000275410",
+            "reference_genome": "GRCh38",
+            "response_mode": "compact"
+          }
+        }
+      },
+      "result": {
+        "headline": "HNF1B (ENSG00000275410): pLI 1.000, LoF o/e 0.13; 17:37686431-37745059 (GRCh38).",
+        "gene_id": "ENSG00000275410",
+        "symbol": "HNF1B",
+        "name": "HNF1 homeobox B",
+        "canonical_transcript_id": "ENST00000617811",
+        "chrom": "17",
+        "start": 37686431,
+        "stop": 37745059,
+        "strand": "-",
+        "gnomad_constraint": {
+          "exp_lof": 61.689268206148256,
+          "exp_mis": 714.5322472420538,
+          "exp_syn": 287.69655815122604,
+          "obs_lof": 8,
+          "obs_mis": 562,
+          "obs_syn": 314,
+          "oe_lof": 0.12968219971853517,
+          "oe_lof_lower": 0.07611092945136512,
+          "oe_lof_upper": 0.23398964090414823,
+          "oe_mis": 0.7865285327138185,
+          "oe_mis_lower": 0.7341141940204918,
+          "oe_mis_upper": 0.8433330437254551,
+          "oe_syn": null,
+          "oe_syn_lower": null,
+          "oe_syn_upper": null,
+          "lof_z": 5.798921193662721,
+          "mis_z": 2.4336516972328734,
+          "syn_z": -0.9252915444865075,
+          "pli": 0.9999999984940722
+        },
+        "flags": [],
+        "truncated": {
+          "kind": "gene_payload",
+          "dropped": {
+            "exons": 13,
+            "transcripts": 5
+          },
+          "to_disable": "response_mode='full' returns the full payload",
+          "to_restore": "response_mode='full'"
+        },
+        "_meta": {
+          "next_commands": [
+            {
+              "tool": "gnomad_get_gene_variants",
+              "arguments": {
+                "gene_id": "ENSG00000275410"
+              }
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "gnomad_release": "4.1.1"
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "clinvar_get_variants_by_gene",
+          "arguments": {
+            "gene_symbol": "HNF1B",
+            "sort": "stars_desc",
+            "limit": 5,
+            "offset": 0,
+            "response_mode": "compact"
+          }
+        }
+      },
+      "result": {
+        "gene_symbol": "HNF1B",
+        "results": [
+          {
+            "variation_id": 12635,
+            "vcv_accession": "VCV000012635",
+            "classification": "pathogenic",
+            "star_rating": 2,
+            "gene_symbol": "HNF1B",
+            "name": "NM_000458.4(HNF1B):c.529C>T (p.Arg177Ter)",
+            "rsid": 1800575,
+            "review_status": "criteria provided, multiple submitters, no conflicts",
+            "protein_change": "p.Arg177Ter",
+            "canonical_assembly": "GRCh38",
+            "traits": [
+              {
+                "kind": "untrusted_text",
+                "text": "Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012635#trait:0",
+                  "retrieved_at": "2026-09-05T22:50:45.924490Z"
+                },
+                "raw_sha256": "0a072804ebd480dc510913874c85ca0a434044b9259ddc536cd2c0ce45d98c58"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Nonpapillary renal cell carcinoma;Type 2 diabetes mellitus;Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012635#trait:1",
+                  "retrieved_at": "2026-09-05T22:50:45.924588Z"
+                },
+                "raw_sha256": "4735ec65a3ff96c563a63c86321bcfae986d6c2242a49babb44211094d2b36e4"
+              }
+            ]
+          },
+          {
+            "variation_id": 12638,
+            "vcv_accession": "VCV000012638",
+            "classification": "pathogenic",
+            "star_rating": 2,
+            "gene_symbol": "HNF1B",
+            "name": "NM_000458.4(HNF1B):c.301G>T (p.Glu101Ter)",
+            "rsid": 121918671,
+            "review_status": "criteria provided, multiple submitters, no conflicts",
+            "protein_change": "p.Glu101Ter",
+            "canonical_assembly": "GRCh38",
+            "traits": [
+              {
+                "kind": "untrusted_text",
+                "text": "Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012638#trait:0",
+                  "retrieved_at": "2026-09-05T22:50:45.924680Z"
+                },
+                "raw_sha256": "0a072804ebd480dc510913874c85ca0a434044b9259ddc536cd2c0ce45d98c58"
+              }
+            ]
+          },
+          {
+            "variation_id": 12640,
+            "vcv_accession": "VCV000012640",
+            "classification": "pathogenic",
+            "star_rating": 2,
+            "gene_symbol": "HNF1B",
+            "name": "NM_000458.4(HNF1B):c.826C>T (p.Arg276Ter)",
+            "rsid": 121918672,
+            "review_status": "criteria provided, multiple submitters, no conflicts",
+            "protein_change": "p.Arg276Ter",
+            "canonical_assembly": "GRCh38",
+            "traits": [
+              {
+                "kind": "untrusted_text",
+                "text": "Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012640#trait:0",
+                  "retrieved_at": "2026-09-05T22:50:45.924746Z"
+                },
+                "raw_sha256": "0a072804ebd480dc510913874c85ca0a434044b9259ddc536cd2c0ce45d98c58"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Autosomal dominant medullary cystic kidney disease with or without hyperuricemia",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012640#trait:1",
+                  "retrieved_at": "2026-09-05T22:50:45.924767Z"
+                },
+                "raw_sha256": "28e2c74e327f7fd4d5d919a75847972fd73f7c847d40e9b7615d2f9a530b957d"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Nonpapillary renal cell carcinoma;Type 2 diabetes mellitus;Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012640#trait:2",
+                  "retrieved_at": "2026-09-05T22:50:45.924787Z"
+                },
+                "raw_sha256": "4735ec65a3ff96c563a63c86321bcfae986d6c2242a49babb44211094d2b36e4"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Maturity-onset diabetes of the young",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012640#trait:3",
+                  "retrieved_at": "2026-09-05T22:50:45.924801Z"
+                },
+                "raw_sha256": "40d2568ab4a98557c28e9768d3aad2b79a1504604999614bcd24c79f2c99c52a"
+              }
+            ]
+          },
+          {
+            "variation_id": 12643,
+            "vcv_accession": "VCV000012643",
+            "classification": "likely_pathogenic",
+            "star_rating": 2,
+            "gene_symbol": "HNF1B",
+            "name": "NM_000458.4(HNF1B):c.544+1G>A",
+            "rsid": 1568670479,
+            "review_status": "criteria provided, multiple submitters, no conflicts",
+            "protein_change": "",
+            "canonical_assembly": "GRCh38",
+            "traits": [
+              {
+                "kind": "untrusted_text",
+                "text": "Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012643#trait:0",
+                  "retrieved_at": "2026-09-05T22:50:45.924852Z"
+                },
+                "raw_sha256": "0a072804ebd480dc510913874c85ca0a434044b9259ddc536cd2c0ce45d98c58"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "Nonpapillary renal cell carcinoma;Type 2 diabetes mellitus;Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012643#trait:1",
+                  "retrieved_at": "2026-09-05T22:50:45.924872Z"
+                },
+                "raw_sha256": "4735ec65a3ff96c563a63c86321bcfae986d6c2242a49babb44211094d2b36e4"
+              }
+            ]
+          },
+          {
+            "variation_id": 12644,
+            "vcv_accession": "VCV000012644",
+            "classification": "pathogenic",
+            "star_rating": 2,
+            "gene_symbol": "HNF1B",
+            "name": "NM_000458.4(HNF1B):c.544+1G>T",
+            "rsid": 1568670479,
+            "review_status": "criteria provided, multiple submitters, no conflicts",
+            "protein_change": "",
+            "canonical_assembly": "GRCh38",
+            "traits": [
+              {
+                "kind": "untrusted_text",
+                "text": "Renal cysts and diabetes syndrome",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012644#trait:0",
+                  "retrieved_at": "2026-09-05T22:50:45.924918Z"
+                },
+                "raw_sha256": "0a072804ebd480dc510913874c85ca0a434044b9259ddc536cd2c0ce45d98c58"
+              },
+              {
+                "kind": "untrusted_text",
+                "text": "HNF1B-related disorder",
+                "provenance": {
+                  "source": "clinvar",
+                  "record_id": "VCV000012644#trait:1",
+                  "retrieved_at": "2026-09-05T22:50:45.924943Z"
+                },
+                "raw_sha256": "fa48eca1a9d5300288ecf8ef4f27aacb8690270a91ff215e3c4eca4734a9d4d6"
+              }
+            ]
+          }
+        ],
+        "count": 5,
+        "total_count": 933,
+        "limit": 5,
+        "offset": 0,
+        "has_more": true,
+        "next_offset": 5,
+        "_meta": {
+          "citation_template": "ClinVar (NCBI). VariationID {variation_id} ({vcv_accession}). ClinVar weekly release Mon, 31 Aug 2026 12:35:23 GMT. https://www.ncbi.nlm.nih.gov/clinvar/variation/{variation_id}/",
+          "next_commands": [
+            {
+              "tool": "clinvar_get_variant",
+              "arguments": {
+                "identifier": "VCV000012635"
+              }
+            },
+            {
+              "tool": "clinvar_get_gene_clinvar_summary",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            },
+            {
+              "tool": "clinvar_get_server_capabilities",
+              "arguments": {}
+            }
+          ],
+          "unsafe_for_clinical_use": true,
+          "server_version": "0.5.9",
+          "clinvar_release_date": "Mon, 31 Aug 2026 12:35:23 GMT",
+          "age_days": 5,
+          "past_ttl": false,
+          "request_id": "3cabf70eef4d450aad286b51fbbffe77",
+          "latency_ms": 121.97
+        },
+        "success": true
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "modelSelection": {
+    "flag": "--model opus",
+    "fallback": null,
+    "observedAssistantModel": "claude-opus-5"
+  }
+}

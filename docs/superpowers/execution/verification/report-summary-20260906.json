@@ -1,0 +1,1065 @@
+{
+  "kind": "workflow",
+  "subjectId": "report-summary",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 · Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Actual read-only tool-use/tool-result pairs from a successfully resumed Claude Code session explicitly invoked with --model opus and no fallback. System initialization and every assistant response reported claude-opus-5. The initial attempt stopped at a spend limit before biomedical calls; the resumed run supplied every call below. Execution date uses Europe/Berlin; upstream UTC retrieval timestamps are retained. Request timing and ephemeral NCBI query handles are omitted.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__genereviews_search_genereviews",
+        "arguments": {
+          "gene_symbol": "HNF1B",
+          "retmax": 20
+        }
+      },
+      "result": {
+        "success": true,
+        "results": ["20301620", "27929632", "29792621"],
+        "count": 3,
+        "retmax": 3,
+        "retstart": 0,
+        "corpus_version": "live:2026-09-05T22:50:59.597832+00:00",
+        "_meta": {
+          "attribution": "GeneReviews® content © 1993–present University of Washington; sourced from NCBI Bookshelf. Full terms via the genereview://license resource.",
+          "corpus_version": "live:2026-09-05T22:50:59.597832+00:00",
+          "diagnostics": null,
+          "license_summary": "Research use only; cite per genereview://license",
+          "dense_model_id": null,
+          "embedding_dim": null,
+          "truncated": false,
+          "tool": "genereviews_search_genereviews",
+          "source": "genereviews",
+          "capabilities_version": "1",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__genereviews_search_passages",
+        "arguments": {
+          "q": "HNF1B renal cysts diabetes 17q12 deletion",
+          "gene": "HNF1B",
+          "mode": "full",
+          "limit": 8,
+          "sections": ["summary", "clinical_features", "molecular_genetics"]
+        }
+      },
+      "result": {
+        "success": true,
+        "results": [
+          {
+            "passage_id": "NBK401562:0048",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0048#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.856016Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "molecular_genetics",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Molecular Genetics > Molecular Pathogenesis",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0048#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.856031Z"
+              },
+              "raw_sha256": "dbffe387b1c2eebe4c4a133eac2218a3270f4d771c15cd9ac33bd34d3ae12bbb"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "The 17q12 deletion is recurrent, meaning that it involves the same unique genomic sequence. The 17q12 region is considered a hot spot for copy number variants, as it has specific molecular features (known as segmental duplications) that predispose to these events [Mefford et al 2007, Moreno-De-Luca et al 2010].\n\nDeletion mechanism. The 17q12 genomic region involved in the recurrent 17q12 deletion is flanked on each side by segmental duplications, which are highly repetitive segments of genomic material. Since these segmental duplications have a high degree of homology to one another, they can misalign during meiosis and give rise to deletions and duplications of the intervening genomic interval. This process, called nonallelic homologous recombination, accounts for the absence of the same unique genomic region in individuals with 17q12 recurrent deletion syndrome [Sharp et al 2006, Moreno-De-Luca et al 2010].\n\nGenes of interest in this region. Genes within the 17q12 recurrent deletion region include AATF, ACACA, C17orf78, DDX52, DHRS11, DUSP14, GGNBP2, HNF1B, LHX1, MRM1, MYO19, PIGW, SYNRG, TADA2A, and ZNHIT3.\n\nThree genes are of particular interest with respect to phenotypes associated with 17q12 recurrent deletion syndrome:\n\n- HNF1B. HNF1B haploinsufficiency has been established as the cause of the kidney, urogenital, and endocrine abnormalities that occur as part of 17q12 recurrent deletion syndrome. Heterozygous pathogenic sequence variants in HNF1B cause renal cysts and diabetes (RCAD) syndrome, which is characterized by the combination of congenital anomalies of the kidney and urinary tract (CAKUT) and maturity-onset diabetes of the young type 5 (MODY5) [Bingham et al 2001]. While other genes in the 17q12 recurrent deletion region likely account for most of the neurodevelopmental features associated with the syndrome, isolated sequence variants within HNF1B have also been associated with an increased risk for learning problems, albeit",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0048",
+                "retrieved_at": "2026-09-05T22:51:02.855967Z"
+              },
+              "raw_sha256": "3f9298e67c1b78d81eaf95f5217fb7424f250aa91ca91235416079765c6757e3"
+            },
+            "snippet": null,
+            "char_count": 1974,
+            "rrf_score": 0.031544957774465976,
+            "lexical_score": 2.7327346950769424,
+            "lexical_rank_position": 1,
+            "dense_rank_position": 6,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0048.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0009",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0009#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.856300Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Clinical Characteristics > Clinical Description > Most Common Features (>50%)",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0009#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.856318Z"
+              },
+              "raw_sha256": "9b0c11faf8b5964a3bff569f002314075d0ce73b6c723eaba1659c7756008ecc"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "van der Made et al 2015]. Hypomagnesemia is reported in 46/107 (43%) individuals with 17q12 recurrent deletion and can be severe [Ferrè et al 2013, Madariaga et al 2018, Dotto et al 2019, Li et al 2019, Okorn et al 2019, Berberich et al 2021, Cleper et al 2021, Motyka et al 2021, Cheng et al 2022, Thewjitcharoen et al 2022, Xin & Zhang 2023, Hasegawa et al 2024, Lee et al 2024, Verscaj et al 2024]. Some studies suggest that hypomagnesemia may be underdiagnosed among children with HNF1B-related disorders, including 17q12 recurrent deletion, and may be present in as many as 59% when using age-appropriate norms for children [Kołbuc et al 2024]. In adults, renal tubular magnesium wasting can be diagnosed through an elevated fractional excretion of magnesium (FEMg >2%) in individuals with normal kidney function.\n\nThe spectrum of severity and range in age of detection of HNF1B-associated kidney disease are broad, including prenatal severe kidney failure, slow progression to end-stage kidney disease (ESKD) in adulthood, and normal kidney function never requiring kidney replacement therapy [Madariaga et al 2013, Clissold et al 2015, Verhave et al 2016]. While initial evidence suggested that the cause of HNF1B haploinsufficiency – 17q12 deletion, an HNF1B missense variant, or an HNF1B truncating variant (nonsense, frameshift, or splice site) – did not predict the type and severity of kidney involvement [Raaijmakers et al 2015], more recent evidence indicates that intragenic HNF1B pathogenic variants may be associated with worse kidney function and higher risk of progression to ESKD compared to 17q12 deletions [Dubois-Laforgue et al 2017b, Clissold et al 2018, Buffin-Meyer et al 2024]. The reason for this finding is unknown, but the authors speculate a possible dominant-negative effect of certain HNF1B variants resulting in a more severe phenotype, or a protective effect conferred by the loss",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0009",
+                "retrieved_at": "2026-09-05T22:51:02.856267Z"
+              },
+              "raw_sha256": "7d20e144c23f755c955a85efcc8cfc3b61a73867b4633ba74c3951d47c9bfb62"
+            },
+            "snippet": null,
+            "char_count": 1915,
+            "rrf_score": 0.03149801587301587,
+            "lexical_score": 1.600000023841858,
+            "lexical_rank_position": 4,
+            "dense_rank_position": 3,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0009.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0025",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0025#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.857256Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Differential Diagnosis > Table 3",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0025#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.857266Z"
+              },
+              "raw_sha256": "7c947626cdfe149c03a0de21eba71e563bf296d188982903a80da3fed3d2072b"
+            },
+            "passage_type": "table",
+            "passage_role": "table_body",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "Genetic Disorders with Kidney Structural or Functional Defects in the Differential Diagnosis of 17q12 Recurrent Deletion Syndrome\n\n| Gene(s) | Disorder | MOI | Kidney-Related Phenotype | Other Features |\n| --- | --- | --- | --- | --- |\n| >20 genes incl: CEP290 INVS IQCB1 NPHP1 NPHP3 NPHP4 TMEM67 | Nephronophthisis-related ciliopathies | AR (typically) | Polyuria & polydipsia resulting from ↓ urine-concentrating ability Chronic tubulointerstitial nephritis Progression to ESKD Note: NPH is suspected in absence of CAKUT & signs/symptoms of glomerular kidney disease. | Chronic anemia resistant to therapy Growth restriction Note: NPH may be isolated or part of a syndrome, such as  Joubert ,  Bardet-Biedl , Jeune & related skeletal disorders, Meckel-Gruber, Senior-Loken,  Leber congenital amaurosis , or COACH. |\n| ALG5 \n \n ALG9 \n \n DNAJB11 \n \n GANAB \n \n IFT140 \n \n PKD1 \n \n PKD2 | Polycystic kidney disease, autosomal dominant | AD | Numerous bilateral cysts Kidney enlargement Early-onset hypertension Nephrolithiasis Acute or chronic abdominal/flank pain Kidney insufficiency ~50% have ESKD by age 60 yrs | Polycystic liver disease Cysts in pancreas, seminal vesicles, & arachnoid membrane ↑ risk of intracranial aneurysms; dilatation of aortic root, & dissection of thoracic aorta; mitral valve prolapse Abdominal wall hernias |\n| ALG8 GANAB   1 LRP5 PRKCSH SEC63 SEC61B   2 | Polycystic liver disease (OMIM  PS174050 ) | AD | Few kidney cysts occasionally reported | Polycystic liver disease |\n| BICC1 | Cystic renal dysplasia, susceptibility to (OMIM  601331 ) | AD | Cystic renal dysplasia VUR | None |\n| BMPER | Diaphanospondylodysostosis,  BMPER -related (OMIM  608022 ) | AR | Nephroblastomatosis w/cystic kidneys | Skeletal anomalies (small chest, abnormal vertebral segmentation, & posterior rib gaps) Craniofacial anomalies (hypertelorism, epicanthal folds, depressed nasal bridge w/short nose, & low-set ears) |\n| CRB2 | Ventriculomegaly w/cystic kidney disease (OMIM  219730 ) | AR | Microscopic renal tubular cysts | Dilated cerebral ventricles Postaxial polydactyly Ventricular septal defect |\n| CYS1 \n \n DZIP1L \n \n PKD1 \n \n PKHD1  3 | Autosomal recessive polycystic kidney disease (See  ARPKD- PKHD1 .) | AR | Perinatal presentation:\n Enlarged hyperechogenic kidneys Variable CKD Oligo- or anhydramnios & related lung disease often cause most significant complications. \nInfantile:\n Enlarged hyperechogenic kidneys Micro- & macrocysts Variable CKD \nAge >1 yr:\n Enlarged kidneys w/multiple macrocysts ↑ echogenicity ↓ cortex-medulla differentiation Possible variable CKD | Perinatal/infantile:\n Inhomogeneous liver parenchyma due to congenital hepatic fibrosis, hepatomegaly, bile duct dilatation / cystic changes \nAge >1 yr:\n Progressive liver fibrosis & portal hypertension; bile duct dilatation Predominance of liver disease in some persons w/only mild functional & structural kidney disease |\n| EYA1 \n \n SIX1 | Branchiootorenal spectrum disorder   4 | AD | Renal agenesis, hypoplasia, or dysplasia Ureteropelvic junction obstruction Calyceal cyst/diverticulum Caliectasis, pelviectasis, hydronephrosis, VUR | Malformations of outer, middle, & inner ear & hearing impairment 2nd branchial arch anomalies (sinus tract, cyst) |\n| JAG1 \n \n NOTCH2 | Alagille syndrome | AD | Structural involvement: small hyperechoic kidney, ureteropelvic obstruction, renal cysts Functional involvement: most commonly renal tubular acidosis | Cholestasis Congenital cardiac defects Butterfly vertebrae Ophthalmologic abnormalities Characteristic facial features |\n| MUC1 | Autosomal dominant tubulointerstitial kidney disease –  MUC1 | AD | Tubulointerstitial disease Few small corticomedullary cysts in 50% Normal or small-sized kidneys CKD w/highly variable progression to ESKD |  |\n| OFD1 | Oral-facial-digital syndrome type I | XL | Polycystic kidneys in females Risk for significant kidney disease appears to be >60% after age 18 yrs | Cleft palate Dental anomalies Facial dysmorphology Digital anomalies ID |\n| PAX2 | Renal coloboma syndrome (See  PAX2 -Related Disorder .) | AD | Hypoplastic, dysplastic, multicystic kidneys Oligomeganephronia Renal insufficiency & ESKD VUR FSGS | Ophthalmologic abnormalities (optic nerve dysplasia, retinal coloboma, other eye malformations) |\n| PMM2 | Hyperinsulinemia w/hypoglycemia & polycystic kidney disease  5 | AR | Antenatal or childhood-onset enlarged hyperechogenic kidneys w/multiple cysts Variable progression of CKD to ESKD from infancy to early adulthood | Infantile hyperinsulinemic hypoglycemia Liver cysts |\n| REN | Autosomal dominant tubulointerstitial kidney disease –  REN | AD | Childhood/adolescent-onset: ↓ estimated glomerular filtration rate, acidosis, hyperkalemia, & anemia early in life, followed by slowly progressive CKD & gout Adult onset: gout or mild, slowly progressive CKD beginning in 3rd decade |  |\n| SEC61A1 | Autosomal dominant tubulointerstitial kidney disease –  SEC61A1  (OMIM  617056 ) | AD | Bilateral small cysts in 50% Normal or small-sized kidneys CKD | • IUGR • Congenital anemia |\n| TSC1 \n \n TSC2 | Tuberous sclerosis complex | AD | Benign renal angiomyolipomas Epithelial cysts Oncocytoma Renal cell carcinoma | Characteristic skin lesions CNS manifestations (e.g., TAND) Cardiac rhabdomyomas, arrhythmias LAM, multifocal micronodular pneumonocyte hyperplasia |\n| UMOD | Autosomal dominant tubulointerstitial kidney disease –  UMOD | AD | Normal urinalysis & slowly progressive CKD, usually 1st noted in teen yrs & progressing to ESKD between 3rd & 7th decades Hyperuricemia Gout |  |\n| VHL | Von Hippel-Lindau syndrome | AD | Bilateral cysts Renal cell carcinoma | Hemangioblastomas of brain, spinal cord, & retina Pheochromocytoma & paraganglioma Pancreatic cysts & neuroendocrine tumors Endolymphatic sac tumors Epididymal & broad ligament cystadenomas |\n\nAdapted from  Cornec-Le Gall et al [2019] ;  Lanktree et al [2019] ;  Armstrong & Thomas [2019] ;  Polycystic Kidney Disease, Autosomal Dominant ;  Polycystic Kidney Disease, Autosomal Recessive ; and  Nephronophthisis-Related Ciliopathies\nAdapted from  Cornec-Le Gall et al [2019] ;  Lanktree et al [2019] ;  Armstrong & Thomas [2019] ;  Polycystic Kidney Disease, Autosomal Dominant ;  Polycystic Kidney Disease, Autosomal Recessive ; and  Nephronophthisis-Related Ciliopathies\nAD = autosomal dominant; ADPKD = autosomal dominant polycystic kidney disease; ADPLD = autosomal dominant polycystic liver disease; ADTKD = autosomal dominant tubulointerstitial kidney disease; AR = autosomal recessive; ARPKD = autosomal recessive polycystic kidney disease; CAKUT = congenital anomalies of the kidney and urinary tract; CKD = chronic kidney disease; CNS = central nervous system; COACH =  c erebellar vermis hypo/aplasia,  o ligophrenia,  a taxia,  c oloboma, and  h epatic fibrosis; ESKD = end-stage kidney disease; FSGS = focal segmental glomerulonephritis; ID = intellectual disability; IUGR = intrauterine growth restriction; LAM = lymphangioleiomyomatosis; MOI = mode of inheritance; NPH = nephronophthisis; TAND = TSC-associated neuropsychiatric disorder; VUR = vesicoureteral reflux\nAD = autosomal dominant; ADPKD = autosomal dominant polycystic kidney disease; ADPLD = autosomal dominant polycystic liver disease; ADTKD = autosomal dominant tubulointerstitial kidney disease; AR = autosomal recessive; ARPKD = autosomal recessive polycystic kidney disease; CAKUT = congenital anomalies of the kidney and urinary tract; CKD = chronic kidney disease; CNS = central nervous system; COACH =  c erebellar vermis hypo/aplasia,  o ligophrenia,  a taxia,  c oloboma, and  h epatic fibrosis; ESKD = end-stage kidney disease; FSGS = focal segmental glomerulonephritis; ID = intellectual disability; IUGR = intrauterine growth restriction; LAM = lymphangioleiomyomatosis; MOI = mode of inheritance; NPH = nephronophthisis; TAND = TSC-associated neuropsychiatric disorder; VUR = vesicoureteral reflux\n1.  \n               \n Porath et al [2016]\nPorath et al [2016]\n2.  \n               \n Besse et al [2017]\nBesse et al [2017]\n3.  \n               Among individuals with ARPKD,  PKHD1  is the most commonly involved gene. Less commonly involved genes include  PKD1 ,  CYS1 , &  DZIP1L . Although the ARPKD phenotype can appear clinically similar regardless of the causative gene, the genetic etiology may be relevant for prognosis of kidney survival (see  ARPKD ).\nAmong individuals with ARPKD,  PKHD1  is the most commonly involved gene. Less commonly involved genes include  PKD1 ,  CYS1 , &  DZIP1L . Although the ARPKD phenotype can appear clinically similar regardless of the causative gene, the genetic etiology may be relevant for prognosis of kidney survival (see  ARPKD ).\n4.  \n               Although  SIX5  was initially proposed as a causative gene of branchiootorenal spectrum disorder (BORSD), subsequent studies have failed to confirm a definitive pathogenic role [ Krug et al 2011 ]. The  ClinGen Hearing Loss Gene Curation Expert Panel  has classified the association between  SIX5  and BORSD as \"Disputed,\" citing insufficient genetic and functional evidence. Therefore,  SIX5  is no longer considered an associated gene in BORSD.\nAlthough  SIX5  was initially proposed as a causative gene of branchiootorenal spectrum disorder (BORSD), subsequent studies have failed to confirm a definitive pathogenic role [ Krug et al 2011 ]. The  ClinGen Hearing Loss Gene Curation Expert Panel  has classified the association between  SIX5  and BORSD as \"Disputed,\" citing insufficient genetic and functional evidence. Therefore,  SIX5  is no longer considered an associated gene in BORSD.\n5.  \n               \n Soares et al [2020]\nSoares et al [2020]",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0025",
+                "retrieved_at": "2026-09-05T22:51:02.857225Z"
+              },
+              "raw_sha256": "79fee3b8fd5cff4b2aa1a019a8216bc334e932814ece2f8b7e222c97050cd852"
+            },
+            "snippet": null,
+            "char_count": 9703,
+            "rrf_score": 0.030621785881252923,
+            "lexical_score": 2.6000001430511475,
+            "lexical_rank_position": 2,
+            "dense_rank_position": 9,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0025.",
+            "table_id": "mdel17q12.T.genetic_disorders_with_kidne",
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0006",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0006#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.857469Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Clinical Characteristics > Clinical Description",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0006#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.857481Z"
+              },
+              "raw_sha256": "67b395c8c2d20c3058782415f974813746c89fbaa3f2c9f108d1993953b4d22d"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "17q12 recurrent deletion syndrome is characterized by variable combinations of the following three most common findings: kidney abnormalities – including congenital abnormalities of the kidney and urinary tract (CAKUT) and tubulointerstitial disease – maturity-onset diabetes of the young (MODY), and neurodevelopmental/neuropsychiatric disorders (e.g., developmental delay, intellectual disability, autism spectrum disorder [ASD], attention-deficit/hyperactivity disorder [ADHD], schizophrenia, anxiety, and bipolar disorder). In families with more than one affected individual, significant intrafamilial variability has been reported.\n\nTo calculate the frequency rates for these features reported in 17q12 recurrent deletion syndrome, the authors reviewed phenotypic information for 282 individuals on whom sufficiently detailed phenotypic information was reported in 42 studies (see Table 2) using the following criteria:\n\n- To minimize ascertainment bias, studies involving disease-specific cohorts were not included in the prevalence calculations of that particular phenotypic manifestation (e.g., kidney anomalies).\n- Individuals with HNF1B pathogenic sequence variants were not included; however, individuals with whole-gene HNF1B deletions were included, as virtually all whole-gene deletions have been found to be due to a 17q12 recurrent deletion [Laffargue et al 2015].",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0006",
+                "retrieved_at": "2026-09-05T22:51:02.857447Z"
+              },
+              "raw_sha256": "2bcbd5d79939d849524f6656a9f653f15aa1a138dd0e4331f8c7431a856c5043"
+            },
+            "snippet": null,
+            "char_count": 1380,
+            "rrf_score": 0.0304147465437788,
+            "lexical_score": 1.100000023841858,
+            "lexical_rank_position": 10,
+            "dense_rank_position": 2,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0006.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0008",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0008#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.857668Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Clinical Characteristics > Clinical Description > Most Common Features (>50%)",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0008#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.857681Z"
+              },
+              "raw_sha256": "9b0c11faf8b5964a3bff569f002314075d0ce73b6c723eaba1659c7756008ecc"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "Kidney disease. Structural kidney abnormalities and unspecified chronic kidney disease have been described in 294 individuals. Cystic dysplastic kidneys and other structural kidney anomalies are reported in 167/193 (87%) individuals who were not ascertained through cohorts with kidney disease, making this feature the most commonly reported manifestation of 17q12 recurrent deletion syndrome.\n\nCystic dysplasia is the most common kidney finding; other structural kidney and urinary tract abnormalities include poor corticomedullary differentiation, collecting system abnormalities (duplicated collecting system, hydronephrosis, pyelectasis, vesicoureteral reflux, dilated ureter), single kidney (due to unilateral agenesis or involution of a cystic dysplastic kidney), and horseshoe kidney. Prenatal imaging most often shows kidney cysts or echogenic kidneys, but in many individuals (35%) findings may not develop until childhood or later [Verscaj et al 2024].\n\nIndividuals may also present with tubulointerstitial disease, which is characterized by reduced urine-concentrating ability, bland urinary sediment, absent-to-minimal albuminuria/proteinuria, hyperuricemia, hypomagnesemia, hypokalemia, and slowly progressive kidney disease; interstitial fibrosis and tubular atrophy are seen on biopsy (although biopsy is not routinely indicated) [Eckardt et al 2015, Verhave et al 2016]. Of note, autosomal dominant tubulointerstitial kidney disease (ADTKD) caused by HNF1B haploinsufficiency (frequently due to 17q12 deletion) is designated ADTKD-HNF1B [Eckardt et al 2015].\n\nRenal tubular wasting of magnesium resulting in hypomagnesemia is common and can be the initial and predominant manifestation of kidney disease in individuals with HNF1B haploinsufficiency, including those with the 17q12 recurrent deletion [Clissold et al 2015, Raaijmakers et al 2015, van der Made et al 2015]. Hypomagnesemia is reported in 46/107 (43%) individuals with 17q12 recurrent deletion and can be severe [Ferrè et al 2013, Madariaga et al",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0008",
+                "retrieved_at": "2026-09-05T22:51:02.857653Z"
+              },
+              "raw_sha256": "73ed98cdd24a2511754b5d442df40dd1649fcc6ff6dd391697af287828de122f"
+            },
+            "snippet": null,
+            "char_count": 2025,
+            "rrf_score": 0.030117753623188408,
+            "lexical_score": 1.3000000715255737,
+            "lexical_rank_position": 9,
+            "dense_rank_position": 4,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0008.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0010",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0010#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.857934Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Clinical Characteristics > Clinical Description > Most Common Features (>50%)",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0010#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.857968Z"
+              },
+              "raw_sha256": "9b0c11faf8b5964a3bff569f002314075d0ce73b6c723eaba1659c7756008ecc"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "et al 2024]. The reason for this finding is unknown, but the authors speculate a possible dominant-negative effect of certain HNF1B variants resulting in a more severe phenotype, or a protective effect conferred by the loss of one or more genes in the 17q12 recurrent deletion region.\n\nProgression to ESKD in childhood appears to be uncommon among individuals with HNF1B haploinsufficiency, including those with the 17q12 recurrent deletion [Bockenhauer & Jaureguiberry 2016]. In a large retrospective cohort study, progression to ESKD was less common among adults with 17q12 deletion at follow up (51%) compared to those with HNF1B intragenic pathogenic variants (78%) [Dubois-Laforgue et al 2017b].\n\nNeurodevelopmental/neuropsychiatric disorders. Deletions in 17q12 increase the risk of developing diverse neurodevelopmental or neuropsychiatric conditions. The studies that support these observations have taken complementary approaches, including (1) studying the different genetic findings identified in people with the same clinical diagnoses (phenotype first), and (2) studying the clinical features that occur in people who all share the same genetic cause (genotype first).\n\nA recent large phenotype-first population study has established that, out of all recurrent deletions studied, deletions in 17q12 have the strongest association with ASD (hazard ratio [HR] 7.79, 95% CI 2.71-22.43) and ADHD (HR 4.24, 95% CI 1.29-13.92), and show a very strong trend toward increasing the chances of developing schizophrenia spectrum disorders (HR 4.84, 95% CI 0.81-28.85) [Vaez et al 2024]. This study has multiple strengths, including estimating effect sizes from the general population rather than from participants who are already engaged in the health care system, which could result in a bias toward more severe clinical phenotypes; and including multiple other recurrent copy number variants that help put into context the magnitude of the associations with neuropsychiatric and neurodevelopmental conditions.\n\nGenotype-first studies have shown that ASD and schizophrenia are among the clinical features most strongly associated with 17q12 deletions and",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0010",
+                "retrieved_at": "2026-09-05T22:51:02.857899Z"
+              },
+              "raw_sha256": "16cef0495946cdc0a997290833c86a401be62e1ef65eb1a7e002c1f1c2c8dc31"
+            },
+            "snippet": null,
+            "char_count": 2157,
+            "rrf_score": 0.030090497737556562,
+            "lexical_score": 1.600000023841858,
+            "lexical_rank_position": 5,
+            "dense_rank_position": 8,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0010.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0026",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0026#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.858386Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Differential Diagnosis",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0026#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.858396Z"
+              },
+              "raw_sha256": "e0ffc30d9bb77a1b67706273aeff323248f5499123da5c56b65701fd945dae72"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "The differential diagnosis of kidney cysts also includes, in children, idiopathic cystic dysplasia and obstructive dysplasia; and, in adults, acquired kidney cysts (related to chronic kidney disease and/or dialysis) or simple cortical cysts [Clissold et al 2015].\n\nMaturity-onset diabetes of the young\n(MODY) is a group of inherited disorders of non-autoimmune diabetes mellitus that usually present in adolescence or young adulthood (typically age <35 years). MODY is generally inherited in an autosomal dominant manner. To date, it has been proposed that pathogenic variants in at least 14 genes cause MODY. See MODY, Genetic Causes of MODY for associated genes and clinical features. The clinical findings are either:\n\n- An atypical type 2 diabetes-like condition that occurs in the absence of the usual predisposing factors (obesity, hypertension, and dyslipidemia) and often without acanthosis nigricans; OR\n- An atypical type 1 diabetes-like condition that occurs in the absence of the usual clinical and laboratory manifestations (islet cell autoantibodies, persistence of measurable C peptide levels, and diabetic ketoacidosis) [American Diabetes Association 2010, Fajans & Bell 2011, Carroll & Murphy 2013].\n\nOther genetic causes of müllerian aplasia. Five other copy number variants (1q12.1 recurrent deletion, 2q13q14.1 recurrent deletion, 16p11.2 recurrent deletion, and 22q11.2 recurrent deletion and duplication) and pathogenic variants in at least 20 genes outside of the 17q12 region have been identified in two or more individuals with Mayer-Rokitansky-Küster-Hauser (MRKH) syndrome / müllerian aplasia [Herlin 2024].\n\nOther genetic causes of neurodevelopmental or neuropsychiatric disorders. The differential diagnosis for developmental delay, intellectual disability, schizophrenia, and autism spectrum disorder includes hundreds of known copy number and single-nucleotide variants and is too broad for discussion here. See OMIM Phenotypic Series for genes associated with the following:\n\n- Autosomal dominant intellectual developmental disorders\n- Autosomal recessive intellectual developmental disorders\n- Nonsyndromic X-linked intellectual developmental disorders\n- Syndromic",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0026",
+                "retrieved_at": "2026-09-05T22:51:02.858343Z"
+              },
+              "raw_sha256": "0084a5a2f618d7e834e26b514e3c2c0504fda0837334c22e5f0b7063eae60818"
+            },
+            "snippet": null,
+            "char_count": 2197,
+            "rrf_score": 0.029631255487269532,
+            "lexical_score": 1.399999976158142,
+            "lexical_rank_position": 8,
+            "dense_rank_position": 7,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0026.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0047",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0047#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:02.858474Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "molecular_genetics",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Molecular Genetics > Table 8",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0047#heading_path",
+                "retrieved_at": "2026-09-05T22:51:02.858489Z"
+              },
+              "raw_sha256": "6840ff93a24252257597660b1566b89a2ea70fd30f298ecf80c32aa7f0d4bf82"
+            },
+            "passage_type": "table",
+            "passage_role": "table_body",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "OMIM Entries for 17q12 Recurrent Deletion Syndrome ( View All in OMIM )\n\n| 137920 | RENAL CYSTS AND DIABETES SYNDROME; RCAD |\n| 189907 | HNF1 HOMEOBOX B; HNF1B |\n| 601999 | LIM HOMEOBOX GENE 1; LHX1 |\n| 614527 | CHROMOSOME 17q12 DELETION SYNDROME |",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0047",
+                "retrieved_at": "2026-09-05T22:51:02.858452Z"
+              },
+              "raw_sha256": "58ba87a84e6aa30ac5abd300e950832a43047f6556184617c48aec8b0554f241"
+            },
+            "snippet": null,
+            "char_count": 248,
+            "rrf_score": 0.029551337359792925,
+            "lexical_score": 0.834924254566431,
+            "lexical_rank_position": 16,
+            "dense_rank_position": 1,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0047.",
+            "table_id": "mdel17q12.molgen.TB",
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          }
+        ],
+        "_meta": {
+          "attribution": "GeneReviews® content © 1993–present University of Washington; sourced from NCBI Bookshelf. Full terms via the genereview://license resource.",
+          "corpus_version": "2026-09-01-r3",
+          "diagnostics": {
+            "rerank_used": "rrf",
+            "lexical_candidate_count": 45,
+            "dense_candidate_count": 45,
+            "section_filters": ["summary", "clinical_features", "molecular_genetics"],
+            "unfiltered_lexical_count": null,
+            "applied_filters": [
+              "gene=HNF1B",
+              "sections=summary,clinical_features,molecular_genetics"
+            ],
+            "suggestions": [],
+            "query_intents": []
+          },
+          "license_summary": "Research use only; cite per genereview://license",
+          "dense_model_id": null,
+          "embedding_dim": null,
+          "truncated": false,
+          "tool": "genereviews_search_passages",
+          "source": "genereviews",
+          "capabilities_version": "1",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__clingen_get_gene_validity",
+        "arguments": {
+          "gene_symbol": "HNF1B",
+          "response_mode": "compact"
+        }
+      },
+      "result": {
+        "headline": "HNF1B: 1 validity assertion(s).",
+        "records": [
+          {
+            "symbol": "HNF1B",
+            "hgnc_id": "HGNC:11630",
+            "disease_name": {
+              "kind": "untrusted_text",
+              "text": "renal cysts and diabetes syndrome",
+              "provenance": {
+                "source": "clingen",
+                "record_id": "CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+                "retrieved_at": "2026-09-05T22:51:08.032405Z"
+              },
+              "raw_sha256": "5b63001688ce5475d4cb79e80417c934a5f75dd5dfee1aa26258807d1541add1"
+            },
+            "disease_obsolete": false,
+            "mondo": "MONDO:0007669",
+            "moi": "AD",
+            "classification": "Definitive",
+            "expert_panel": "Monogenic Diabetes Gene Curation Expert Panel",
+            "perm_id": "CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+            "classified_date": "2021-01-19T17:00:00.000Z",
+            "released": "01/19/2021",
+            "permalink": "https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+            "recommended_citation": "ClinGen Gene-Disease Validity: HNF1B — MONDO:0007669 — Definitive (AD), curated by Monogenic Diabetes Gene Curation Expert Panel, classified 2021-01-19T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z"
+          }
+        ],
+        "total": 1,
+        "recommended_citation": "ClinGen Gene-Disease Validity: HNF1B — MONDO:0007669 — Definitive (AD), curated by Monogenic Diabetes Gene Curation Expert Panel, classified 2021-01-19T17:00:00.000Z. https://search.clinicalgenome.org/kb/gene-validity/CGGV:assertion_4174ea0a-6901-4070-ad93-d92614fd55c0-2021-01-19T170000.000Z",
+        "_meta": {
+          "data_version": {
+            "domain": "validity",
+            "version": "2026-08-31T10:00:00.000Z",
+            "snapshot_version": "2",
+            "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+            "record_count": 3670,
+            "source_url": "https://search.clinicalgenome.org/api/validity"
+          },
+          "next_commands": [
+            {
+              "tool": "clingen_get_gene_summary",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            },
+            {
+              "tool": "clingen_get_variant_interpretations",
+              "arguments": {
+                "gene_symbol": "HNF1B"
+              }
+            }
+          ],
+          "fetched_at": "2026-09-02T10:37:12.381620+00:00",
+          "record_count": 1,
+          "unsafe_for_clinical_use": true
+        },
+        "success": true
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "genereviews_get_chapter_section",
+          "arguments": {
+            "nbk_id": "NBK401562",
+            "section": "summary"
+          }
+        }
+      },
+      "result": {
+        "success": true,
+        "result": {
+          "nbk_id": "NBK401562",
+          "chapter_title": {
+            "kind": "untrusted_text",
+            "text": "17q12 Recurrent Deletion Syndrome",
+            "provenance": {
+              "source": "genereviews",
+              "record_id": "NBK401562#chapter_title",
+              "retrieved_at": "2026-09-05T22:51:10.884482Z"
+            },
+            "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+          },
+          "chapter_section": "summary",
+          "chapter_last_updated": "2025-02-06",
+          "passages": [],
+          "passage_count": 0,
+          "content": {
+            "kind": "untrusted_text",
+            "text": "",
+            "provenance": {
+              "source": "genereviews",
+              "record_id": "NBK401562#summary",
+              "retrieved_at": "2026-09-05T22:51:10.884430Z"
+            },
+            "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "content_char_count": 0,
+          "note": "section 'summary' is not scraped from NCBI Bookshelf NXML; call get_abstract(pmid=<chapter.pubmed_id>) for the chapter abstract (or open https://www.ncbi.nlm.nih.gov/books/NBK401562/)."
+        },
+        "_meta": {
+          "attribution": "GeneReviews® content © 1993–present University of Washington; sourced from NCBI Bookshelf. Full terms via the genereview://license resource.",
+          "corpus_version": "2026-09-01-r3",
+          "diagnostics": null,
+          "license_summary": "Research use only; cite per genereview://license",
+          "dense_model_id": null,
+          "embedding_dim": null,
+          "truncated": false,
+          "tool": "genereviews_get_chapter_section",
+          "source": "genereviews",
+          "capabilities_version": "1",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__genereviews_search_passages",
+        "arguments": {
+          "q": "maturity-onset diabetes of the young MODY onset insulin pancreatic hypoplasia",
+          "nbk_id": "NBK401562",
+          "sections": ["clinical_features"],
+          "mode": "full",
+          "limit": 3
+        }
+      },
+      "result": {
+        "success": true,
+        "results": [
+          {
+            "passage_id": "NBK401562:0013",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0013#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:14.353229Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Clinical Characteristics > Clinical Description > Common Features (25%-50%)",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0013#heading_path",
+                "retrieved_at": "2026-09-05T22:51:14.353248Z"
+              },
+              "raw_sha256": "1c60c803889aa67160e3e4f0521c0986857c7f409c45cfa14fe923399317cd8f"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "Maturity-onset diabetes of the young type 5 (MODY5) is most often diagnosed before age 25 years (range: 10-50 years) [Bellanné-Chantelot et al 2005].\n\nOvert diabetes mellitus and abnormal blood glucose levels and/or insulin response are reported in 58/155 (37%) individuals with 17q12 recurrent deletion syndrome not ascertained from cohorts with diabetes mellitus; however, this is almost certainly an underestimate of the lifetime prevalence, since many individuals described in the literature are children and young adults who may not yet have developed manifestations of diabetes. When cohorts with diabetes mellitus are considered, prevalence of MODY5 among individuals with 17q12 recurrent deletion syndrome is 50%.\n\nWhile many individuals with 17q12 recurrent deletion syndrome with MODY5 have some residual insulin secretion at the time of diagnosis, one study found that 79% required insulin therapy by ten-year follow up [Dubois-Laforgue et al 2017b].\n\nGenital abnormalities. About one third of females and one quarter of males have genital abnormalities.\n\nIn females, the most commonly reported finding is partial or complete absence of the upper part of the vagina, cervix, and uterus, often referred to as müllerian aplasia or Mayer-Rokitansky-Küster-Hauser (MRKH) syndrome [Bernardini et al 2009]. Other reported uterine abnormalities include bicornuate uterus, uterus didelphys, hypoplastic uterus, and ovarian cysts [Oram et al 2010, Stiles et al 2018, Vasileiou et al 2019, Kumar et al 2023, Lee et al 2024, Song et al 2024].\n\nIn males, genital abnormalities include cryptorchidism, shawl scrotum, phimosis, urethral stenosis or obstruction, hypospadias, epididymal cysts, prostate cyst, and enlarged scrotum [Nagamani et al 2010, Madariaga et al 2018, Lim et al 2020, Xin & Zhang 2023, Hasegawa et al 2024, Verscaj et al 2024].\n\nStructural and functional abnormalities of the liver. Elevated liver enzymes and/or structural abnormalities were reported in 74/171 (43%) individuals in cohorts ascertained for",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0013",
+                "retrieved_at": "2026-09-05T22:51:14.353168Z"
+              },
+              "raw_sha256": "ad217d777f046fdbc7cfeb5242d683cc3691bfe55046354bcc38aa2233fce339"
+            },
+            "snippet": null,
+            "char_count": 2024,
+            "rrf_score": 0.03252247488101534,
+            "lexical_score": 1.2000000476837158,
+            "lexical_rank_position": 2,
+            "dense_rank_position": 1,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0013.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0026",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0026#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:14.353667Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Differential Diagnosis",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0026#heading_path",
+                "retrieved_at": "2026-09-05T22:51:14.353679Z"
+              },
+              "raw_sha256": "e0ffc30d9bb77a1b67706273aeff323248f5499123da5c56b65701fd945dae72"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "The differential diagnosis of kidney cysts also includes, in children, idiopathic cystic dysplasia and obstructive dysplasia; and, in adults, acquired kidney cysts (related to chronic kidney disease and/or dialysis) or simple cortical cysts [Clissold et al 2015].\n\nMaturity-onset diabetes of the young\n(MODY) is a group of inherited disorders of non-autoimmune diabetes mellitus that usually present in adolescence or young adulthood (typically age <35 years). MODY is generally inherited in an autosomal dominant manner. To date, it has been proposed that pathogenic variants in at least 14 genes cause MODY. See MODY, Genetic Causes of MODY for associated genes and clinical features. The clinical findings are either:\n\n- An atypical type 2 diabetes-like condition that occurs in the absence of the usual predisposing factors (obesity, hypertension, and dyslipidemia) and often without acanthosis nigricans; OR\n- An atypical type 1 diabetes-like condition that occurs in the absence of the usual clinical and laboratory manifestations (islet cell autoantibodies, persistence of measurable C peptide levels, and diabetic ketoacidosis) [American Diabetes Association 2010, Fajans & Bell 2011, Carroll & Murphy 2013].\n\nOther genetic causes of müllerian aplasia. Five other copy number variants (1q12.1 recurrent deletion, 2q13q14.1 recurrent deletion, 16p11.2 recurrent deletion, and 22q11.2 recurrent deletion and duplication) and pathogenic variants in at least 20 genes outside of the 17q12 region have been identified in two or more individuals with Mayer-Rokitansky-Küster-Hauser (MRKH) syndrome / müllerian aplasia [Herlin 2024].\n\nOther genetic causes of neurodevelopmental or neuropsychiatric disorders. The differential diagnosis for developmental delay, intellectual disability, schizophrenia, and autism spectrum disorder includes hundreds of known copy number and single-nucleotide variants and is too broad for discussion here. See OMIM Phenotypic Series for genes associated with the following:\n\n- Autosomal dominant intellectual developmental disorders\n- Autosomal recessive intellectual developmental disorders\n- Nonsyndromic X-linked intellectual developmental disorders\n- Syndromic",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0026",
+                "retrieved_at": "2026-09-05T22:51:14.353640Z"
+              },
+              "raw_sha256": "0084a5a2f618d7e834e26b514e3c2c0504fda0837334c22e5f0b7063eae60818"
+            },
+            "snippet": null,
+            "char_count": 2197,
+            "rrf_score": 0.03252247488101534,
+            "lexical_score": 1.5,
+            "lexical_rank_position": 1,
+            "dense_rank_position": 2,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0026.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          },
+          {
+            "passage_id": "NBK401562:0006",
+            "nbk_id": "NBK401562",
+            "gene_symbols": ["HNF1B", "LHX1"],
+            "chapter_title": {
+              "kind": "untrusted_text",
+              "text": "17q12 Recurrent Deletion Syndrome",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0006#chapter_title",
+                "retrieved_at": "2026-09-05T22:51:14.353853Z"
+              },
+              "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+            },
+            "chapter_last_updated": "2025-02-06",
+            "chapter_ingested_at": "2026-09-02T11:49:36.053637Z",
+            "chapter_section": "clinical_features",
+            "heading_path": {
+              "kind": "untrusted_text",
+              "text": "Clinical Characteristics > Clinical Description",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0006#heading_path",
+                "retrieved_at": "2026-09-05T22:51:14.353865Z"
+              },
+              "raw_sha256": "67b395c8c2d20c3058782415f974813746c89fbaa3f2c9f108d1993953b4d22d"
+            },
+            "passage_type": "narrative",
+            "passage_role": "evidence",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "17q12 recurrent deletion syndrome is characterized by variable combinations of the following three most common findings: kidney abnormalities – including congenital abnormalities of the kidney and urinary tract (CAKUT) and tubulointerstitial disease – maturity-onset diabetes of the young (MODY), and neurodevelopmental/neuropsychiatric disorders (e.g., developmental delay, intellectual disability, autism spectrum disorder [ASD], attention-deficit/hyperactivity disorder [ADHD], schizophrenia, anxiety, and bipolar disorder). In families with more than one affected individual, significant intrafamilial variability has been reported.\n\nTo calculate the frequency rates for these features reported in 17q12 recurrent deletion syndrome, the authors reviewed phenotypic information for 282 individuals on whom sufficiently detailed phenotypic information was reported in 42 studies (see Table 2) using the following criteria:\n\n- To minimize ascertainment bias, studies involving disease-specific cohorts were not included in the prevalence calculations of that particular phenotypic manifestation (e.g., kidney anomalies).\n- Individuals with HNF1B pathogenic sequence variants were not included; however, individuals with whole-gene HNF1B deletions were included, as virtually all whole-gene deletions have been found to be due to a 17q12 recurrent deletion [Laffargue et al 2015].",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "NBK401562:0006",
+                "retrieved_at": "2026-09-05T22:51:14.353837Z"
+              },
+              "raw_sha256": "2bcbd5d79939d849524f6656a9f653f15aa1a138dd0e4331f8c7431a856c5043"
+            },
+            "snippet": null,
+            "char_count": 1380,
+            "rrf_score": 0.03149801587301587,
+            "lexical_score": 0.5,
+            "lexical_rank_position": 3,
+            "dense_rank_position": 4,
+            "recommended_citation": "NBK401562. Updated 2025-02-06. Passage NBK401562:0006.",
+            "table_id": null,
+            "source_url": "https://www.ncbi.nlm.nih.gov/books/NBK401562/"
+          }
+        ],
+        "_meta": {
+          "attribution": "GeneReviews® content © 1993–present University of Washington; sourced from NCBI Bookshelf. Full terms via the genereview://license resource.",
+          "corpus_version": "2026-09-01-r3",
+          "diagnostics": {
+            "rerank_used": "rrf",
+            "lexical_candidate_count": 20,
+            "dense_candidate_count": 20,
+            "section_filters": ["clinical_features"],
+            "unfiltered_lexical_count": null,
+            "applied_filters": ["nbk_id=NBK401562", "sections=clinical_features"],
+            "suggestions": [],
+            "query_intents": []
+          },
+          "license_summary": "Research use only; cite per genereview://license",
+          "dense_model_id": null,
+          "embedding_dim": null,
+          "truncated": false,
+          "tool": "genereviews_search_passages",
+          "source": "genereviews",
+          "capabilities_version": "1",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "genereviews_get_chapter_section",
+          "arguments": {
+            "nbk_id": "NBK401562",
+            "section": "molecular_genetics"
+          }
+        }
+      },
+      "result": {
+        "success": true,
+        "result": {
+          "nbk_id": "NBK401562",
+          "chapter_title": {
+            "kind": "untrusted_text",
+            "text": "17q12 Recurrent Deletion Syndrome",
+            "provenance": {
+              "source": "genereviews",
+              "record_id": "NBK401562#chapter_title",
+              "retrieved_at": "2026-09-05T22:51:17.737409Z"
+            },
+            "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+          },
+          "chapter_section": "molecular_genetics",
+          "chapter_last_updated": "2025-02-06",
+          "passages": [
+            {
+              "passage_id": "NBK401562:0045",
+              "heading_path": {
+                "kind": "untrusted_text",
+                "text": "Molecular Genetics",
+                "provenance": {
+                  "source": "genereviews",
+                  "record_id": "NBK401562:0045#heading_path",
+                  "retrieved_at": "2026-09-05T22:51:17.737421Z"
+                },
+                "raw_sha256": "d27d43ee314abc29ebd78c7c3d72bdb74ab9f0623a3a0f41dea86b74c7d60966"
+              },
+              "section_level": 1,
+              "chunk_index": 45
+            },
+            {
+              "passage_id": "NBK401562:0046",
+              "heading_path": {
+                "kind": "untrusted_text",
+                "text": "Molecular Genetics > Table 7",
+                "provenance": {
+                  "source": "genereviews",
+                  "record_id": "NBK401562:0046#heading_path",
+                  "retrieved_at": "2026-09-05T22:51:17.737437Z"
+                },
+                "raw_sha256": "9df4e4db3d856fca4745c8c2fa15bb8dc9bc25e986fcaa16fa95d4a171c39ea6"
+              },
+              "section_level": 1,
+              "chunk_index": 46
+            },
+            {
+              "passage_id": "NBK401562:0047",
+              "heading_path": {
+                "kind": "untrusted_text",
+                "text": "Molecular Genetics > Table 8",
+                "provenance": {
+                  "source": "genereviews",
+                  "record_id": "NBK401562:0047#heading_path",
+                  "retrieved_at": "2026-09-05T22:51:17.737448Z"
+                },
+                "raw_sha256": "6840ff93a24252257597660b1566b89a2ea70fd30f298ecf80c32aa7f0d4bf82"
+              },
+              "section_level": 1,
+              "chunk_index": 47
+            },
+            {
+              "passage_id": "NBK401562:0048",
+              "heading_path": {
+                "kind": "untrusted_text",
+                "text": "Molecular Genetics > Molecular Pathogenesis",
+                "provenance": {
+                  "source": "genereviews",
+                  "record_id": "NBK401562:0048#heading_path",
+                  "retrieved_at": "2026-09-05T22:51:17.737459Z"
+                },
+                "raw_sha256": "dbffe387b1c2eebe4c4a133eac2218a3270f4d771c15cd9ac33bd34d3ae12bbb"
+              },
+              "section_level": 2,
+              "chunk_index": 48
+            },
+            {
+              "passage_id": "NBK401562:0049",
+              "heading_path": {
+                "kind": "untrusted_text",
+                "text": "Molecular Genetics > Molecular Pathogenesis",
+                "provenance": {
+                  "source": "genereviews",
+                  "record_id": "NBK401562:0049#heading_path",
+                  "retrieved_at": "2026-09-05T22:51:17.737469Z"
+                },
+                "raw_sha256": "dbffe387b1c2eebe4c4a133eac2218a3270f4d771c15cd9ac33bd34d3ae12bbb"
+              },
+              "section_level": 2,
+              "chunk_index": 49
+            }
+          ],
+          "passage_count": 5,
+          "content": {
+            "kind": "untrusted_text",
+            "text": "Information in the Molecular Genetics and OMIM tables may differ from that elsewhere in the GeneReview: tables may contain more recent information. —ED.17q12 Recurrent Deletion Syndrome: Genes and Databases\n\n| Gene | Chromosome Locus | Protein | Locus-Specific Databases | HGMD | ClinVar |\n| HNF1B | 17q12 | Hepatocyte nuclear factor 1-beta | HNF1B database | HNF1B | HNF1B |\n| LHX1 | 17q12 | LIM/homeobox protein Lhx1 |  | LHX1 | LHX1 |\n\nData are compiled from the following standard references: gene from\n HGNC ;\nchromosome locus from\n OMIM ;\nprotein from  UniProt .\nFor a description of databases (Locus Specific, HGMD, ClinVar) to which links are provided, click\n here .\nData are compiled from the following standard references: gene from\n HGNC ;\nchromosome locus from\n OMIM ;\nprotein from  UniProt .\nFor a description of databases (Locus Specific, HGMD, ClinVar) to which links are provided, click\n here .OMIM Entries for 17q12 Recurrent Deletion Syndrome ( View All in OMIM )\n\n| 137920 | RENAL CYSTS AND DIABETES SYNDROME; RCAD |\n| 189907 | HNF1 HOMEOBOX B; HNF1B |\n| 601999 | LIM HOMEOBOX GENE 1; LHX1 |\n| 614527 | CHROMOSOME 17q12 DELETION SYNDROME |The 17q12 deletion is recurrent, meaning that it involves the same unique genomic sequence. The 17q12 region is considered a hot spot for copy number variants, as it has specific molecular features (known as segmental duplications) that predispose to these events [Mefford et al 2007, Moreno-De-Luca et al 2010].\n\nDeletion mechanism. The 17q12 genomic region involved in the recurrent 17q12 deletion is flanked on each side by segmental duplications, which are highly repetitive segments of genomic material. Since these segmental duplications have a high degree of homology to one another, they can misalign during meiosis and give rise to deletions and duplications of the intervening genomic interval. This process, called nonallelic homologous recombination, accounts for the absence of the same unique genomic region in individuals with 17q12 recurrent deletion syndrome [Sharp et al 2006, Moreno-De-Luca et al 2010].\n\nGenes of interest in this region. Genes within the 17q12 recurrent deletion region include AATF, ACACA, C17orf78, DDX52, DHRS11, DUSP14, GGNBP2, HNF1B, LHX1, MRM1, MYO19, PIGW, SYNRG, TADA2A, and ZNHIT3.\n\nThree genes are of particular interest with respect to phenotypes associated with 17q12 recurrent deletion syndrome:\n\n- HNF1B. HNF1B haploinsufficiency has been established as the cause of the kidney, urogenital, and endocrine abnormalities that occur as part of 17q12 recurrent deletion syndrome. Heterozygous pathogenic sequence variants in HNF1B cause renal cysts and diabetes (RCAD) syndrome, which is characterized by the combination of congenital anomalies of the kidney and urinary tract (CAKUT) and maturity-onset diabetes of the young type 5 (MODY5) [Bingham et al 2001]. While other genes in the 17q12 recurrent deletion region likely account for most of the neurodevelopmental features associated with the syndrome, isolated sequence variants within HNF1B have also been associated with an increased risk for learning problems, albeit at a lesser frequency [Clissold et al 2016, Dubois-Laforgue et al 2017a, Laliève et al 2020]. Thus, more research is needed to define the role of HNF1B in the human brain.\n- LHX1. Heterozygous LHX1 likely pathogenic variants have been identified in females with müllerian aplasia / Mayer-Rokitansky-Küster-Hauser syndrome, though inheritance information was not available [Ledig et al 2011, Ledig et al 2012, Sandbacka et al 2013]. Because of its role in neural development, LHX1 may also contribute to the neurodevelopmental manifestations observed in 17q12 recurrent deletion syndrome [Moreno-De-Luca et al 2010, Nagamani et al 2010].\n- ACACA encodes acetyl-CoA carboxylase 1, involved in lipogenesis in adipose tissue. There has been speculation that haploinsufficiency of ACACA may contribute to the leaner phenotype and decreased risk of diabetic glomerular disease in individuals with 17q12 recurrent deletion syndrome compared to those with HNF1B sequence variants [Dubois-Laforgue et al 2017b].",
+            "provenance": {
+              "source": "genereviews",
+              "record_id": "NBK401562#molecular_genetics",
+              "retrieved_at": "2026-09-05T22:51:17.737329Z"
+            },
+            "raw_sha256": "2221d8602c36de8c8d833a00cb8c54395d484e953f56275f42b67b343df68b10"
+          },
+          "content_char_count": 4135,
+          "note": null
+        },
+        "_meta": {
+          "attribution": "GeneReviews® content © 1993–present University of Washington; sourced from NCBI Bookshelf. Full terms via the genereview://license resource.",
+          "corpus_version": "2026-09-01-r3",
+          "diagnostics": null,
+          "license_summary": "Research use only; cite per genereview://license",
+          "dense_model_id": null,
+          "embedding_dim": null,
+          "truncated": false,
+          "tool": "genereviews_get_chapter_section",
+          "source": "genereviews",
+          "capabilities_version": "1",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "genereviews_get_abstract",
+          "arguments": {
+            "pmid": "27929632"
+          }
+        }
+      },
+      "result": {
+        "success": true,
+        "result": {
+          "pmid": "27929632",
+          "title": {
+            "kind": "untrusted_text",
+            "text": "17q12 Recurrent Deletion Syndrome",
+            "provenance": {
+              "source": "genereviews",
+              "record_id": "27929632#title",
+              "retrieved_at": "2026-09-05T22:51:20.822990Z"
+            },
+            "raw_sha256": "975eb76e2226400c32d194e3f4562be14b55c8d7d074c73d125ae947cf1e10e3"
+          },
+          "abstract": {
+            "kind": "untrusted_text",
+            "text": "CLINICAL CHARACTERISTICS: 17q12 recurrent deletion syndrome is characterized by variable combinations of the three following findings: structural or functional abnormalities of the kidney and urinary tract, maturity-onset diabetes of the young type 5 (MODY5), and neurodevelopmental or neuropsychiatric disorders (e.g., developmental delay, intellectual disability, autism spectrum disorder [ASD], attention-deficit/hyperactivity disorder [ADHD], schizophrenia, anxiety, and bipolar disorder). Using a method of data analysis that avoids ascertainment bias, the authors determined that multicystic kidneys and other structural and functional kidney anomalies occur in 85%-90% of affected individuals, MODY5 in approximately 40%, and some degree of developmental delay or learning disability in approximately 50%. MODY5 is most often diagnosed before age 25 years (range: age 10-50 years).\n\nDIAGNOSIS/TESTING: The diagnosis is established in a proband by detection of the 1.4-Mb heterozygous recurrent deletion at chromosome 17q12 by chromosomal microarray testing or other genomic methods.\n\nMANAGEMENT: Treatment of manifestations: Treatment of kidney disease, neurodevelopmental and neuropsychiatric disorders, MODY5, genital tract abnormalities, liver abnormalities, hyperparathyroidism, eye abnormalities, exocrine pancreatic insufficiency, congenital heart defects, seizures, and sensorineural hearing loss should follow standard practice. Surveillance: Kidneys and urinary tract: In the absence of known structural abnormalities, kidney and bladder ultrasound examination 12 months after establishing the diagnosis, then every two to three years in childhood/adolescence, then every three to five years in adulthood; presence of an abnormality may warrant more frequent monitoring. Monitor blood pressure, kidney function, serum concentration of magnesium, potassium, uric acid, urine magnesium, creatinine, and protein-to-creatinine ratio with frequency per nephrologist; more frequent monitoring may be advised in those with lab findings of kidney disease, those who are taking potentially nephrotoxic medications, and/or those with genitourinary structural abnormalities. Assess developmental progress and educational needs at each visit throughout childhood and adolescence; assess for features of ASD and ADHD at each visit in early childhood; full psychoeducational evaluation for children who experience difficulty with school or behavioral changes; assess for prodromal psychotic symptoms and bipolar disorder at each visit in adolescence. Annual hemoglobin A1c; educate individuals and their families for clinical signs and symptoms of diabetes mellitus. Consider reevaluation for uterine and vaginal abnormalities related to müllerian duct aplasia in pubertal females with primary amenorrhea. Hepatic function panel and GGT periodically; consider periodic lipid panel. Annual serum calcium and phosphorus to assess for hyperparathyroidism; annual ophthalmologic evaluation during early childhood. Fecal elastase-1 to test for exocrine pancreatic insufficiency in individuals with suggestive signs and symptoms. Monitor those with seizures as clinically indicated. Hearing screening throughout childhood. Agents/circumstances to avoid: Because kidney transplantation increases the risk for post-transplant diabetes mellitus, an immunosuppressive regimen that avoids tacrolimus and mTOR inhibitors and reduces corticosteroid exposure may benefit those without preexisting diabetes mellitus. Nephrotoxic and hepatotoxic drugs should be avoided by individuals with kidney or liver abnormalities. For individuals with mental health conditions (e.g., ASD, schizophrenia, or bipolar disorder), careful consideration of antipsychotic agents that may lead to weight gain, as this may lead to metabolic syndrome and diabetes mellitus, for which individuals with 17q12 recurrent deletion syndrome are at increased risk. Mood stabilizers that affect kidney function in the long term, such as lithium, should be carefully considered in the setting of potential underlying anatomic and functional kidney abnormalities. Evaluation of relatives at risk: If one of the proband's parents has the 17q12 recurrent deletion, it is appropriate to test older and younger sibs of the proband and other relatives at risk in order to identify those who would benefit from close assessment/monitoring for evidence of genitourinary structural or functional defects, MODY5, and developmental delays / intellectual disability.\n\nGENETIC COUNSELING: 17q12 recurrent deletion syndrome is inherited in an autosomal dominant manner, with approximately 75% of deletions occurring de novo and approximately 25% inherited from a parent. Each child of an individual with 17q12 recurrent deletion syndrome has a 50% chance of inheriting the deletion. Once the 17q12 recurrent deletion has been identified in an affected family member, prenatal and preimplantation genetic testing for 17q12 recurrent deletion syndrome are possible.",
+            "provenance": {
+              "source": "genereviews",
+              "record_id": "27929632#doc",
+              "retrieved_at": "2026-09-05T22:51:20.823501Z"
+            },
+            "raw_sha256": "e91a7ca2630a37477c1e08d628dfa14a1f39153e4435c99029e1c58cee793f5d"
+          },
+          "authors": [
+            {
+              "kind": "untrusted_text",
+              "text": "Marissa W Mitchel",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "27929632#author:0",
+                "retrieved_at": "2026-09-05T22:51:20.823537Z"
+              },
+              "raw_sha256": "f42d447c36583b34876e8af028761fae0a6e2679062ee5096a3e6059f37168a2"
+            },
+            {
+              "kind": "untrusted_text",
+              "text": "Daniel Moreno-De-Luca",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "27929632#author:1",
+                "retrieved_at": "2026-09-05T22:51:20.823547Z"
+              },
+              "raw_sha256": "09e2fa0ed34bcc30fdf47c7e45128183128ce2f59a495a9c9e434cf9876d603d"
+            },
+            {
+              "kind": "untrusted_text",
+              "text": "Scott M Myers",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "27929632#author:2",
+                "retrieved_at": "2026-09-05T22:51:20.823554Z"
+              },
+              "raw_sha256": "a3c2f2cfcac2322f86ddba09891e70bbadbfa573ecf2c559378128c76f7ab4ba"
+            },
+            {
+              "kind": "untrusted_text",
+              "text": "Rebecca V Levy",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "27929632#author:3",
+                "retrieved_at": "2026-09-05T22:51:20.823560Z"
+              },
+              "raw_sha256": "8cc65f5dee530afa08c082a9a8f16862b57a2f4f513980777495b19042ed48d4"
+            },
+            {
+              "kind": "untrusted_text",
+              "text": "Stefanie Turner",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "27929632#author:4",
+                "retrieved_at": "2026-09-05T22:51:20.823566Z"
+              },
+              "raw_sha256": "b91c39a7ae1f5faa836cf60008cde5ab2d84b861718b484335073d56554b8e60"
+            },
+            {
+              "kind": "untrusted_text",
+              "text": "David H Ledbetter",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "27929632#author:5",
+                "retrieved_at": "2026-09-05T22:51:20.823573Z"
+              },
+              "raw_sha256": "26466f3b31110c8aba69b1a8cced47059434d03fbd2dec694d13aa36f8561324"
+            },
+            {
+              "kind": "untrusted_text",
+              "text": "Christa L Martin",
+              "provenance": {
+                "source": "genereviews",
+                "record_id": "27929632#author:6",
+                "retrieved_at": "2026-09-05T22:51:20.823580Z"
+              },
+              "raw_sha256": "30ffcdb615e0c3aa8e2b3c198b17d41469dc4d345b3e2925c68bbf5a1fd3ebff"
+            }
+          ],
+          "journal": {
+            "kind": "untrusted_text",
+            "text": "GeneReviews®",
+            "provenance": {
+              "source": "genereviews",
+              "record_id": "27929632#journal",
+              "retrieved_at": "2026-09-05T22:51:20.823588Z"
+            },
+            "raw_sha256": "765fa815405c12f102f0ddb68ebc9fc2b7bbffc7d18ddf9a4c89dc0be64d8859"
+          },
+          "publication_date": "2016-12-8",
+          "corpus_version": "live:2026-09-05T22:51:20.823643+00:00"
+        },
+        "_meta": {
+          "attribution": "GeneReviews® content © 1993–present University of Washington; sourced from NCBI Bookshelf. Full terms via the genereview://license resource.",
+          "corpus_version": "live:2026-09-05T22:51:20.823643+00:00",
+          "diagnostics": null,
+          "license_summary": "Research use only; cite per genereview://license",
+          "dense_model_id": null,
+          "embedding_dim": null,
+          "truncated": false,
+          "tool": "genereviews_get_abstract",
+          "source": "genereviews",
+          "capabilities_version": "1",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "modelSelection": {
+    "flag": "--model opus",
+    "fallback": null,
+    "observedAssistantModel": "claude-opus-5"
+  }
+}

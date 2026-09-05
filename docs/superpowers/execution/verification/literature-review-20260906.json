@@ -1,0 +1,402 @@
+{
+  "kind": "workflow",
+  "subjectId": "literature-review",
+  "executedAt": "2026-09-06",
+  "client": "Claude Code 2.1.261 · Claude Opus 5",
+  "endpoint": "https://genefoundry.org/mcp",
+  "evidence": "Actual read-only tool-use/tool-result pairs from a successfully resumed Claude Code session explicitly invoked with --model opus and no fallback. System initialization and every assistant response reported claude-opus-5. The initial attempt stopped at a spend limit before biomedical calls; the resumed run supplied every call below. Execution date uses Europe/Berlin; upstream UTC retrieval timestamps are retained. Request timing and ephemeral NCBI query handles are omitted.",
+  "calls": [
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__pubtator_search_literature",
+        "arguments": {
+          "text": "HNF1B kidney development nephron",
+          "limit": 10,
+          "metadata": "with_abstract",
+          "sort": "score desc"
+        }
+      },
+      "result": {
+        "success": true,
+        "query": "HNF1B kidney development nephron",
+        "results": [
+          {
+            "pmid": "35554666",
+            "title": "Mechanisms of ion transport regulation by HNF1beta in the kidney: beyond transcriptional regulation of channels and transporters",
+            "first_author_et_al": "Tholen LE et al.",
+            "pub_year": 2022,
+            "journal": "Pflugers Arch",
+            "pub_date": "2022 Aug",
+            "score": 284.47586,
+            "pmcid": "PMC9338905",
+            "doi": "10.1007/s00424-022-02697-5",
+            "date": "2022-08-01T00:00:00Z",
+            "text_hl": "The role of HNF1beta in ureteric bud branching and nephron patterning during kidney development",
+            "recommended_citation": "Tholen LE et al. Mechanisms of ion transport regulation by HNF1beta in the kidney: beyond transcriptional regulation of channels and transporters. Pflugers Arch. 2022. PMID:35554666. doi:10.1007/s00424-022-02697-5.",
+            "volume": "474",
+            "issue": "8",
+            "pages": "901-916",
+            "publication_types": ["Journal Article", "Review", "Research Support, Non-U.S. Gov't"]
+          },
+          {
+            "pmid": "36402859",
+            "title": "Hnf1b renal expression directed by a distal enhancer responsive to Pax8",
+            "first_author_et_al": "Goea L et al.",
+            "pub_year": 2022,
+            "journal": "Sci Rep",
+            "pub_date": "2022 Nov 19",
+            "score": 282.68723,
+            "pmcid": "PMC9675860",
+            "doi": "10.1038/s41598-022-21171-x",
+            "date": "2022-11-19T00:00:00Z",
+            "text_hl": "Gene targeting studies have shown that .L Hnf1b plays a crucial role at several stages of kidney development, including ureteric bud branching and early nephrogenesis as well as nephron patterning and epithelial tubular organization of the collecting ducts.",
+            "recommended_citation": "Goea L et al. Hnf1b renal expression directed by a distal enhancer responsive to Pax8. Sci Rep. 2022. PMID:36402859. doi:10.1038/s41598-022-21171-x.",
+            "volume": "12",
+            "issue": "1",
+            "pages": "19921",
+            "publication_types": ["Journal Article", "Research Support, Non-U.S. Gov't"]
+          },
+          {
+            "pmid": "38788724",
+            "title": "Human pluripotent stem cell-derived kidney organoids reveal tubular epithelial pathobiology of heterozygous HNF1B-associated dysplastic kidney malformations",
+            "first_author_et_al": "Bantounas I et al.",
+            "pub_year": 2024,
+            "journal": "Stem Cell Reports",
+            "pub_date": "2024 May 13",
+            "score": 280.7663,
+            "pmcid": "PMC11297557",
+            "doi": "10.1016/j.stemcr.2024.04.011",
+            "date": "2024-05-13T00:00:00Z",
+            "text_hl": "Our results illuminate important roles for HNF1B in human kidney development and identify potentially druggable targets.",
+            "recommended_citation": "Bantounas I et al. Human pluripotent stem cell-derived kidney organoids reveal tubular epithelial pathobiology of heterozygous HNF1B-associated dysplastic kidney malformations. Stem Cell Reports. 2024. PMID:38788724. doi:10.1016/j.stemcr.2024.04.011.",
+            "volume": "19",
+            "issue": "6",
+            "pages": "859-876",
+            "publication_types": ["Journal Article", "Research Support, Non-U.S. Gov't"]
+          },
+          {
+            "pmid": "36522156",
+            "title": "HNF1B Alters an Evolutionarily Conserved Nephrogenic Program of Target Genes",
+            "first_author_et_al": "Grand K et al.",
+            "pub_year": 2023,
+            "journal": "J Am Soc Nephrol",
+            "pub_date": "2022 Dec 15",
+            "score": 279.5609,
+            "pmcid": "PMC10103355",
+            "doi": "10.1681/ASN.2022010076",
+            "date": "2022-12-15T00:00:00Z",
+            "text_hl": "... HNF1B is expressed along all nephron segments in the mature kidney.",
+            "recommended_citation": "Grand K et al. HNF1B Alters an Evolutionarily Conserved Nephrogenic Program of Target Genes. J Am Soc Nephrol. 2022. PMID:36522156. doi:10.1681/ASN.2022010076.",
+            "volume": "34",
+            "issue": "3",
+            "pages": "412-432",
+            "publication_types": ["Journal Article", "Research Support, Non-U.S. Gov't"]
+          },
+          {
+            "pmid": "37155865",
+            "title": "A single-cell multiomic analysis of kidney organoid differentiation",
+            "first_author_et_al": "Yoshimura Y et al.",
+            "pub_year": 2023,
+            "journal": "Proc Natl Acad Sci U S A",
+            "pub_date": "2023 May 16",
+            "score": 274.15125,
+            "pmcid": "PMC10193973",
+            "doi": "10.1073/pnas.2219699120",
+            "date": "2023-05-16T00:00:00Z",
+            "text_hl": "...Kidney organoids differentiated from pluripotent stem cells are powerful models of kidney development and disease but are characterized by cell immaturity and off-target cell fates.",
+            "recommended_citation": "Yoshimura Y et al. A single-cell multiomic analysis of kidney organoid differentiation. Proc Natl Acad Sci U S A. 2023. PMID:37155865. doi:10.1073/pnas.2219699120.",
+            "volume": "120",
+            "issue": "20",
+            "pages": "e2219699120",
+            "publication_types": ["Journal Article", "Research Support, Non-U.S. Gov't"]
+          },
+          {
+            "pmid": "38340720",
+            "title": "Identification of a core transcriptional program driving the human renal mesenchymal-to-epithelial transition.",
+            "first_author_et_al": "Ng-Blichfeldt JP et al.",
+            "pub_year": 2024,
+            "journal": "Dev Cell",
+            "pub_date": "2024 Feb 2",
+            "score": 273.4322,
+            "pmcid": "PMC7616043",
+            "doi": "10.1016/j.devcel.2024.01.011",
+            "date": "2024-02-02T00:00:00Z",
+            "text_hl": "...During kidney development, nephron epithelia arise de novo from fate-committed mesenchymal progenitors through a mesenchymal-to-epithelial transition (MET).",
+            "recommended_citation": "Ng-Blichfeldt JP et al. Identification of a core transcriptional program driving the human renal mesenchymal-to-epithelial transition. Dev Cell. 2024. PMID:38340720. doi:10.1016/j.devcel.2024.01.011.",
+            "volume": "59",
+            "issue": "5",
+            "pages": "595-612.e8",
+            "publication_types": [
+              "Journal Article",
+              "Research Support, Non-U.S. Gov't",
+              "Research Support, N.I.H., Extramural"
+            ]
+          },
+          {
+            "pmid": "36531871",
+            "title": "Autosomal Dominant Tubulointerstitial Kidney Disease: An Emerging Cause of Genetic CKD",
+            "first_author_et_al": "Econimo L et al.",
+            "pub_year": 2022,
+            "journal": "Kidney Int Rep",
+            "pub_date": "2022 Nov",
+            "score": 245.6614,
+            "pmcid": "PMC9751576",
+            "doi": "10.1016/j.ekir.2022.08.012",
+            "date": "2022-08-29T00:00:00Z",
+            "text_hl": "The prevalence of HNF1B pathogenic variants in children with structurally abnormal kidneys is approximately 20%.",
+            "recommended_citation": "Econimo L et al. Autosomal Dominant Tubulointerstitial Kidney Disease: An Emerging Cause of Genetic CKD. Kidney Int Rep. 2022. PMID:36531871. doi:10.1016/j.ekir.2022.08.012.",
+            "volume": "7",
+            "issue": "11",
+            "pages": "2332-2344",
+            "publication_types": ["Journal Article", "Review"]
+          },
+          {
+            "pmid": "40885711",
+            "title": "Controlling nephron precursor differentiation to generate proximal-biased kidney organoids with emerging maturity",
+            "first_author_et_al": "Schnell J et al.",
+            "pub_year": 2025,
+            "journal": "Nat Commun",
+            "pub_date": "2025 Aug 30",
+            "score": 218.92168,
+            "pmcid": "PMC12398611",
+            "doi": "10.1038/s41467-025-63107-9",
+            "date": "2025-08-30T00:00:00Z",
+            "text_hl": "Human pluripotent stem cell-derived kidney organoids offer a platform to model renal development, function, and disease, but proximal nephron differentiation and maturation in these structures is incomplete.",
+            "recommended_citation": "Schnell J et al. Controlling nephron precursor differentiation to generate proximal-biased kidney organoids with emerging maturity. Nat Commun. 2025. PMID:40885711. doi:10.1038/s41467-025-63107-9.",
+            "volume": "16",
+            "issue": "1",
+            "pages": "8136",
+            "publication_types": ["Journal Article"]
+          },
+          {
+            "pmid": "33737325",
+            "title": "Hnf1b haploinsufficiency differentially affects developmental target genes in a new renal cysts and diabetes mouse model",
+            "first_author_et_al": "Niborski LL et al.",
+            "pub_year": 2021,
+            "journal": "Dis Model Mech",
+            "pub_date": "2021 May 1",
+            "score": 217.81682,
+            "pmcid": "PMC8126479",
+            "doi": "10.1242/dmm.047498",
+            "date": "2021-05-01T00:00:00Z",
+            "text_hl": "Thus, among the various metanephric kidney developmental processes known to be controlled by HNF1B, the genes participating in early PT differentiation and nephron segment maturation ( PT, loop of Henle) are those exhibiting a unique response to HNF1B protein dosage, highlighting a differential dosage sensitivity of HNF1B-activated genes during kidney development.",
+            "recommended_citation": "Niborski LL et al. Hnf1b haploinsufficiency differentially affects developmental target genes in a new renal cysts and diabetes mouse model. Dis Model Mech. 2021. PMID:33737325. doi:10.1242/dmm.047498.",
+            "volume": "14",
+            "issue": "5",
+            "pages": "",
+            "publication_types": ["Journal Article", "Research Support, Non-U.S. Gov't"]
+          },
+          {
+            "pmid": "33625646",
+            "title": "Molecular causes of congenital anomalies of the kidney and urinary tract (CAKUT)",
+            "first_author_et_al": "Kohl S et al.",
+            "pub_year": 2021,
+            "journal": "Mol Cell Pediatr",
+            "pub_date": "2021 Feb 24",
+            "score": 217.68407,
+            "pmcid": "PMC7904997",
+            "doi": "10.1186/s40348-021-00112-0",
+            "date": "2021-02-24T00:00:00Z",
+            "text_hl": "HNF1B is expressed in epithelial cells in the liver, pancreas, and in the kidney, more specifically in UB cells, nephron precursor cells, and in kidney tubules.",
+            "recommended_citation": "Kohl S et al. Molecular causes of congenital anomalies of the kidney and urinary tract (CAKUT). Mol Cell Pediatr. 2021. PMID:33625646. doi:10.1186/s40348-021-00112-0.",
+            "volume": "8",
+            "issue": "1",
+            "pages": "2",
+            "publication_types": ["Journal Article", "Review"]
+          }
+        ],
+        "total_results": 240,
+        "page": 1,
+        "per_page": 10,
+        "total_pages": 24,
+        "sort_order": "score desc",
+        "cache_key": "search:37358f60fea7d4eb",
+        "corpus_snapshot_date": "2026-09-05",
+        "source_versions": {
+          "pubtator3": "live"
+        },
+        "_meta": {
+          "coverage_note": "Search is read-only metadata discovery. Use coverage='preflight' or preflight_review_sources before direct passage retrieval if source coverage matters.",
+          "next_tools": ["preflight_review_sources", "get_publication_passages"],
+          "workflow": "search -> preflight -> direct passages",
+          "details_resource": "pubtator://workflow-help",
+          "tool": "pubtator_search_literature",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    },
+    {
+      "call": {
+        "name": "mcp__claude_ai_genefoundry__call_tool",
+        "arguments": {
+          "name": "pubtator_get_publication_passages",
+          "arguments": {
+            "pmids": ["36402859", "36522156", "33737325"],
+            "mode": "full_abstract",
+            "max_passages_per_pmid": 10,
+            "verbosity": "standard"
+          }
+        }
+      },
+      "result": {
+        "success": true,
+        "pmids": ["36402859", "36522156", "33737325"],
+        "mode": "full_abstract",
+        "passages": [
+          {
+            "passage_id": "PMID:33737325:title:0",
+            "pmid": "33737325",
+            "pmcid": null,
+            "section": "title",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "Hnf1b haploinsufficiency differentially affects developmental target genes in a new renal cysts and diabetes mouse model.",
+              "provenance": {
+                "source": "pubtator_abstract",
+                "record_id": "PMID:33737325#PMID:33737325:title:0",
+                "retrieved_at": "2026-09-05T22:51:08.174541Z"
+              },
+              "raw_sha256": "ba69848b6b39b8ea069baa3bf578348d033572158e635521f101613c10d074f4"
+            },
+            "char_count": 121,
+            "source": "pubtator_abstract"
+          },
+          {
+            "passage_id": "PMID:33737325:abstract:0",
+            "pmid": "33737325",
+            "pmcid": null,
+            "section": "abstract",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "Heterozygous mutations in HNF1B cause the complex syndrome renal cysts and diabetes (RCAD), characterized by developmental abnormalities of the kidneys, genital tracts and pancreas, and a variety of renal, pancreas and liver dysfunctions. The pathogenesis underlying this syndrome remains unclear as mice with heterozygous null mutations have no phenotype, while constitutive/conditional Hnf1b ablation leads to more severe phenotypes. We generated a novel mouse model carrying an identified human mutation at the intron-2 splice donor site. Unlike heterozygous mice previously characterized, mice heterozygous for the splicing mutation exhibited decreased HNF1B protein levels and bilateral renal cysts from embryonic day 15, originated from glomeruli, early proximal tubules (PTs) and intermediate nephron segments, concurrently with delayed PT differentiation, hydronephrosis and rare genital tract anomalies. Consistently, mRNA sequencing showed that most downregulated genes in embryonic kidneys were primarily expressed in early PTs and the loop of Henle and involved in ion/drug transport, organic acid and lipid metabolic processes, while the expression of previously identified targets upon Hnf1b ablation, including cystic disease genes, was weakly or not affected. Postnatal analyses revealed renal abnormalities, ranging from glomerular cysts to hydronephrosis and, rarely, multicystic dysplasia. Urinary proteomics uncovered a particular profile predictive of progressive decline in kidney function and fibrosis, and displayed common features with a recently reported urine proteome in an RCAD pediatric cohort. Altogether, our results show that reduced HNF1B levels lead to developmental disease phenotypes associated with the deregulation of a subset of HNF1B targets. They further suggest that this model represents a unique clinical/pathological viable model of the RCAD disease.",
+              "provenance": {
+                "source": "pubtator_abstract",
+                "record_id": "PMID:33737325#PMID:33737325:abstract:0",
+                "retrieved_at": "2026-09-05T22:51:08.174727Z"
+              },
+              "raw_sha256": "f3baeec7139573a6552acddc0eaaa89ff063cf722da2a95f88e3f9a32333706b"
+            },
+            "char_count": 1896,
+            "source": "pubtator_abstract"
+          },
+          {
+            "passage_id": "PMID:36402859:title:0",
+            "pmid": "36402859",
+            "pmcid": null,
+            "section": "title",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "Hnf1b renal expression directed by a distal enhancer responsive to Pax8.",
+              "provenance": {
+                "source": "pubtator_abstract",
+                "record_id": "PMID:36402859#PMID:36402859:title:0",
+                "retrieved_at": "2026-09-05T22:51:08.174756Z"
+              },
+              "raw_sha256": "e9bbeb7f7cce060b0c325b5a3c2b548cb160a79a5fe375244e5158fd25b165bc"
+            },
+            "char_count": 72,
+            "source": "pubtator_abstract"
+          },
+          {
+            "passage_id": "PMID:36402859:abstract:0",
+            "pmid": "36402859",
+            "pmcid": null,
+            "section": "abstract",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "Xenopus provides a simple and efficient model system to study nephrogenesis and explore the mechanisms causing renal developmental defects in human. Hnf1b (hepatocyte nuclear factor 1 homeobox b), a gene whose mutations are the most commonly identified genetic cause of developmental kidney disease, is required for the acquisition of a proximo-intermediate nephron segment in Xenopus as well as in mouse. Genetic networks involved in Hnf1b expression during kidney development remain poorly understood. We decided to explore the transcriptional regulation of Hnf1b in the developing Xenopus pronephros and mammalian renal cells. Using phylogenetic footprinting, we identified an evolutionary conserved sequence (CNS1) located several kilobases (kb) upstream the Hnf1b transcription start and harboring epigenomic marks characteristics of a distal enhancer in embryonic and adult renal cells in mammals. By means of functional expression assays in Xenopus and mammalian renal cell lines we showed that CNS1 displays enhancer activity in renal tissue. Using CRISPR/cas9 editing in Xenopus tropicalis, we demonstrated the in vivo functional relevance of CNS1 in driving hnf1b expression in the pronephros. We further showed the importance of Pax8-CNS1 interaction for CNS1 enhancer activity allowing us to conclude that Hnf1b is a direct target of Pax8. Our work identified for the first time a Hnf1b renal specific enhancer and may open important perspectives into the diagnosis for congenital kidney anomalies in human, as well as modeling HNF1B-related diseases.",
+              "provenance": {
+                "source": "pubtator_abstract",
+                "record_id": "PMID:36402859#PMID:36402859:abstract:0",
+                "retrieved_at": "2026-09-05T22:51:08.174879Z"
+              },
+              "raw_sha256": "de3dadc266f09d71b42e7eba25827a2bc7f511a6dd741feb64216934a63bc53d"
+            },
+            "char_count": 1563,
+            "source": "pubtator_abstract"
+          },
+          {
+            "passage_id": "PMID:36522156:title:0",
+            "pmid": "36522156",
+            "pmcid": null,
+            "section": "title",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "HNF1B Alters an Evolutionarily Conserved Nephrogenic Program of Target Genes.",
+              "provenance": {
+                "source": "pubtator_abstract",
+                "record_id": "PMID:36522156#PMID:36522156:title:0",
+                "retrieved_at": "2026-09-05T22:51:08.174901Z"
+              },
+              "raw_sha256": "94d8400b2cbff785c7fb782795ac344830e0b4df61393ae4c0116aa42726710b"
+            },
+            "char_count": 77,
+            "source": "pubtator_abstract"
+          },
+          {
+            "passage_id": "PMID:36522156:abstract:0",
+            "pmid": "36522156",
+            "pmcid": null,
+            "section": "abstract",
+            "text": {
+              "kind": "untrusted_text",
+              "text": "SIGNIFICANCE STATEMENT: Mutations in hepatocyte nuclear factor-1 beta ( HNF1B ) are the most common monogenic causes of congenital renal malformations. HNF1B is necessary to directly reprogram fibroblasts to induced renal tubule epithelial cells (iRECs) and, as we demonstrate, can induce ectopic pronephric tissue in Xenopus ectodermal organoids. Using these two systems, we analyzed the effect of HNF1B mutations found in patients with cystic dysplastic kidney disease. We found cross-species conserved targets of HNF1B, identified transcripts that are differentially regulated by the patient-specific mutant protein, and functionally validated novel HNF1B targets in vivo . These results highlight evolutionarily conserved transcriptional mechanisms and provide insights into the genetic circuitry of nephrogenesis. BACKGROUND: Hepatocyte nuclear factor-1 beta (HNF1B) is an essential transcription factor during embryogenesis. Mutations in HNF1B are the most common monogenic causes of congenital cystic dysplastic renal malformations. The direct functional consequences of mutations in HNF1B on its transcriptional activity are unknown. METHODS: Direct reprogramming of mouse fibroblasts to induced renal tubular epithelial cells was conducted both with wild-type HNF1B and with patient mutations. HNF1B was expressed in Xenopus ectodermal explants. Transcriptomic analysis by bulk RNA-Seq identified conserved targets with differentially regulated expression by the wild-type or R295C mutant. CRISPR/Cas9 genome editing in Xenopus embryos evaluated transcriptional targets in vivo . RESULTS: HNF1B is essential for reprogramming mouse fibroblasts to induced renal tubular epithelial cells and induces development of ectopic renal organoids from pluripotent Xenopus cells. The mutation R295C retains reprogramming and inductive capacity but alters the expression of specific sets of downstream target genes instead of diminishing overall transcriptional activity of HNF1B. Surprisingly, targets associated with polycystic kidney disease were less affected than genes affected in congenital renal anomalies. Cross-species-conserved transcriptional targets were dysregulated in hnf1b CRISPR-depleted Xenopus embryos, confirming their dependence on hnf1b . CONCLUSIONS: HNF1B activates an evolutionarily conserved program of target genes that disease-causing mutations selectively disrupt. These findings provide insights into the renal transcriptional network that controls nephrogenesis.",
+              "provenance": {
+                "source": "pubtator_abstract",
+                "record_id": "PMID:36522156#PMID:36522156:abstract:0",
+                "retrieved_at": "2026-09-05T22:51:08.175094Z"
+              },
+              "raw_sha256": "61d04b190825b1b93602834aeb768fe83b3129849ec426127685386f47541ef8"
+            },
+            "char_count": 2491,
+            "source": "pubtator_abstract"
+          }
+        ],
+        "dropped": [],
+        "context_estimate": {
+          "estimated_passages": 6,
+          "estimated_chars": 6220,
+          "sections_by_pmid": {
+            "33737325": ["title", "abstract"],
+            "36402859": ["title", "abstract"],
+            "36522156": ["title", "abstract"]
+          },
+          "recommended_mode": "full_abstract",
+          "warning": null,
+          "recommended_max_chars": 7464
+        },
+        "coverage_by_pmid": {
+          "33737325": "abstract_only",
+          "36402859": "abstract_only",
+          "36522156": "abstract_only"
+        },
+        "coverage_reason_by_pmid": {
+          "33737325": "abstract_fallback_used",
+          "36402859": "abstract_fallback_used",
+          "36522156": "abstract_fallback_used"
+        },
+        "failed_pmids": [],
+        "warnings": [],
+        "cache_key": "publication_passages:20520aa414aa32e5",
+        "corpus_snapshot_date": "2026-09-05",
+        "source_versions": {
+          "pubtator3": "live"
+        },
+        "degraded_mode": "abstract_only",
+        "dry_run": false,
+        "_meta": {
+          "tool": "pubtator_get_publication_passages",
+          "unsafe_for_clinical_use": true
+        }
+      },
+      "isError": false
+    }
+  ],
+  "model": "claude-opus-5",
+  "modelSelection": {
+    "flag": "--model opus",
+    "fallback": null,
+    "observedAssistantModel": "claude-opus-5"
+  }
+}
