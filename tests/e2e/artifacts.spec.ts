@@ -19,6 +19,8 @@ test('every document has one canonical and safely parsed metadata', async ({ pag
     const schemas = await page.locator('script[type="application/ld+json"]').allTextContents()
     expect(schemas.length).toBeGreaterThan(0)
     for (const schema of schemas) expect(JSON.parse(schema)['@context']).toBe('https://schema.org')
+    await expect(page.locator('link[rel="stylesheet"]')).toHaveCount(0)
+    expect(await page.locator('head > style').textContent()).toContain('scrollbar-gutter:stable')
     const localResources = await page
       .locator('script[src],link[rel="stylesheet"]')
       .evaluateAll((elements) =>

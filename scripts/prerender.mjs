@@ -3,6 +3,21 @@ import { resolve, dirname, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createHash } from 'node:crypto'
 
+// Vite emits this finite link shape. Inline its small, complete stylesheet so
+// every prerendered page paints correctly without a second network round trip.
+export async function inlineStylesheets(template, outDir, basePath) {
+  for (const [tag, href] of template.matchAll(
+    /<link rel="stylesheet" crossorigin href="([^"]+)">/g
+  )) {
+    const asset = href.startsWith(basePath) ? href.slice(basePath.length) : ''
+    if (!/^assets\/[a-zA-Z0-9_-]+\.css$/.test(asset)) throw new Error('Unsafe stylesheet: ' + href)
+    const css = await readFile(resolve(outDir, asset), 'utf8')
+    if (/<\/style/i.test(css)) throw new Error('Unsafe stylesheet content')
+    template = template.replace(tag, () => '<style>' + css + '</style>')
+  }
+  return template
+}
+
 export function pageOutputPath(outDir, pagePath) {
   if (pagePath !== '/404.html' && !/^\/(?:[a-z0-9-]+\/)*$/.test(pagePath)) {
     throw new Error('Unsafe public page path: ' + pagePath)
@@ -34,7 +49,11 @@ function xml(value) {
 export async function prerender({ templatePath, serverEntry, outDir }) {
   const source = await import(pathToFileURL(resolve(serverEntry)).href)
   source.validatePublication()
-  const template = await readFile(templatePath, 'utf8')
+  const template = await inlineStylesheets(
+    await readFile(templatePath, 'utf8'),
+    outDir,
+    source.SITE.basePath
+  )
   for (const marker of ['<!--page-head-->', '<!--app-html-->']) {
     if (template.split(marker).length !== 2)
       throw new Error('Expected exactly one template marker ' + marker)

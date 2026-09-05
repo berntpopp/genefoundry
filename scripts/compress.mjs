@@ -14,7 +14,7 @@ export async function compressDirectory(outDir) {
     else if (entry.isFile() && formats.has(extname(path))) {
       const bytes = await readFile(path)
       const [br, gz] = await Promise.all([
-        brotli(bytes, { params: { [constants.BROTLI_PARAM_QUALITY]: 9 } }),
+        brotli(bytes, { params: { [constants.BROTLI_PARAM_QUALITY]: 11 } }),
         gzipBytes(bytes, { level: 9 })
       ])
       await Promise.all([writeFile(path + '.br', br), writeFile(path + '.gz', gz)])
