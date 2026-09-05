@@ -89,6 +89,12 @@ export async function validateEvidence(record, projectRoot = process.cwd()) {
       value && typeof value === 'object' && !Array.isArray(value),
       'Execution evidence must be a JSON object'
     )
+    requireValue(
+      value.kind === item.kind &&
+        value.subjectId === item.subjectId &&
+        value.executedAt === item.date,
+      'Execution evidence identity does not match ledger for ' + item.subjectId
+    )
   }
 }
 

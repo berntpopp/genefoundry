@@ -56,9 +56,7 @@ watch([query, category], () => {
 </script>
 <template>
   <div>
-    <noscript
-      ><p class="notice">Search and filters need JavaScript. Browse all sources below.</p></noscript
-    >
+    <noscript>Search and filters need JavaScript. Browse all sources below.</noscript>
     <template v-if="SERVERS.length">
       <form class="catalog-filters" role="search" @submit.prevent>
         <div class="search-field">
@@ -100,7 +98,7 @@ watch([query, category], () => {
       <p v-if="category !== 'all'" class="metadata active-category">
         Research area: {{ CATEGORIES.find((item) => item.id === category)?.label }}
       </p>
-      <SourceList v-if="filtered.length" :sources="filtered" />
+      <SourceList v-if="filtered.length" :sources="filtered" :heading-level="2" />
       <div v-else class="empty-state">
         <h2>{{ COPY.sources.noResults }}</h2>
         <p>{{ COPY.sources.noResultsHelp }}</p>

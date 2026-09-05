@@ -41,26 +41,35 @@ test('successful copy contains the absolute endpoint', async ({ page }) => {
   await page.getByRole('button', { name: 'Copy endpoint', exact: true }).click()
   await expect(page.getByText('Endpoint copied', { exact: true })).toBeVisible()
 })
-test('all client choices retain honest setup state and matching guide', async ({ page }) => {
-  await page.goto(connect)
+test('all client choices retain honest setup state and matching guide', async ({
+  browser,
+  baseURL
+}) => {
   for (const guide of CLIENT_GUIDES) {
-    await page.getByLabel('AI client', { exact: true }).selectOption(guide.id)
-    await expect(
-      page.locator('.selected-guide').getByRole('link', { name: /^Open .* guide$/ })
-    ).toHaveAttribute('href', new RegExp(`/connect/${guide.id}/$`))
-    if (guide.recipeState === 'documentation-only')
-      await expect(page.locator('.selected-guide')).toContainText(
-        'Setup not tested with this client.'
+    const context = await browser.newContext({ baseURL })
+    try {
+      const page = await context.newPage()
+      await page.goto(connect)
+      await page.getByLabel('AI client', { exact: true }).selectOption(guide.id)
+      await expect(
+        page.locator('.selected-guide').getByRole('link', { name: /^Open .* guide$/ })
+      ).toHaveAttribute('href', new RegExp(`/connect/${guide.id}/$`))
+      if (guide.recipeState === 'documentation-only')
+        await expect(page.locator('.selected-guide')).toContainText(
+          'Setup not tested with this client.'
+        )
+      else if (guide.recipeState === 'documented')
+        await expect(page.locator('.selected-guide')).toContainText(
+          'Instructions checked against official documentation'
+        )
+      await expect(page.getByRole('button', { name: 'Copy setup', exact: true })).toHaveCount(
+        guide.code === null ? 0 : 1
       )
-    else if (guide.recipeState === 'documented')
-      await expect(page.locator('.selected-guide')).toContainText(
-        'Instructions checked against official documentation'
-      )
-    await expect(page.getByRole('button', { name: 'Copy setup', exact: true })).toHaveCount(
-      guide.code === null ? 0 : 1
-    )
-    if (guide.recipeState !== 'verified')
-      await expect(page.locator('.selected-guide')).not.toContainText('Setup verified')
+      if (guide.recipeState !== 'verified')
+        await expect(page.locator('.selected-guide')).not.toContainText('Setup verified')
+    } finally {
+      await context.close()
+    }
   }
 })
 test('a previous copy cannot claim success for a newly selected client', async ({ page }) => {

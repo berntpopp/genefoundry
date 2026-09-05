@@ -33,9 +33,24 @@ test('verified state needs real matching evidence and cannot escape its director
     await expect(validateEvidence(record, root)).rejects.toThrow()
     await writeFile(
       join(directory, 'verification/test.json'),
-      JSON.stringify({ fixture: 'Synthetic test evidence only' })
+      JSON.stringify({
+        kind: 'client',
+        subjectId: 'codex',
+        executedAt: '2026-09-05',
+        fixture: 'Synthetic test evidence only'
+      })
     )
     await expect(validateEvidence(record, root)).resolves.toBeUndefined()
+    for (const invalid of [
+      {},
+      { kind: 'workflow', subjectId: 'codex', executedAt: '2026-09-05' },
+      { kind: 'client', subjectId: 'cursor', executedAt: '2026-09-05' },
+      { kind: 'client', subjectId: 'codex', executedAt: '2026-09-04' }
+    ]) {
+      await writeFile(join(directory, 'verification/test.json'), JSON.stringify(invalid))
+      await expect(validateEvidence(record, root)).rejects.toThrow('Execution evidence identity')
+    }
+
     await writeFile(
       ledger,
       JSON.stringify({ records: [{ ...entry, evidencePath: '../private.json' }] })

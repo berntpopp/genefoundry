@@ -4,10 +4,12 @@ import { SERVER_COUNT, TOOL_COUNT } from '../data/servers'
 import { WORKFLOWS } from '../data/workflows'
 import { siteHref } from '../lib/urls'
 import EvidenceTrace from './EvidenceTrace.vue'
+import HeroBackdrop from './HeroBackdrop.vue'
 const workflow = WORKFLOWS.find((item) => item.id === 'variant-evidence')!
 </script>
 <template>
   <section id="intro" class="container hero" aria-labelledby="intro-title">
+    <HeroBackdrop />
     <div class="hero-copy">
       <h1 id="intro-title">{{ COPY.hero.title }}</h1>
       <p class="lead">{{ COPY.hero.lead }}</p>
@@ -38,6 +40,8 @@ const workflow = WORKFLOWS.find((item) => item.id === 'variant-evidence')!
 </template>
 <style scoped>
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: 64px;
@@ -75,7 +79,7 @@ const workflow = WORKFLOWS.find((item) => item.id === 'variant-evidence')!
 @media (max-width: 800px) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
-    padding-block: 40px 48px;
+    padding-block: 40px 72px;
     gap: 40px;
   }
   .hero-copy {

@@ -26,18 +26,24 @@ test('query links restore on reload and history navigation', async ({ page }) =>
   await expect(page.getByTestId('source-record')).toHaveCount(0)
   await expect(page.getByLabel('Search sources')).toHaveValue('<script>.*')
 })
-test('all source destinations contain reviewed detail content', async ({ page }) => {
+test('all source destinations contain reviewed detail content', async ({ browser, baseURL }) => {
   for (const source of SERVERS) {
-    await page.goto(`/sources/${source.namespace}/`)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      `${source.source} through GeneFoundry`
-    )
-    await expect(page.getByText(source.sampleTool, { exact: true })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Research tasks' })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'View integration code' })).toHaveAttribute(
-      'href',
-      `https://github.com/${source.repo}`
-    )
+    const context = await browser.newContext({ baseURL })
+    try {
+      const page = await context.newPage()
+      await page.goto(`/sources/${source.namespace}/`)
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        `${source.source} through GeneFoundry`
+      )
+      await expect(page.getByText(source.sampleTool, { exact: true })).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Research tasks' })).toBeVisible()
+      await expect(page.getByRole('link', { name: 'View integration code' })).toHaveAttribute(
+        'href',
+        `https://github.com/${source.repo}`
+      )
+    } finally {
+      await context.close()
+    }
   }
 })
 

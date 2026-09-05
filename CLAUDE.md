@@ -20,7 +20,8 @@ GeneFoundry is a Vue 3 / TypeScript / Tailwind 4 website for a biomedical MCP ga
 - `src/pages/` contains the home, source directory/details, client guides, workflows and legal/limitations pages.
 - `src/lib/urls.ts` owns base-aware internal links. Absolute MCP/OAuth URLs never receive the website prefix.
 - `src/lib/validation.ts` validates public content. Node artifact validation separately checks private execution evidence.
-- `src/entry-server.ts` creates a fresh SSR app per page. `src/main.ts` hydrates the static result.
+- `src/entry-server.ts` creates a fresh SSR app per page. `src/main.ts` hydrates the result; `src/lib/resolve-page.ts` resolves the same finite route on both sides.
+- `scripts/dev-render.mjs` uses that renderer in development and links the generated component styles before paint. Keep build/audit output out of Vite’s watcher and retain per-base optimization caches.
 - `scripts/build.mjs` sequences rendering, PWA generation, compression and validation. Build cleanup must preserve `.build/baseline/` and retained artifacts.
 
 ## Content and design requirements

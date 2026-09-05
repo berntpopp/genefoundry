@@ -10,6 +10,7 @@ import { WORKFLOWS } from './data/workflows'
 import { validateContent } from './lib/validation'
 
 export { PAGES } from './data/pages'
+export { resolvePage } from './lib/resolve-page'
 export { SITE } from './data/site'
 export { pageHead, schemaFor } from './lib/metadata'
 export { FAQS } from './data/faq'

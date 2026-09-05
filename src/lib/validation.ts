@@ -3,6 +3,7 @@ import type {
   SourceDetail,
   ClientGuide,
   Workflow,
+  WorkflowResult,
   PageDefinition,
   ReviewRecord,
   EvidenceLink
@@ -37,6 +38,34 @@ function review(value: ReviewRecord): void {
   date(value.reviewedAt)
   links(value.sources)
   requireValue(nonempty(value.limitation), 'missing review limitation')
+}
+function workflowResult(value: WorkflowResult | null | undefined): void {
+  requireValue(value && typeof value === 'object', 'missing workflow result')
+  requireValue(nonempty(value.summary) && nonempty(value.client), 'incomplete workflow result')
+  date(value.executedAt)
+  requireValue(Array.isArray(value.sources), 'missing workflow result sources')
+  links(value.sources)
+  requireValue(
+    Array.isArray(value.notes) && value.notes.every(nonempty),
+    'invalid workflow result notes'
+  )
+  requireValue(Array.isArray(value.tables) && value.tables.length > 0, 'missing result tables')
+  for (const table of value.tables) {
+    requireValue(
+      table &&
+        nonempty(table.caption) &&
+        Array.isArray(table.columns) &&
+        table.columns.length > 0 &&
+        table.columns.every(nonempty) &&
+        Array.isArray(table.rows) &&
+        table.rows.length > 0 &&
+        table.rows.every(
+          (row: string[]) =>
+            Array.isArray(row) && row.length === table.columns.length && row.every(nonempty)
+        ),
+      'invalid workflow result table'
+    )
+  }
 }
 function unique(values: readonly string[], name: string): void {
   requireValue(new Set(values).size === values.length, `duplicate ${name}`)
@@ -177,6 +206,7 @@ export function validateContent(input: ContentInput, options: { publication: boo
         : workflow.exampleKind === 'illustrative' && workflow.executionReviewId === null,
       'workflow evidence state'
     )
+    if (workflow.exampleKind === 'verified') workflowResult(workflow.result)
     for (const step of workflow.steps) {
       const source = servers.find((s) => s.namespace === step.namespace)
       requireValue(

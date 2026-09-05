@@ -65,6 +65,7 @@ coverage/
 /docs/superpowers/research/
 /docs/superpowers/execution/screenshots/
 /docs/superpowers/execution/layout-revision/
+/docs/superpowers/execution/performance/*.json
 
 # Design specifications, implementation plans and maintained verification
 # records remain versionable. Never blanket-ignore docs, JSON or images.

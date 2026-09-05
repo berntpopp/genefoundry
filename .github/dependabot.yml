@@ -18,6 +18,11 @@ updates:
       # Stay on the maintained 0.x line until those icons are migrated.
       - dependency-name: 'lucide-vue-next'
         update-types: ['version-update:semver-major']
+      # TypeScript 7 removes the ./lib/tsc export used by vue-tsc 3.3.9, and
+      # @typescript-eslint 8.57 currently declares support only below 6.1.
+      # Re-enable after the full typecheck/lint toolchain publishes TS 7 support.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     # Group updates to reduce PR noise
     groups:
       # Group all production dependencies

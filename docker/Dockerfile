@@ -1,18 +1,19 @@
-# syntax=docker/dockerfile:1.11
+# syntax=docker/dockerfile:1.11@sha256:10c699f1b6c8bdc8f6b4ce8974855dd8542f1768c26eb240237b8f1c9c6c9976
 
 # ============================================================================
 # GeneFoundry Landing Page - Production Dockerfile
 # Multi-stage build: Node.js build → nginx with Brotli runtime
 # ============================================================================
 
-ARG NODE_VERSION=24-alpine
 # fholzer/nginx-brotli includes brotli_static and gzip_static modules
-ARG NGINX_VERSION=v1.28.0
+ARG APP_VERSION=0.0.0
+ARG VCS_REF=unknown
+ARG BUILD_DATE=unknown
 
 # ============================================================================
 # STAGE 1: Dependencies - Install node_modules with cache
 # ============================================================================
-FROM node:${NODE_VERSION} AS deps
+FROM node:24-alpine@sha256:e67514e5d0f6c46656005e1b693b2ec9d52e80b641307de684d4a015ba7a4eaf AS deps
 
 WORKDIR /app
 
@@ -26,7 +27,7 @@ RUN --mount=type=cache,target=/root/.npm \
 # ============================================================================
 # STAGE 2: Builder - Build static site with pre-compressed assets
 # ============================================================================
-FROM node:${NODE_VERSION} AS builder
+FROM node:24-alpine@sha256:e67514e5d0f6c46656005e1b693b2ec9d52e80b641307de684d4a015ba7a4eaf AS builder
 
 WORKDIR /app
 
@@ -45,7 +46,11 @@ RUN npm run build
 # ============================================================================
 # STAGE 3: Runtime - nginx with Brotli serving pre-compressed static files
 # ============================================================================
-FROM fholzer/nginx-brotli:${NGINX_VERSION} AS runtime
+FROM fholzer/nginx-brotli:v1.28.0@sha256:c19ed9117e2ece6c45777e6361829a3135bf2969ea401db5c31c078c93751a02 AS runtime
+
+ARG APP_VERSION
+ARG VCS_REF
+ARG BUILD_DATE
 
 # Metadata labels (OCI standard)
 LABEL org.opencontainers.image.title="GeneFoundry Landing Page" \
@@ -54,7 +59,10 @@ LABEL org.opencontainers.image.title="GeneFoundry Landing Page" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/berntpopp/genefoundry" \
       org.opencontainers.image.documentation="https://github.com/berntpopp/genefoundry/blob/main/README.md" \
-      org.opencontainers.image.authors="Bernt Popp <bernt.popp@gmail.com>"
+      org.opencontainers.image.authors="Bernt Popp <bernt.popp@gmail.com>" \
+      org.opencontainers.image.version="${APP_VERSION}" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.created="${BUILD_DATE}"
 
 # Copy nginx configuration
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
@@ -69,7 +77,7 @@ RUN apk update && apk upgrade --no-cache && \
 
 # Health check (using wget since curl isn't in Alpine base)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget -qO- http://127.0.0.1:8080/health || exit 1
+    CMD ["wget", "-qO-", "http://127.0.0.1:8080/health"]
 
 # Expose port
 EXPOSE 8080

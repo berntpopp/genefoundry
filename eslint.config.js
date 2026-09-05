@@ -35,7 +35,7 @@ export default [
   // Node.js build scripts configuration
   {
     name: 'scripts/node-config',
-    files: ['scripts/**/*.{js,mjs,cjs}', '*config.{js,ts}', 'tests/**/*.ts'],
+    files: ['scripts/**/*.{js,mjs,cjs}', '*config.{js,ts}', 'tests/**/*.{ts,mjs}'],
     languageOptions: {
       globals: {
         ...globals.node

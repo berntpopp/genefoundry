@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { Check, Copy } from 'lucide-vue-next'
 import { useClipboard } from '../../composables'
 import { COPY } from '../../data/copy'
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 const props = withDefaults(
   defineProps<{
     command: string
@@ -31,7 +35,12 @@ const action = computed(() =>
   <div class="command-card">
     <div class="command-heading">
       <span>{{ label }}</span>
-      <button type="button" :disabled="pending" :aria-busy="pending" @click="copy(command)">
+      <button
+        type="button"
+        :disabled="!mounted || pending"
+        :aria-busy="pending"
+        @click="copy(command)"
+      >
         <component :is="copied ? Check : Copy" aria-hidden="true" :size="16" />
         {{ action }}
       </button>

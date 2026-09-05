@@ -16,7 +16,7 @@
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fgenefoundry.org&label=genefoundry.org&up_color=BE3E82)](https://genefoundry.org/)
 
 [![Vue 3](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)](https://vuejs.org/)
-[![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
@@ -31,11 +31,12 @@ npm ci
 npm run dev -- --host 127.0.0.1
 ```
 
-Vite defaults to `/`. Use `VITE_BASE_URL=/genefoundry/ npm run dev` for the mirror layout. This website presents the source directory and connection guides; it does not run the MCP gateway or authenticate a client.
+Development uses the same server renderer and route resolver as the production build, with styles loaded before hydration. Generated output is excluded from the development watcher. Vite defaults to `/`. Use `VITE_BASE_URL=/genefoundry/ npm run dev` for the mirror layout. This website presents the source directory and connection guides; it does not run the MCP gateway or authenticate a client.
 
 ## Production and verification
 
 ```bash
+npm run format:check
 npm run type-check
 npm run lint:check
 npm test
@@ -75,3 +76,13 @@ Archivo headings and Source Sans 3 body text are self-hosted with their font lic
 See [DESIGN.md](DESIGN.md), the [usage revision](docs/superpowers/specs/2026-09-05-usage-revision.md) and the [verification record](docs/superpowers/execution/content-verification.md) for the final implementation. The original [design specification](docs/superpowers/specs/2026-09-05-genefoundry-design.md), [execution plan](docs/superpowers/plans/2026-09-05-genefoundry-modernization.md) and [shared contracts](docs/superpowers/specs/2026-09-05-genefoundry-contracts.md) retain planning context; the later user-directed revision supersedes their initial illustrative workflows and documentation-only recipe restriction.
 
 Generated audits, screenshots and local design-tool state are ignored. Source files, font licenses, sanitized execution evidence and the build-only verification ledger remain versioned. The runtime artifact excludes private evidence paths and account/session data.
+
+### Lighthouse across all pages
+
+After building the matrix, serve the production Docker image at `http://127.0.0.1:4182/` and run:
+
+```bash
+npm run audit:lighthouse
+```
+
+This runs Lighthouse 13.4.0 sequentially on all 37 indexable routes with mobile throttling. Reports and a route summary stay under ignored `.build/lighthouse/`. Pass `-- --url http://127.0.0.1:PORT/` to audit another production preview. Development-server performance is not representative of the compressed production build. The `/genefoundry/` mirror and error pages intentionally use `noindex`; audit the root deployment for production SEO.

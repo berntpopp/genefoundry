@@ -1,8 +1,10 @@
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { prerender } from './scripts/prerender.mjs'
+import { devRender } from './scripts/dev-render.mjs'
 import { SERVER_COUNT, TOOL_COUNT } from './src/data/servers.ts'
 
 export default defineConfig(({ isSsrBuild, command }) => {
@@ -11,10 +13,12 @@ export default defineConfig(({ isSsrBuild, command }) => {
   const staticBuild = command === 'build' && !isSsrBuild
   return {
     base,
+    cacheDir: `.build/vite/${base === '/' ? 'root' : 'mirror'}`,
     publicDir: isSsrBuild ? false : 'public',
     plugins: [
       vue(),
       tailwindcss(),
+      devRender(),
       ...(staticBuild
         ? [
             {
@@ -76,6 +80,7 @@ export default defineConfig(({ isSsrBuild, command }) => {
     ],
     build: {
       target: 'es2020',
+      minify: 'oxc',
       reportCompressedSize: false,
       cssCodeSplit: false,
       ...(isSsrBuild
@@ -86,10 +91,40 @@ export default defineConfig(({ isSsrBuild, command }) => {
           }
         : {
             outDir: 'dist',
-            rollupOptions: { output: { manualChunks: { 'vue-vendor': ['vue'] } } }
+            rollupOptions: {
+              output: {
+                manualChunks(id) {
+                  if (/[\\/]node_modules[\\/](?:@vue[\\/]|vue[\\/])/.test(id)) {
+                    return 'vue-vendor'
+                  }
+                }
+              }
+            }
           })
     },
-    server: { host: '127.0.0.1' },
-    optimizeDeps: { include: ['vue'], exclude: ['lucide-vue-next'] }
+    server: {
+      host: '127.0.0.1',
+      watch: {
+        // Anchor ignores inside this project: its own path may be in a worktree.
+        ignored: [
+          '.build',
+          '.worktrees',
+          '.impeccable',
+          '.superpowers',
+          '.cache',
+          'test-results',
+          'playwright-report',
+          'blob-report',
+          'coverage',
+          'docs/audits',
+          'docs/superpowers/research',
+          'docs/superpowers/execution/screenshots',
+          'docs/superpowers/execution/layout-revision',
+          'docs/superpowers/execution/performance'
+        ].map((directory) => fileURLToPath(new URL(`${directory}/**`, import.meta.url)))
+      }
+    },
+    // Collapse Lucide's large ESM barrel into a single development dependency.
+    optimizeDeps: { include: ['vue', 'lucide-vue-next'] }
   }
 })

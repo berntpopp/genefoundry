@@ -1,0 +1,450 @@
+name: Container release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Stable release tag (vX.Y.Z)
+        required: true
+        type: string
+
+concurrency:
+  group: container-release-${{ github.repository }}-${{ inputs.tag }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  build-gate:
+    name: Build once and gate exact OCI image
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    outputs:
+      digest: ${{ steps.image.outputs.digest }}
+      revision: ${{ steps.source.outputs.revision }}
+      tag: ${{ steps.source.outputs.tag }}
+      version: ${{ steps.source.outputs.version }}
+    steps:
+      - name: Checkout exact requested main source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Validate manual current-main request
+        id: source
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_REF: ${{ github.ref }}
+          REQUESTED_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          test "$EVENT_NAME" = workflow_dispatch
+          test "$EVENT_REF" = refs/heads/main
+          tag="$REQUESTED_TAG"
+          [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          revision="$(git rev-parse HEAD)"
+          [[ "$revision" =~ ^[0-9a-f]{40}$ ]]
+          test "$revision" = "$GITHUB_SHA"
+          git fetch --no-tags origin \
+            '+refs/heads/main:refs/remotes/origin/main'
+          test "$(git rev-parse refs/remotes/origin/main)" = "$revision"
+          build_date="$(git show -s --format=%cI "$revision")"
+          {
+            echo "build_date=$build_date"
+            echo "revision=$revision"
+            echo "tag=$tag"
+            echo "version=${tag#v}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Collect exact PR and workflow gate evidence
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REVISION: ${{ steps.source.outputs.revision }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/release-admission"
+          # GraphQL variables must reach gh literally.
+          # shellcheck disable=SC2016
+          gh api graphql \
+            -f owner="$GITHUB_REPOSITORY_OWNER" \
+            -f name="${GITHUB_REPOSITORY#*/}" \
+            -f oid="$REVISION" \
+            -f query='query($owner:String!,$name:String!,$oid:GitObjectID!){repository(owner:$owner,name:$name){object(oid:$oid){... on Commit{associatedPullRequests(first:20){nodes{baseRefName headRefOid mergeCommit{oid} mergedAt number reviewDecision reviews(last:100){nodes{author{login} commit{oid} state submittedAt} pageInfo{hasPreviousPage}} state}}}}}}' \
+            --jq '.data.repository.object.associatedPullRequests.nodes' \
+            > "$RUNNER_TEMP/release-admission/pull-requests.json"
+          gh run list --workflow=ci.yml --commit "$REVISION" --event=push --limit=20 \
+            --json conclusion,createdAt,databaseId,event,headSha,status \
+            > "$RUNNER_TEMP/release-admission/ci-runs.json"
+          gh run list --workflow=security.yml --commit "$REVISION" --event=push --limit=20 \
+            --json conclusion,createdAt,databaseId,event,headSha,status \
+            > "$RUNNER_TEMP/release-admission/security-runs.json"
+
+      - name: Admit exact reviewed and green main source
+        env:
+          REVISION: ${{ steps.source.outputs.revision }}
+          TAG: ${{ steps.source.outputs.tag }}
+        run: |
+          node scripts/validate-release-source.mjs \
+            --revision "$REVISION" \
+            --tag "$TAG" \
+            --main-ref refs/remotes/origin/main \
+            --associated-prs "$RUNNER_TEMP/release-admission/pull-requests.json" \
+            --ci-runs "$RUNNER_TEMP/release-admission/ci-runs.json" \
+            --security-runs "$RUNNER_TEMP/release-admission/security-runs.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run source gates
+        run: |
+          set -euo pipefail
+          npm test
+          npm run type-check
+          npm run lint:check
+          npm run format:check
+          VITE_BASE_URL=/ npm run build
+          npm audit --audit-level=high
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
+
+      - name: Prepare immutable build paths
+        id: paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/release-build"
+          {
+            echo "archive=$RUNNER_TEMP/release-build/image.oci.tar"
+            echo "layout=$RUNNER_TEMP/oci-layout"
+            echo "root=$RUNNER_TEMP/release-build"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build linux/amd64 OCI image exactly once
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          file: docker/Dockerfile
+          platforms: linux/amd64
+          tags: release-gate:${{ steps.source.outputs.revision }}
+          outputs: type=oci,dest=${{ steps.paths.outputs.archive }}
+          push: false
+          provenance: false
+          sbom: false
+          build-args: |
+            APP_VERSION=${{ steps.source.outputs.version }}
+            VCS_REF=${{ steps.source.outputs.revision }}
+            BUILD_DATE=${{ steps.source.outputs.build_date }}
+
+      - name: Resolve exact OCI digest
+        id: image
+        shell: bash
+        env:
+          OCI_ARCHIVE: ${{ steps.paths.outputs.archive }}
+          OCI_LAYOUT: ${{ steps.paths.outputs.layout }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$OCI_LAYOUT"
+          tar -xf "$OCI_ARCHIVE" -C "$OCI_LAYOUT"
+          digest="$(
+            jq -er \
+              '.manifests | select(length == 1) | .[0].digest | select(test("^sha256:[0-9a-f]{64}$"))' \
+              "$OCI_LAYOUT/index.json"
+          )"
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
+          cp "$OCI_LAYOUT/blobs/sha256/${digest#sha256:}" \
+            "$RUNNER_TEMP/release-build/image-manifest.json"
+
+      - name: Install pinned OCI importer
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=1.23.0
+          sha256=15696e068c02a163e20013fab79f40cdc6c8022d99e1aee8676f6d540404691a
+          curl -fsSL --proto '=https' --tlsv1.2 -o "$RUNNER_TEMP/skopeo" \
+            "https://github.com/lework/skopeo-binary/releases/download/v${version}/skopeo-linux-amd64"
+          echo "$sha256  $RUNNER_TEMP/skopeo" | sha256sum -c -
+          chmod 0755 "$RUNNER_TEMP/skopeo"
+          "$RUNNER_TEMP/skopeo" --version
+
+      - name: Import exact OCI image for local gates
+        shell: bash
+        env:
+          OCI_ARCHIVE: ${{ steps.paths.outputs.archive }}
+          REVISION: ${{ steps.source.outputs.revision }}
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/skopeo" --insecure-policy copy \
+            "oci-archive:$OCI_ARCHIVE" "docker-daemon:release-gate:$REVISION"
+
+      - name: Smoke-test exact release image
+        env:
+          IMAGE_UNDER_TEST: release-gate:${{ steps.source.outputs.revision }}
+        run: bash tests/test-health-container.sh
+
+      - name: Scan exact release image
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: release-gate:${{ steps.source.outputs.revision }}
+          format: json
+          output: ${{ steps.paths.outputs.root }}/trivy.json
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+
+      - name: Generate SPDX JSON SBOM
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+        with:
+          image: release-gate:${{ steps.source.outputs.revision }}
+          format: spdx-json
+          output-file: ${{ steps.paths.outputs.root }}/sbom.spdx.json
+          upload-artifact: false
+
+      - name: Install pinned Trivy CLI for evidence
+        uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
+        with:
+          version: v0.70.0
+
+      - name: Record scanner and database identity
+        id: scan-evidence
+        shell: bash
+        env:
+          EVIDENCE_ROOT: ${{ steps.paths.outputs.root }}
+          TRIVY_CACHE_DIR: ${{ github.workspace }}/.cache/trivy
+        run: |
+          set -euo pipefail
+          trivy version --format json > "$EVIDENCE_ROOT/trivy-version.json"
+          scanner_version="$(jq -er '.Version | select(. == "0.70.0")' \
+            "$EVIDENCE_ROOT/trivy-version.json")"
+          database_updated_at="$(jq -er '.VulnerabilityDB.UpdatedAt' \
+            "$EVIDENCE_ROOT/trivy-version.json")"
+          scanner_evidence_sha256="$(sha256sum "$EVIDENCE_ROOT/trivy.json" | cut -d' ' -f1)"
+          sbom_sha256="$(sha256sum "$EVIDENCE_ROOT/sbom.spdx.json" | cut -d' ' -f1)"
+          scanner_version_evidence_sha256="$(
+            sha256sum "$EVIDENCE_ROOT/trivy-version.json" | cut -d' ' -f1
+          )"
+          {
+            echo "database_updated_at=$database_updated_at"
+            echo "sbom_sha256=$sbom_sha256"
+            echo "scanner_evidence_sha256=$scanner_evidence_sha256"
+            echo "scanner_version=$scanner_version"
+            echo "scanner_version_evidence_sha256=$scanner_version_evidence_sha256"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Generate application release manifest
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+          DATABASE_UPDATED_AT: ${{ steps.scan-evidence.outputs.database_updated_at }}
+          REVISION: ${{ steps.source.outputs.revision }}
+          SCANNER_EVIDENCE_SHA256: ${{ steps.scan-evidence.outputs.scanner_evidence_sha256 }}
+          SBOM_SHA256: ${{ steps.scan-evidence.outputs.sbom_sha256 }}
+          SCANNER_VERSION: ${{ steps.scan-evidence.outputs.scanner_version }}
+          SCANNER_VERSION_EVIDENCE_SHA256: ${{ steps.scan-evidence.outputs.scanner_version_evidence_sha256 }}
+          TAG: ${{ steps.source.outputs.tag }}
+        run: |
+          node scripts/generate-release-manifest.mjs \
+            --image ghcr.io/berntpopp/genefoundry \
+            --digest "$DIGEST" \
+            --revision "$REVISION" \
+            --tag "$TAG" \
+            --scanner-version "$SCANNER_VERSION" \
+            --database-updated-at "$DATABASE_UPDATED_AT" \
+            --scanner-evidence-sha256 "$SCANNER_EVIDENCE_SHA256" \
+            --scanner-version-evidence-sha256 "$SCANNER_VERSION_EVIDENCE_SHA256" \
+            --sbom-sha256 "$SBOM_SHA256" \
+            --output "$RUNNER_TEMP/release-build/application-release-manifest.json"
+
+      - name: Preserve exact gated release candidate
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.0
+        with:
+          name: container-release-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 90
+          path: ${{ steps.paths.outputs.root }}
+
+  publish:
+    name: Publish, attest, and create release
+    needs: build-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      actions: read
+      attestations: write
+      contents: write
+      id-token: write
+      packages: write
+    steps:
+      - name: Download exact gated release candidate
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.0
+        with:
+          name: container-release-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release-build
+
+      - name: Revalidate candidate coordinates
+        shell: bash
+        env:
+          EXPECTED_DIGEST: ${{ needs.build-gate.outputs.digest }}
+          EXPECTED_REVISION: ${{ needs.build-gate.outputs.revision }}
+          EXPECTED_TAG: ${{ needs.build-gate.outputs.tag }}
+          EXPECTED_VERSION: ${{ needs.build-gate.outputs.version }}
+        run: |
+          set -euo pipefail
+          manifest=release-build/application-release-manifest.json
+          test "$(jq -er .image.digest "$manifest")" = "$EXPECTED_DIGEST"
+          test "$(jq -er .source.revision "$manifest")" = "$EXPECTED_REVISION"
+          test "$(jq -er .source.tag "$manifest")" = "$EXPECTED_TAG"
+          test "$(jq -er .version "$manifest")" = "$EXPECTED_VERSION"
+          test "$(sha256sum release-build/image-manifest.json | cut -d' ' -f1)" = \
+            "${EXPECTED_DIGEST#sha256:}"
+          test "$(sha256sum release-build/trivy.json | cut -d' ' -f1)" = \
+            "$(jq -er '.release_assets["trivy.json"]' "$manifest" | cut -d: -f2)"
+          test "$(sha256sum release-build/trivy-version.json | cut -d' ' -f1)" = \
+            "$(jq -er '.release_assets["trivy-version.json"]' "$manifest" | cut -d: -f2)"
+          sbom_sha256="$(sha256sum release-build/sbom.spdx.json | cut -d' ' -f1)"
+          test "$sbom_sha256" = \
+            "$(jq -er '.release_assets["sbom.spdx.json"]' "$manifest" | cut -d: -f2)"
+          test "$sbom_sha256" = "$(jq -er '.security_evidence.sbom_sha256' "$manifest")"
+          mkdir -p "$RUNNER_TEMP/oci-layout"
+          tar -xf release-build/image.oci.tar -C "$RUNNER_TEMP/oci-layout"
+          test "$(
+            jq -er \
+              '.manifests | select(length == 1) | .[0].digest | select(test("^sha256:[0-9a-f]{64}$"))' \
+              "$RUNNER_TEMP/oci-layout/index.json"
+          )" = "$EXPECTED_DIGEST"
+
+      - name: Install pinned OCI publisher
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=1.23.0
+          sha256=15696e068c02a163e20013fab79f40cdc6c8022d99e1aee8676f6d540404691a
+          curl -fsSL --proto '=https' --tlsv1.2 -o "$RUNNER_TEMP/skopeo" \
+            "https://github.com/lework/skopeo-binary/releases/download/v${version}/skopeo-linux-amd64"
+          echo "$sha256  $RUNNER_TEMP/skopeo" | sha256sum -c -
+          chmod 0755 "$RUNNER_TEMP/skopeo"
+          "$RUNNER_TEMP/skopeo" --version
+
+      - name: Create source tag
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REVISION: ${{ needs.build-gate.outputs.revision }}
+          TAG: ${{ needs.build-gate.outputs.tag }}
+        run: |
+          set -euo pipefail
+          existing=''
+          if existing="$(
+            gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$TAG" --jq .object.sha 2>/dev/null
+          )"; then
+            test "$existing" = "$REVISION" || {
+              echo "release tag collision: $TAG points to $existing" >&2
+              exit 1
+            }
+          else
+            gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" \
+              -f ref="refs/tags/$TAG" -f sha="$REVISION" > /dev/null
+          fi
+
+      - name: Publish the exact gated OCI manifest
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE: ghcr.io/berntpopp/genefoundry
+          EXPECTED_DIGEST: ${{ needs.build-gate.outputs.digest }}
+          REVISION: ${{ needs.build-gate.outputs.revision }}
+          VERSION: ${{ needs.build-gate.outputs.version }}
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/registries.conf" <<'EOF'
+          unqualified-search-registries = ["docker.io"]
+          EOF
+          export CONTAINERS_REGISTRIES_CONF="$RUNNER_TEMP/registries.conf"
+          echo "$GH_TOKEN" | "$RUNNER_TEMP/skopeo" login ghcr.io \
+            --username "$GITHUB_ACTOR" --password-stdin
+
+          source_digest=''
+          if source_digest="$(
+            "$RUNNER_TEMP/skopeo" inspect --format '{{.Digest}}' \
+              "docker://$IMAGE:sha-$REVISION" 2>/dev/null
+          )"; then
+            test "$source_digest" = "$EXPECTED_DIGEST" || {
+              echo "source alias collision: $IMAGE:sha-$REVISION" >&2
+              exit 1
+            }
+          else
+            "$RUNNER_TEMP/skopeo" --insecure-policy copy --preserve-digests \
+              'oci-archive:release-build/image.oci.tar' \
+              "docker://$IMAGE:sha-$REVISION"
+          fi
+
+          version_digest=''
+          if version_digest="$(
+            "$RUNNER_TEMP/skopeo" inspect --format '{{.Digest}}' \
+              "docker://$IMAGE:$VERSION" 2>/dev/null
+          )"; then
+            test "$version_digest" = "$EXPECTED_DIGEST" || {
+              echo "release version collision: $IMAGE:$VERSION" >&2
+              exit 1
+            }
+          else
+            "$RUNNER_TEMP/skopeo" --insecure-policy copy --preserve-digests \
+              "docker://$IMAGE@$EXPECTED_DIGEST" "docker://$IMAGE:$VERSION"
+          fi
+
+          test "$(
+            "$RUNNER_TEMP/skopeo" inspect --format '{{.Digest}}' "docker://$IMAGE:$VERSION"
+          )" = "$EXPECTED_DIGEST"
+
+      - name: Authenticate Docker for build provenance
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          echo "$GH_TOKEN" | docker login ghcr.io \
+            --username "$GITHUB_ACTOR" --password-stdin
+
+      - name: Upload GitHub build provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-name: ghcr.io/berntpopp/genefoundry
+          subject-digest: ${{ needs.build-gate.outputs.digest }}
+          push-to-registry: true
+
+      - name: Upload GitHub SPDX SBOM attestation
+        uses: actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0
+        with:
+          subject-name: ghcr.io/berntpopp/genefoundry
+          subject-digest: ${{ needs.build-gate.outputs.digest }}
+          sbom-path: release-build/sbom.spdx.json
+          push-to-registry: true
+
+      - name: Create immutable-coordinate GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.build-gate.outputs.tag }}
+          DIGEST: ${{ needs.build-gate.outputs.digest }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" --repo "$GITHUB_REPOSITORY" \
+            --title "GeneFoundry ${TAG#v}" \
+            --notes "Container: ghcr.io/berntpopp/genefoundry@$DIGEST" \
+            release-build/application-release-manifest.json \
+            release-build/image-manifest.json \
+            release-build/sbom.spdx.json \
+            release-build/trivy.json \
+            release-build/trivy-version.json

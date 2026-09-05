@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import type { ClientId } from '../data/contracts'
 import { CLIENT_GUIDES } from '../data/clients'
 import { COPY } from '../data/copy'
 import { HOSTED_ENDPOINT } from '../data/servers'
 import { siteHref } from '../lib/urls'
 import CommandCard from './ui/CommandCard.vue'
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 const props = defineProps<{ initialClientId?: ClientId }>()
 const selectedId = ref<ClientId>(props.initialClientId ?? 'claude-ai')
 const guide = computed(
@@ -24,7 +28,7 @@ const guide = computed(
       <div class="connect-layout">
         <div class="connect-setup">
           <label for="client-select">{{ COPY.connect.clientLabel }}</label>
-          <select id="client-select" v-model="selectedId">
+          <select id="client-select" v-model="selectedId" :disabled="!mounted">
             <option v-for="client in CLIENT_GUIDES" :key="client.id" :value="client.id">
               {{ client.label }}
             </option>

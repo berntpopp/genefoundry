@@ -4,14 +4,14 @@
   font-family: 'Archivo';
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/archivo-latin-600.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Source Sans 3';
   font-style: normal;
   font-weight: 400 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/source-sans-3-latin-400-600.woff2') format('woff2');
 }
 /* Match the shipped faces' advance widths and vertical metrics during font loading. */
@@ -51,6 +51,7 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 html {
+  scrollbar-gutter: stable;
   scroll-padding-top: 2rem;
   color-scheme: light;
 }

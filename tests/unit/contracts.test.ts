@@ -34,3 +34,21 @@ test('publication rejects missing detail, duplicate route and unsupported verifi
   invalidDate.details[0]!.review.reviewedAt = '2026-02-30'
   expect(() => validateContent(invalidDate, { publication: true })).toThrow()
 })
+
+const validResult = WORKFLOWS[0]!.result!
+test.each([
+  undefined,
+  {},
+  { ...validResult, summary: '' },
+  { ...validResult, client: '' },
+  { ...validResult, executedAt: '2026-02-30' },
+  { ...validResult, sources: [] },
+  { ...validResult, notes: [undefined] },
+  { ...validResult, tables: [] },
+  { ...validResult, tables: [{ caption: 'Evidence', columns: ['Value'], rows: [['a', 'b']] }] },
+  { ...validResult, tables: [{ caption: 'Evidence', columns: ['Value'], rows: [[undefined]] }] }
+])('publication rejects malformed verified result %#', (result) => {
+  const malformed = input()
+  Object.assign(malformed.workflows[0]!, { result })
+  expect(() => validateContent(malformed, { publication: true })).toThrow()
+})

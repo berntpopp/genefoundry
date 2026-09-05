@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import type { Workflow } from '../data/contracts'
 import { COPY } from '../data/copy'
 import { useClipboard } from '../composables/useClipboard'
 import { siteHref } from '../lib/urls'
+const mounted = ref(false)
+onMounted(() => {
+  mounted.value = true
+})
 const props = defineProps<{ workflow: Workflow }>()
 const { copy, copied, error, pending, reset } = useClipboard()
 watch(() => props.workflow.prompt, reset)
@@ -25,7 +29,7 @@ const sourceFor = (label: string) =>
           <button
             class="button-secondary"
             type="button"
-            :disabled="pending"
+            :disabled="!mounted || pending"
             :aria-busy="pending"
             @click="copy(workflow.prompt)"
           >

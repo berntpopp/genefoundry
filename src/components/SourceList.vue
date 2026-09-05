@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { ServerEntry } from '../data/servers'
 import { siteHref } from '../lib/urls'
-defineProps<{ sources: readonly ServerEntry[] }>()
+withDefaults(defineProps<{ sources: readonly ServerEntry[]; headingLevel?: 2 | 3 }>(), {
+  headingLevel: 3
+})
 </script>
 <template>
   <div class="source-list">
@@ -12,9 +14,9 @@ defineProps<{ sources: readonly ServerEntry[] }>()
       <li v-for="source in sources" :key="source.namespace">
         <article class="source-record" data-testid="source-record">
           <div>
-            <h3>
+            <component :is="`h${headingLevel}`" class="source-name">
               <a :href="siteHref(`/sources/${source.namespace}/`)">{{ source.source }}</a>
-            </h3>
+            </component>
             <p class="source-namespace metadata">{{ source.namespace }}</p>
           </div>
           <p class="source-task">
@@ -71,15 +73,18 @@ ul {
 .source-record > * {
   min-width: 0;
 }
-h3 {
+.source-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: normal;
   font-size: 1rem;
   line-height: 1.5;
 }
-h3 a {
+.source-name a {
   color: var(--color-ink);
   text-decoration: none;
 }
-h3 a:hover {
+.source-name a:hover {
   color: var(--color-brand);
   text-decoration: underline;
 }
@@ -122,7 +127,7 @@ h3 a:hover {
   .source-task {
     grid-column: 1 / -1;
   }
-  h3 {
+  .source-name {
     font-size: 1.125rem;
   }
   .mobile-label {

@@ -2,8 +2,7 @@
 # GeneFoundry Landing Page - Nginx Proxy Manager (NPM) Production Overlay
 #
 # Usage (production; pulls the pinned image, never builds):
-#   GENEFOUNDRY_IMAGE=ghcr.io/berntpopp/genefoundry@sha256:<digest> \
-#     docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d
+#   make docker-up
 #
 # This overlay:
 # - Deploys a prebuilt, digest-addressable image (never builds on the host)
@@ -16,7 +15,7 @@
 # - Enable SSL with Let's Encrypt
 #
 # Required environment:
-#   GENEFOUNDRY_IMAGE=ghcr.io/berntpopp/genefoundry@sha256:<digest>
+#   GENEFOUNDRY_IMAGE_SHA256=<64 lowercase hexadecimal characters>
 
 name: genefoundry-npm
 
@@ -25,17 +24,13 @@ services:
     container_name: genefoundry-npm
 
     # PRODUCTION: pull the released image, never build on the deployment host.
-    # `!reset null` is required: the base compose file defines `build:`, and a
-    # plain override would merge rather than remove it, leaving compose free to
-    # build from local (possibly stale) source instead of using the pinned image.
+    # Reset is required because Compose otherwise retains the base build block.
     build: !reset null
-    image: ${GENEFOUNDRY_IMAGE:?Set GENEFOUNDRY_IMAGE to ghcr.io/berntpopp/genefoundry@sha256:<digest>}
+    image: ghcr.io/berntpopp/genefoundry@sha256:${GENEFOUNDRY_IMAGE_SHA256:?Set GENEFOUNDRY_IMAGE_SHA256 to the 64-character image digest}
     pull_policy: missing
 
-    # PRODUCTION: No direct ports - NPM handles all routing.
-    # `!reset []` is required: compose MERGES list fields across `-f` overlays, so
-    # a plain `ports: []` does NOT drop the base file's "${GENEFOUNDRY_PORT:-8080}:8080"
-    # mapping - it stayed published on the host, bypassing NPM entirely.
+    # PRODUCTION: No direct ports - NPM handles all routing. Compose merges
+    # lists, so an empty list alone does not remove the base port publication.
     ports: !reset []
 
     # SECURITY: Run as non-root (nginx:nginx = 101:101)

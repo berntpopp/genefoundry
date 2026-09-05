@@ -1,6 +1,6 @@
-.PHONY: help dev build lint type-check format check generate-og generate-pwa generate-assets \
+.PHONY: help dev build lint type-check format check test generate-og generate-pwa generate-assets \
         docker-build docker-up docker-down docker-logs docker-shell docker-dev \
-        security audit hadolint trivy pre-commit
+        security audit hadolint trivy pre-commit test-health-container
 
 # Default target
 help:
@@ -9,7 +9,7 @@ help:
 	@echo "Development:"
 	@echo "  make dev              - Start the development server"
 	@echo "  make build            - Build the project for production"
-	@echo "  make lint             - Run ESLint to fix and report issues"
+	@echo "  make lint             - Run ESLint and report issues"
 	@echo "  make type-check       - Run TypeScript type checking"
 	@echo "  make format           - Format code with Prettier"
 	@echo "  make check            - Run both linting and type checking"
@@ -46,6 +46,9 @@ lint:
 type-check:
 	npm run type-check
 
+test:
+	npm test
+
 format:
 	npm run format
 
@@ -67,16 +70,23 @@ docker-dev:
 	docker compose -f docker/docker-compose.yml up --build
 
 docker-up:
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d --build
+	node scripts/validate-production-env.mjs .env.docker
+	env -u GENEFOUNDRY_IMAGE_SHA256 docker compose --env-file .env.docker -f docker/docker-compose.yml -f docker/docker-compose.npm.yml up -d
 
 docker-down:
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml down
+	node scripts/validate-production-env.mjs .env.docker
+	env -u GENEFOUNDRY_IMAGE_SHA256 docker compose --env-file .env.docker -f docker/docker-compose.yml -f docker/docker-compose.npm.yml down
 
 docker-logs:
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml logs -f
+	node scripts/validate-production-env.mjs .env.docker
+	env -u GENEFOUNDRY_IMAGE_SHA256 docker compose --env-file .env.docker -f docker/docker-compose.yml -f docker/docker-compose.npm.yml logs -f
 
 docker-shell:
-	docker compose -f docker/docker-compose.yml -f docker/docker-compose.npm.yml exec genefoundry sh
+	node scripts/validate-production-env.mjs .env.docker
+	env -u GENEFOUNDRY_IMAGE_SHA256 docker compose --env-file .env.docker -f docker/docker-compose.yml -f docker/docker-compose.npm.yml exec genefoundry sh
+
+test-health-container:
+	bash tests/test-health-container.sh
 
 # Security commands (local pre-commit checks)
 # These mirror the CI security workflow for local testing
