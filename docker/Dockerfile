@@ -5,7 +5,7 @@
 # Multi-stage build: Node.js build → nginx with Brotli runtime
 # ============================================================================
 
-ARG NODE_VERSION=20-alpine3.20
+ARG NODE_VERSION=24-alpine
 # fholzer/nginx-brotli includes brotli_static and gzip_static modules
 ARG NGINX_VERSION=v1.28.0
 
@@ -39,14 +39,8 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copy application source
 COPY . .
 
-# Build production static files (generates .br and .gz files)
-RUN npm run build && \
-    echo "=== Build output ===" && \
-    ls -la dist/ && \
-    echo "=== Compressed files ===" && \
-    find dist \( -name "*.br" -o -name "*.gz" \) -print && \
-    echo "=== Total size ===" && \
-    du -sh dist/
+# Build and validate final static HTML without a browser, then generate compression sidecars.
+RUN npm run build
 
 # ============================================================================
 # STAGE 3: Runtime - nginx with Brotli serving pre-compressed static files

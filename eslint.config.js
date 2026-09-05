@@ -7,12 +7,24 @@ import globals from 'globals'
 export default [
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue,js,jsx,cjs,mjs}'],
+    files: ['**/*.{ts,mts,tsx,vue,js,jsx,cjs,mjs}']
   },
 
   {
     name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/node_modules/**'],
+    ignores: [
+      '**/dist/**',
+      '**/dist-ssr/**',
+      '**/coverage/**',
+      '**/node_modules/**',
+      '**/.build/**',
+      '**/.worktrees/**',
+      '**/.superpowers/**',
+      'docs/audits/**',
+      'docs/superpowers/research/**',
+      'test-results/**',
+      'playwright-report/**'
+    ]
   },
 
   js.configs.recommended,
@@ -23,7 +35,7 @@ export default [
   // Node.js build scripts configuration
   {
     name: 'scripts/node-config',
-    files: ['scripts/**/*.js'],
+    files: ['scripts/**/*.{js,mjs,cjs}', '*config.{js,ts}', 'tests/**/*.ts'],
     languageOptions: {
       globals: {
         ...globals.node
@@ -40,5 +52,5 @@ export default [
         ...globals.node
       }
     }
-  },
+  }
 ]

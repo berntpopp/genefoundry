@@ -4,70 +4,70 @@
 version: 2
 updates:
   # NPM dependencies
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Europe/Berlin"
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'Europe/Berlin'
     open-pull-requests-limit: 5
     ignore:
       # lucide-vue-next 1.x is a deprecation tombstone that redirects to
       # @lucide/vue, which dropped the brand icons (e.g. Github) used here.
       # Stay on the maintained 0.x line until those icons are migrated.
-      - dependency-name: "lucide-vue-next"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: 'lucide-vue-next'
+        update-types: ['version-update:semver-major']
     # Group updates to reduce PR noise
     groups:
       # Group all production dependencies
       production-dependencies:
-        dependency-type: "production"
+        dependency-type: 'production'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
       # Group all dev dependencies
       development-dependencies:
-        dependency-type: "development"
+        dependency-type: 'development'
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
     commit-message:
-      prefix: "deps"
-      prefix-development: "deps(dev)"
+      prefix: 'deps'
+      prefix-development: 'deps(dev)'
     labels:
-      - "dependencies"
+      - 'dependencies'
     reviewers:
-      - "berntpopp"
+      - 'berntpopp'
 
   # GitHub Actions dependencies
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Europe/Berlin"
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'Europe/Berlin'
     open-pull-requests-limit: 3
     commit-message:
-      prefix: "ci"
+      prefix: 'ci'
     labels:
-      - "dependencies"
-      - "github-actions"
+      - 'dependencies'
+      - 'github-actions'
 
   # Docker base images
-  - package-ecosystem: "docker"
-    directory: "/docker"
+  - package-ecosystem: 'docker'
+    directory: '/docker'
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Europe/Berlin"
+      interval: 'weekly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'Europe/Berlin'
     open-pull-requests-limit: 2
     commit-message:
-      prefix: "docker"
+      prefix: 'docker'
     labels:
-      - "dependencies"
-      - "docker"
+      - 'dependencies'
+      - 'docker'
     reviewers:
-      - "berntpopp"
+      - 'berntpopp'

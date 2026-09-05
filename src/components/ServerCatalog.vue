@@ -1,122 +1,182 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { ArrowUpRight, Github } from 'lucide-vue-next'
-import SectionLabel from './ui/SectionLabel.vue'
-import { SERVERS, CATEGORIES, SERVER_COUNT, type ServerCategory } from '../data/servers'
-
-type Filter = ServerCategory | 'all'
-const active = ref<Filter>('all')
-
-const categoryMap = Object.fromEntries(CATEGORIES.map((c) => [c.id, c]))
-
-const filtered = computed(() =>
-  active.value === 'all' ? SERVERS : SERVERS.filter((s) => s.category === active.value)
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { CATEGORIES, SERVERS, GITHUB_URL, type ServerCategory } from '../data/servers'
+import { SOURCE_DETAILS } from '../data/source-details'
+import { COPY } from '../data/copy'
+import { filterSources } from '../lib/catalog'
+import SourceList from './SourceList.vue'
+const query = ref('')
+const searchInput = ref<HTMLInputElement | null>(null)
+const category = ref<ServerCategory | 'all'>('all')
+const mounted = ref(false)
+const filtered = computed(() => filterSources(SERVERS, SOURCE_DETAILS, query.value, category.value))
+const countText = computed(
+  () => `${filtered.value.length} ${filtered.value.length === 1 ? 'source' : 'sources'} found`
 )
-
-const countFor = (id: Filter) =>
-  id === 'all' ? SERVER_COUNT : SERVERS.filter((s) => s.category === id).length
+const announcedCount = ref(countText.value)
+let timer: ReturnType<typeof setTimeout> | undefined
+function restore() {
+  const params = new URLSearchParams(location.search)
+  query.value = (params.get('q') ?? '').slice(0, 200)
+  const candidate = params.get('category')
+  category.value = CATEGORIES.some((item) => item.id === candidate)
+    ? (candidate as ServerCategory)
+    : 'all'
+}
+function clearSearch() {
+  query.value = ''
+  searchInput.value?.focus()
+}
+function clear() {
+  clearSearch()
+  category.value = 'all'
+}
+onMounted(() => {
+  restore()
+  mounted.value = true
+  window.addEventListener('popstate', restore)
+})
+onUnmounted(() => {
+  clearTimeout(timer)
+  window.removeEventListener('popstate', restore)
+})
+watch([query, category], () => {
+  if (!mounted.value) return
+  const url = new URL(location.href)
+  if (query.value.trim()) url.searchParams.set('q', query.value)
+  else url.searchParams.delete('q')
+  if (category.value !== 'all') url.searchParams.set('category', category.value)
+  else url.searchParams.delete('category')
+  history.replaceState(history.state, '', url)
+  clearTimeout(timer)
+  timer = setTimeout(() => {
+    announcedCount.value = countText.value
+  }, 180)
+})
 </script>
-
 <template>
-  <section id="catalog" class="relative py-24 sm:py-28">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-3xl text-center">
-        <SectionLabel index="02" label="Inside the fleet" />
-        <h2 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          One <span class="serif-accent text-[1.08em]">namespace scheme</span>, zero collisions.
-        </h2>
-        <p class="mt-5 text-lg leading-relaxed text-slate-400">
-          Every backend keeps its clean tool names; the gateway owns the
-          <span class="font-mono text-slate-200">&lt;namespace&gt;_&lt;tool&gt;</span> prefix, so
-          <span class="font-mono text-slate-200">gnomad_search_genes</span> and
-          <span class="font-mono text-slate-200">gtex_search</span> never clash.
-        </p>
-      </div>
-
-      <!-- Filter chips -->
-      <div class="mt-10 flex flex-wrap justify-center gap-2">
+  <div>
+    <noscript
+      ><p class="notice">Search and filters need JavaScript. Browse all sources below.</p></noscript
+    >
+    <template v-if="SERVERS.length">
+      <form class="catalog-filters" role="search" @submit.prevent>
+        <div class="search-field">
+          <label for="source-search">{{ COPY.sources.searchLabel }}</label
+          ><input
+            id="source-search"
+            ref="searchInput"
+            v-model="query"
+            :disabled="!mounted"
+            type="search"
+            maxlength="200"
+            :placeholder="COPY.sources.searchPlaceholder"
+            autocomplete="off"
+          /><button v-if="query" type="button" class="clear-search" @click="clearSearch">
+            {{ COPY.sources.clearSearch }}
+          </button>
+        </div>
+        <div class="category-field">
+          <label for="source-category">{{ COPY.sources.categoryLabel }}</label
+          ><select id="source-category" v-model="category" :disabled="!mounted">
+            <option value="all">{{ COPY.sources.allCategories }}</option>
+            <option v-for="item in CATEGORIES" :key="item.id" :value="item.id">
+              {{ item.label }}
+            </option>
+          </select>
+        </div>
+      </form>
+      <div class="catalog-status">
+        <p role="status" aria-live="polite" aria-atomic="true">{{ announcedCount }}</p>
         <button
-          @click="active = 'all'"
-          :aria-pressed="active === 'all'"
-          class="rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-          :class="
-            active === 'all'
-              ? 'border-primary/40 bg-primary/15 text-white'
-              : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20 hover:text-white'
-          "
+          v-if="query || category !== 'all'"
+          type="button"
+          class="clear-filters"
+          @click="clear"
         >
-          All <span class="ml-1 font-mono text-xs opacity-70">{{ countFor('all') }}</span>
-        </button>
-        <button
-          v-for="cat in CATEGORIES"
-          :key="cat.id"
-          @click="active = cat.id"
-          :aria-pressed="active === cat.id"
-          class="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-          :class="
-            active === cat.id
-              ? 'border-primary/40 bg-primary/15 text-white'
-              : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20 hover:text-white'
-          "
-        >
-          <span class="h-1.5 w-1.5 rounded-full" :class="cat.dot"></span>
-          {{ cat.label }}
-          <span class="font-mono text-xs opacity-70">{{ countFor(cat.id) }}</span>
+          {{ COPY.sources.clearFilters }}
         </button>
       </div>
-
-      <!-- Cards -->
-      <div class="mt-10 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
-        <article
-          v-for="server in filtered"
-          :key="server.namespace"
-          class="group relative flex flex-col rounded-2xl border border-white/[0.08] bg-panel/50 p-5 transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:bg-panel"
-        >
-          <div class="flex items-start justify-between gap-3">
-            <code class="font-mono text-[15px] font-semibold text-primary-light">{{
-              server.namespace
-            }}</code>
-            <span
-              class="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[11px] text-slate-400"
-            >
-              {{ server.tools }} tools
-            </span>
-          </div>
-
-          <p class="mt-2 text-sm leading-snug text-slate-300">{{ server.domain }}</p>
-
-          <div class="mt-auto flex items-center justify-between gap-2 pt-4">
-            <!-- Upstream data source -->
-            <a
-              :href="server.sourceUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              :class="categoryMap[server.category].text"
-              :aria-label="`Open the ${server.source} data source`"
-            >
-              <span
-                class="h-1.5 w-1.5 rounded-full"
-                :class="categoryMap[server.category].dot"
-              ></span>
-              {{ server.source }}
-              <ArrowUpRight class="h-3 w-3 opacity-60" />
-            </a>
-
-            <!-- MCP server repo -->
-            <a
-              :href="`https://github.com/${server.repo}`"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 rounded-md border border-white/[0.08] bg-white/[0.03] px-2 py-1 font-mono text-[11px] text-slate-400 transition-colors hover:border-white/20 hover:text-white"
-              :aria-label="`${server.namespace}-link on GitHub`"
-            >
-              <Github class="h-3 w-3" />
-              {{ server.namespace }}-link
-            </a>
-          </div>
-        </article>
+      <p v-if="category !== 'all'" class="metadata active-category">
+        Research area: {{ CATEGORIES.find((item) => item.id === category)?.label }}
+      </p>
+      <SourceList v-if="filtered.length" :sources="filtered" />
+      <div v-else class="empty-state">
+        <h2>{{ COPY.sources.noResults }}</h2>
+        <p>{{ COPY.sources.noResultsHelp }}</p>
+        <button class="button-secondary" type="button" @click="clear">
+          {{ COPY.sources.clearFilters }}
+        </button>
+      </div>
+    </template>
+    <div v-else class="empty-state">
+      <h2>The source catalog is unavailable.</h2>
+      <p>Reload the page or open the router repository.</p>
+      <div class="inline-links">
+        <a href="">Reload page</a><a :href="GITHUB_URL">Open repository</a>
       </div>
     </div>
-  </section>
+  </div>
 </template>
+<style scoped>
+.catalog-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid var(--color-rule);
+  background: var(--color-surface);
+  border-radius: 8px;
+}
+.catalog-filters label {
+  display: block;
+  margin-bottom: 8px;
+}
+.catalog-filters select {
+  width: 100%;
+}
+.search-field,
+.category-field {
+  min-width: 0;
+}
+.clear-search,
+.clear-filters {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  font-size: 0.875rem;
+}
+.clear-search {
+  margin-top: 4px;
+}
+.catalog-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 80px;
+}
+.catalog-status p {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+.active-category {
+  margin-bottom: 16px;
+}
+.empty-state {
+  border-block: 1px solid var(--color-rule);
+  padding-block: 48px;
+}
+.empty-state h2 {
+  font-size: 1.5rem;
+}
+.empty-state p {
+  margin-block: 16px 24px;
+}
+@media (max-width: 640px) {
+  .catalog-filters {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px;
+  }
+}
+</style>

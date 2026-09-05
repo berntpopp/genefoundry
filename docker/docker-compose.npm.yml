@@ -39,7 +39,7 @@ services:
     ports: !reset []
 
     # SECURITY: Run as non-root (nginx:nginx = 101:101)
-    user: "101:101"
+    user: '101:101'
 
     # SECURITY: Security options
     security_opt:
@@ -60,11 +60,11 @@ services:
 
     # Production logging configuration
     logging:
-      driver: "json-file"
+      driver: 'json-file'
       options:
-        max-size: "10m"
-        max-file: "5"
-        labels: "service=genefoundry,environment=production,proxy=npm"
+        max-size: '10m'
+        max-file: '5'
+        labels: 'service=genefoundry,environment=production,proxy=npm'
 
     networks:
       - npm_proxy_network

@@ -8,9 +8,16 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Node
-node_modules
-dist
-dist-ssr
+node_modules/
+/dist/
+/dist-ssr/
+/dev-dist/
+/.vite/
+/.build/
+/.cache/
+*.tsbuildinfo
+*.timestamp-*.mjs
+*.timestamp-*.js
 *.local
 
 # Editor directories and files
@@ -18,6 +25,9 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
+Desktop.ini
+*~
 *.suo
 *.ntvs
 *.njsproj
@@ -28,13 +38,33 @@ dist-ssr
 .env
 .env.*
 !.env.example
-!.env.docker.example
+!.env.*.example
 
 # Testing
-coverage
+coverage/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Local worktrees
+/.worktrees/
 
 # Claude Code
 .claude/
 
 # Playwright MCP screenshots
 .playwright-mcp/
+
+# Local design-tool state and execution scratch space
+/.impeccable/
+/.superpowers/
+
+# Generated audit/research output (kept locally, not application source)
+/docs/audits/
+/docs/superpowers/research/
+/docs/superpowers/execution/screenshots/
+/docs/superpowers/execution/layout-revision/
+
+# Design specifications, implementation plans and maintained verification
+# records remain versionable. Never blanket-ignore docs, JSON or images.

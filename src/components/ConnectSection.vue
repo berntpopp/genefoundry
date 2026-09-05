@@ -1,201 +1,170 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Check, Copy, KeyRound, Terminal } from 'lucide-vue-next'
-import SectionLabel from './ui/SectionLabel.vue'
-import { useClipboard } from '../composables'
-import { HOSTED_ENDPOINT, HEALTH_URL } from '../data/servers'
-
-interface Tab {
-  id: string
-  label: string
-  hint: string
-  code: string
-}
-
-const tabs: Tab[] = [
-  {
-    id: 'claude-code',
-    label: 'Claude Code',
-    hint: 'Terminal',
-    code: `claude mcp add --transport http genefoundry ${HOSTED_ENDPOINT}
-# then authenticate in the browser when prompted`
-  },
-  {
-    id: 'claude-ai',
-    label: 'claude.ai / Desktop',
-    hint: 'Settings → Connectors',
-    code: `Settings → Connectors → Add custom connector
-URL: ${HOSTED_ENDPOINT}
-Complete the browser sign-in when prompted.`
-  },
-  {
-    id: 'codex',
-    label: 'Codex CLI',
-    hint: 'Terminal',
-    code: `codex mcp add genefoundry \\
-  --url ${HOSTED_ENDPOINT} \\
-  --oauth-client-id genefoundry-router \\
-  --oauth-resource ${HOSTED_ENDPOINT}
-codex mcp login genefoundry`
-  },
-  {
-    id: 'cursor',
-    label: 'Cursor',
-    hint: '~/.cursor/mcp.json',
-    code: `{
-  "mcpServers": {
-    "genefoundry": {
-      "url": "${HOSTED_ENDPOINT}"
-    }
-  }
-}`
-  },
-  {
-    id: 'gemini',
-    label: 'Gemini CLI',
-    hint: '~/.gemini/settings.json',
-    code: `{
-  "mcpServers": {
-    "genefoundry": {
-      "httpUrl": "${HOSTED_ENDPOINT}"
-    }
-  }
-}`
-  },
-  {
-    id: 'vscode',
-    label: 'VS Code',
-    hint: '.vscode/mcp.json',
-    code: `{
-  "servers": {
-    "genefoundry": {
-      "type": "http",
-      "url": "${HOSTED_ENDPOINT}"
-    }
-  }
-}`
-  }
-]
-
-const active = ref<Tab>(tabs[0])
-const { copied, copy } = useClipboard()
+import { computed, ref } from 'vue'
+import type { ClientId } from '../data/contracts'
+import { CLIENT_GUIDES } from '../data/clients'
+import { COPY } from '../data/copy'
+import { HOSTED_ENDPOINT } from '../data/servers'
+import { siteHref } from '../lib/urls'
+import CommandCard from './ui/CommandCard.vue'
+const props = defineProps<{ initialClientId?: ClientId }>()
+const selectedId = ref<ClientId>(props.initialClientId ?? 'claude-ai')
+const guide = computed(
+  () => CLIENT_GUIDES.find((client) => client.id === selectedId.value) ?? CLIENT_GUIDES[0]!
+)
 </script>
-
 <template>
-  <section id="connect" class="relative border-y border-white/[0.06] bg-ink-2/50 py-24 sm:py-28">
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-3xl text-center">
-        <SectionLabel index="04" label="Connect your host" />
-        <h2 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          Drop it into the <span class="serif-accent text-[1.08em]">client</span> you already use.
-        </h2>
-        <p class="mt-5 text-lg leading-relaxed text-slate-400">
-          The router speaks Streamable HTTP, the config shape every MCP host expects. Pick yours.
-        </p>
-      </div>
-
-      <!-- OAuth sign-in note -->
-      <div
-        class="mx-auto mt-8 flex max-w-2xl items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left"
-      >
-        <KeyRound class="mt-0.5 h-4 w-4 shrink-0 text-primary-light" />
-        <p class="text-sm leading-relaxed text-slate-400">
-          <span class="font-medium text-slate-200">Sign-in required.</span>
-          The endpoint uses OAuth — your host opens a browser to sign in once. No token to paste or
-          manage.
-        </p>
-      </div>
-
-      <div
-        class="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-panel/60 shadow-2xl shadow-black/40"
-      >
-        <!-- Tabs -->
-        <div
-          role="tablist"
-          aria-label="MCP host"
-          class="flex items-center gap-1 overflow-x-auto border-b border-white/10 px-2 pt-2"
-        >
-          <button
-            v-for="tab in tabs"
-            :key="tab.id"
-            :id="`tab-${tab.id}`"
-            role="tab"
-            :aria-selected="active.id === tab.id"
-            :aria-controls="`panel-${tab.id}`"
-            @click="active = tab"
-            class="relative whitespace-nowrap rounded-t-lg px-4 py-2.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-            :class="active.id === tab.id ? 'text-white' : 'text-slate-400 hover:text-slate-200'"
-          >
-            {{ tab.label }}
-            <span
-              v-if="active.id === tab.id"
-              class="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-gradient-to-r from-primary to-accent"
-            ></span>
-          </button>
+  <section id="connect" class="connect-section section" aria-labelledby="connect-heading">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <h2 id="connect-heading">{{ COPY.connect.heading }}</h2>
+          <p class="lead">{{ COPY.connect.intro }}</p>
         </div>
-
-        <!-- Code panel -->
-        <div
-          role="tabpanel"
-          :id="`panel-${active.id}`"
-          :aria-labelledby="`tab-${active.id}`"
-          class="relative"
-        >
-          <div
-            class="flex items-center justify-between border-b border-white/[0.06] bg-black/20 px-4 py-2"
-          >
-            <span
-              class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-slate-400"
-            >
-              <Terminal class="h-3.5 w-3.5" />
-              {{ active.hint }}
-            </span>
-            <button
-              type="button"
-              @click="copy(active.code)"
-              class="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-slate-300 transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-              :aria-label="copied ? 'Copied' : 'Copy configuration'"
-            >
-              <component
-                :is="copied ? Check : Copy"
-                class="h-3.5 w-3.5"
-                :class="copied ? 'text-emerald-400' : ''"
-              />
-              {{ copied ? 'Copied' : 'Copy' }}
-            </button>
+      </div>
+      <div class="connect-layout">
+        <div class="connect-setup">
+          <label for="client-select">{{ COPY.connect.clientLabel }}</label>
+          <select id="client-select" v-model="selectedId">
+            <option v-for="client in CLIENT_GUIDES" :key="client.id" :value="client.id">
+              {{ client.label }}
+            </option>
+          </select>
+          <div :key="guide.id" class="selected-guide">
+            <p class="client-summary">{{ guide.summary }}</p>
+            <ol class="setup-steps">
+              <li v-for="step in guide.steps" :key="step">{{ step }}</li>
+            </ol>
+            <p class="oauth-note">{{ COPY.connect.oauthNote }}</p>
+            <CommandCard
+              :command="HOSTED_ENDPOINT"
+              :label="COPY.connect.endpointLabel"
+              copy-kind="endpoint"
+            />
+            <CommandCard
+              v-if="guide.code !== null"
+              :command="guide.code"
+              :label="`${guide.label} setup`"
+              copy-kind="setup"
+            />
+            <div class="inline-links">
+              <a :href="siteHref(`/connect/${guide.id}/`)">Open {{ guide.label }} guide</a
+              ><a v-for="doc in guide.documentation" :key="doc.url" :href="doc.url"
+                >Official instructions</a
+              >
+            </div>
+            <p v-if="guide.recipeState === 'documented'" class="setup-status metadata">
+              Instructions checked against official documentation on {{ guide.review.reviewedAt }}.
+            </p>
+            <p v-if="guide.recipeState === 'verified'" class="setup-status metadata">
+              Setup verified on {{ guide.recipeTest.testedAt }}.
+            </p>
+            <p v-if="guide.recipeState === 'documentation-only'" class="setup-status metadata">
+              Setup not tested with this client.
+            </p>
           </div>
-          <transition name="swap" mode="out-in">
-            <pre
-              :key="active.id"
-              class="overflow-x-auto px-5 py-5 font-mono text-[13px] leading-6 text-slate-200"
-            ><code>{{ active.code }}</code></pre>
-          </transition>
+        </div>
+        <div class="connect-guidance">
+          <h3>Once you’re connected</h3>
+          <p>Ask your client to discover GeneFoundry’s tools, then try a research question.</p>
+          <div class="next-example">
+            <p>Start with a concrete example</p>
+            <a :href="siteHref('/workflows/variant-evidence/')"
+              >See actual HNF1B gene and variant results</a
+            >
+          </div>
+          <h3>Need help?</h3>
+          <p>Check the endpoint and complete any pending browser sign-in.</p>
+          <p>
+            <a :href="siteHref(`/connect/${guide.id}/#troubleshooting`)">Open troubleshooting</a>
+          </p>
+          <nav aria-label="All client guides" class="all-client-guides">
+            <h3>Other clients</h3>
+            <ul>
+              <li v-for="client in CLIENT_GUIDES" :key="client.id">
+                <a :href="siteHref(`/connect/${client.id}/`)">{{ client.label }}</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
-
-      <!-- Verify -->
-      <p class="mt-6 text-center text-sm text-slate-400">
-        Verify reachability:
-        <a
-          :href="HEALTH_URL"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-mono text-slate-400 underline decoration-white/20 underline-offset-4 transition-colors hover:text-primary-light"
-        >
-          curl {{ HEALTH_URL }}
-        </a>
-      </p>
     </div>
   </section>
 </template>
-
 <style scoped>
-.swap-enter-active,
-.swap-leave-active {
-  transition: opacity 0.15s ease;
+.connect-section {
+  border-top: 1px solid var(--color-rule);
 }
-.swap-enter-from,
-.swap-leave-to {
-  opacity: 0;
+.connect-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.connect-layout > * {
+  min-width: 0;
+}
+.connect-setup label {
+  display: block;
+  margin-block: 0 0.5rem;
+  font-weight: 600;
+}
+.connect-setup select {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+}
+.client-summary {
+  margin-top: 1.25rem;
+}
+.setup-steps {
+  padding-left: 1.5rem;
+  margin-block: 1.25rem;
+}
+.setup-steps li {
+  padding-left: 0.25rem;
+  margin-block: 0.75rem;
+}
+.oauth-note {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  margin-top: 1.25rem;
+}
+.setup-status {
+  margin-top: 0.75rem;
+}
+.connect-guidance h3:not(:first-child) {
+  margin-top: 2rem;
+}
+.connect-guidance p {
+  margin-block: 0.75rem;
+}
+.next-example {
+  margin-block: 1.5rem;
+  padding-block: 1rem;
+  border-block: 1px solid var(--color-rule);
+}
+.next-example p {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+.all-client-guides ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  list-style: none;
+  padding: 0;
+}
+.all-client-guides a {
+  display: inline-block;
+  padding-block: 0.4rem;
+}
+@media (max-width: 760px) {
+  .connect-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 360px) {
+  .all-client-guides ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 </style>

@@ -1,38 +1,34 @@
-# Dependencies - installed fresh in Docker
 node_modules
-
-# Build outputs
 dist
 dist-ssr
-
-# Development
+.build
 .git
 .github
 .vscode
+.worktrees
+.impeccable
+.superpowers
 *.log
 *.local
-
-# Test & coverage
 coverage
+tests
+test-results
+playwright-report
 *.test.ts
 *.spec.ts
-
-# Documentation (not needed in image)
-docs
+# Include only build-time verification records, never general documentation.
+docs/**
+!docs/superpowers/
+!docs/superpowers/execution/
+!docs/superpowers/execution/verification-ledger.json
+!docs/superpowers/execution/verification/
+!docs/superpowers/execution/verification/**
 *.md
-!README.md
-
-# IDE & OS files
 .DS_Store
 *.swp
 *.swo
-Thumbs.db
-
-# Environment files
 .env*
 !.env.docker.example
-
-# Misc
 Makefile
 .prettierrc.json
 .editorconfig

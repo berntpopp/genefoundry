@@ -2,167 +2,94 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
-import { compression } from 'vite-plugin-compression2'
+import { prerender } from './scripts/prerender.mjs'
+import { SERVER_COUNT, TOOL_COUNT } from './src/data/servers.ts'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  // Base URL: '/' for Docker/VPS, '/genefoundry/' for GitHub Pages
-  // Set VITE_BASE_URL=/ for Docker builds
-  base: process.env.VITE_BASE_URL || '/genefoundry/',
-  plugins: [
-    vue(),
-    tailwindcss(),
-    // Pre-compress assets with Brotli (best) and gzip (fallback)
-    // nginx serves these directly via brotli_static and gzip_static
-    compression({
-      algorithm: 'brotliCompress',
-      exclude: [/\.(png|jpg|jpeg|gif|webp|avif|ico)$/i], // Skip already-compressed images
-      threshold: 1024, // Only compress files > 1KB
-    }),
-    compression({
-      algorithm: 'gzip',
-      exclude: [/\.(png|jpg|jpeg|gif|webp|avif|ico)$/i],
-      threshold: 1024,
-    }),
-    VitePWA({
-      registerType: 'autoUpdate',
-      // Defer service worker registration to not block initial render
-      // 'script-defer' adds defer attribute, loading after HTML parsing (v0.17.2+)
-      injectRegister: 'script-defer',
-      // DevOptions for testing PWA in development
-      devOptions: {
-        enabled: false
-      },
-      includeAssets: ['genefoundry_logo.svg', 'robots.txt'],
-      manifest: {
-        name: 'GeneFoundry: Every biomedical MCP, one endpoint',
-        short_name: 'GeneFoundry',
-        description: 'A FastMCP gateway that federates 17 biomedical MCP servers (218 tools) behind one HTTP endpoint, with collision-free namespacing and search-based tool discovery.',
-        theme_color: '#08080c',
-        background_color: '#08080c',
-        display: 'standalone',
-        scope: process.env.VITE_BASE_URL || '/genefoundry/',
-        start_url: process.env.VITE_BASE_URL || '/genefoundry/',
-        icons: [
-          {
-            src: 'pwa-64x64.png',
-            sizes: '64x64',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: 'maskable-icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable'
-          }
-        ]
-      },
-      workbox: {
-        // Force immediate activation of new service worker
-        // skipWaiting: new SW takes over immediately without waiting
-        // clientsClaim: new SW takes control of all open tabs immediately
-        skipWaiting: true,
-        clientsClaim: true,
-        // Remove outdated precache entries when a new SW is activated
-        cleanupOutdatedCaches: true,
-        // Cache all static assets
-        navigateFallbackDenylist: [
-          /^\/mcp/, /^\/authorize/, /^\/token/, /^\/register/, /^\/consent/,
-          /^\/auth\//, /^\/\.well-known\//, /^\/health/, /^\/metrics/,
-          /^\/docs/, /^\/redoc/, /^\/openapi\.json/,
-        ],
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        // Runtime caching for Google Fonts
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
+export default defineConfig(({ isSsrBuild, command }) => {
+  const base = process.env.VITE_BASE_URL || '/'
+  if (!['/', '/genefoundry/'].includes(base)) throw new Error('Unsupported VITE_BASE_URL')
+  const staticBuild = command === 'build' && !isSsrBuild
+  return {
+    base,
+    publicDir: isSsrBuild ? false : 'public',
+    plugins: [
+      vue(),
+      tailwindcss(),
+      ...(staticBuild
+        ? [
+            {
+              name: 'genefoundry-prerender',
+              closeBundle: {
+                order: 'pre',
+                sequential: true,
+                async handler(error) {
+                  if (error) return
+                  await prerender({
+                    templatePath: 'dist/index.html',
+                    serverEntry: '.build/server/entry-server.js',
+                    outDir: 'dist'
+                  })
+                }
               }
             }
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+          ]
+        : []),
+      ...(!isSsrBuild
+        ? [
+            VitePWA({
+              integration: { closeBundleOrder: 'post' },
+              registerType: 'autoUpdate',
+              injectRegister: null,
+              devOptions: { enabled: false },
+              manifest: {
+                name: 'GeneFoundry: Biomedical data. One MCP connection.',
+                short_name: 'GeneFoundry',
+                description: `${SERVER_COUNT} catalog-listed biomedical MCP servers and ${TOOL_COUNT} listed tools. Browser sign-in required. Research use only.`,
+                theme_color: '#F6F5F1',
+                background_color: '#F6F5F1',
+                display: 'standalone',
+                scope: base,
+                start_url: base,
+                icons: [
+                  { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+                  { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+                  {
+                    src: 'maskable-icon-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'maskable'
+                  }
+                ]
               },
-              cacheableResponse: {
-                statuses: [0, 200]
+              workbox: {
+                navigateFallback: null,
+                skipWaiting: true,
+                clientsClaim: true,
+                cleanupOutdatedCaches: true,
+                globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,webmanifest}'],
+                globIgnores: ['404.html', '**/*.br', '**/*.gz'],
+                runtimeCaching: []
               }
-            }
+            })
+          ]
+        : [])
+    ],
+    build: {
+      target: 'es2020',
+      reportCompressedSize: false,
+      cssCodeSplit: false,
+      ...(isSsrBuild
+        ? {
+            ssr: 'src/entry-server.ts',
+            outDir: '.build/server',
+            rollupOptions: { output: { entryFileNames: 'entry-server.js' } }
           }
-        ]
-      }
-    })
-  ],
-  build: {
-    // Target modern browsers for smaller bundles
-    target: 'es2020',
-    // Disable gzip size reporting for faster builds
-    reportCompressedSize: false,
-    // Optimize module preloading - exclude non-critical chunks from preload
-    // This reduces critical path chain length (workbox-window is not needed for FCP)
-    modulePreload: {
-      resolveDependencies: (filename, deps) => {
-        // Only preload critical chunks, exclude PWA/workbox related
-        return deps.filter(dep => !dep.includes('workbox'))
-      }
+        : {
+            outDir: 'dist',
+            rollupOptions: { output: { manualChunks: { 'vue-vendor': ['vue'] } } }
+          })
     },
-    // Optimize chunk splitting
-    rollupOptions: {
-      output: {
-        // Manual chunk splitting for better caching
-        manualChunks: {
-          // Vendor chunk for Vue core
-          'vue-vendor': ['vue']
-        }
-      }
-    },
-    // Disable CSS code splitting - single CSS file loads faster for small apps
-    cssCodeSplit: false,
-    // Minification settings
-    minify: 'esbuild',
-  },
-  // Dev server config for WSL2 compatibility
-  server: {
-    host: true,
-    watch: {
-      // Use polling for WSL2 file system compatibility
-      usePolling: true,
-      interval: 1000
-    },
-    hmr: {
-      // Ensure HMR works across WSL2/Windows boundary
-      host: 'localhost'
-    }
-  },
-  // Optimize dependency pre-bundling for dev server performance.
-  // Components import named icons from the 'lucide-vue-next' barrel; Vite
-  // tree-shakes them in the production build and pre-bundles on demand in dev.
-  // We only exclude the barrel so dev never eagerly bundles the full icon set.
-  optimizeDeps: {
-    include: ['vue'],
-    exclude: ['lucide-vue-next']
+    server: { host: '127.0.0.1' },
+    optimizeDeps: { include: ['vue'], exclude: ['lucide-vue-next'] }
   }
 })

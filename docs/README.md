@@ -2,8 +2,8 @@
 
 ## Deployment Guides
 
-| Guide | Description |
-|-------|-------------|
+| Guide                       | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
 | [VPS Setup](./vps-setup.md) | Deploy GeneFoundry on a VPS with Nginx Proxy Manager |
 
 ## Quick Reference
@@ -46,15 +46,16 @@ make trivy           # Scan filesystem with Trivy (requires Docker)
 
 ### Estimated Costs
 
-| Provider | Spec | Monthly |
-|----------|------|---------|
-| Hetzner CX22 | 4GB/2CPU | ~$5 |
-| DigitalOcean | 4GB/2CPU | ~$24 |
-| Vultr | 4GB/2CPU | ~$24 |
+| Provider     | Spec     | Monthly |
+| ------------ | -------- | ------- |
+| Hetzner CX22 | 4GB/2CPU | ~$5     |
+| DigitalOcean | 4GB/2CPU | ~$24    |
+| Vultr        | 4GB/2CPU | ~$24    |
 
 ## Security
 
 The Docker image includes automatic security patching:
+
 - Alpine packages are upgraded at build time via `apk upgrade`
 - CI runs CodeQL, Trivy, Hadolint, and npm audit on every push
 - Dependabot monitors npm, GitHub Actions, and Docker base images

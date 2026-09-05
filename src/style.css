@@ -1,269 +1,363 @@
 @import 'tailwindcss';
 
-/* Self-hosted Inter font from Google Fonts (via google-webfonts-helper) */
-/* inter-regular - latin */
 @font-face {
-  font-display: swap;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/inter-v20-latin-regular.woff2') format('woff2');
-}
-/* inter-500 - latin */
-@font-face {
-  font-display: swap;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  src: url('/fonts/inter-v20-latin-500.woff2') format('woff2');
-}
-/* inter-600 - latin */
-@font-face {
-  font-display: swap;
-  font-family: 'Inter';
+  font-family: 'Archivo';
   font-style: normal;
   font-weight: 600;
-  src: url('/fonts/inter-v20-latin-600.woff2') format('woff2');
-}
-/* inter-700 - latin */
-@font-face {
   font-display: swap;
-  font-family: 'Inter';
+  src: url('/fonts/archivo-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Sans 3';
   font-style: normal;
-  font-weight: 700;
-  src: url('/fonts/inter-v20-latin-700.woff2') format('woff2');
-}
-
-/*
- * Metric-matched fallback font for Inter - prevents CLS
- * Values calculated using https://screenspan.net/fallback
- */
-@font-face {
-  font-family: 'Inter Fallback';
-  src: local('Arial'), local('ArialMT'), local('Helvetica Neue'), local('Helvetica');
-  ascent-override: 90.44%;
-  descent-override: 22.52%;
-  line-gap-override: 0%;
-  size-adjust: 107.12%;
-}
-
-/*
- * Instrument Serif - the display/editorial accent face.
- * Used only for short emphasis phrases inside headings (the signature),
- * never for body copy. Italic is the workhorse; preloaded in <head>.
- */
-@font-face {
+  font-weight: 400 600;
   font-display: swap;
-  font-family: 'Instrument Serif';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/instrument-serif-v5-latin-regular.woff2') format('woff2');
+  src: url('/fonts/source-sans-3-latin-400-600.woff2') format('woff2');
 }
+/* Match the shipped faces' advance widths and vertical metrics during font loading. */
 @font-face {
-  font-display: swap;
-  font-family: 'Instrument Serif';
-  font-style: italic;
-  font-weight: 400;
-  src: url('/fonts/instrument-serif-v5-latin-italic.woff2') format('woff2');
-}
-/* Georgia-based metric fallback keeps accent phrases from reflowing on swap */
-@font-face {
-  font-family: 'Instrument Serif Fallback';
-  src: local('Georgia'), local('Times New Roman');
-  ascent-override: 91%;
-  descent-override: 24%;
+  font-family: 'Source Sans 3 Fallback';
+  src: local('Arial');
+  size-adjust: 93.3%;
+  ascent-override: 109.75%;
+  descent-override: 42.87%;
   line-gap-override: 0%;
-  size-adjust: 97%;
 }
-
-/* ------------------------------------------------------------------ */
-/* Theme: Tailwind 4 CSS-first. Dark-first MCP-router palette.         */
-/* Signature gradient: magenta (logo) to violet to indigo.            */
-/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial');
+  size-adjust: 95.43%;
+  ascent-override: 92%;
+  descent-override: 22.01%;
+  line-gap-override: 0%;
+}
 @theme {
-  /* Brand: magenta anchored on the existing logo, brightened for dark UI */
-  --color-primary: #be3e82;
-  --color-primary-light: #ed6fb0;
-  --color-primary-dark: #a23570;
-
-  /* Accents that complete the magenta → violet → indigo signature */
-  --color-accent: #a855f7; /* violet */
-  --color-accent-2: #6366f1; /* indigo */
-
-  /* Surfaces: near-black with a faint blue cast */
-  --color-ink: #08080c; /* page background */
-  --color-ink-2: #0d0d15; /* raised background bands */
-  --color-panel: #111119; /* cards / panels */
-  --color-secondary: #334155; /* retained for compatibility */
-
-  /* Inter (self-hosted) with metric-matched fallback for zero CLS */
-  --font-sans:
-    'Inter', 'Inter Fallback', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono:
-    ui-monospace, 'SFMono-Regular', 'SF Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono',
-    monospace;
-  /* Editorial display face for heading emphasis (the signature) */
-  --font-display:
-    'Instrument Serif', 'Instrument Serif Fallback', Georgia, 'Times New Roman', serif;
+  --color-canvas: #f6f5f1;
+  --color-surface: #fff;
+  --color-ink: #182325;
+  --color-muted: #52616b;
+  --color-rule: #d8dcd7;
+  --color-control-border: #748079;
+  --color-brand: #a23570;
+  --color-brand-hover: #85285a;
+  --color-brand-tint: #f6e7ef;
+  --color-code: #111119;
+  --color-code-text: #e8e8ed;
+  --color-code-muted: #a4afb8;
+  --color-success: #21634b;
+  --color-error: #a72d32;
+  --font-display: 'Archivo', 'Archivo Fallback', Arial, sans-serif;
+  --font-sans: 'Source Sans 3', 'Source Sans 3 Fallback', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
-
 html {
-  scroll-behavior: smooth;
-  /* Anchor offset so fixed navbar never covers section headings */
-  scroll-padding-top: 5.5rem;
-  /* Safety net against horizontal scroll from any wide/nowrap descendant */
-  overflow-x: clip;
+  scroll-padding-top: 2rem;
+  color-scheme: light;
 }
-
 body {
-  @apply bg-ink text-slate-300;
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
-
-/* Selection picks up the brand magenta */
+* {
+  box-sizing: border-box;
+}
 ::selection {
-  background-color: rgba(190, 62, 130, 0.3);
+  background: var(--color-brand-tint);
+  color: var(--color-ink);
+}
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+  transition: color 140ms;
+}
+a:hover {
+  color: var(--color-brand-hover);
+}
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+h1 {
+  max-width: 18ch;
+  font-size: clamp(2.25rem, 1.5rem + 2.5vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.018em;
+}
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+summary {
+  cursor: pointer;
+}
+input,
+select,
+textarea {
+  min-height: 44px;
+  border: 1px solid var(--color-control-border);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  max-width: 100%;
+}
+input {
+  min-width: 0;
+  width: 100%;
+}
+select {
+  white-space: normal;
+}
+label {
+  font-weight: 500;
+}
+button {
+  min-height: 44px;
+}
+button:disabled {
+  cursor: wait;
+}
+code,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+code {
+  overflow-wrap: anywhere;
+}
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  line-height: 1.65;
+}
+summary {
+  min-height: 44px;
+  padding-block: 0.65rem;
+}
+.container {
+  width: min(1200px, calc(100% - 64px));
+  margin-inline: auto;
+}
+.section {
+  padding-block: 80px;
+}
+.section + .section {
+  border-top: 1px solid var(--color-rule);
+}
+.reading-page {
+  width: min(1200px, calc(100% - 64px));
+  margin-inline: auto;
+  padding-block: 80px;
+}
+.reading-page h1 {
+  max-width: 28ch;
+}
+.reading-page > * {
+  min-width: 0;
+}
+.page-header {
+  margin-bottom: 40px;
+}
+.page-header h1 + p,
+.page-header .lead {
+  margin-top: 24px;
+}
+.lead {
+  max-width: 55ch;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+.muted,
+.metadata {
+  color: var(--color-muted);
+}
+.metadata {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.section-heading p {
+  max-width: 58ch;
+  margin-top: 16px;
+  color: var(--color-muted);
+}
+.button,
+.button-secondary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0.7rem 1.15rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-brand);
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.5;
+}
+.button {
+  background: var(--color-brand);
   color: #fff;
 }
-
-/* Custom thin scrollbar for the dark theme (progressive enhancement) */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(168, 85, 247, 0.35) transparent;
+.button:hover {
+  background: var(--color-brand-hover);
+  border-color: var(--color-brand-hover);
+  color: #fff;
 }
-
-/* ------------------------------------------------------------------ */
-/* Reusable presentation utilities                                     */
-/* ------------------------------------------------------------------ */
-
-/* Magenta → violet → indigo text gradient (reserved for rare signature use) */
-.text-gradient {
-  background-image: linear-gradient(100deg, #ed6fb0 0%, #c084fc 45%, #818cf8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.button-secondary {
+  color: var(--color-brand);
+  background: transparent;
 }
-
-/*
- * Editorial accent: the emphasized noun in a heading, set in the display
- * serif (italic). This is the page's typographic signature, used in place of
- * gradient-on-everything. Magenta tint anchors it to the brand.
- */
-.serif-accent {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  color: #f0a8cd;
+.button-secondary:hover {
+  background: var(--color-brand-tint);
 }
-
-/* Faint engineered grid overlay, finer and self-fading so it reads as
-   intentional drafting paper rather than a stock template tile. */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 35%, transparent 78%);
-  mask-image: radial-gradient(120% 80% at 50% 0%, #000 35%, transparent 78%);
+.text-link {
+  font-weight: 500;
 }
-
-/* Single intentional brand spotlight seated at the top of the page. */
-.bg-spotlight {
-  background:
-    radial-gradient(60% 50% at 50% -8%, rgba(190, 62, 130, 0.22), transparent 70%),
-    radial-gradient(40% 40% at 82% 4%, rgba(99, 102, 241, 0.1), transparent 70%);
+.inline-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
 }
-
-/* Hairline divider that fades in from the center */
-.rule-glow {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.4), transparent);
+.notice {
+  padding: 20px 24px;
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  background: var(--color-surface);
 }
-
-/* ------------------------------------------------------------------ */
-/* Motion                                                              */
-/* ------------------------------------------------------------------ */
-@keyframes aurora-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
+.endpoint {
+  overflow-wrap: anywhere;
+}
+.prose p + p {
+  margin-top: 16px;
+}
+.prose section,
+.prose > h2 {
+  margin-top: 40px;
+}
+.prose h2,
+.prose h3 {
+  margin-bottom: 16px;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+  margin-block: 16px;
+}
+.prose ul {
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
+.prose li + li {
+  margin-top: 8px;
+}
+.prose .inline-links {
+  margin-top: 24px;
+}
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--color-surface);
+  transform: translateY(-180%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+.category-text-variant,
+.category-text-gene-disease,
+.category-text-gene-protein,
+.category-text-expression-models,
+.category-text-literature,
+.category-text-ontology {
+  color: var(--color-muted);
+}
+.category-dot-variant,
+.category-dot-gene-disease,
+.category-dot-gene-protein,
+.category-dot-expression-models,
+.category-dot-literature,
+.category-dot-ontology {
+  background: var(--color-brand);
+}
+@media (max-width: 640px) {
+  .container,
+  .reading-page {
+    width: calc(100% - 48px);
   }
-  50% {
-    transform: translate3d(4%, -3%, 0) scale(1.08);
+  .section {
+    padding-block: 48px;
   }
-}
-@keyframes aurora-drift-2 {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1.05);
+  .reading-page {
+    padding-block: 48px;
   }
-  50% {
-    transform: translate3d(-5%, 4%, 0) scale(1);
+  .lead {
+    font-size: 1.0625rem;
   }
-}
-.animate-aurora {
-  animation: aurora-drift 22s ease-in-out infinite;
-}
-.animate-aurora-2 {
-  animation: aurora-drift-2 26s ease-in-out infinite;
-}
-
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
   }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-.animate-float {
-  animation: float-y 4s ease-in-out infinite;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.animate-marquee {
-  animation: marquee 42s linear infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
+  .page-header {
+    margin-bottom: 32px;
   }
 }
-.animate-pulse-ring {
-  animation: pulse-ring 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+@media (max-width: 350px) {
+  .container,
+  .reading-page {
+    width: calc(100% - 32px);
+  }
 }
-
-/* WCAG 2.2.2 / 2.3.3: honor reduced-motion globally */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+  a,
+  button {
+    transition: none;
   }
 }

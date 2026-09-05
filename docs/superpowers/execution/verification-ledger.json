@@ -1,0 +1,18 @@
+{
+  "records": [
+    {
+      "id": "workflow-hnf1b-20260905",
+      "kind": "workflow",
+      "subjectId": "variant-evidence",
+      "reviewedAt": "2026-09-05",
+      "evidencePath": "docs/superpowers/execution/verification/hnf1b-20260905.json"
+    },
+    {
+      "id": "workflow-phenotype-20260905",
+      "kind": "workflow",
+      "subjectId": "phenotype-rare-disease",
+      "reviewedAt": "2026-09-05",
+      "evidencePath": "docs/superpowers/execution/verification/phenotype-20260905.json"
+    }
+  ]
+}

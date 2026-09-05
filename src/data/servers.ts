@@ -1,42 +1,49 @@
-/**
- * Single source of truth for the federated MCP fleet.
- *
- * Mirrors the router's committed `servers.yaml` / README catalog
- * (genefoundry-router). Tool counts and sources are kept in sync with the
- * live `https://genefoundry.org/mcp` deployment. If a backend is added or a
- * tool count changes upstream, update this file. Every section on the page
- * (catalog, marquee, stats, console) derives from it.
- */
+/** Maintained website inventory, not live tool discovery or a service-availability measurement. */
 
 export type ServerCategory =
-  | 'variant'
-  | 'gene-disease'
-  | 'gene-protein'
-  | 'expression-models'
-  | 'literature'
-  | 'ontology'
+  'variant' | 'gene-disease' | 'gene-protein' | 'expression-models' | 'literature' | 'ontology'
 
 export interface CategoryMeta {
   id: ServerCategory
   label: string
-  /** Tailwind text color utility for the category accent. */
+  /** Semantic accessible category text class. */
   text: string
-  /** Tailwind background tint utility for chips/dots. */
+  /** Semantic category marker class. */
   dot: string
 }
 
 export const CATEGORIES: CategoryMeta[] = [
-  { id: 'variant', label: 'Variants', text: 'text-rose-300', dot: 'bg-rose-400' },
-  { id: 'gene-disease', label: 'Gene–disease', text: 'text-violet-300', dot: 'bg-violet-400' },
-  { id: 'gene-protein', label: 'Genes & proteins', text: 'text-sky-300', dot: 'bg-sky-400' },
+  { id: 'variant', label: 'Variants', text: 'category-text-variant', dot: 'category-dot-variant' },
+  {
+    id: 'gene-disease',
+    label: 'Gene–disease',
+    text: 'category-text-gene-disease',
+    dot: 'category-dot-gene-disease'
+  },
+  {
+    id: 'gene-protein',
+    label: 'Genes & proteins',
+    text: 'category-text-gene-protein',
+    dot: 'category-dot-gene-protein'
+  },
   {
     id: 'expression-models',
     label: 'Expression & models',
-    text: 'text-amber-300',
-    dot: 'bg-amber-400'
+    text: 'category-text-expression-models',
+    dot: 'category-dot-expression-models'
   },
-  { id: 'literature', label: 'Literature', text: 'text-emerald-300', dot: 'bg-emerald-400' },
-  { id: 'ontology', label: 'Ontologies', text: 'text-fuchsia-300', dot: 'bg-fuchsia-400' }
+  {
+    id: 'literature',
+    label: 'Literature',
+    text: 'category-text-literature',
+    dot: 'category-dot-literature'
+  },
+  {
+    id: 'ontology',
+    label: 'Ontologies',
+    text: 'category-text-ontology',
+    dot: 'category-dot-ontology'
+  }
 ]
 
 export interface ServerEntry {
@@ -269,6 +276,5 @@ export const SERVER_COUNT = SERVERS.length
 export const TOOL_COUNT = SERVERS.reduce((sum, s) => sum + s.tools, 0)
 
 export const HOSTED_ENDPOINT = 'https://genefoundry.org/mcp'
-export const ADD_COMMAND = `claude mcp add --transport http genefoundry ${HOSTED_ENDPOINT}`
 export const GITHUB_URL = 'https://github.com/berntpopp/genefoundry-router'
 export const HEALTH_URL = 'https://genefoundry.org/health'

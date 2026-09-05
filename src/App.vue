@@ -1,50 +1,52 @@
 <script setup lang="ts">
-// All components loaded synchronously to eliminate CLS.
-// Total JS stays small for a landing page, so lazy loading would only add
-// layout shift for negligible benefit.
+import type { PageDefinition } from './data/contracts'
+import { SERVERS } from './data/servers'
+import { SOURCE_DETAILS } from './data/source-details'
+import { CLIENT_GUIDES } from './data/clients'
+import { WORKFLOWS } from './data/workflows'
 import NavBar from './components/NavBar.vue'
-import HeroSection from './components/HeroSection.vue'
-import TrustBar from './components/TrustBar.vue'
-import HowItWorks from './components/HowItWorks.vue'
-import ServerCatalog from './components/ServerCatalog.vue'
-import FeatureGrid from './components/FeatureGrid.vue'
-import ConnectSection from './components/ConnectSection.vue'
-import CtaSection from './components/CtaSection.vue'
 import FooterSection from './components/FooterSection.vue'
+import HomePage from './pages/HomePage.vue'
+import SourceIndexPage from './pages/SourceIndexPage.vue'
+import SourceDetailPage from './pages/SourceDetailPage.vue'
+import ConnectIndexPage from './pages/ConnectIndexPage.vue'
+import ClientGuidePage from './pages/ClientGuidePage.vue'
+import WorkflowIndexPage from './pages/WorkflowIndexPage.vue'
+import WorkflowPage from './pages/WorkflowPage.vue'
+import AboutPage from './pages/AboutPage.vue'
+import LimitationsPage from './pages/LimitationsPage.vue'
+import ImprintPage from './pages/ImprintPage.vue'
+import NotFoundPage from './pages/NotFoundPage.vue'
+const props = defineProps<{ page: PageDefinition }>()
+const source =
+  props.page.kind === 'source'
+    ? SERVERS.find((s) => s.namespace === (props.page as { namespace: string }).namespace)
+    : undefined
+const detail = source ? SOURCE_DETAILS.find((d) => d.namespace === source.namespace) : undefined
+const guide =
+  props.page.kind === 'client'
+    ? CLIENT_GUIDES.find((c) => c.id === (props.page as { clientId: string }).clientId)
+    : undefined
+const workflow =
+  props.page.kind === 'workflow'
+    ? WORKFLOWS.find((w) => w.id === (props.page as { workflowId: string }).workflowId)
+    : undefined
 </script>
-
 <template>
-  <!-- Fixed ambient background: one intentional brand spotlight + drafting grid -->
-  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-ink" aria-hidden="true">
-    <div class="absolute inset-0 bg-spotlight"></div>
-    <div class="absolute inset-0 bg-grid"></div>
-    <!-- a single slow magenta glow for ambient life, not a rainbow of blobs -->
-    <div
-      class="animate-aurora absolute -left-32 -top-40 h-[36rem] w-[36rem] rounded-full bg-primary/10 blur-[130px]"
-    ></div>
-    <!-- bottom fade so content settles into pure ink -->
-    <div class="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-ink to-transparent"></div>
-  </div>
-
-  <!-- Skip link for keyboard / screen-reader users -->
-  <a
-    href="#main"
-    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:font-semibold focus:text-white"
-  >
-    Skip to content
-  </a>
-
-  <div class="min-h-screen font-sans">
-    <NavBar />
-    <main id="main">
-      <HeroSection />
-      <TrustBar />
-      <HowItWorks />
-      <ServerCatalog />
-      <FeatureGrid />
-      <ConnectSection />
-      <CtaSection />
-    </main>
-    <FooterSection />
-  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <NavBar />
+  <main id="main" tabindex="-1">
+    <HomePage v-if="page.kind === 'home'" />
+    <SourceIndexPage v-else-if="page.kind === 'source-index'" />
+    <SourceDetailPage v-else-if="source && detail" :source="source" :detail="detail" />
+    <ConnectIndexPage v-else-if="page.kind === 'client-index'" />
+    <ClientGuidePage v-else-if="guide" :guide="guide" />
+    <WorkflowIndexPage v-else-if="page.kind === 'workflow-index'" />
+    <WorkflowPage v-else-if="workflow" :workflow="workflow" />
+    <AboutPage v-else-if="page.kind === 'about'" />
+    <LimitationsPage v-else-if="page.kind === 'limitations'" />
+    <ImprintPage v-else-if="page.kind === 'imprint'" />
+    <NotFoundPage v-else />
+  </main>
+  <FooterSection />
 </template>

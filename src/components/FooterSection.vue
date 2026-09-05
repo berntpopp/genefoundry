@@ -1,106 +1,133 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import ImprintModal from './ImprintModal.vue'
+import { COPY } from '../data/copy'
+import { SITE } from '../data/site'
 import { GITHUB_URL, HEALTH_URL, HOSTED_ENDPOINT } from '../data/servers'
-
-const isImprintOpen = ref(false)
-
-const openImprint = () => {
-  isImprintOpen.value = true
-  document.body.style.overflow = 'hidden'
-}
-const closeImprint = () => {
-  isImprintOpen.value = false
-  document.body.style.overflow = ''
-}
-
-interface FooterLink {
-  label: string
-  href: string
-  external?: boolean
-}
-
-const nav: Record<string, FooterLink[]> = {
-  Explore: [
-    { label: 'How it works', href: '#how' },
-    { label: 'Server catalog', href: '#catalog' },
-    { label: 'Why GeneFoundry', href: '#features' },
-    { label: 'Connect a host', href: '#connect' }
-  ],
-  Resources: [
-    { label: 'GitHub', href: GITHUB_URL, external: true },
-    { label: 'Health check', href: HEALTH_URL, external: true },
-    { label: 'MCP endpoint', href: HOSTED_ENDPOINT, external: true },
-    { label: 'Contact', href: 'mailto:support@genefoundry.org' }
-  ]
-}
+import { siteHref, assetHref } from '../lib/urls'
+const groups = [
+  {
+    title: 'Explore',
+    links: [
+      { label: 'Sources', href: siteHref('/sources/') },
+      { label: 'Workflows', href: siteHref('/workflows/') },
+      { label: 'Connect your client', href: siteHref('/connect/') }
+    ]
+  },
+  {
+    title: 'Project',
+    links: [
+      { label: 'About', href: siteHref('/about/') },
+      { label: 'Scope and limitations', href: siteHref('/limitations/') },
+      { label: 'GitHub repository', href: GITHUB_URL },
+      { label: 'Contact', href: 'mailto:support@genefoundry.org' }
+    ]
+  }
+]
 </script>
-
 <template>
-  <footer class="relative border-t border-white/[0.08] bg-ink-2/60">
-    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-      <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
-        <!-- Brand -->
-        <div>
-          <div class="flex items-center gap-2.5">
-            <img
-              src="/genefoundry_logo.svg"
-              alt="GeneFoundry logo"
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-identity">
+          <a :href="siteHref('/')" class="footer-brand"
+            ><img
+              :src="assetHref('/genefoundry_logo.svg')"
+              alt=""
               width="32"
               height="32"
-              class="h-8 w-8"
-            />
-            <span class="text-lg font-bold tracking-tight text-white">
-              Gene<span class="text-primary-light">Foundry</span>
-            </span>
-          </div>
-          <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
-            A FastMCP gateway federating biomedical MCP servers behind one endpoint. Trustworthy
-            genomic data, federated for agents.
-          </p>
-          <code
-            class="mt-4 inline-block rounded-lg border border-white/[0.08] bg-black/30 px-3 py-1.5 font-mono text-xs text-slate-400"
+            />GeneFoundry</a
           >
-            {{ HOSTED_ENDPOINT }}
-          </code>
+          <p>{{ COPY.footer.description }}</p>
+          <p class="metadata endpoint">
+            Hosted MCP endpoint<br /><a :href="HOSTED_ENDPOINT">{{ HOSTED_ENDPOINT }}</a>
+          </p>
         </div>
-
-        <!-- Link columns -->
-        <div v-for="(items, heading) in nav" :key="heading">
-          <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-slate-400">
-            {{ heading }}
-          </h3>
-          <ul class="mt-4 space-y-2.5">
-            <li v-for="item in items" :key="item.label">
+        <div v-for="group in groups" :key="group.title">
+          <h2>{{ group.title }}</h2>
+          <ul>
+            <li v-for="link in group.links" :key="link.label">
               <a
-                :href="item.href"
-                :target="item.external ? '_blank' : undefined"
-                :rel="item.external ? 'noopener noreferrer' : undefined"
-                class="text-sm text-slate-400 transition-colors hover:text-white"
+                :id="link.label === 'Scope and limitations' ? 'features' : undefined"
+                :href="link.href"
+                >{{ link.label }}</a
               >
-                {{ item.label }}
-              </a>
             </li>
           </ul>
         </div>
       </div>
-
-      <div
-        class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-sm text-slate-400 sm:flex-row"
-      >
-        <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-          <span>MIT © {{ new Date().getFullYear() }} Bernt Popp</span>
-          <span class="text-slate-700">·</span>
-          <button @click="openImprint" class="cursor-pointer transition-colors hover:text-white">
-            Imprint
-          </button>
+      <div class="footer-bottom metadata">
+        <p>© {{ SITE.buildYear }} Bernt Popp · {{ COPY.footer.researchNotice }}</p>
+        <div class="inline-links">
+          <a :href="HEALTH_URL">Open endpoint health check</a
+          ><a :href="siteHref('/imprint/')">Imprint</a>
         </div>
-        <p class="text-center text-xs sm:text-right">
-          Research use only. Not clinical decision support.
-        </p>
       </div>
     </div>
-
-    <ImprintModal :is-open="isImprintOpen" @close="closeImprint" />
   </footer>
 </template>
+<style scoped>
+.site-footer {
+  border-top: 1px solid var(--color-rule);
+  padding-block: 48px 24px;
+}
+.footer-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 64px;
+  padding-bottom: 40px;
+}
+.footer-main > * {
+  min-width: 0;
+}
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.footer-identity p {
+  max-width: 42ch;
+  color: var(--color-muted);
+  margin-top: 16px;
+  font-size: 0.875rem;
+}
+h2 {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 8px 0 16px;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li + li {
+  margin-top: 8px;
+}
+li a {
+  font-size: 0.875rem;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 24px;
+  border-top: 1px solid var(--color-rule);
+  padding-top: 24px;
+}
+@media (max-width: 700px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+  .footer-identity {
+    grid-column: 1 / -1;
+  }
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+</style>

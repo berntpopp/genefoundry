@@ -1,63 +1,114 @@
 <script setup lang="ts">
+import { computed, watch } from 'vue'
 import { Check, Copy } from 'lucide-vue-next'
 import { useClipboard } from '../../composables'
-
-/**
- * Glass "copy this command" card: the page's signature interaction.
- * Renders a monospace command with a one-click copy button.
- */
+import { COPY } from '../../data/copy'
 const props = withDefaults(
   defineProps<{
-    /** Raw text copied to the clipboard. */
     command: string
-    /** Optional terminal-style label shown in the title bar. */
     label?: string
-    /** Optional leading prompt glyph rendered before the command (not copied). */
     prompt?: string
+    copyKind?: 'endpoint' | 'setup'
   }>(),
-  { label: 'terminal', prompt: '$' }
+  { label: 'Setup instructions', prompt: '', copyKind: 'setup' }
 )
-
-const { copied, copy } = useClipboard()
+const { copied, pending, error, copy, reset } = useClipboard()
+watch(() => [props.command, props.copyKind, props.label], reset)
+const success = computed(() =>
+  props.copyKind === 'endpoint' ? COPY.states.copyEndpointSuccess : COPY.states.copySetupSuccess
+)
+const action = computed(() =>
+  pending.value
+    ? COPY.states.copyPending
+    : error.value
+      ? COPY.states.copyRetry
+      : props.copyKind === 'endpoint'
+        ? 'Copy endpoint'
+        : 'Copy setup'
+)
 </script>
-
 <template>
-  <div
-    class="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md shadow-2xl shadow-black/40"
-  >
-    <!-- Title bar -->
-    <div class="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-      <div class="flex items-center gap-1.5">
-        <span class="h-2.5 w-2.5 rounded-full bg-white/15"></span>
-        <span class="h-2.5 w-2.5 rounded-full bg-white/15"></span>
-        <span class="h-2.5 w-2.5 rounded-full bg-white/15"></span>
-      </div>
-      <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">{{
-        label
-      }}</span>
-    </div>
-
-    <!-- Command row -->
-    <div class="flex items-center gap-3 px-4 py-4">
-      <code
-        class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-sm text-slate-200"
-      >
-        <span v-if="prompt" class="mr-2 select-none text-accent">{{ prompt }}</span
-        ><span>{{ command }}</span>
-      </code>
-      <button
-        type="button"
-        @click="copy(props.command)"
-        class="flex shrink-0 items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-white/20 hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
-        :aria-label="copied ? 'Command copied' : 'Copy command to clipboard'"
-      >
-        <component
-          :is="copied ? Check : Copy"
-          class="h-3.5 w-3.5"
-          :class="copied ? 'text-emerald-400' : ''"
-        />
-        <span>{{ copied ? 'Copied' : 'Copy' }}</span>
+  <div class="command-card">
+    <div class="command-heading">
+      <span>{{ label }}</span>
+      <button type="button" :disabled="pending" :aria-busy="pending" @click="copy(command)">
+        <component :is="copied ? Check : Copy" aria-hidden="true" :size="16" />
+        {{ action }}
       </button>
     </div>
+    <pre
+      tabindex="0"
+      role="region"
+      :aria-label="label"
+    ><code><span v-if="prompt" aria-hidden="true" class="command-prompt">{{ prompt }} </span>{{ command }}</code></pre>
+    <p class="copy-feedback" role="status" aria-live="polite" :class="{ 'copy-error': error }">
+      {{ pending ? COPY.states.copyPending : error || (copied ? success : '') }}
+    </p>
   </div>
 </template>
+<style scoped>
+.command-card {
+  min-width: 0;
+  color: var(--color-code-text);
+  background: var(--color-code);
+  border-radius: 0.5rem;
+  margin-block: 1.5rem;
+}
+.command-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--color-code-muted);
+  font-size: 0.875rem;
+}
+.command-heading button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-code-muted);
+  border-radius: 0.25rem;
+  color: var(--color-code-text);
+  background: transparent;
+  cursor: pointer;
+}
+.command-card :is(button, pre):focus-visible {
+  outline: 2px solid var(--color-code-text);
+  outline-offset: 3px;
+}
+.command-heading button:disabled {
+  cursor: progress;
+}
+.command-card pre {
+  margin: 0;
+  padding: 1.25rem;
+  overflow-x: auto;
+  background: transparent;
+  color: inherit;
+  white-space: pre;
+  font-size: 0.9375rem;
+}
+.command-card code {
+  font-family: var(--font-mono, monospace);
+  color: inherit;
+  background: transparent;
+  padding: 0;
+}
+.command-prompt {
+  color: var(--color-code-muted);
+  user-select: none;
+}
+.copy-feedback {
+  padding: 0 1.25rem 1rem;
+  margin: 0;
+  min-height: 2.5rem;
+  font-size: 0.875rem;
+}
+.copy-error {
+  font-weight: 600;
+}
+</style>
