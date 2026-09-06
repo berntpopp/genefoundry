@@ -80,10 +80,13 @@ const backendProv = computed<BackendProvenance | undefined>(() =>
           <div class="tool-list">
             <details v-for="t in backendProv.tools" :key="t.name" class="tool-card">
               <summary class="tool-summary">
-                <code class="listed-tool">{{ t.federated_name }}</code>
+                <code class="tool-name">{{ t.name }}</code>
                 <span class="tool-brief">{{ t.description.split('\n')[0] }}</span>
               </summary>
               <div class="tool-body">
+                <p class="metadata tool-id">
+                  Router invocation: <code>{{ t.federated_name }}()</code>
+                </p>
                 <p class="tool-full-desc">{{ t.description }}</p>
                 <div
                   v-if="
@@ -305,27 +308,46 @@ dd {
   border: 1px solid var(--color-rule);
   border-radius: 6px;
   padding: 10px 14px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .tool-summary {
   cursor: pointer;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.tool-name {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 2px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .tool-brief {
   color: var(--color-muted);
   font-size: 0.875rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .tool-body {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid var(--color-rule);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.tool-id {
+  margin-bottom: 8px;
 }
 .tool-full-desc {
   font-size: 0.9rem;
   white-space: pre-wrap;
   margin-bottom: 12px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .tool-parameters-heading {
   font-size: 0.95rem;

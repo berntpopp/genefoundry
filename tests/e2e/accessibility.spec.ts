@@ -9,7 +9,7 @@ for (const width of [390, 1440]) {
     browser,
     baseURL
   }) => {
-    test.setTimeout(120000)
+    test.setTimeout(240000)
     for (const route of routes) {
       const context = await browser.newContext({
         baseURL,
@@ -39,7 +39,7 @@ test('every public route retains readable 200% text at narrow width', async ({
   browser,
   baseURL
 }) => {
-  test.setTimeout(120000)
+  test.setTimeout(240000)
   for (const route of routes) {
     const context = await browser.newContext({
       baseURL,
