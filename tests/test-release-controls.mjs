@@ -142,12 +142,13 @@ test('release manifest generator binds the image to source and version', () => {
     assert.equal(result.status, 0, result.stderr)
     const manifest = JSON.parse(readFileSync(output, 'utf8'))
     assert.deepEqual(manifest, {
-      data_requirements: { mode: 'none' },
+      data_requirements: { mode: 'none', schema_compatibility: [] },
       image: {
         digest: DIGEST,
         name: 'ghcr.io/berntpopp/genefoundry',
         platforms: [{ digest: DIGEST, platform: 'linux/amd64' }]
       },
+      mcp: null,
       repository: 'berntpopp/genefoundry',
       release_assets: {
         'image-manifest.json': DIGEST,

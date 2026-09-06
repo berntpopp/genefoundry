@@ -81,13 +81,18 @@ function main() {
     throw new Error('output is required')
   }
 
+  // The deployment controller recomputes the manifest's canonical digest from
+  // its parsed model, so every schema field has to be explicit: a static site
+  // has no MCP surface (`mcp: null`) and no data requirements
+  // (`schema_compatibility: []`), stated the way the fleet's manifests state them.
   const manifest = {
-    data_requirements: { mode: 'none' },
+    data_requirements: { mode: 'none', schema_compatibility: [] },
     image: {
       digest,
       name: image,
       platforms: [{ digest, platform: 'linux/amd64' }]
     },
+    mcp: null,
     repository: 'berntpopp/genefoundry',
     release_assets: {
       'image-manifest.json': digest,
