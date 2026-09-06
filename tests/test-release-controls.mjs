@@ -326,3 +326,224 @@ test('release source rejects a failed latest gate', () => {
     rmSync(workdir, { recursive: true, force: true })
   }
 })
+
+function nativeScanReport(revision, overrides = {}) {
+  return {
+    ArtifactID: `sha256:${'7'.repeat(64)}`,
+    ArtifactName: `release-gate:${revision}`,
+    ArtifactType: 'container_image',
+    CreatedAt: '2026-09-06T07:26:09.045133Z',
+    Metadata: {
+      ImageID: `sha256:${'c'.repeat(64)}`,
+      RepoTags: [`release-gate:${revision}`]
+    },
+    Results: [{ Class: 'os-pkgs', Target: 'release-gate (alpine 3.24.1)', Type: 'alpine' }],
+    SchemaVersion: 2,
+    ...overrides
+  }
+}
+
+const SCANNER_VERSION_EVIDENCE = {
+  Version: '0.70.0',
+  VulnerabilityDB: {
+    DownloadedAt: '2026-09-06T06:33:38.32418156Z',
+    NextUpdate: '2026-09-07T01:00:31.976900338Z',
+    UpdatedAt: '2026-09-06T01:00:31.976900695Z',
+    Version: 2
+  }
+}
+
+function buildScannerEnvelope(workdir, scan, extraArguments = []) {
+  const scanPath = join(workdir, 'trivy.json')
+  const versionPath = join(workdir, 'trivy-version.json')
+  writeFileSync(scanPath, JSON.stringify(scan))
+  writeFileSync(versionPath, JSON.stringify(SCANNER_VERSION_EVIDENCE))
+  const result = spawnSync(
+    process.execPath,
+    [
+      'scripts/build-scanner-envelope.mjs',
+      '--scan',
+      scanPath,
+      '--version',
+      versionPath,
+      '--image',
+      'ghcr.io/berntpopp/genefoundry',
+      '--digest',
+      DIGEST,
+      '--revision',
+      REVISION,
+      '--output',
+      scanPath,
+      ...extraArguments
+    ],
+    { encoding: 'utf8' }
+  )
+  return { result, scanPath }
+}
+
+test('scanner envelope closes the native report over the exact image and revision', () => {
+  const workdir = mkdtempSync(join(tmpdir(), 'genefoundry-scanner-envelope-'))
+
+  try {
+    const { result, scanPath } = buildScannerEnvelope(workdir, nativeScanReport(REVISION))
+
+    assert.equal(result.status, 0, result.stderr)
+    const envelope = JSON.parse(readFileSync(scanPath, 'utf8'))
+    assert.deepEqual(Object.keys(envelope).sort(), ['scan', 'schema_version', 'version', 'wrapper'])
+    assert.equal(envelope.schema_version, 2)
+    assert.deepEqual(envelope.scan, nativeScanReport(REVISION))
+    assert.deepEqual(envelope.version, SCANNER_VERSION_EVIDENCE)
+    assert.deepEqual(envelope.wrapper, {
+      fixable_critical: 0,
+      fixable_high: 0,
+      image_ref: `ghcr.io/berntpopp/genefoundry@${DIGEST}`,
+      policy: 'genefoundry-trivy-v2',
+      results: [
+        {
+          class: 'os-pkgs',
+          count: 0,
+          target: 'release-gate (alpine 3.24.1)',
+          vulnerability_member: false
+        }
+      ],
+      source_revision: REVISION
+    })
+  } finally {
+    rmSync(workdir, { recursive: true, force: true })
+  }
+})
+
+test('scanner envelope records a present vulnerability member and its count', () => {
+  const workdir = mkdtempSync(join(tmpdir(), 'genefoundry-scanner-envelope-'))
+
+  try {
+    const scan = nativeScanReport(REVISION, {
+      Results: [
+        {
+          Class: 'os-pkgs',
+          Target: 'release-gate (alpine 3.24.1)',
+          Type: 'alpine',
+          Vulnerabilities: [
+            {
+              InstalledVersion: '1.0.0',
+              PkgName: 'demo',
+              Severity: 'HIGH',
+              VulnerabilityID: 'CVE-2026-0001'
+            }
+          ]
+        }
+      ]
+    })
+    const { result, scanPath } = buildScannerEnvelope(workdir, scan)
+
+    assert.equal(result.status, 0, result.stderr)
+    const envelope = JSON.parse(readFileSync(scanPath, 'utf8'))
+    assert.deepEqual(envelope.wrapper.results, [
+      {
+        class: 'os-pkgs',
+        count: 1,
+        target: 'release-gate (alpine 3.24.1)',
+        vulnerability_member: true
+      }
+    ])
+    assert.equal(envelope.wrapper.fixable_high, 0)
+  } finally {
+    rmSync(workdir, { recursive: true, force: true })
+  }
+})
+
+test('scanner envelope rejects a fixable blocking vulnerability', () => {
+  const workdir = mkdtempSync(join(tmpdir(), 'genefoundry-scanner-envelope-'))
+
+  try {
+    const scan = nativeScanReport(REVISION, {
+      Results: [
+        {
+          Class: 'os-pkgs',
+          Target: 'release-gate (alpine 3.24.1)',
+          Type: 'alpine',
+          Vulnerabilities: [
+            {
+              FixedVersion: '1.0.1',
+              InstalledVersion: '1.0.0',
+              PkgName: 'demo',
+              Severity: 'CRITICAL',
+              VulnerabilityID: 'CVE-2026-0002'
+            }
+          ]
+        }
+      ]
+    })
+    const { result } = buildScannerEnvelope(workdir, scan)
+
+    assert.notEqual(result.status, 0)
+    assert.match(result.stderr, /fixable blocking vulnerabilities/)
+  } finally {
+    rmSync(workdir, { recursive: true, force: true })
+  }
+})
+
+test('scanner envelope rejects a report bound to another revision', () => {
+  const workdir = mkdtempSync(join(tmpdir(), 'genefoundry-scanner-envelope-'))
+
+  try {
+    const { result } = buildScannerEnvelope(workdir, nativeScanReport('f'.repeat(40)))
+
+    assert.notEqual(result.status, 0)
+    assert.match(result.stderr, /not bound to the release gate image/)
+  } finally {
+    rmSync(workdir, { recursive: true, force: true })
+  }
+})
+
+test('scanner envelope refuses to wrap an already-wrapped report', () => {
+  const workdir = mkdtempSync(join(tmpdir(), 'genefoundry-scanner-envelope-'))
+
+  try {
+    const { result } = buildScannerEnvelope(workdir, {
+      scan: nativeScanReport(REVISION),
+      schema_version: 2,
+      version: SCANNER_VERSION_EVIDENCE
+    })
+
+    assert.notEqual(result.status, 0)
+    assert.match(result.stderr, /already an envelope/)
+  } finally {
+    rmSync(workdir, { recursive: true, force: true })
+  }
+})
+
+test('scanner envelope rejects an unexpected image coordinate', () => {
+  const workdir = mkdtempSync(join(tmpdir(), 'genefoundry-scanner-envelope-'))
+
+  try {
+    const scanPath = join(workdir, 'trivy.json')
+    const versionPath = join(workdir, 'trivy-version.json')
+    writeFileSync(scanPath, JSON.stringify(nativeScanReport(REVISION)))
+    writeFileSync(versionPath, JSON.stringify(SCANNER_VERSION_EVIDENCE))
+    const result = spawnSync(
+      process.execPath,
+      [
+        'scripts/build-scanner-envelope.mjs',
+        '--scan',
+        scanPath,
+        '--version',
+        versionPath,
+        '--image',
+        'ghcr.io/berntpopp/genefoundry:latest',
+        '--digest',
+        DIGEST,
+        '--revision',
+        REVISION,
+        '--output',
+        scanPath
+      ],
+      { encoding: 'utf8' }
+    )
+
+    assert.notEqual(result.status, 0)
+    assert.match(result.stderr, /image must be ghcr\.io\/berntpopp\/genefoundry/)
+  } finally {
+    rmSync(workdir, { recursive: true, force: true })
+  }
+})
