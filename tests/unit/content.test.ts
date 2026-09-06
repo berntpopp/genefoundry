@@ -15,7 +15,7 @@ const input = {
 }
 test('publication content has complete reviewed joins and safe claims', () => {
   expect(() => validateContent(input, { publication: true })).not.toThrow()
-  expect(SOURCE_DETAILS).toHaveLength(21)
+  expect(SOURCE_DETAILS).toHaveLength(22)
   for (const detail of SOURCE_DETAILS) {
     expect(detail.tasks.length).toBeGreaterThan(0)
     expect(detail.identifiers.length).toBeGreaterThan(0)

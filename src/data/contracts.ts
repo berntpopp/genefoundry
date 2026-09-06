@@ -175,3 +175,67 @@ export interface SiteCopy {
     noRecipeBody: string
   }
 }
+
+export interface ProvenanceTool {
+  name: string
+  federated_name: string
+  description: string
+  inputSchema?: {
+    type?: string
+    properties?: Record<string, { type?: string; description?: string; default?: unknown }>
+    required?: string[]
+  }
+  tags?: string[]
+  annotations?: Record<string, unknown>
+}
+
+export interface DatabaseProvenance {
+  mode: string
+  status: string
+  release_tag?: string | null
+  asset_sha256?: string | null
+  schema_compatibility?: string[]
+  data_identity_contract?: string | null
+  updated_at?: string | null
+}
+
+export interface ReleaseProvenance {
+  version?: string | null
+  tag?: string | null
+  commit?: string | null
+  image?: string | null
+  definitions_sha256?: string | null
+}
+
+export interface BackendProvenance {
+  namespace: string
+  name: string
+  domain: string
+  source_name: string
+  source_url: string
+  repository?: string | null
+  repository_url?: string | null
+  tags: string[]
+  entrypoints: string[]
+  tools_count: number
+  release: ReleaseProvenance
+  database_provenance: DatabaseProvenance
+  tools: ProvenanceTool[]
+}
+
+export interface FleetProvenance {
+  schema_version: number
+  fleet: {
+    total_repositories: number
+    total_backends: number
+    total_tools: number
+  }
+  router: {
+    repository: string
+    repository_url: string
+    mcp_endpoint: string
+    health_endpoint: string
+    provenance_endpoint: string
+  }
+  backends: BackendProvenance[]
+}

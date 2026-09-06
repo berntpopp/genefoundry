@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import type { SourceDetail } from '../data/contracts'
+import { computed } from 'vue'
+import type { SourceDetail, FleetProvenance, BackendProvenance } from '../data/contracts'
 import { CATEGORIES, type ServerEntry } from '../data/servers'
 import { siteHref } from '../lib/urls'
-defineProps<{ source: ServerEntry; detail: SourceDetail }>()
+import provenanceJson from '../data/fleet-provenance.json'
+
+const props = defineProps<{ source: ServerEntry; detail: SourceDetail }>()
+
+const fleetProv = provenanceJson as unknown as FleetProvenance
+const backendProv = computed<BackendProvenance | undefined>(() =>
+  fleetProv.backends.find((b) => b.namespace === props.source.namespace)
+)
 </script>
 <template>
   <article class="reading-page prose source-detail-page">
@@ -63,6 +71,91 @@ defineProps<{ source: ServerEntry; detail: SourceDetail }>()
                 : 'Source version not supplied by this website catalog.'
             }}
           </p>
+        </section>
+        <section v-if="backendProv?.tools && backendProv.tools.length > 0" class="tools-directory">
+          <h2>All available tools ({{ backendProv.tools.length }})</h2>
+          <p>
+            The router surfaces these tools namespaced under <code>{{ source.namespace }}_*</code>:
+          </p>
+          <div class="tool-list">
+            <details v-for="t in backendProv.tools" :key="t.name" class="tool-card">
+              <summary class="tool-summary">
+                <code class="listed-tool">{{ t.federated_name }}</code>
+                <span class="tool-brief">{{ t.description.split('\n')[0] }}</span>
+              </summary>
+              <div class="tool-body">
+                <p class="tool-full-desc">{{ t.description }}</p>
+                <div
+                  v-if="
+                    t.inputSchema?.properties && Object.keys(t.inputSchema.properties).length > 0
+                  "
+                  class="tool-parameters"
+                >
+                  <h3 class="tool-parameters-heading">Input parameters</h3>
+                  <ul class="param-list">
+                    <li v-for="(prop, propName) in t.inputSchema.properties" :key="propName">
+                      <code>{{ propName }}</code>
+                      <span class="param-type">({{ (prop as any).type || 'any' }})</span>
+                      <span
+                        v-if="t.inputSchema.required?.includes(propName as string)"
+                        class="param-required"
+                      >
+                        [required]
+                      </span>
+                      <span v-if="(prop as any).description" class="param-desc">
+                        — {{ (prop as any).description }}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
+        <section v-if="backendProv" class="provenance-section">
+          <h2>Database &amp; release provenance</h2>
+          <div class="provenance-panel">
+            <dl class="provenance-facts">
+              <div>
+                <dt>Data mode</dt>
+                <dd>
+                  <code>{{ backendProv.database_provenance.mode }}</code>
+                </dd>
+              </div>
+              <div>
+                <dt>Attestation</dt>
+                <dd>
+                  <span class="prov-status">{{ backendProv.database_provenance.status }}</span>
+                </dd>
+              </div>
+              <div v-if="backendProv.database_provenance.release_tag">
+                <dt>Data release tag</dt>
+                <dd>
+                  <code>{{ backendProv.database_provenance.release_tag }}</code>
+                </dd>
+              </div>
+              <div v-if="backendProv.release.version">
+                <dt>Release version</dt>
+                <dd>
+                  <code>{{ backendProv.release.tag || `v${backendProv.release.version}` }}</code>
+                </dd>
+              </div>
+            </dl>
+            <div v-if="backendProv.database_provenance.asset_sha256" class="provenance-image">
+              <span class="metadata">Data asset SHA-256:</span>
+              <code class="break-all">{{ backendProv.database_provenance.asset_sha256 }}</code>
+            </div>
+            <div v-if="backendProv.release.image" class="provenance-image">
+              <span class="metadata">Container image:</span>
+              <code class="break-all">{{ backendProv.release.image }}</code>
+            </div>
+            <p class="metadata provenance-footer">
+              Inspect canonical provenance artifact:
+              <a href="https://genefoundry.org/provenance" target="_blank" rel="noopener"
+                >genefoundry.org/provenance (JSON)</a
+              >
+            </p>
+          </div>
         </section>
         <section>
           <h2>Review the response</h2>
@@ -195,6 +288,108 @@ dd {
 }
 @media (max-width: 400px) {
   .source-facts {
+    grid-template-columns: 1fr;
+  }
+}
+.tools-directory {
+  margin-top: 32px;
+}
+.tool-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.tool-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+.tool-summary {
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+.tool-brief {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+.tool-body {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-rule);
+}
+.tool-full-desc {
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  margin-bottom: 12px;
+}
+.tool-parameters-heading {
+  font-size: 0.95rem;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+.param-list {
+  font-size: 0.85rem;
+  margin-left: 16px;
+}
+.param-type {
+  color: var(--color-muted);
+}
+.param-required {
+  color: var(--color-brand);
+  font-weight: 600;
+  margin-left: 4px;
+}
+.param-desc {
+  color: var(--color-ink);
+}
+.provenance-section {
+  margin-top: 36px;
+}
+.provenance-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  padding: 16px 20px;
+}
+.provenance-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 16px 0;
+}
+.prov-status {
+  display: inline-block;
+  background: var(--color-brand-tint);
+  color: var(--color-brand);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.provenance-description {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+.provenance-image {
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+.break-all {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+.provenance-footer {
+  margin-top: 12px;
+  border-top: 1px solid var(--color-rule);
+  padding-top: 8px;
+}
+@media (max-width: 600px) {
+  .provenance-facts {
     grid-template-columns: 1fr;
   }
 }
