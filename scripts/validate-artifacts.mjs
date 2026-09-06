@@ -9,14 +9,17 @@ import { pageOutputPath } from './prerender.mjs'
 function requireValue(condition, message) {
   if (!condition) throw new Error(message)
 }
-const decode = (value) =>
+// `&amp;` is decoded LAST, mirroring `escapeHtml` encoding it first. Decoding it
+// first would re-decode its own output: "&amp;lt;" would become "<" instead of
+// the literal "&lt;" that was encoded.
+export const decode = (value) =>
   value
-    .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
-const escapeHtml = (value) =>
+    .replace(/&amp;/g, '&')
+export const escapeHtml = (value) =>
   value
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
