@@ -223,7 +223,9 @@ jobs:
         id: scan-evidence
         shell: bash
         env:
+          DIGEST: ${{ steps.image.outputs.digest }}
           EVIDENCE_ROOT: ${{ steps.paths.outputs.root }}
+          REVISION: ${{ steps.source.outputs.revision }}
           TRIVY_CACHE_DIR: ${{ github.workspace }}/.cache/trivy
         run: |
           set -euo pipefail
@@ -232,6 +234,16 @@ jobs:
             "$EVIDENCE_ROOT/trivy-version.json")"
           database_updated_at="$(jq -er '.VulnerabilityDB.UpdatedAt' \
             "$EVIDENCE_ROOT/trivy-version.json")"
+          # Close the native report into the reviewed evidence envelope before it
+          # is hashed: the manifest binds the published bytes, so the deployment
+          # controller only ever sees what is wrapped here.
+          node scripts/build-scanner-envelope.mjs \
+            --scan "$EVIDENCE_ROOT/trivy.json" \
+            --version "$EVIDENCE_ROOT/trivy-version.json" \
+            --image ghcr.io/berntpopp/genefoundry \
+            --digest "$DIGEST" \
+            --revision "$REVISION" \
+            --output "$EVIDENCE_ROOT/trivy.json"
           scanner_evidence_sha256="$(sha256sum "$EVIDENCE_ROOT/trivy.json" | cut -d' ' -f1)"
           sbom_sha256="$(sha256sum "$EVIDENCE_ROOT/sbom.spdx.json" | cut -d' ' -f1)"
           scanner_version_evidence_sha256="$(
