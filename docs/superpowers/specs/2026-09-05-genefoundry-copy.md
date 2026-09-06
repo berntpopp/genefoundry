@@ -7,7 +7,7 @@ Date: 5 September 2026. Companion to the modernization design and execution plan
 
 Write for researchers choosing a source and developers connecting a client. Use “client” for the AI application, “source” for the biomedical resource, and “MCP server” for its integration. Explain Model Context Protocol on first use. Keep source and integration distinct: a configured source is not a claim of partnership, endorsement or uptime.
 
-Quoted text below is intended for publication. Braced values are typed content bindings, never literal placeholders on the published page. Generate counts from `src/data/servers.ts`; the reviewed snapshot contains 21 server entries and 280 listed tools. Describe these as catalog counts, not a live discovery measurement. Dates must describe the event actually recorded: editorial review, recipe test or response retrieval. A build date is none of these.
+Quoted text below is intended for publication. Braced values are typed content bindings, never literal placeholders on the published page. Generate counts from `src/data/servers.ts`; the reviewed snapshot contains 22 server entries and 285 listed tools. Describe these as catalog counts, not a live discovery measurement. Dates must describe the event actually recorded: editorial review, recipe test or response retrieval. A build date is none of these.
 
 Default evidence treatment: a static, explicitly illustrative discovery trace. No fabricated biomedical response, allele frequency, clinical conclusion, citation flag, response time or live status. A tool name taken from the catalog can be labeled “Listed tool”; it cannot be labeled “Tool called” without execution evidence.
 

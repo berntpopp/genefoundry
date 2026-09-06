@@ -58,14 +58,31 @@ export interface ServerEntry {
   sampleTool: string
 }
 
-/** Ordered by tool count, matching the README catalog table. */
+import provenanceJson from './fleet-provenance.json' with { type: 'json' }
+import type { FleetProvenance } from './contracts.ts'
+
+const provenance = provenanceJson as unknown as FleetProvenance
+
+export const PROVENANCE_TOOL_COUNTS: Record<string, number> = Object.fromEntries(
+  provenance.backends.map((b) => [b.namespace, b.tools.length])
+)
+
+function getToolCount(namespace: string): number {
+  const count = PROVENANCE_TOOL_COUNTS[namespace]
+  if (typeof count !== 'number') {
+    throw new Error(`Missing tool count in fleet-provenance.json for backend: ${namespace}`)
+  }
+  return count
+}
+
+/** Ordered by tool count, matching the README catalog table and canonical fleet provenance. */
 export const SERVERS: ServerEntry[] = [
   {
     namespace: 'pubtator',
     domain: 'Literature & entity annotation',
     source: 'PubTator3',
     sourceUrl: 'https://www.ncbi.nlm.nih.gov/research/pubtator3/',
-    tools: 43,
+    tools: getToolCount('pubtator'),
     repo: 'berntpopp/pubtator-link',
     category: 'literature',
     sampleTool: 'pubtator_search_literature'
@@ -75,7 +92,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Variant, gene & population frequency',
     source: 'gnomAD',
     sourceUrl: 'https://gnomad.broadinstitute.org/',
-    tools: 22,
+    tools: getToolCount('gnomad'),
     repo: 'berntpopp/gnomad-link',
     category: 'variant',
     sampleTool: 'gnomad_search_genes'
@@ -85,7 +102,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Rare disease ontology & associations',
     source: 'Orphadata',
     sourceUrl: 'https://www.orphadata.com/',
-    tools: 19,
+    tools: getToolCount('orphanet'),
     repo: 'berntpopp/orphanet-link',
     category: 'ontology',
     sampleTool: 'orphanet_resolve_disease'
@@ -95,7 +112,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Gene–disease curation',
     source: 'ClinGen',
     sourceUrl: 'https://clinicalgenome.org/',
-    tools: 17,
+    tools: getToolCount('clingen'),
     repo: 'berntpopp/clingen-link',
     category: 'gene-disease',
     sampleTool: 'clingen_get_gene_validity'
@@ -105,7 +122,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Phenotype ontology & associations',
     source: 'Human Phenotype Ontology',
     sourceUrl: 'https://hpo.jax.org/',
-    tools: 17,
+    tools: getToolCount('hpo'),
     repo: 'berntpopp/hpo-link',
     category: 'ontology',
     sampleTool: 'hpo_resolve_term'
@@ -115,7 +132,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Variant-effect assay scores',
     source: 'MaveDB',
     sourceUrl: 'https://www.mavedb.org/',
-    tools: 15,
+    tools: getToolCount('mavedb'),
     repo: 'berntpopp/mavedb-link',
     category: 'variant',
     sampleTool: 'mavedb_search_score_sets'
@@ -125,7 +142,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Protein function',
     source: 'UniProt',
     sourceUrl: 'https://www.uniprot.org/',
-    tools: 15,
+    tools: getToolCount('uniprot'),
     repo: 'berntpopp/uniprot-link',
     category: 'gene-protein',
     sampleTool: 'uniprot_find_proteins'
@@ -135,7 +152,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Mouse phenotype & models',
     source: 'MGI',
     sourceUrl: 'https://www.informatics.jax.org/',
-    tools: 13,
+    tools: getToolCount('mgi'),
     repo: 'berntpopp/mgi-link',
     category: 'expression-models',
     sampleTool: 'mgi_get_marker_phenotypes'
@@ -145,7 +162,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Gene–disease literature',
     source: 'GeneReviews',
     sourceUrl: 'https://www.ncbi.nlm.nih.gov/books/NBK1116/',
-    tools: 13,
+    tools: getToolCount('genereviews'),
     repo: 'berntpopp/genereviews-link',
     category: 'literature',
     sampleTool: 'genereviews_search_genereviews'
@@ -155,7 +172,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Disease ontology & cross-references',
     source: 'Mondo',
     sourceUrl: 'https://mondo.monarchinitiative.org/',
-    tools: 13,
+    tools: getToolCount('mondo'),
     repo: 'berntpopp/mondo-link',
     category: 'ontology',
     sampleTool: 'mondo_resolve_disease'
@@ -165,7 +182,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Pharmacogenomics & dosing guidelines',
     source: 'ClinPGx',
     sourceUrl: 'https://www.clinpgx.org/',
-    tools: 13,
+    tools: getToolCount('clinpgx'),
     repo: 'berntpopp/clinpgx-link',
     category: 'gene-disease',
     sampleTool: 'clinpgx_search_records'
@@ -175,7 +192,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Gene–disease curation',
     source: 'GenCC',
     sourceUrl: 'https://thegencc.org/',
-    tools: 12,
+    tools: getToolCount('gencc'),
     repo: 'berntpopp/gencc-link',
     category: 'gene-disease',
     sampleTool: 'gencc_resolve_identifier'
@@ -185,7 +202,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Protein tolerance landscapes',
     source: 'MetaDome',
     sourceUrl: 'https://stuart.radboudumc.nl/metadome/',
-    tools: 11,
+    tools: getToolCount('metadome'),
     repo: 'berntpopp/metadome-link',
     category: 'gene-protein',
     sampleTool: 'metadome_resolve_transcript'
@@ -195,7 +212,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Protein–protein interaction networks',
     source: 'STRING',
     sourceUrl: 'https://string-db.org/',
-    tools: 10,
+    tools: getToolCount('stringdb'),
     repo: 'berntpopp/stringdb-link',
     category: 'gene-protein',
     sampleTool: 'stringdb_get_interaction_partners'
@@ -205,7 +222,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Tissue expression',
     source: 'GTEx Portal',
     sourceUrl: 'https://gtexportal.org/',
-    tools: 9,
+    tools: getToolCount('gtex'),
     repo: 'berntpopp/gtex-link',
     category: 'expression-models',
     sampleTool: 'gtex_get_median_expression_levels'
@@ -215,7 +232,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Gene nomenclature',
     source: 'HGNC',
     sourceUrl: 'https://www.genenames.org/',
-    tools: 9,
+    tools: getToolCount('hgnc'),
     repo: 'berntpopp/hgnc-link',
     category: 'gene-protein',
     sampleTool: 'hgnc_resolve_symbol'
@@ -225,7 +242,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Diagnostic gene panels & curation',
     source: 'PanelApp',
     sourceUrl: 'https://panelapp.genomicsengland.co.uk/',
-    tools: 9,
+    tools: getToolCount('panelapp'),
     repo: 'berntpopp/panelapp-link',
     category: 'gene-disease',
     sampleTool: 'panelapp_search_panels'
@@ -235,7 +252,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Variant ACMG PVS1',
     source: 'AutoPVS1',
     sourceUrl: 'https://autopvs1.bgi.com/',
-    tools: 7,
+    tools: getToolCount('autopvs1'),
     repo: 'berntpopp/autopvs1-link',
     category: 'variant',
     sampleTool: 'autopvs1_get_variant_pvs1_data'
@@ -245,7 +262,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Splicing prediction',
     source: 'SpliceAI Lookup',
     sourceUrl: 'https://spliceailookup.broadinstitute.org/',
-    tools: 7,
+    tools: getToolCount('spliceai'),
     repo: 'berntpopp/spliceailookup-link',
     category: 'variant',
     sampleTool: 'spliceai_predict_splicing'
@@ -255,7 +272,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Variant annotation & consequence',
     source: 'Ensembl VEP',
     sourceUrl: 'https://rest.ensembl.org/',
-    tools: 7,
+    tools: getToolCount('vep'),
     repo: 'berntpopp/vep-link',
     category: 'variant',
     sampleTool: 'vep_annotate_variant'
@@ -265,7 +282,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Variant clinical significance',
     source: 'ClinVar',
     sourceUrl: 'https://www.ncbi.nlm.nih.gov/clinvar/',
-    tools: 6,
+    tools: getToolCount('clinvar'),
     repo: 'berntpopp/clinvar-link',
     category: 'variant',
     sampleTool: 'clinvar_get_variant'
@@ -275,7 +292,7 @@ export const SERVERS: ServerEntry[] = [
     domain: 'Variant literature',
     source: 'LitVar2',
     sourceUrl: 'https://www.ncbi.nlm.nih.gov/research/litvar2/',
-    tools: 6,
+    tools: getToolCount('litvar'),
     repo: 'berntpopp/litvar-link',
     category: 'literature',
     sampleTool: 'litvar_get_variant_literature'
