@@ -2,7 +2,11 @@ import { expect, test } from '@playwright/test'
 
 test('nginx serves documents and true missing-path responses', async ({ request }) => {
   expect((await request.get('/sources/gnomad/')).status()).toBe(200)
-  expect((await request.get('/sources/gnomad', { maxRedirects: 0 })).status()).toBe(301)
+  const trailingSlash = await request.get('/sources/gnomad', { maxRedirects: 0 })
+  expect(trailingSlash.status()).toBe(301)
+  // Behind the edge proxy the container only knows its own name and port, so an
+  // absolute redirect would send visitors to an unreachable http://…:8080 URL.
+  expect(trailingSlash.headers()['location']).toBe('/sources/gnomad/')
   for (const path of ['/not-a-real-page/', '/assets/missing.js', '/health-nonsense']) {
     const response = await request.get(path)
     expect(response.status()).toBe(404)
