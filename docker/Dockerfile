@@ -13,7 +13,7 @@ ARG BUILD_DATE=unknown
 # ============================================================================
 # STAGE 1: Dependencies - Install node_modules with cache
 # ============================================================================
-FROM node:24-alpine@sha256:e67514e5d0f6c46656005e1b693b2ec9d52e80b641307de684d4a015ba7a4eaf AS deps
+FROM node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3 AS deps
 
 WORKDIR /app
 
@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/root/.npm \
 # ============================================================================
 # STAGE 2: Builder - Build static site with pre-compressed assets
 # ============================================================================
-FROM node:24-alpine@sha256:e67514e5d0f6c46656005e1b693b2ec9d52e80b641307de684d4a015ba7a4eaf AS builder
+FROM node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3 AS builder
 
 WORKDIR /app
 
@@ -46,7 +46,7 @@ RUN npm run build
 # ============================================================================
 # STAGE 3: Runtime - nginx with Brotli serving pre-compressed static files
 # ============================================================================
-FROM fholzer/nginx-brotli:v1.28.0@sha256:c19ed9117e2ece6c45777e6361829a3135bf2969ea401db5c31c078c93751a02 AS runtime
+FROM fholzer/nginx-brotli:v1.31.3@sha256:e1e3c88f7df467e7c7d67dd4e167c6ef05f8cca819e2c9617f932f2cb628b140 AS runtime
 
 ARG APP_VERSION
 ARG VCS_REF
