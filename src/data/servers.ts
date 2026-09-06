@@ -161,6 +161,16 @@ export const SERVERS: ServerEntry[] = [
     sampleTool: 'mondo_resolve_disease'
   },
   {
+    namespace: 'clinpgx',
+    domain: 'Pharmacogenomics & dosing guidelines',
+    source: 'ClinPGx',
+    sourceUrl: 'https://www.clinpgx.org/',
+    tools: 13,
+    repo: 'berntpopp/clinpgx-link',
+    category: 'gene-disease',
+    sampleTool: 'clinpgx_search_records'
+  },
+  {
     namespace: 'gencc',
     domain: 'Gene–disease curation',
     source: 'GenCC',

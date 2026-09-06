@@ -357,6 +357,61 @@ export const SOURCE_DETAILS: SourceDetail[] = [
     }
   },
   {
+    namespace: 'clinpgx',
+    summary:
+      'Search curated pharmacogenomics datasets, gene-drug clinical annotations, CPIC and PharmGKB dosing guidelines, and variant-level drug responses.',
+    tasks: [
+      'Query gene-drug pairs and dosing guidelines (e.g. CYP2D6 and codeine)',
+      'Search pharmacogenomic variant assertions and CPIC clinical recommendations',
+      'Inspect curated snapshot datasets across drug response phenotypes'
+    ],
+    aliases: [
+      'ClinPGx',
+      'CPIC',
+      'PharmGKB',
+      'PharmCAT',
+      'pharmacogenomics',
+      'drug response',
+      'dosing guidelines'
+    ],
+    identifiers: [
+      'Gene symbol (e.g. CYP2D6, TPMT, DPYD)',
+      'Drug name or RxNorm identifier',
+      'CPIC guideline identifier',
+      'Variant or star allele (e.g. *4, *5)'
+    ],
+    dataVersion: 'v0.1.0 snapshot (120 curated datasets) / 2026 live API',
+    limitations: [
+      'Dosing guidelines and clinical recommendations must be interpreted in the context of official CPIC/PharmGKB publications and institutional protocols.',
+      'Curated snapshot datasets reflect the indexed release; live API queries supplement but depend on upstream ClinPGx availability.'
+    ],
+    terms: [
+      {
+        label: 'Source terms and attribution in integration documentation',
+        url: 'https://github.com/berntpopp/clinpgx-link#license'
+      },
+      {
+        label: 'ClinPGx terms and data downloads',
+        url: 'https://www.clinpgx.org/downloads'
+      }
+    ],
+    review: {
+      reviewedAt: '2026-09-06',
+      sources: [
+        {
+          label: 'Integration documentation',
+          url: 'https://github.com/berntpopp/clinpgx-link#readme'
+        },
+        {
+          label: 'ClinPGx portal',
+          url: 'https://www.clinpgx.org/'
+        }
+      ],
+      limitation:
+        'Editorial review of integration contracts and published v0.1.0 release; live queries depend on upstream availability.'
+    }
+  },
+  {
     namespace: 'gencc',
     summary:
       'Compare submitted gene–disease validity assertions in the Gene Curation Coalition resource.',
