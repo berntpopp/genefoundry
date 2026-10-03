@@ -1,7 +1,8 @@
 import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
-import vueTsEslintConfig from '@vue/eslint-config-typescript'
+import tseslint from 'typescript-eslint'
+import vueParser from 'vue-eslint-parser'
 import globals from 'globals'
 
 export default [
@@ -29,7 +30,29 @@ export default [
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
-  ...vueTsEslintConfig(),
+  // Use the underlying recommended rules directly. This project does not use
+  // type-aware lint rules, so it needs no file-discovery glob dependency.
+  ...tseslint.configs.recommended.map((config) => ({
+    ...config,
+    ...(config.files && { files: [...config.files, '**/*.vue'] })
+  })),
+  ...pluginVue.configs['flat/base'],
+  {
+    name: 'app/vue-typescript',
+    files: ['*.vue', '**/*.vue'],
+    languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        parser: { js: 'espree', jsx: 'espree', ts: tseslint.parser, tsx: tseslint.parser },
+        ecmaVersion: 2024,
+        ecmaFeatures: { jsx: false },
+        extraFileExtensions: ['.vue']
+      }
+    },
+    rules: {
+      'vue/block-lang': ['error', { script: { lang: ['ts'], allowNoLang: false } }]
+    }
+  },
   skipFormatting,
 
   // Node.js build scripts configuration
