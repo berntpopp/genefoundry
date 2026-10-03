@@ -8,8 +8,8 @@ dockerfile='docker/Dockerfile'
 test -f "$release"
 test -f "$dockerfile"
 
-node_base='node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3'
-nginx_base='fholzer/nginx-brotli:v1.31.3@sha256:e1e3c88f7df467e7c7d67dd4e167c6ef05f8cca819e2c9617f932f2cb628b140'
+node_base='node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1'
+nginx_base='fholzer/nginx-brotli:v1.31.3@sha256:a31df6f6ed01e91b7a8aea75cb4380a24f7ba08f9e400460274fe002a58563a4'
 frontend='# syntax=docker/dockerfile:1.11@sha256:10c699f1b6c8bdc8f6b4ce8974855dd8542f1768c26eb240237b8f1c9c6c9976'
 
 grep -Fqx "$frontend" "$dockerfile"
