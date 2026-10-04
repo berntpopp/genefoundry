@@ -34,6 +34,7 @@ jq -e --arg image "$image" '
     and .user == "101:101"
     and .read_only == true
     and .cap_drop == ["ALL"]
+    and .deploy.resources.limits.pids == 256
     and (.security_opt | index("no-new-privileges:true") != null)
     and .healthcheck.test == ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
 ' "$rendered" > /dev/null

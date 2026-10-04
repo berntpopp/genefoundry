@@ -47,6 +47,13 @@ services:
     # SECURITY: Read-only root filesystem
     read_only: true
 
+    # Match the fleet process limit while keeping Compose's resource model
+    # consistent with the existing CPU and memory limits.
+    deploy:
+      resources:
+        limits:
+          pids: 256
+
     # Writable tmpfs mounts for nginx runtime directories
     tmpfs:
       - /tmp:uid=101,gid=101,mode=1777,size=10M
