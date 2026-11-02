@@ -46,7 +46,7 @@ RUN npm run build
 # ============================================================================
 # STAGE 3: Runtime - nginx with Brotli serving pre-compressed static files
 # ============================================================================
-FROM fholzer/nginx-brotli:v1.31.3@sha256:a31df6f6ed01e91b7a8aea75cb4380a24f7ba08f9e400460274fe002a58563a4 AS runtime
+FROM fholzer/nginx-brotli:v1.31.8@sha256:84a338ad4d47a31104bc363c045d396a0c7d6d380d63b93cdb91408b0a6e24c2 AS runtime
 
 ARG APP_VERSION
 ARG VCS_REF
