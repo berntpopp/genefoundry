@@ -28,10 +28,10 @@
     "audit:lighthouse": "node scripts/audit-lighthouse.mjs"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.2",
-    "@vue/server-renderer": "^3.5.43",
+    "@tailwindcss/vite": "^4.3.4",
+    "@vue/server-renderer": "^3.5.45",
     "lucide-vue-next": "^0.577.0",
-    "vue": "^3.5.43"
+    "vue": "^3.5.45"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
