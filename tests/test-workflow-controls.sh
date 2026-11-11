@@ -9,7 +9,7 @@ test -f "$release"
 test -f "$dockerfile"
 
 node_base='node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1'
-nginx_base='fholzer/nginx-brotli:v1.31.3@sha256:a31df6f6ed01e91b7a8aea75cb4380a24f7ba08f9e400460274fe002a58563a4'
+nginx_base='fholzer/nginx-brotli:v1.31.8@sha256:84a338ad4d47a31104bc363c045d396a0c7d6d380d63b93cdb91408b0a6e24c2'
 frontend='# syntax=docker/dockerfile:1.11@sha256:10c699f1b6c8bdc8f6b4ce8974855dd8542f1768c26eb240237b8f1c9c6c9976'
 
 grep -Fqx "$frontend" "$dockerfile"
@@ -31,7 +31,7 @@ grep -Fq 'application-release-manifest.json' "$release"
 grep -Fq 'trivy-version.json' "$release"
 grep -Fq 'aquasecurity/setup-trivy@' "$release"
 grep -Fq 'docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1' "$release"
-grep -Fq 'anchore/sbom-action@3ad7283483fc7af8ff2b4ea19663c2d5ca935e26 # v0.24.2' "$release"
+grep -Fq 'anchore/sbom-action@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3' "$release"
 grep -Fq 'actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0' "$release"
 grep -Fq 'TRIVY_CACHE_DIR: ${{ github.workspace }}/.cache/trivy' "$release"
 grep -Fq 'CONTAINERS_REGISTRIES_CONF="$RUNNER_TEMP/registries.conf"' "$release"

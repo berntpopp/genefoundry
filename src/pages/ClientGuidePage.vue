@@ -44,8 +44,7 @@ defineProps<{ guide: ClientGuide }>()
           />
           <p v-if="guide.recipeState === 'documentation-only'" class="metadata">
             Setup not tested with this client. Official instructions reviewed
-            <time :datetime="guide.review.reviewedAt">{{ guide.review.reviewedAt }}</time
-            >.
+            <time :datetime="guide.review.reviewedAt">{{ guide.review.reviewedAt }}</time>.
           </p>
           <p v-else-if="guide.recipeState === 'verified'" class="metadata">
             Setup verified

@@ -60,8 +60,7 @@ watch([query, category], () => {
     <template v-if="SERVERS.length">
       <form class="catalog-filters" role="search" @submit.prevent>
         <div class="search-field">
-          <label for="source-search">{{ COPY.sources.searchLabel }}</label
-          ><input
+          <label for="source-search">{{ COPY.sources.searchLabel }}</label><input
             id="source-search"
             ref="searchInput"
             v-model="query"
@@ -75,8 +74,11 @@ watch([query, category], () => {
           </button>
         </div>
         <div class="category-field">
-          <label for="source-category">{{ COPY.sources.categoryLabel }}</label
-          ><select id="source-category" v-model="category" :disabled="!mounted">
+          <label for="source-category">{{ COPY.sources.categoryLabel }}</label><select
+            id="source-category"
+            v-model="category"
+            :disabled="!mounted"
+          >
             <option value="all">{{ COPY.sources.allCategories }}</option>
             <option v-for="item in CATEGORIES" :key="item.id" :value="item.id">
               {{ item.label }}
