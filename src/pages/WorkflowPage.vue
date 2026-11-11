@@ -35,8 +35,7 @@ const sourceFor = (label: string) =>
           >
             {{
               pending ? COPY.states.copyPending : error ? COPY.states.copyRetry : 'Copy prompt'
-            }}</button
-          ><a :href="siteHref('/connect/')">Connect GeneFoundry first</a>
+            }}</button><a :href="siteHref('/connect/')">Connect GeneFoundry first</a>
         </div>
         <p class="prompt-status" role="status" aria-live="polite">
           {{ error || (copied ? 'Prompt copied' : '') }}
@@ -67,8 +66,10 @@ const sourceFor = (label: string) =>
             <tbody>
               <tr v-for="(row, index) in table.rows" :key="index">
                 <td v-for="(cell, column) in row" :key="column">
-                  <a v-if="sourceFor(cell)" :href="sourceFor(cell)">{{ cell }}</a
-                  ><template v-else>{{ cell }}</template>
+                  <a v-if="sourceFor(cell)" :href="sourceFor(cell)">{{ cell }}</a><template
+                    v-else
+                    >{{ cell }}</template
+                  >
                 </td>
               </tr>
             </tbody>
