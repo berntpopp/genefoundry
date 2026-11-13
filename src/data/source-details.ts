@@ -805,5 +805,181 @@ export const SOURCE_DETAILS: SourceDetail[] = [
       limitation:
         'Editorial review of source and integration documentation; no hosted query or deployed data version was verified.'
     }
+  },
+  {
+    namespace: 'ucsc',
+    summary:
+      'Inspect what lies in a genomic window on hg38 or hg19 using curated UCSC Genome Browser tracks and bounded reference sequence.',
+    tasks: [
+      'Resolve a gene or transcript to positions on an explicit assembly',
+      'Check a region for repeats, segmental duplications, conservation or ENCODE candidate regulatory elements',
+      'Retrieve a short reference sequence window around a site'
+    ],
+    aliases: [
+      'UCSC',
+      'Genome Browser',
+      'RepeatMasker',
+      'segmental duplications',
+      'phyloP',
+      'ENCODE cCRE',
+      'SpliceVarDB',
+      'reference sequence'
+    ],
+    identifiers: [
+      'Assembly (hg38 or hg19)',
+      'Chromosome with 0-based half-open start and end',
+      'Gene symbol or transcript identifier',
+      'Track name from the integration allowlist'
+    ],
+    dataVersion:
+      'Live UCSC Genome Browser JSON API, without a local snapshot; each response states the track’s UCSC data time.',
+    limitations: [
+      'Coordinates are UCSC-native 0-based half-open intervals; the display strings are 1-based. Keep the assembly with every position, because regions are never lifted over.',
+      'Windows and record counts are capped. A truncated response returns a partial window, not a complete track listing.',
+      'SpliceVarDB and Varaico tracks are marked non-commercial. Each track keeps its provider’s terms; hosting through GeneFoundry grants no redistribution rights.',
+      'Requests are rate-limited to respect UCSC usage conditions, and results depend on UCSC availability.'
+    ],
+    terms: [
+      {
+        label: 'Track terms, attribution and citation in integration documentation',
+        url: 'https://github.com/berntpopp/ucsc-link#data--provenance'
+      },
+      {
+        label: 'UCSC Genome Browser conditions of use',
+        url: 'https://genome.ucsc.edu/conditions.html'
+      }
+    ],
+    review: {
+      reviewedAt: '2026-11-13',
+      sources: [
+        {
+          label: 'Integration documentation (ucsc-link v0.2.0)',
+          url: 'https://github.com/berntpopp/ucsc-link/blob/v0.2.0/README.md'
+        },
+        {
+          label: 'UCSC Genome Browser REST API',
+          url: 'https://genome.ucsc.edu/goldenPath/help/api.html'
+        }
+      ],
+      limitation:
+        'Editorial review of the released integration documentation; no hosted query through GeneFoundry was verified.'
+    }
+  },
+  {
+    namespace: 'strchive',
+    summary:
+      'Look up curated short-tandem-repeat disease loci in STRchive, with repeat ranges, pathogenic motifs and per-assembly coordinates as the source states them.',
+    tasks: [
+      'Find a repeat-expansion locus by gene, disease or motif',
+      'Review stated normal, intermediate and pathogenic ranges with their citations',
+      'Check which stated ranges contain a measured repeat count'
+    ],
+    aliases: [
+      'STR',
+      'short tandem repeat',
+      'repeat expansion',
+      'pathogenic repeat range',
+      'repeat motif'
+    ],
+    identifiers: [
+      'Gene symbol',
+      'STRchive locus identifier',
+      'Mondo, OMIM or Orphanet disease identifier',
+      'Repeat motif'
+    ],
+    dataVersion:
+      'STRchive-loci.json at upstream commit e964fa88df3b2189ee478cbd6eaad15bb28e3a0a (2026-10-08), as pinned by strchive-link v0.1.2.',
+    limitations: [
+      'Ranges are reported exactly as STRchive states them. A range the source does not state is returned as missing rather than inferred.',
+      'Comparing a repeat count with stated ranges is descriptive. It is not a genotype call, allele classification or diagnosis.',
+      'Coordinates are given separately for hg38, hg19 and T2T and are not converted between assemblies.',
+      'The snapshot does not change at runtime; newer STRchive curation requires a new integration release.'
+    ],
+    terms: [
+      {
+        label: 'STRchive data licence (CC BY 4.0) and citation in integration documentation',
+        url: 'https://github.com/berntpopp/strchive-link#data--provenance'
+      },
+      {
+        label: 'Hiatt et al. 2025, Genome Medicine (STRchive)',
+        url: 'https://doi.org/10.1186/s13073-025-01454-4'
+      }
+    ],
+    review: {
+      reviewedAt: '2026-11-13',
+      sources: [
+        {
+          label: 'Integration documentation (strchive-link v0.1.2)',
+          url: 'https://github.com/berntpopp/strchive-link/blob/v0.1.2/README.md'
+        },
+        {
+          label: 'STRchive source repository',
+          url: 'https://github.com/dashnowlab/STRchive'
+        }
+      ],
+      limitation:
+        'Editorial review of the released integration documentation and data pin; no hosted query or deployed data version was verified.'
+    }
+  },
+  {
+    namespace: 'mitomap',
+    summary:
+      'Look up human mitochondrial DNA variants in MITOMAP, with reported disease associations, MITOMAP status, plasmy reports, GenBank frequency and literature.',
+    tasks: [
+      'Normalize an mtDNA variant onto the rCRS reference and retrieve its MITOMAP records',
+      'Browse reported variants by locus, disease text, status or position window',
+      'Follow cited PubMed identifiers back to the original reports'
+    ],
+    aliases: [
+      'mtDNA',
+      'mitochondrial DNA',
+      'mitochondrial variant',
+      'rCRS',
+      'heteroplasmy',
+      'mitochondrial disease'
+    ],
+    identifiers: [
+      'rCRS (NC_012920.1) variant such as m.3243A>G',
+      'MITOMAP legacy notation such as A3243G',
+      'Mitochondrial locus such as MT-TL1',
+      'Position window on the rCRS'
+    ],
+    dataVersion:
+      'MITOMAP daily dump of 11 November 2026, data release data-mitomap-a6646827e6157779, as pinned by mitomap-link v0.1.1.',
+    limitations: [
+      'MITOMAP status such as “Cfrm” summarizes published reports; it is not a pathogenicity classification. A ClinGen expert-panel rating, where present, is reported separately.',
+      'Plasmy flags describe what was reported in the literature, not the heteroplasmy level of a given sample.',
+      'Only rCRS positions are accepted; other references and reference-base mismatches are rejected. Population and heteroplasmy frequencies belong to gnomAD.',
+      'The snapshot does not change at runtime; newer MITOMAP curation requires a new data release and integration release.'
+    ],
+    terms: [
+      {
+        label: 'MITOMAP data licence (CC BY 3.0) and citation in integration documentation',
+        url: 'https://github.com/berntpopp/mitomap-link#data--provenance'
+      },
+      {
+        label: 'MITOMAP terms of use',
+        url: 'https://www.mitomap.org/foswiki/bin/view/MITOWIKI/HelpTerms'
+      },
+      {
+        label: 'Lott et al. 2013, Current Protocols in Bioinformatics (MITOMAP)',
+        url: 'https://doi.org/10.1002/0471250953.bi0123s44'
+      }
+    ],
+    review: {
+      reviewedAt: '2026-11-13',
+      sources: [
+        {
+          label: 'Integration documentation (mitomap-link v0.1.1)',
+          url: 'https://github.com/berntpopp/mitomap-link/blob/v0.1.1/README.md'
+        },
+        {
+          label: 'Pinned MITOMAP data release',
+          url: 'https://github.com/berntpopp/mitomap-link/releases/tag/data-mitomap-a6646827e6157779'
+        }
+      ],
+      limitation:
+        'Editorial review of the released integration documentation and data release; no hosted query or deployed data version was verified.'
+    }
   }
 ]
