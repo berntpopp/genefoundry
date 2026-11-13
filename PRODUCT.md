@@ -16,7 +16,7 @@ Planning audience: biomedical researchers and bioinformatics developers evaluati
 
 ## Positioning
 
-One connection to a finite catalog of independently maintained biomedical MCP backends, with namespaced tools and discovery before invocation. Avoid universal coverage claims. The catalog in `src/data/servers.ts` currently contains 22 servers and 285 tools; these are maintained catalog facts, not a live health measurement.
+One connection to a finite catalog of independently maintained biomedical MCP backends, with namespaced tools and discovery before invocation. Avoid universal coverage claims. The catalog in `src/data/servers.ts` currently contains 25 servers; source and tool counts are derived from the synced router provenance; these are maintained catalog facts, not a live health measurement.
 
 ## Operating Context
 

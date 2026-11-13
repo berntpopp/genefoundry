@@ -296,6 +296,36 @@ export const SERVERS: ServerEntry[] = [
     repo: 'berntpopp/litvar-link',
     category: 'literature',
     sampleTool: 'litvar_get_variant_literature'
+  },
+  {
+    namespace: 'ucsc',
+    domain: 'Genome region tracks & reference sequence',
+    source: 'UCSC Genome Browser',
+    sourceUrl: 'https://genome.ucsc.edu/',
+    tools: getToolCount('ucsc'),
+    repo: 'berntpopp/ucsc-link',
+    category: 'gene-protein',
+    sampleTool: 'ucsc_get_region_annotations'
+  },
+  {
+    namespace: 'strchive',
+    domain: 'Tandem-repeat disease loci & repeat ranges',
+    source: 'STRchive',
+    sourceUrl: 'https://strchive.org/',
+    tools: getToolCount('strchive'),
+    repo: 'berntpopp/strchive-link',
+    category: 'gene-disease',
+    sampleTool: 'strchive_search_loci'
+  },
+  {
+    namespace: 'mitomap',
+    domain: 'Mitochondrial DNA variants & disease associations',
+    source: 'MITOMAP',
+    sourceUrl: 'https://www.mitomap.org/',
+    tools: getToolCount('mitomap'),
+    repo: 'berntpopp/mitomap-link',
+    category: 'variant',
+    sampleTool: 'mitomap_get_variant'
   }
 ]
 
