@@ -278,6 +278,16 @@ export const SERVERS: ServerEntry[] = [
     sampleTool: 'vep_annotate_variant'
   },
   {
+    namespace: 'pgscatalog',
+    domain: 'Polygenic scores, traits & performance metrics',
+    source: 'PGS Catalog',
+    sourceUrl: 'https://www.pgscatalog.org/',
+    tools: getToolCount('pgscatalog'),
+    repo: 'berntpopp/pgscatalog-link',
+    category: 'expression-models',
+    sampleTool: 'pgscatalog_search_scores'
+  },
+  {
     namespace: 'clinvar',
     domain: 'Variant clinical significance',
     source: 'ClinVar',

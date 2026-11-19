@@ -981,5 +981,66 @@ export const SOURCE_DETAILS: SourceDetail[] = [
       limitation:
         'Editorial review of the released integration documentation and data release; no hosted query or deployed data version was verified.'
     }
+  },
+  {
+    namespace: 'pgscatalog',
+    summary:
+      'Find published polygenic scores in the PGS Catalog by trait or publication, with development and evaluation ancestry, each score’s licence and its reported performance metrics.',
+    tasks: [
+      'Resolve a trait name to EFO, MONDO or HP trait identifiers and list the scores developed for it',
+      'Review a score’s method, variant count, ancestry distribution, licence and scoring-file links',
+      'Compare reported performance metrics such as OR, HR, AUROC or C-index with their sample sets'
+    ],
+    aliases: [
+      'PGS',
+      'PRS',
+      'polygenic score',
+      'polygenic risk score',
+      'score performance',
+      'scoring file'
+    ],
+    identifiers: [
+      'PGS score identifier such as PGS000001',
+      'PGS publication identifier such as PGP000001, or PubMed ID',
+      'EFO, MONDO or HP trait identifier',
+      'Free-text trait name'
+    ],
+    dataVersion:
+      'Live PGS Catalog REST API, without a local snapshot; each response states its retrieval time.',
+    limitations: [
+      'An obsolete EFO trait identifier (many moved to MONDO) returns not found rather than an empty result; resolve the trait again.',
+      'Each score carries its own author-set licence, some CC BY-NC-ND, passed through verbatim. Check it before reusing a scoring file; scoring files are linked, never copied.',
+      'Performance metrics are those reported in the cited publications for their own sample sets; they are not an independent benchmark.',
+      'Pages are capped and requests are rate-limited to respect the shared EMBL-EBI service; results depend on PGS Catalog availability.'
+    ],
+    terms: [
+      {
+        label: 'Data terms, score licences and citation in integration documentation',
+        url: 'https://github.com/berntpopp/pgscatalog-link#data--provenance'
+      },
+      {
+        label: 'EMBL-EBI terms of use',
+        url: 'https://www.ebi.ac.uk/about/terms-of-use/'
+      },
+      {
+        label: 'Lambert et al. 2024, Nature Genetics (PGS Catalog)',
+        url: 'https://doi.org/10.1038/s41588-024-01937-x'
+      }
+    ],
+    review: {
+      reviewedAt: '2026-11-19',
+      sources: [
+        {
+          label: 'Integration documentation (pgscatalog-link v0.3.2)',
+          url: 'https://github.com/berntpopp/pgscatalog-link/blob/v0.3.2/README.md'
+        },
+        {
+          label: 'PGS Catalog REST API',
+          url: 'https://www.pgscatalog.org/rest/'
+        }
+      ],
+      limitation:
+        'Editorial review of the released integration documentation; no hosted query through GeneFoundry was verified.'
+    }
   }
 ]
